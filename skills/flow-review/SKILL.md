@@ -7,7 +7,7 @@ disable-model-invocation: true
 
 # flow-review
 
-Review the plan, or the code written for it, and write `04-review.md`. Reads everything, changes nothing else. Findings are applied by `/flow-design`.
+Review the plan, or the code written for it, and write `04-review.md`. Reads everything, changes nothing else. Findings are applied by `/flow-revise`.
 
 Read `.claude/kiit/flow/shared.md` first.
 
@@ -45,7 +45,7 @@ EXAMPLES:
 5. Write `04-review.md` from the template. It replaces any earlier one.
 6. Add a row to `_history.md` (shared.md) with the stage, the verdict and the baseline.
 7. Print the verdict and the top findings, then the next step.
-   - `NEEDS_CHANGES`: suggest `/flow-design`, which applies the findings
+   - `NEEDS_CHANGES`: suggest `/flow-revise`, which applies the findings
    - `APPROVE` on a plan: suggest `/flow-update`. On code: it is ready for a PR
 
 ## Baseline
@@ -103,4 +103,4 @@ A blocker or major finding makes the verdict `NEEDS_CHANGES`. Otherwise it is `A
 ## Rules
 1. Write only `04-review.md` and a row in `_history.md`.
    - Don't edit the other artifacts or the project code
-2. A new review replaces the file, including a `## Response` that design added.
+2. A new review replaces the file, including a `## Response` that revise added.
