@@ -5,7 +5,7 @@
 
 **A fast or flow based skills framework for coding**
 
-A fast or structured multi-project agentic skills framework and spec-driven development (SDD) approach for AI coding assistants.
+Skills for AI coding assistants that take a change from a ticket to a pull request. Run `go` for a small change in one pass, or the flow for a medium or large one: design, review, implement, and verify. Every change lives in plain markdown files, so a session can stop and another can pick up from the files, in one repo or across several.
 
 [![License](https://img.shields.io/github/license/kiitdev/kiit-flow)](./LICENSE)
 
