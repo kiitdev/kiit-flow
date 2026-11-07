@@ -12,16 +12,51 @@ Print `error: {what is wrong}` and, when there is a fixed set of answers, `valid
 ## Workspace and config
 The workspace root is the nearest folder, starting at the working directory and going up, that contains `.claude/kiit/kiit.json`. No such folder: `error: .claude/kiit/kiit.json not found`.
 
-`kiit.example.json`, next to this file, shows the whole shape. Keys:
+`kiit.example.json`, next to this file, shows the whole shape. Paths are relative to the root.
 
 | Key | Meaning |
 |---|---|
-| `tickets.base_url` | A ticket link is `{base_url}/{ticket}`. |
-| `projects` | Project name to repo path, relative to the root. A path string, or an object with `path`. |
-| `flow.paths.work_items` | Where work items live, relative to the root. Default `_kiit/flow`. |
+| `version` | Config format. Currently `1`. |
+| `tickets` | List of ticket systems. The first one is the default. |
+| `resources` | List of named files, folders or links that skills can use. |
+| `projects` | List of the repos or folders that work is done in. |
+| `flow` | Settings for the flow skills. |
+
+### tickets
+| Field | Meaning |
+|---|---|
+| `type` | `github`, `jira`, `linear` or `other`. |
+| `name` | Defaults to `type`. Needed only for two systems of one type. |
+| `owner` | GitHub only. The user or organization that owns the repos. |
+| `url` | Other systems. The base link that a ticket id is added to. |
+
+A ticket link is `https://github.com/{owner}/{repo}/issues/{id}` for GitHub and `{url}/{id}` for the rest.
+
+### resources
+| Field | Meaning |
+|---|---|
+| `name` | What skills ask for, such as `standards`. |
+| `path` or `url` | Where it is. |
+| `purpose` | One line on what it is for. |
+
+### projects
+| Field | Meaning |
+|---|---|
+| `name` | The project name, used in work item folder names. |
+| `path` | The project folder. |
+| `aliases` | Short names that can be typed instead of `name`. |
+| `tickets` | The ticket system's `name`. Defaults to the first. |
+| `repo` | The GitHub repo name. Defaults to `name`. |
+
+### flow
+| Field | Meaning |
+|---|---|
+| `work_items` | Where work items live. Default `_kiit/flow`. |
+
+A name or alias used twice in a list: `error: duplicate {list} name '{x}'`.
 
 ## Work item
-One folder per unit of work, inside `flow.paths.work_items`:
+One folder per unit of work, inside `flow.work_items`:
 
 ```
 {YYMMDD}-{project}-{type}-{ticket|short-name}/
