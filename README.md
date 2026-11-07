@@ -56,8 +56,13 @@ cd kiit-flow
 **Run** from the workspace, after restarting your assistant so it loads the skills:
 
 ```text
-/kiit-flow-help
-/kiit-flow-begin https://github.com/acme/app/issues/12
+/kiit-flow-help                                           # list the commands
+/kiit-flow-begin https://github.com/acme/app/issues/12    # create the work item
+/kiit-flow-design                                         # write the design and phases
+/kiit-flow-review                                         # optional: review the plan
+/kiit-flow-revise                                         # change the design, or apply the review
+/kiit-flow-update                                         # implement the phases
+/kiit-flow-verify                                         # lint, tests, security, docs
 ```
 
 `begin` reads the ticket, fills in the project and type, asks you to confirm, and creates the work item.
@@ -66,17 +71,19 @@ cd kiit-flow
 
 Every command prints its own usage with `--help`, for example `/kiit-flow-begin --help`.
 
+The commands are listed in workflow order. `review`, `revise`, and `update` can repeat in a loop until the work is right. After `verify`, `review code` checks the finished code.
+
 | # | Command | Description |
 |---:|---|---|
 | 1 | `/kiit-flow-begin` | Create a work item from a ticket or a description. |
-| 2 | `/kiit-flow-design` | Write or update the design, phases, and status. |
+| 2 | `/kiit-flow-design` | Write the design, phases, and status for a work item. |
 | 3 | `/kiit-flow-review` | Review the plan or the code, and write a verdict. |
-| 4 | `/kiit-flow-resume` | Pick up a work item where it stopped and continue. |
-| 5 | `/kiit-flow-verify` | Run the project's own lint, tests, security, and docs checks. |
-| 6 | `/kiit-flow-recent` | List work items, newest first, one line each. |
-| 7 | `/kiit-flow-help` | Show the commands, or the usage of one. |
-
-Planned, in workflow order: `update` and `remove`.
+| 4 | `/kiit-flow-revise` | Revise the design from your text, a review, or a blocked step. |
+| 5 | `/kiit-flow-update` | Implement all phases, a phase, a step, or a range. |
+| 6 | `/kiit-flow-resume` | Pick up a work item where it stopped and continue. |
+| 7 | `/kiit-flow-verify` | Run the project's own lint, tests, security, and docs checks. |
+| 8 | `/kiit-flow-recent` | List work items, newest first, one line each. |
+| 9 | `/kiit-flow-help` | Show the commands, or the usage of one. |
 
 ## Work Item
 

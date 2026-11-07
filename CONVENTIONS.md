@@ -30,7 +30,7 @@ Every `SKILL.md` has the same parts, in this order, and nothing else unless need
 
 A skill that writes a file adds `## Template` between Steps and Rules.
 
-A skill may add named sections after Steps, such as `## Re-runs`. Steps must point to each one.
+A skill may add named sections after Steps, such as `## Review findings`. Steps must point to each one.
 
 The purpose line and the Usage line are different on purpose.
 1. The purpose line is for someone reading the skill file.

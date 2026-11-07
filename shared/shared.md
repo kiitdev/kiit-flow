@@ -62,11 +62,11 @@ One folder per unit of work, inside `flow.work_items`:
 
 ```
 {YYMMDD}-{project}-{type}-{ticket|short-name}/
-├── 01-change.md   # requirements (begin; design answers open questions)
-├── 02-design.md   # the design (design)
-├── 03-phases.md   # numbered phases and steps (design)
+├── 01-change.md   # requirements (begin; design and revise answer open questions)
+├── 02-design.md   # the design (design, revise)
+├── 03-phases.md   # numbered phases and steps (design, revise)
 ├── 04-review.md   # findings, verdict and stage: plan or code, optional (review)
-├── _status.md     # where each step stands (design, update)
+├── _status.md     # where each step stands (design, revise, update)
 ├── _history.md     # append-only table of what happened
 └── _files/
     ├── input/
@@ -137,10 +137,41 @@ The files a work item changed in its project, found with read-only git:
 2. `<base>` is the merge base with the remote's default branch
    - No remote: the uncommitted changes only
 
+## 02-design.md
+Written by `design`, changed by `revise`.
+
+```markdown
+# Design: {title}
+
+## Context
+<!-- Why this change, what it should do -->
+
+## Assumptions
+<!-- Choices made without asking, other than the Open questions in 01-change.md -->
+
+## Approach
+<!-- The chosen approach only, not the alternatives -->
+
+## Files
+<!-- Files to create or change, relative to the project. Describe repeated patterns once. -->
+
+## Reuse
+<!-- Existing code and utilities to use, with paths -->
+
+## Constraints
+<!-- Standards, compatibility, dependency rules that apply -->
+
+## Verification
+<!-- How to test this end to end, and the tests to add -->
+
+## Changes
+<!-- Revisions only: what changed and why -->
+```
+
 ## 03-phases.md
 Numbered phases, each with numbered steps. A step is small enough to implement and check
 on its own. Steps are numbered `{phase}.{step}` because other skills address them by number.
-Only `design` edits this file.
+Only `design` and `revise` edit this file.
 
 ```markdown
 # Phases: {title}
@@ -178,10 +209,36 @@ One line per step, under the phase headings of `03-phases.md`:
 1. Step numbers match `03-phases.md` exactly.
    - Short titles, about 60 characters at most, with no history notes
 2. A `skip` step is not run, is not a gap, and counts as finished.
-3. Only `design` creates the file.
+3. `design` creates the file, and `revise` keeps it in step with `03-phases.md`.
    - `update` and `resume` change `todo` to `done` or `blocked`
-   - `remove` changes steps to `skip`
+   - `revise` changes steps to `skip`
    - No skill changes a `done` step
+
+## Parts
+A part names phases or steps. `update` takes one.
+
+| Part | Means |
+|---|---|
+| `all` | every phase, in order |
+| `1` | every step in phase 1 |
+| `1.2` | phase 1, step 2 only |
+| `1.2-1.4` | phase 1, steps 2 to 4 |
+| `1-3` | phases 1 to 3, every step |
+| `1.2-3.1` | from phase 1 step 2 through phase 3 step 1 |
+| `1.2-3` | from phase 1 step 2 to the end of phase 3 |
+| `2-3.2` | from the start of phase 2 through phase 3 step 2 |
+| `1,3` | a list: phases 1 and 3, skipping phase 2 |
+
+1. A range is `A-B`, where each end is a phase (`N`) or a step (`N.M`).
+   - A bare phase is its first step before the dash, its last step after it
+   - The start can't come after the end
+2. A list is parts separated by commas, spaces allowed: `1.2, 3, 5.1-5.3`.
+   - Steps run in the order of `03-phases.md`, each once
+3. Wording works too: `phase 4` is `4`, and `phases 1 to 3` is `1-3`.
+4. An argument is the part if it matches this pattern.
+   - A folder name starts with a date, so `260928` also looks like a phase
+   - It names a missing phase and prefixes a folder: it is the work item
+5. A phase or step that doesn't exist: `error: no phase {n}`, then `valid: {phases}`.
 
 ## Run steps
 How `update` and `resume` carry out steps. For each step, in order:
@@ -200,7 +257,7 @@ Then:
    - Say what happened and what the design assumed
    - `1.3 blocked | Move internals | Console expect missing in commonMain`
 2. Add a history row with the step and the reason.
-3. Tell the user, and ask what to do: re-run `/flow-design` with the new information, or
+3. Tell the user, and ask what to do: run `/flow-revise` with the new information, or
    approve a specific deviation.
 4. Never edit `02-design.md` or `03-phases.md`, and never work around a blocker.
 
@@ -211,15 +268,15 @@ The review is **open** while any blocker or major finding is missing from its `#
 section, or is marked `open` there. When every one is `applied` or `declined`, it is **closed**.
 
 1. Closed: say so and go on.
-2. Open: tell the user and ask whether to continue or re-run `/flow-design`. Wait.
+2. Open: tell the user and ask whether to continue or run `/flow-revise`. Wait.
 
-An `APPROVE` verdict, or no `04-review.md`, needs no gate. `design` writes the `## Response`.
+An `APPROVE` verdict, or no `04-review.md`, needs no gate. `revise` writes the `## Response`.
 
 ## Blocked gate
 Applies when `_status.md` has a `blocked` step. For each one, show the step and its reason.
 Ask whether the blocker is resolved, and wait. The answer is one of:
 
-1. Re-run `/flow-design` with the new information.
+1. Run `/flow-revise` with the new information.
 2. Continue with a deviation the user states.
 3. Continue because it is already fixed.
 

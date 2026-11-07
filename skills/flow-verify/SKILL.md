@@ -1,7 +1,7 @@
 ---
 description: Run the project's own checks on a work item: lint, tests, security, docs.
 argument-hint: "[work-item] [check...]"
-order: 7
+order: 8
 disable-model-invocation: true
 ---
 
