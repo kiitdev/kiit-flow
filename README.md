@@ -3,7 +3,7 @@
   <img src="./assets/kiit-flow-banner.svg" alt="kiit-flow" align="center" />
 </h1>
 
-**A fast or flow based skills framework for coding**
+**A fast or flow based skills framework for coding with AI**
 
 Skills for AI coding assistants that take a change from a ticket to a pull request. Run `go` for a small change in one pass, or the flow for a medium or large one: design, review, implement, and verify. Every change lives in plain markdown files, so a session can stop and another can pick up from the files, in one repo or across several.
 
