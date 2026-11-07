@@ -183,6 +183,27 @@ One line per step, under the phase headings of `03-phases.md`:
    - `remove` changes steps to `skip`
    - No skill changes a `done` step
 
+## Run steps
+How `update` and `resume` carry out steps. For each step, in order:
+
+1. Implement it in the project repo, following the design and the project's conventions.
+2. Run the narrowest check that covers it (compile, or the relevant test), if one exists.
+3. Set it to `done` in `_status.md` only after the check passes.
+
+Stop right away if any of these happens:
+1. The design doesn't match the code (a file, API or assumption isn't there).
+2. A step can't be done as written.
+3. A check fails and the fix isn't clearly inside the step.
+
+Then:
+1. Set the step to `blocked` in `_status.md`, with a reason.
+   - Say what happened and what the design assumed
+   - `1.3 blocked | Move internals | Console expect missing in commonMain`
+2. Add a history row with the step and the reason.
+3. Tell the user, and ask what to do: re-run `/flow-design` with the new information, or
+   approve a specific deviation.
+4. Never edit `02-design.md` or `03-phases.md`, and never work around a blocker.
+
 ## Review gate
 Applies when `04-review.md` exists and its verdict is `NEEDS_CHANGES`.
 
