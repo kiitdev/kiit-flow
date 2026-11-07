@@ -1,9 +1,11 @@
 <div align="center">
-<h1>kiit-flow</h1>
+<h1>
+  <img src="./assets/kiit-flow-banner.svg" alt="kiit-flow" align="center" />
+</h1>
 
-**Take a change from idea to pull request, one work item at a time.**
+**A fast or structured multi-project agentic skills framework for SDLC**
 
-A light-weight, adaptable, agentic skills framework and spec-driven development (SDD) approach for AI coding assistants.
+A fast or structured multi-project agentic skills framework and spec-driven development (SDD) approach for AI coding assistants.
 
 [![License](https://img.shields.io/github/license/kiitdev/kiit-flow)](./LICENSE)
 
