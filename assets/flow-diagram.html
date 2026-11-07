@@ -24,29 +24,29 @@
 // ---- CONFIG: change these for each project ---------------------------------
 const CONFIG = {
   label: "Workflow",
-  captionSize: 17,                 // size of the file names next to each step
+  captionSize: 15,                 // size of the short description under each step
   start: { name: "a change", sub: "a ticket or a description" },
   fast: {                          // option 1, the short column
     title: "Fast",
     sub: "one pass for a clear, low-risk change",
-    rows: [["go", "01-change.md, code"]],
+    rows: [["go", "do it in one pass", null, "01-change.md, code"]],
     lines: ["creates the work item", "implements the change", "runs the narrowest check"],
     note: "needs a design, or is risky? go saves the work item and hands off to Flow",
   },
   full: {                          // option 2, the long column
     title: "Flow",
     sub: "intentional: design first, then review and build",
-    rows: [                      // [name, files, "optional"]
-      ["begin", "01-change.md"],
-      ["design", "02-design.md, 03-phases.md, _status.md"],
-      ["review", "04-review.md", "optional"],
-      ["revise", "02-design.md, 03-phases.md", "optional"],
-      ["update", "code, _status.md"],
+    rows: [                      // [name, description, "optional", files written]
+      ["begin", "create the work item", null, "01-change.md"],
+      ["design", "plan the change", null, "02-design.md, 03-phases.md, _status.md"],
+      ["review", "get a second look", "optional", "04-review.md"],
+      ["revise", "change the plan", "optional", "02-design.md, 03-phases.md"],
+      ["update", "implement the steps", null, "code, _status.md"],
     ],
     loop: { from: 4, to: 2, label: "repeat until it is right" },   // row indexes
     skip: { from: 1, to: 4, label: "or skip review and revise" },
   },
-  verify: { name: "verify", files: "lint, tests, security, docs", fastLabel: "optional" },
+  verify: { name: "verify", caption: "lint, tests, security, and docs", fastLabel: "optional" },
   footerLeft: "also: resume, recent, help",
   footerRight: "after verify: review the code, then revise and update",
   theme: KIIT_THEME,
@@ -57,55 +57,44 @@ function buildSvg(c) {
   const t = c.theme, W = 1108;
   const fs = { color: t.fast, fill: t.fastTint, border: t.fastBorder, ...c.fast.style };   // option 1
   const ws = { color: t.flow, fill: t.flowTint, border: t.flowBorder, ...c.full.style };        // option 2
-  const size = c.captionSize, step = Math.round(size * 1.4), cw = size * 0.6;
+  const size = c.captionSize;
   const L = { x: 40, w: 360 }, R = { x: 416, w: 652 };
-  const panelTop = 236, rowsTop = panelTop + 94, rowGap = 34, pad = 20, lane = 68, elbow = 176;
+  const panelTop = 236, rowsTop = panelTop + 94, rowGap = 48, rowH = 58, pad = 20, lane = 68, elbow = 176;
   const Lcx = L.x + L.w / 2, Rcx = R.x + R.w / 2;
   const bg = kiitBackground(t, W, 0 /* set below */);
 
   // lay out the rows of one column. The files go on one line, comma separated, and wrap when long
-  function layout(rows, col, filesDx, rightLane, leftLane = 0) {
-    const rowX = col.x + pad + leftLane, rowW = col.w - 2 * pad - leftLane - rightLane, filesX = rowX + filesDx;
-    const maxChars = Math.floor((rowX + rowW - 14 - filesX) / cw);
-    const wrap = (text) => {
-      const lines = []; let cur = "";
-      text.split(" ").forEach((w) => {
-        if (cur && (cur + " " + w).length > maxChars) { lines.push(cur); cur = w; }
-        else cur = cur ? cur + " " + w : w;
-      });
-      if (cur) lines.push(cur);
-      return lines;
-    };
+  function layout(rows, col, descDx, rightLane, leftLane = 0) {   // descDx: where the descriptions start
+    const rowX = col.x + pad + leftLane, rowW = col.w - 2 * pad - leftLane - rightLane;
     let y = rowsTop;
-    const out = rows.map(([name, files, opt]) => {
-      const lines = wrap(files), h = Math.max(56, 30 + lines.length * step);
-      const row = { name, lines, y, h, ym: y + h / 2, rowX, rowW, filesX, optional: opt === "optional" };
-      y += h + rowGap;
+    const out = rows.map(([name, caption, opt, files]) => {
+      const row = { name, caption, y, h: rowH, ym: y + rowH / 2, rowX, rowW, descDx, files, optional: opt === "optional" };
+      y += rowH + rowGap;
       return row;
     });
     return { rows: out, bottom: y - rowGap };
   }
-  const left = layout(c.fast.rows, L, 110, 0);
-  const right = layout(c.full.rows, R, 190, lane, c.full.skip ? 56 : 0);
-  const panelBottom = Math.max(left.bottom, right.bottom) + pad;
-  const barY = panelBottom + 56, barH = 60, barX = 140, barW = 760;
+  const left = layout(c.fast.rows, L, 78, 0);
+  const right = layout(c.full.rows, R, 143, lane, c.full.skip ? 56 : 0);
+  const panelBottom = Math.max(left.bottom, right.bottom) + pad + 18;   // 18: room for the files under the last step
+  const barY = panelBottom + 56, barH = rowH, barX = 140, barW = 760;
   const vpad = 20;                              // space between the frame and the content, top and bottom
   const Hc = barY + barH + 100, H = Hc + 2 * vpad;
   const bgFull = kiitBackground(t, W, H);
 
   const rowSvg = (r, dot, border, fill) => {
-    const first = r.ym + Math.round(size * 0.35) - ((r.lines.length - 1) * step) / 2;
     const o = r.optional;
-    const files = r.lines.map((l, j) =>
-      `<text x="${r.filesX}" y="${first + j * step}" font-size="${size}" fill="${o ? t.heavy : t.sub}"${o ? ' opacity="0.8"' : ""}>${esc(l)}</text>`).join("\n    ");
+    const caption = `<text x="${r.rowX + r.descDx}" y="${r.ym + 6}" font-size="${size}" fill="${o ? t.heavy : t.dim}"${o ? ' opacity="0.7"' : ""}>${esc(r.caption)}</text>`;
     const tag = o
       ? `<rect x="${r.rowX + r.rowW - 78}" y="${r.y - 9}" width="64" height="18" rx="9" fill="${t.heavyTint}" stroke="${t.heavyBorder}"/>
     <text x="${r.rowX + r.rowW - 46}" y="${r.y + 4}" font-size="11" font-weight="700" fill="${t.heavy}" text-anchor="middle">optional</text>`
       : "";
+    const files = r.files ? `<text x="${r.rowX + r.rowW - 12}" y="${r.y + r.h + 19}" font-size="13" fill="${t.dim}" text-anchor="end">${esc(r.files)}</text>` : "";
     return `<rect x="${r.rowX}" y="${r.y}" width="${r.rowW}" height="${r.h}" rx="10" fill="${o ? t.heavyTint : "#FFFFFF"}" stroke="${o ? t.heavyBorder : border}" stroke-width="1.5"${o ? ' stroke-dasharray="7 5"' : ""}/>
     ${tag}
     <circle cx="${r.rowX + 22}" cy="${r.ym}" r="6" fill="${o ? t.heavy : dot}"/>
     <text x="${r.rowX + 40}" y="${r.ym + 8}" font-size="22" font-weight="700" fill="${o ? t.heavy : t.ink}">${esc(r.name)}</text>
+    ${caption}
     ${files}`;
   };
 
@@ -150,7 +139,7 @@ function buildSvg(c) {
 
   const lastLeft = left.rows[left.rows.length - 1];
   const goLines = (c.fast.lines || []).map((l, i) =>
-    `<text x="${L.x + 28}" y="${lastLeft.y + lastLeft.h + 38 + i * 26}" font-size="${size}" fill="${t.sub}"><tspan fill="${fs.color}">–</tspan> ${esc(l)}</text>`).join("\n    ");
+    `<text x="${L.x + 28}" y="${lastLeft.y + lastLeft.h + 50 + i * 26}" font-size="${size}" fill="${t.sub}"><tspan fill="${fs.color}">–</tspan> ${esc(l)}</text>`).join("\n    ");
   const sx = W / 2, sw = 300, sy = 64, sh = 62;
   const noteLines = c.fast.note ? c.fast.note.match(/.{1,34}(\s|$)/g) : [];
   const note = noteLines.map((l, i) =>
@@ -193,7 +182,7 @@ function buildSvg(c) {
     <rect x="${barX}" y="${barY}" width="${barW}" height="${barH}" rx="12" fill="#FFFFFF" stroke="${t.border}" stroke-width="1.5"/>
     <circle cx="${barX + 28}" cy="${barY + barH / 2}" r="6" fill="${t.ink}"/>
     <text x="${barX + 46}" y="${barY + barH / 2 + 8}" font-size="22" font-weight="700" fill="${t.ink}">${esc(c.verify.name)}</text>
-    <text x="${barX + 210}" y="${barY + barH / 2 + 6}" font-size="${size}" fill="${t.sub}">${esc(c.verify.files)}</text>
+    <text x="${barX + 169}" y="${barY + barH / 2 + 6}" font-size="${size}" fill="${t.dim}">${esc(c.verify.caption)}</text>
 
     <text x="60" y="${Hc - 56}" font-size="14" fill="${t.dim}">${esc(c.footerLeft)}</text>
     <text x="60" y="${Hc - 32}" font-size="14" fill="${t.dim}">${esc(c.footerRight)}</text>
