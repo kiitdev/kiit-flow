@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="838" viewBox="0 0 800 838" role="img" aria-label="Workflow: begin, design, review, revise, update, verify">
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#C4D8F6" stroke-width="1"/>
+    </pattern>
+    <clipPath id="frame"><rect width="800" height="838" rx="20"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="800" height="838" fill="#E8F1FF"/>
+    <rect width="800" height="838" fill="url(#grid)"/>
+    <rect x="0" y="0" width="8" height="838" fill="#007FFF"/>
+  </g>
+  <rect x="0.5" y="0.5" width="799" height="837" rx="20" fill="none" stroke="#B7CDEE"/>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
+    <text x="60" y="46" font-size="26" font-weight="700" fill="#111827">Workflow</text>
+    <rect x="50" y="64" width="100" height="56" rx="12" fill="#F6FAFF" stroke="#D9480F" stroke-width="2"/>
+    <text x="100" y="99" font-size="22" font-weight="700" fill="#D9480F" text-anchor="middle">go</text>
+    <path d="M 100 124 V 696 H 126" fill="none" stroke="#D9480F" stroke-width="3"/>
+    <polygon points="124,687.6 124,704.4 138,696" fill="#D9480F"/>
+    <text x="170" y="98" font-size="14" font-weight="700" fill="#D9480F">one pass: create the work item, implement, check</text>
+    <path d="M 683 596 H 712 V 396 H 696" fill="none" stroke="#007FFF" stroke-width="3"/>
+    <polygon points="697,387.6 697,404.4 683,396" fill="#007FFF"/>
+    <text transform="translate(736 496) rotate(-90)" font-size="14" font-weight="700" fill="#007FFF" text-anchor="middle">repeat until it is right</text>
+    <line x1="172" y1="217" x2="172" y2="238" stroke="#111827" stroke-width="3"/>
+    <polygon points="163.6,234 180.4,234 172,248" fill="#111827"/>
+    <line x1="172" y1="331" x2="172" y2="352" stroke="#111827" stroke-width="3"/>
+    <polygon points="163.6,348 180.4,348 172,362" fill="#111827"/>
+    <line x1="172" y1="431" x2="172" y2="452" stroke="#111827" stroke-width="3"/>
+    <polygon points="163.6,448 180.4,448 172,462" fill="#111827"/>
+    <line x1="172" y1="531" x2="172" y2="552" stroke="#111827" stroke-width="3"/>
+    <polygon points="163.6,548 180.4,548 172,562" fill="#111827"/>
+    <line x1="172" y1="631" x2="172" y2="652" stroke="#111827" stroke-width="3"/>
+    <polygon points="163.6,648 180.4,648 172,662" fill="#111827"/>
+    <rect x="140" y="150" width="540" height="64" rx="12" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <circle cx="172" cy="182" r="14" fill="#007FFF"/>
+    <text x="172" y="187" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
+    <text x="202" y="191" font-size="26" font-weight="700" fill="#111827">begin</text>
+    <text x="350" y="188" font-size="17" fill="#4B5563">01-change.md</text>
+    <rect x="140" y="250" width="540" height="78" rx="12" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <circle cx="172" cy="289" r="14" fill="#007FFF"/>
+    <text x="172" y="294" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">2</text>
+    <text x="202" y="298" font-size="26" font-weight="700" fill="#111827">design</text>
+    <text x="350" y="283" font-size="17" fill="#4B5563">02-design.md, 03-phases.md,</text>
+    <text x="350" y="307" font-size="17" fill="#4B5563">_status.md</text>
+    <rect x="140" y="364" width="540" height="64" rx="12" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <circle cx="172" cy="396" r="14" fill="#007FFF"/>
+    <text x="172" y="401" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">3</text>
+    <text x="202" y="405" font-size="26" font-weight="700" fill="#111827">review</text>
+    <text x="350" y="402" font-size="17" fill="#4B5563">04-review.md</text>
+    <rect x="140" y="464" width="540" height="64" rx="12" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <circle cx="172" cy="496" r="14" fill="#007FFF"/>
+    <text x="172" y="501" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">4</text>
+    <text x="202" y="505" font-size="26" font-weight="700" fill="#111827">revise</text>
+    <text x="350" y="502" font-size="17" fill="#4B5563">02-design.md, 03-phases.md</text>
+    <rect x="140" y="564" width="540" height="64" rx="12" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <circle cx="172" cy="596" r="14" fill="#007FFF"/>
+    <text x="172" y="601" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">5</text>
+    <text x="202" y="605" font-size="26" font-weight="700" fill="#111827">update</text>
+    <text x="350" y="602" font-size="17" fill="#4B5563">code, _status.md</text>
+    <rect x="140" y="664" width="540" height="64" rx="12" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <circle cx="172" cy="696" r="14" fill="#007FFF"/>
+    <text x="172" y="701" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">6</text>
+    <text x="202" y="705" font-size="26" font-weight="700" fill="#111827">verify</text>
+    <text x="350" y="702" font-size="17" fill="#4B5563">lint, tests, security, docs</text>
+    <text x="60" y="782" font-size="14" fill="#6B7A99">also: resume, recent, help</text>
+    <text x="60" y="806" font-size="14" fill="#6B7A99">after verify: review the code, then revise and update</text>
+  </g>
+</svg>

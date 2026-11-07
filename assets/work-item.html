@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Kiit work item card</title>
+<!--
+  Work item card template (1280x520). Edit CONFIG below, then either:
+    1. open this file in a browser and press "Download SVG", or
+    2. export from the command line: ./banner.sh work-item.html kiit-flow-work-item.svg
+-->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
+  #banner svg { width: 100%; max-width: 1280px; height: auto; display: block; }
+  button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+
+<script src="kiit-svg.js"></script>
+<script>
+// ---- CONFIG: change these for each project ---------------------------------
+const CONFIG = {
+  label: "Work item",
+  location: "_kiit/flow/",
+  folder: "260928-kiit-codes-fix-1234",
+  groups: [
+    {
+      label: "stage files, written in order",
+      files: [
+        { name: "01-change.md", purpose: "The change: requirements and acceptance criteria", by: ["begin", "go"] },
+        { name: "02-design.md", purpose: "The design: approach, files, how to test it", by: ["design", "revise"] },
+        { name: "03-phases.md", purpose: "The plan: numbered phases and steps", by: ["design", "revise"] },
+        { name: "04-review.md", purpose: "The latest review: stage, verdict, findings", by: ["review"] },
+      ],
+    },
+    {
+      label: "living files, updated as the work goes on",
+      files: [
+        { name: "_status.md", purpose: "Where each step stands: todo, done, blocked, skip", by: ["design", "revise", "update", "resume"] },
+        { name: "_history.md", purpose: "Append-only log of what ran and when", by: ["every command"] },
+      ],
+    },
+  ],
+  theme: KIIT_THEME,
+};
+// ---------------------------------------------------------------------------
+
+function buildSvg(c) {
+  const t = c.theme, W = 1280;
+  const rowH = 50, labelH = 34, groupGap = 14, cardTop = 104, pad = 16;
+  const cardH = pad + c.groups.reduce((h, g) => h + labelH + g.files.length * rowH, 0) + groupGap * (c.groups.length - 1);
+  const H = cardTop + cardH + 36;
+  const bg = kiitBackground(t, W, H);
+
+  let y = cardTop + pad;
+  const parts = [];
+  c.groups.forEach((g, gi) => {
+    if (gi > 0) {
+      y += groupGap;
+      parts.push(`<line x1="48" y1="${y - 8}" x2="1232" y2="${y - 8}" stroke="${t.rule}"/>`);
+    }
+    parts.push(`<text x="72" y="${y + 20}" font-size="12" font-weight="700" fill="${t.dim}" letter-spacing="2">${esc(g.label.toUpperCase())}</text>`);
+    y += labelH;
+    g.files.forEach((f, fi) => {
+      const iconColor = f.name.startsWith("_") ? t.dim : t.blue;
+      // document icon with a folded corner
+      parts.push(`<path d="M72 ${y + 12} H86 L92 ${y + 18} V${y + 36} H72 Z" fill="${t.card}" stroke="${iconColor}" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M86 ${y + 12} V${y + 18} H92" fill="none" stroke="${iconColor}" stroke-width="1.6" stroke-linejoin="round"/>`);
+      parts.push(`<text x="108" y="${y + 31}" font-size="17" font-weight="700" fill="${t.ink}">${esc(f.name)}</text>`);
+      parts.push(`<text x="290" y="${y + 31}" font-size="14" fill="${t.sub}">${esc(f.purpose)}</text>`);
+      // the commands that write it, as chips from the right edge
+      let right = 1208;
+      [...f.by].reverse().forEach((cmd) => {
+        const w = Math.round(cmd.length * 7.8 + 22);
+        right -= w;
+        parts.push(`<rect x="${right}" y="${y + 13}" width="${w}" height="26" rx="13" fill="${t.paper}" stroke="${t.border}"/>
+    <text x="${right + w / 2}" y="${y + 31}" font-size="13" font-weight="700" fill="${t.blue}" text-anchor="middle">${esc(cmd)}</text>`);
+        right -= 8;
+      });
+      if (fi < g.files.length - 1) parts.push(`<line x1="72" y1="${y + rowH}" x2="1208" y2="${y + rowH}" stroke="${t.rule}" stroke-dasharray="3 4"/>`);
+      y += rowH;
+    });
+  });
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.label)}: ${esc(c.folder)}">
+  <defs>
+    ${bg.defs}
+  </defs>
+
+  ${bg.body}
+
+  <g font-family="${KIIT_FONT}">
+    <text x="48" y="46" font-size="26" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
+    <text x="48" y="80" font-size="24" font-weight="700" fill="${t.dim}">${esc(c.location)}<tspan fill="${t.blue}">${esc(c.folder)}</tspan>/</text>
+
+    <rect x="48" y="${cardTop}" width="1184" height="${cardH}" rx="12" fill="${t.card}" stroke="${t.border}" stroke-width="1.5"/>
+    ${parts.join("\n    ")}
+  </g>
+</svg>
+`;
+}
+
+kiitMount(buildSvg(CONFIG), "kiit-flow-work-item.svg");
+</script>

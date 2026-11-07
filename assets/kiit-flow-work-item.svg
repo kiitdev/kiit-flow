@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="538" viewBox="0 0 1280 538" role="img" aria-label="Work item: 260928-kiit-codes-fix-1234">
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#C4D8F6" stroke-width="1"/>
+    </pattern>
+    <clipPath id="frame"><rect width="1280" height="538" rx="20"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="1280" height="538" fill="#E8F1FF"/>
+    <rect width="1280" height="538" fill="url(#grid)"/>
+    <rect x="0" y="0" width="8" height="538" fill="#007FFF"/>
+  </g>
+  <rect x="0.5" y="0.5" width="1279" height="537" rx="20" fill="none" stroke="#B7CDEE"/>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
+    <text x="48" y="46" font-size="26" font-weight="700" fill="#111827">Work item</text>
+    <text x="48" y="80" font-size="24" font-weight="700" fill="#6B7A99">_kiit/flow/<tspan fill="#007FFF">260928-kiit-codes-fix-1234</tspan>/</text>
+
+    <rect x="48" y="104" width="1184" height="398" rx="12" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <text x="72" y="140" font-size="12" font-weight="700" fill="#6B7A99" letter-spacing="2">STAGE FILES, WRITTEN IN ORDER</text>
+    <path d="M72 166 H86 L92 172 V190 H72 Z" fill="#F6FAFF" stroke="#007FFF" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M86 166 V172 H92" fill="none" stroke="#007FFF" stroke-width="1.6" stroke-linejoin="round"/>
+    <text x="108" y="185" font-size="17" font-weight="700" fill="#111827">01-change.md</text>
+    <text x="290" y="185" font-size="14" fill="#4B5563">The change: requirements and acceptance criteria</text>
+    <rect x="1170" y="167" width="38" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="1189" y="185" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">go</text>
+    <rect x="1101" y="167" width="61" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="1131.5" y="185" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">begin</text>
+    <line x1="72" y1="204" x2="1208" y2="204" stroke="#C4D8F6" stroke-dasharray="3 4"/>
+    <path d="M72 216 H86 L92 222 V240 H72 Z" fill="#F6FAFF" stroke="#007FFF" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M86 216 V222 H92" fill="none" stroke="#007FFF" stroke-width="1.6" stroke-linejoin="round"/>
+    <text x="108" y="235" font-size="17" font-weight="700" fill="#111827">02-design.md</text>
+    <text x="290" y="235" font-size="14" fill="#4B5563">The design: approach, files, how to test it</text>
+    <rect x="1139" y="217" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="1173.5" y="235" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">revise</text>
+    <rect x="1062" y="217" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="1096.5" y="235" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">design</text>
+    <line x1="72" y1="254" x2="1208" y2="254" stroke="#C4D8F6" stroke-dasharray="3 4"/>
+    <path d="M72 266 H86 L92 272 V290 H72 Z" fill="#F6FAFF" stroke="#007FFF" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M86 266 V272 H92" fill="none" stroke="#007FFF" stroke-width="1.6" stroke-linejoin="round"/>
+    <text x="108" y="285" font-size="17" font-weight="700" fill="#111827">03-phases.md</text>
+    <text x="290" y="285" font-size="14" fill="#4B5563">The plan: numbered phases and steps</text>
+    <rect x="1139" y="267" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="1173.5" y="285" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">revise</text>
+    <rect x="1062" y="267" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="1096.5" y="285" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">design</text>
+    <line x1="72" y1="304" x2="1208" y2="304" stroke="#C4D8F6" stroke-dasharray="3 4"/>
+    <path d="M72 316 H86 L92 322 V340 H72 Z" fill="#F6FAFF" stroke="#007FFF" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M86 316 V322 H92" fill="none" stroke="#007FFF" stroke-width="1.6" stroke-linejoin="round"/>
+    <text x="108" y="335" font-size="17" font-weight="700" fill="#111827">04-review.md</text>
+    <text x="290" y="335" font-size="14" fill="#4B5563">The latest review: stage, verdict, findings</text>
+    <rect x="1139" y="317" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="1173.5" y="335" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">review</text>
+    <line x1="48" y1="360" x2="1232" y2="360" stroke="#C4D8F6"/>
+    <text x="72" y="388" font-size="12" font-weight="700" fill="#6B7A99" letter-spacing="2">LIVING FILES, UPDATED AS THE WORK GOES ON</text>
+    <path d="M72 414 H86 L92 420 V438 H72 Z" fill="#F6FAFF" stroke="#6B7A99" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M86 414 V420 H92" fill="none" stroke="#6B7A99" stroke-width="1.6" stroke-linejoin="round"/>
+    <text x="108" y="433" font-size="17" font-weight="700" fill="#111827">_status.md</text>
+    <text x="290" y="433" font-size="14" fill="#4B5563">Where each step stands: todo, done, blocked, skip</text>
+    <rect x="1139" y="415" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="1173.5" y="433" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">resume</text>
+    <rect x="1062" y="415" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="1096.5" y="433" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">update</text>
+    <rect x="985" y="415" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="1019.5" y="433" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">revise</text>
+    <rect x="908" y="415" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="942.5" y="433" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">design</text>
+    <line x1="72" y1="452" x2="1208" y2="452" stroke="#C4D8F6" stroke-dasharray="3 4"/>
+    <path d="M72 464 H86 L92 470 V488 H72 Z" fill="#F6FAFF" stroke="#6B7A99" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M86 464 V470 H92" fill="none" stroke="#6B7A99" stroke-width="1.6" stroke-linejoin="round"/>
+    <text x="108" y="483" font-size="17" font-weight="700" fill="#111827">_history.md</text>
+    <text x="290" y="483" font-size="14" fill="#4B5563">Append-only log of what ran and when</text>
+    <rect x="1085" y="465" width="123" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="1146.5" y="483" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">every command</text>
+  </g>
+</svg>
