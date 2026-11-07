@@ -7,7 +7,7 @@ disable-model-invocation: true
 
 # flow-begin
 
-Create a work item: its folder, `01-change.md` and `_record.md`. Designs and implements nothing.
+Create a work item: its folder, `01-change.md` and `_history.md`. Designs and implements nothing.
 
 Read `.claude/kiit/flow/shared.md` first.
 
@@ -15,7 +15,7 @@ Read `.claude/kiit/flow/shared.md` first.
 ```
 USAGE: /flow-begin [project] [type] {ticket|description}
 
-  Create a work item: a folder with 01-change.md and _record.md.
+  Create a work item: a folder with 01-change.md and _history.md.
 
 
 ARGUMENTS:
@@ -62,7 +62,7 @@ EXAMPLES:
     - Ticket: the URL, or the system's link for the id. Link it, don't copy it
     - Description: the requirements as given, tidied, with no new scope
     - Anything unclear goes under Open questions
-11. Write `_record.md` (shared.md) with its first row.
+11. Write `_history.md` (shared.md) with its first row.
     - Note: `created from ticket {id}` or `created from description`
 12. Print the folder name, the project path, and the next step, `/flow-design`.
 

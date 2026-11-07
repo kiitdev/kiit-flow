@@ -47,4 +47,4 @@ EXAMPLES:
 ```
 
 ## Rules
-1. Read-only. Write no file, and add no row to any `_record.md`.
+1. Read-only. Write no file, and add no row to any `_history.md`.

@@ -86,7 +86,7 @@ workspace/
 ├── _kiit/flow/
 │   └── 260928-kiit-codes-fix-1234/
 │       ├── 01-change.md
-│       └── _record.md
+│       └── _history.md
 └── kiit-codes/
 ```
 
