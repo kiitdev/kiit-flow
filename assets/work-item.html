@@ -80,7 +80,8 @@ function buildSvg(c) {
   const W = Math.max(cardRight + 48, Math.round(48 + (c.location + c.folder + "/").length * 14.4 + 48));
   const rowH = 50, labelH = 34, groupGap = 14, cardTop = 104, pad = 16;
   const cardH = pad + c.groups.reduce((h, g) => h + labelH + g.files.length * rowH, 0) + groupGap * (c.groups.length - 1);
-  const H = cardTop + cardH + 36;
+  const vpad = 20;                              // space between the frame and the content, top and bottom
+  const H = cardTop + cardH + 36 + 2 * vpad;
   const bg = kiitBackground(t, W, H);
 
   let y = cardTop + pad;
@@ -117,7 +118,7 @@ function buildSvg(c) {
 
   ${bg.body}
 
-  <g font-family="${KIIT_FONT}">
+  <g font-family="${KIIT_FONT}" transform="translate(0 ${vpad})">
     <text x="48" y="46" font-size="26" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
     <text x="48" y="80" font-size="24" font-weight="700" fill="${t.dim}">${esc(c.location)}<tspan fill="${t.blue}">${esc(c.folder)}</tspan>/</text>
 

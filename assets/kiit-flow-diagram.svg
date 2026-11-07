@@ -1,19 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="1004" viewBox="0 0 1040 1004" role="img" aria-label="Workflow: a change takes Fast or Flow, then verify">
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="1044" viewBox="0 0 1040 1044" role="img" aria-label="Workflow: a change takes Fast or Flow, then verify">
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="#C4D8F6" stroke-width="1"/>
     </pattern>
-    <clipPath id="frame"><rect width="1040" height="1004" rx="20"/></clipPath>
+    <clipPath id="frame"><rect width="1040" height="1044" rx="20"/></clipPath>
   </defs>
 
   <g clip-path="url(#frame)">
-    <rect width="1040" height="1004" fill="#E8F1FF"/>
-    <rect width="1040" height="1004" fill="url(#grid)"/>
+    <rect width="1040" height="1044" fill="#E8F1FF"/>
+    <rect width="1040" height="1044" fill="url(#grid)"/>
   </g>
-  <path d="M 20 6 H 1020 A 14 14 0 0 1 1034 20 V 984 A 14 14 0 0 1 1020 998 H 20" fill="none" stroke="#007FFF" stroke-width="12"/>
-  <path d="M 20 6 A 14 14 0 0 0 6 20 V 984 A 14 14 0 0 0 20 998" fill="none" stroke="#D9480F" stroke-width="12"/>
+  <path d="M 20 6 H 1020 A 14 14 0 0 1 1034 20 V 1024 A 14 14 0 0 1 1020 1038 H 20" fill="none" stroke="#007FFF" stroke-width="12"/>
+  <path d="M 20 6 A 14 14 0 0 0 6 20 V 1024 A 14 14 0 0 0 20 1038" fill="none" stroke="#D9480F" stroke-width="12"/>
 
-  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" transform="translate(0 20)">
     <text x="60" y="46" font-size="26" font-weight="700" fill="#111827">Workflow</text>
 
     <rect x="370" y="64" width="300" height="62" rx="12" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>

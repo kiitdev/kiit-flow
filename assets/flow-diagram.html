@@ -86,7 +86,8 @@ function buildSvg(c) {
   const right = layout(c.full.rows, R, 190, lane);
   const panelBottom = Math.max(left.bottom, right.bottom) + pad;
   const barY = panelBottom + 56, barH = 60, barX = 140, barW = 760;
-  const H = barY + barH + 100;
+  const vpad = 20;                              // space between the frame and the content, top and bottom
+  const Hc = barY + barH + 100, H = Hc + 2 * vpad;
   const bgFull = kiitBackground(t, W, H);
 
   const rowSvg = (r, dot, border) => {
@@ -144,7 +145,7 @@ function buildSvg(c) {
 
   ${bgFull.body}
 
-  <g font-family="${KIIT_FONT}">
+  <g font-family="${KIIT_FONT}" transform="translate(0 ${vpad})">
     <text x="60" y="46" font-size="26" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
 
     <rect x="${sx - sw / 2}" y="${sy}" width="${sw}" height="${sh}" rx="12" fill="${t.card}" stroke="${t.border}" stroke-width="1.5"/>
@@ -175,8 +176,8 @@ function buildSvg(c) {
     <text x="${barX + 46}" y="${barY + barH / 2 + 8}" font-size="22" font-weight="700" fill="${t.ink}">${esc(c.verify.name)}</text>
     <text x="${barX + 210}" y="${barY + barH / 2 + 6}" font-size="${size}" fill="${t.sub}">${esc(c.verify.files)}</text>
 
-    <text x="60" y="${H - 56}" font-size="14" fill="${t.dim}">${esc(c.footerLeft)}</text>
-    <text x="60" y="${H - 32}" font-size="14" fill="${t.dim}">${esc(c.footerRight)}</text>
+    <text x="60" y="${Hc - 56}" font-size="14" fill="${t.dim}">${esc(c.footerLeft)}</text>
+    <text x="60" y="${Hc - 32}" font-size="14" fill="${t.dim}">${esc(c.footerRight)}</text>
   </g>
 </svg>
 `;

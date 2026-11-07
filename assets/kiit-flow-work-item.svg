@@ -1,19 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1076" height="538" viewBox="0 0 1076 538" role="img" aria-label="Work item: 260928-kiit-codes-fix-1234">
+<svg xmlns="http://www.w3.org/2000/svg" width="1076" height="578" viewBox="0 0 1076 578" role="img" aria-label="Work item: 260928-kiit-codes-fix-1234">
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="#C4D8F6" stroke-width="1"/>
     </pattern>
-    <clipPath id="frame"><rect width="1076" height="538" rx="20"/></clipPath>
+    <clipPath id="frame"><rect width="1076" height="578" rx="20"/></clipPath>
   </defs>
 
   <g clip-path="url(#frame)">
-    <rect width="1076" height="538" fill="#E8F1FF"/>
-    <rect width="1076" height="538" fill="url(#grid)"/>
+    <rect width="1076" height="578" fill="#E8F1FF"/>
+    <rect width="1076" height="578" fill="url(#grid)"/>
   </g>
-  <path d="M 20 6 H 1056 A 14 14 0 0 1 1070 20 V 518 A 14 14 0 0 1 1056 532 H 20" fill="none" stroke="#007FFF" stroke-width="12"/>
-  <path d="M 20 6 A 14 14 0 0 0 6 20 V 518 A 14 14 0 0 0 20 532" fill="none" stroke="#D9480F" stroke-width="12"/>
+  <path d="M 20 6 H 1056 A 14 14 0 0 1 1070 20 V 558 A 14 14 0 0 1 1056 572 H 20" fill="none" stroke="#007FFF" stroke-width="12"/>
+  <path d="M 20 6 A 14 14 0 0 0 6 20 V 558 A 14 14 0 0 0 20 572" fill="none" stroke="#D9480F" stroke-width="12"/>
 
-  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" transform="translate(0 20)">
     <text x="48" y="46" font-size="26" font-weight="700" fill="#111827">Work item</text>
     <text x="48" y="80" font-size="24" font-weight="700" fill="#6B7A99">_kiit/flow/<tspan fill="#007FFF">260928-kiit-codes-fix-1234</tspan>/</text>
 
