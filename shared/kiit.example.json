@@ -1,10 +1,19 @@
 {
-  "tickets": { "base_url": "https://github.com/acme/app/issues" },
-  "projects": {
-    "app": "./app",
-    "api": { "path": "./api" }
-  },
-  "flow": {
-    "paths": { "work_items": "_kiit/flow" }
-  }
+  "version": 1,
+  "tickets": [
+    { "type": "github", "owner": "acme" },
+    { "type": "jira", "url": "https://acme.atlassian.net/browse" }
+  ],
+  "resources": [
+    {
+      "name": "standards",
+      "path": "./docs/standards",
+      "purpose": "Engineering standards for all repos"
+    }
+  ],
+  "projects": [
+    { "name": "app", "path": "./app", "aliases": ["web"] },
+    { "name": "api", "path": "./api", "tickets": "jira" }
+  ],
+  "flow": { "work_items": "_kiit/flow" }
 }

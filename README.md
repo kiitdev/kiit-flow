@@ -1,2 +1,120 @@
-# kiit-flow
-A light-weight, adaptable, agentic skills framework and spec-driven development (SDD) approach for AI coding assistants. 
+<div align="center">
+<h1>kiit-flow</h1>
+
+**Take a change from idea to pull request, one work item at a time.**
+
+A light-weight, adaptable, agentic skills framework and spec-driven development (SDD) approach for AI coding assistants.
+
+[![License](https://img.shields.io/github/license/kiitdev/kiit-flow)](./LICENSE)
+
+Part of [Kiit](https://www.kiit.dev)
+
+</div>
+
+<!-- Overview diagram goes here: ./assets/kiit-flow-overview.png -->
+
+## 📚 Table of Contents
+
+| # | | Topic | Description |
+|---:|:---:|---|---|
+| 1 | 💡 | [Why](#why) | The problems flow addresses, and the approach it takes |
+| 2 | 🚀 | [Start](#start) | Install, set up the config, and create a first work item |
+| 3 | ⌨️ | [Commands](#commands) | The skills you run, and what is planned |
+| 4 | 📁 | [Work Item](#work-item) | The folder of plain markdown files that holds one change |
+| 5 | ⚙️ | [Configuration](#configuration) | Ticket systems, projects, and resources in `kiit.json` |
+| 6 | 📋 | [Requirements](#requirements) | What flow needs to run |
+| 7 | 🤝 | [Contributing](#contributing) | How to write or change a skill |
+| 8 | 📄 | [License](#license) | Apache 2.0 license terms |
+
+## Why
+
+Work with an AI coding assistant tends to go wrong in a few repeatable ways:
+
+| # | Problem | Description |
+|---:|---|---|
+| 1 | **Lost context** | A session ends and the requirements, plan, and progress go with it. |
+| 2 | **Unreviewed plans** | Code is written before anyone has read the design. |
+| 3 | **Drift** | The design and the code diverge, and nothing records why. |
+| 4 | **Unclear done** | There is no checklist to say when the change is finished. |
+
+**kiit-flow keeps each change in a folder of plain markdown files.**
+
+A short set of commands moves the change through its stages: requirements, design, review, implementation, and checks. Every command reads what the earlier ones wrote, so a session can stop at any point and another can pick up from the files.
+
+## Start
+
+**Install** into a workspace, the folder that holds your project repos:
+
+```sh
+git clone https://github.com/kiitdev/kiit-flow.git
+cd kiit-flow
+./install.sh /path/to/workspace
+```
+
+**Configure** by editing `.claude/kiit/kiit.json` in the workspace. Install creates it from the example, and running install again never overwrites it.
+
+**Run** from the workspace, after restarting your assistant so it loads the skills:
+
+```text
+/kiit-flow-help
+/kiit-flow-begin https://github.com/acme/app/issues/12
+```
+
+`begin` reads the ticket, fills in the project and type, asks you to confirm, and creates the work item.
+
+## Commands
+
+Every command prints its own usage with `--help`, for example `/kiit-flow-begin --help`.
+
+| # | Command | Description |
+|---:|---|---|
+| 1 | `/kiit-flow-begin` | Create a work item from a ticket or a description. |
+| 2 | `/kiit-flow-help` | Show the commands, or the usage of one. |
+
+Planned, in workflow order: `design`, `review`, `update`, `resume`, `remove`, `verify`, and `recent`.
+
+## Work Item
+
+A work item is one folder per change. Work items live in `_kiit/flow/` at the workspace root, next to `.claude/` and your project repos:
+
+```text
+workspace/
+├── .claude/
+├── _kiit/flow/
+│   └── 260928-kiit-codes-fix-1234/
+│       ├── 01-change.md
+│       └── _record.md
+└── kiit-codes/
+```
+
+The folder name is the date, project, type, and ticket. `begin` creates the first two files, and later commands add the rest.
+
+The `flow.work_items` setting in `kiit.json` changes the location. The full layout and the file formats are in [`shared/shared.md`](./shared/shared.md).
+
+## Configuration
+
+Flow reads `.claude/kiit/kiit.json` in your workspace. It lists the ticket systems, the projects, and any named resources, and has a section for flow's own settings.
+
+[`shared/kiit.example.json`](./shared/kiit.example.json) shows the shape. Each key is described in [`shared/shared.md`](./shared/shared.md#workspace-and-config).
+
+## Requirements
+
+- An AI coding assistant that runs skills. Flow is written for Claude Code
+- `git`, and a POSIX shell for `install.sh`
+- The [GitHub CLI](https://cli.github.com) (`gh`), to read GitHub tickets
+
+## Contributing
+
+Contributions and design feedback are welcome. See [CONVENTIONS.md](./CONVENTIONS.md) for how a skill is written.
+
+## License
+
+[Apache License 2.0](./LICENSE)
+
+---
+
+<div align="center">
+
+**kiit-flow** is one group of skills in [Kiit](https://www.kiit.dev).
+
+</div>

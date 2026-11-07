@@ -19,7 +19,7 @@ USAGE: /flow-begin [project] [type] {ticket|description}
 
 
 ARGUMENTS:
-  [project]     : Optional : a key in projects. Needed with a description
+  [project]     : Optional : a project name or alias. Needed with a description
   [type]        : Optional : feat fix build chore ci docs perf refactor revert style
                              test (feature = feat, tests = test)
                              Needed with a description
@@ -34,7 +34,7 @@ EXAMPLES:
 
 ## Steps
 1. Read the config (shared.md). Read the leading arguments.
-   - A `projects` key is the project. A type word after it is the type
+   - A project name or alias is the project. A type word after it is the type
    - Either can be missing. The rest is the ticket or description
 2. Decide what the rest is.
    - A ticket is one token: `1234`, `#1234`, `ABC-123` or an issue URL
@@ -42,11 +42,11 @@ EXAMPLES:
 3. Load the ticket when the project or type is missing and it has a URL or number.
    - GitHub: `gh issue view {id} --repo {owner}/{repo} --json title,labels`
    - Other URL (Jira, Linear, ...): fetch the page, read its title and fields
-   - A bare number uses the repo in `tickets.base_url`
+   - A bare number needs a project: the one given, else the one you are in
    - Load fails (login, no network) or the ticket is `ABC-123`: infer nothing
 4. Infer what is missing. Arguments always win.
-   - Project: the repo name of a GitHub URL, else the project the ticket names
-   - Use it only if it is a `projects` key
+   - Project: the one whose repo matches a GitHub URL, else the one you are in
+   - Else the project the ticket names, as a project name or alias
    - Type: a title prefix like `fix:` or `feat(api):`, else the label or type
    - Labels: bug = fix, enhancement or feature = feat, documentation = docs
 5. Project or type still missing: `error: cannot infer {project|type}`.
@@ -61,7 +61,7 @@ EXAMPLES:
 9. Create the folder with `_files/input/` and `_files/output/`.
 10. Write `01-change.md` from the template.
     - Title: the ticket title, else the description in short, else `ticket {id}`
-    - Ticket: the URL, or `{tickets.base_url}/{ticket}`. Link it, don't copy it
+    - Ticket: the URL, or the system's link for the id. Link it, don't copy it
     - Description: the requirements as given, tidied, with no new scope
     - Anything unclear goes under Open questions
 11. Write `_record.md` (shared.md) with its first row.

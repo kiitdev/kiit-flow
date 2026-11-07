@@ -28,3 +28,12 @@ if [ -d "$src/shared" ]; then
   cp -R "$src"/shared/. "$dest/.claude/kiit/flow/"
   echo "installed shared files"
 fi
+
+# the config is yours: create it from the example once, never overwrite it
+config="$dest/.claude/kiit/kiit.json"
+if [ -f "$config" ]; then
+  echo "kept existing .claude/kiit/kiit.json"
+else
+  cp "$src/shared/kiit.example.json" "$config"
+  echo "created .claude/kiit/kiit.json, edit it for your tickets and projects"
+fi
