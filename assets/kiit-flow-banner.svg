@@ -18,8 +18,8 @@
     <rect width="1280" height="320" fill="#E8F1FF"/>
     <rect width="1280" height="320" fill="url(#grid)"/>
   </g>
-  <path d="M 20 6 H 1260 A 14 14 0 0 1 1274 20 V 300 A 14 14 0 0 1 1260 314 H 20" fill="none" stroke="#007FFF" stroke-width="12"/>
-  <path d="M 20 6 A 14 14 0 0 0 6 20 V 300 A 14 14 0 0 0 20 314" fill="none" stroke="#D9480F" stroke-width="12"/>
+  <path d="M 20 4 H 1260 A 16 16 0 0 1 1276 20 V 300 A 16 16 0 0 1 1260 316 H 20" fill="none" stroke="#4DA3FF" stroke-width="8"/>
+  <path d="M 20 4 A 16 16 0 0 0 4 20 V 300 A 16 16 0 0 0 20 316" fill="none" stroke="#E8794A" stroke-width="8"/>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
     <text x="84" y="166" font-size="104" font-weight="700" fill="#111827" letter-spacing="-3" textLength="535" lengthAdjust="spacing"><tspan fill="#007FFF">kiit</tspan>-flow</text>

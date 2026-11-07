@@ -3,7 +3,7 @@
 // Export from the command line with: ./banner.sh <template>.html <out>.svg
 
 const KIIT_THEME = {
-  paper: "#E8F1FF", grid: "#C4D8F6", frame: "#007FFF", frameWidth: 12,   // the outline, in the brand blue. The left edge uses the highlight
+  paper: "#E8F1FF", grid: "#C4D8F6", frame: "#4DA3FF", frameLeft: "#E8794A", frameWidth: 8,   // the outline: soft blue, with a soft orange left edge
   blue: "#007FFF",              // blueprint blue
   ink: "#111827", sub: "#4B5563", dim: "#6B7A99",
   highlight: "#D9480F",         // the fast path and other emphasis
@@ -32,7 +32,7 @@ function kiitBackground(t, w, h) {
     <rect width="${w}" height="${h}" fill="url(#grid)"/>
   </g>
   <path d="${rest}" fill="none" stroke="${t.frame}" stroke-width="${f}"/>
-  <path d="${leftEdge}" fill="none" stroke="${t.highlight}" stroke-width="${f}"/>`,
+  <path d="${leftEdge}" fill="none" stroke="${t.frameLeft}" stroke-width="${f}"/>`,
   };
 }
 

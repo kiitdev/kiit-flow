@@ -45,7 +45,7 @@ const CONFIG = {
     footer: "",                   // optional line under the card
   },
   theme: {
-    paper: "#E8F1FF", grid: "#C4D8F6", frame: "#007FFF", frameWidth: 12,   // the outline, in the brand blue. The left edge uses the highlight
+    paper: "#E8F1FF", grid: "#C4D8F6", frame: "#4DA3FF", frameLeft: "#E8794A", frameWidth: 8,   // the outline: soft blue, with a soft orange left edge
     blue: "#007FFF",              // blueprint blue
     ink: "#111827", sub: "#4B5563", dim: "#6B7A99",
     highlight: "#D9480F",         // the steps line
@@ -116,7 +116,7 @@ function buildSvg(c) {
     <rect width="1280" height="320" fill="url(#grid)"/>
   </g>
   <path d="${rest}" fill="none" stroke="${t.frame}" stroke-width="${f}"/>
-  <path d="${leftEdge}" fill="none" stroke="${t.highlight}" stroke-width="${f}"/>
+  <path d="${leftEdge}" fill="none" stroke="${t.frameLeft}" stroke-width="${f}"/>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
     <text x="84" y="166" font-size="${titleSize}" font-weight="700" fill="${t.ink}" letter-spacing="-3" textLength="${titleWidth}" lengthAdjust="spacing"><tspan fill="${t.blue}">${esc(c.brand)}</tspan>-${esc(c.name)}</text>
