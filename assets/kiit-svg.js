@@ -6,8 +6,13 @@ const KIIT_THEME = {
   paper: "#E8F1FF", grid: "#C4D8F6", frame: "#4DA3FF", frameLeft: "#E8794A", frameWidth: 8,   // the outline: soft blue, with a soft orange left edge
   blue: "#007FFF",              // blueprint blue
   ink: "#111827", sub: "#4B5563", dim: "#6B7A99",
-  highlight: "#D9480F",         // the fast path and other emphasis
-  fastTint: "#FFF3EA", fastBorder: "#F0B896",   // the fast path column
+  highlight: "#D9480F",         // emphasis, such as the banner steps line
+  fast: "#1B8A5A",              // the fast path: calm green, low risk
+  fastTint: "#EAF7F1", fastBorder: "#8FD1B3",   // the fast path column
+  flow: "#A66F00",              // the flow path: amber, proceed with care
+  flowTint: "#FFF8DC", flowBorder: "#E6C65C",   // the flow column
+  heavy: "#7C4DFF",             // the careful steps: review and revise
+  heavyTint: "#F5F0FF", heavyBorder: "#B49CFF",
   sheen: "#BFE0FF",
   card: "#F6FAFF", border: "#8FB0E3", rule: "#C4D8F6",
   done: "#1B8A5A", todo: "#C26A00", blocked: "#C0392B", skip: "#8A94A8",
