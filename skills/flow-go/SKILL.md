@@ -7,7 +7,7 @@ disable-model-invocation: true
 
 # flow-go
 
-The fast path for a small change: create a minimal work item, implement it, and check it. It writes no design, phases or status. Stops before editing if the change is too big.
+The fast path for a small change: create a minimal work item, implement it, and check it. It writes no design, phases or status. Stops before editing if the change needs a design.
 
 Read `.claude/kiit/flow/shared.md` first.
 
@@ -37,10 +37,9 @@ EXAMPLES:
 2. Read what the change needs.
    - The `standards` resource, if the config has one
    - The project's `CLAUDE.md` and the code the change touches
-3. Check the size before editing. Stop if the change:
-   - Needs a design choice, or the request is ambiguous
-   - Touches more than about five files
-   - Print `error: too big for one pass`, suggest `/flow-begin`, change nothing
+3. Check before editing. Stop if the change needs a design choice or is unclear.
+   - Print `error: not a one-pass change`, and suggest `/flow-begin`
+   - Change nothing
 4. Create the work item (shared.md).
 5. Implement the change in the project repo, following its conventions.
    - Do what the request asks and no more
@@ -52,5 +51,5 @@ EXAMPLES:
 
 ## Rules
 1. Change only the project repo and the new work item folder.
-2. Write nothing when the size check stops it. Not even the work item.
+2. Write nothing when the check in step 3 stops it. Not even the work item.
 3. Write no design, phases or status. To grow the change, run `/flow-design` on it.
