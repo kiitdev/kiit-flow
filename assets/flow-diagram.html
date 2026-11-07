@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Kiit flow diagram</title>
+<!--
+  Workflow diagram template: a change splits into two paths that meet at verify (1040 wide).
+  Edit CONFIG below, then either:
+    1. open this file in a browser and press "Download SVG", or
+    2. export from the command line: ./banner.sh flow-diagram.html kiit-flow-diagram.svg
+-->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
+  #banner svg { width: 100%; max-width: 1040px; height: auto; display: block; }
+  button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+
+<script src="kiit-svg.js"></script>
+<script>
+// ---- CONFIG: change these for each project ---------------------------------
+const CONFIG = {
+  label: "Workflow",
+  captionSize: 17,                 // size of the file names next to each step
+  start: { name: "a change", sub: "a ticket or a description" },
+  fast: {                          // option 1, the short column
+    title: "Fast",
+    sub: "one pass for a small change",
+    rows: [["go", "01-change.md, code"]],
+    lines: ["creates the work item", "implements the change", "runs the narrowest check"],
+    note: "needs a design? go stops and points to Flow",
+  },
+  full: {                          // option 2, the long column
+    title: "Flow",
+    sub: "intentional: design first, then review and build",
+    rows: [
+      ["begin", "01-change.md"],
+      ["design", "02-design.md, 03-phases.md, _status.md"],
+      ["review", "04-review.md"],
+      ["revise", "02-design.md, 03-phases.md"],
+      ["update", "code, _status.md"],
+    ],
+    loop: { from: 4, to: 2, label: "repeat until it is right" },   // row indexes
+  },
+  verify: { name: "verify", files: "lint, tests, security, docs", fastLabel: "optional" },
+  footerLeft: "also: resume, recent, help",
+  footerRight: "after verify: review the code, then revise and update",
+  theme: KIIT_THEME,
+};
+// ---------------------------------------------------------------------------
+
+function buildSvg(c) {
+  const t = c.theme, W = 1040;
+  const size = c.captionSize, step = Math.round(size * 1.4), cw = size * 0.6;
+  const L = { x: 40, w: 360 }, R = { x: 416, w: 584 };
+  const panelTop = 236, rowsTop = panelTop + 94, rowGap = 34, pad = 20, lane = 56, elbow = 176;
+  const Lcx = L.x + L.w / 2, Rcx = R.x + R.w / 2;
+  const bg = kiitBackground(t, W, 0 /* set below */);
+
+  // lay out the rows of one column. The files go on one line, comma separated, and wrap when long
+  function layout(rows, col, filesDx, rightLane) {
+    const rowX = col.x + pad, rowW = col.w - 2 * pad - rightLane, filesX = rowX + filesDx;
+    const maxChars = Math.floor((rowX + rowW - 14 - filesX) / cw);
+    const wrap = (text) => {
+      const lines = []; let cur = "";
+      text.split(" ").forEach((w) => {
+        if (cur && (cur + " " + w).length > maxChars) { lines.push(cur); cur = w; }
+        else cur = cur ? cur + " " + w : w;
+      });
+      if (cur) lines.push(cur);
+      return lines;
+    };
+    let y = rowsTop;
+    const out = rows.map(([name, files]) => {
+      const lines = wrap(files), h = Math.max(56, 30 + lines.length * step);
+      const row = { name, lines, y, h, ym: y + h / 2, rowX, rowW, filesX };
+      y += h + rowGap;
+      return row;
+    });
+    return { rows: out, bottom: y - rowGap };
+  }
+  const left = layout(c.fast.rows, L, 110, 0);
+  const right = layout(c.full.rows, R, 190, lane);
+  const panelBottom = Math.max(left.bottom, right.bottom) + pad;
+  const barY = panelBottom + 56, barH = 60, barX = 140, barW = 760;
+  const vpad = 20;                              // space between the frame and the content, top and bottom
+  const Hc = barY + barH + 100, H = Hc + 2 * vpad;
+  const bgFull = kiitBackground(t, W, H);
+
+  const rowSvg = (r, dot, border) => {
+    const first = r.ym + Math.round(size * 0.35) - ((r.lines.length - 1) * step) / 2;
+    const files = r.lines.map((l, j) =>
+      `<text x="${r.filesX}" y="${first + j * step}" font-size="${size}" fill="${t.sub}">${esc(l)}</text>`).join("\n    ");
+    return `<rect x="${r.rowX}" y="${r.y}" width="${r.rowW}" height="${r.h}" rx="10" fill="#FFFFFF" stroke="${border}" stroke-width="1.5"/>
+    <circle cx="${r.rowX + 22}" cy="${r.ym}" r="6" fill="${dot}"/>
+    <text x="${r.rowX + 40}" y="${r.ym + 8}" font-size="22" font-weight="700" fill="${t.ink}">${esc(r.name)}</text>
+    ${files}`;
+  };
+
+  const column = (col, opt, title, sub, color, fill, border, rows) => `<rect x="${col.x}" y="${panelTop}" width="${col.w}" height="${panelBottom - panelTop}" rx="16" fill="${fill}" stroke="${border}" stroke-width="1.5" stroke-dasharray="7 5"/>
+    <circle cx="${col.x + 38}" cy="${panelTop + 38}" r="17" fill="${color}"/>
+    <text x="${col.x + 38}" y="${panelTop + 45}" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">${opt}</text>
+    <text x="${col.x + 68}" y="${panelTop + 46}" font-size="30" font-weight="700" fill="${color}">${esc(title)}</text>
+    <text x="${col.x + 24}" y="${panelTop + 76}" font-size="14" fill="${t.dim}">${esc(sub)}</text>
+    ${rows.map((r) => rowSvg(r, color, border)).join("\n    ")}`;
+
+  // the loop inside the structured column
+  let loop = "";
+  const lp = c.full.loop;
+  if (lp) {
+    const a = right.rows[lp.from], b = right.rows[lp.to];
+    const edge = a.rowX + a.rowW, lx = edge + 30;
+    loop = `<path d="M ${edge + 3} ${a.ym} H ${lx} V ${b.ym} H ${edge + 16}" fill="none" stroke="${t.blue}" stroke-width="3"/>
+    ${kiitHead(edge + 3, b.ym, "left", 14, t.blue)}
+    <text transform="translate(${lx + 24} ${(a.ym + b.ym) / 2}) rotate(-90)" font-size="14" font-weight="700" fill="${t.blue}" text-anchor="middle">${esc(lp.label)}</text>`;
+  }
+
+  const links = c.full.rows.slice(0, -1).map((_, i) => {
+    const a = right.rows[i], b = right.rows[i + 1], x = a.rowX + 22;
+    return `<line x1="${x}" y1="${a.y + a.h + 1}" x2="${x}" y2="${b.y - 12}" stroke="${t.ink}" stroke-width="3"/>
+    ${kiitHead(x, b.y - 1, "down", 12, t.ink)}`;
+  }).join("\n    ");
+  const fastLinks = c.fast.rows.slice(0, -1).map((_, i) => {
+    const a = left.rows[i], b = left.rows[i + 1], x = a.rowX + 22;
+    return `<line x1="${x}" y1="${a.y + a.h + 1}" x2="${x}" y2="${b.y - 12}" stroke="${t.highlight}" stroke-width="3"/>
+    ${kiitHead(x, b.y - 1, "down", 12, t.highlight)}`;
+  }).join("\n    ");
+
+  const lastLeft = left.rows[left.rows.length - 1];
+  const goLines = (c.fast.lines || []).map((l, i) =>
+    `<text x="${L.x + 28}" y="${lastLeft.y + lastLeft.h + 38 + i * 26}" font-size="${size}" fill="${t.sub}"><tspan fill="${t.highlight}">–</tspan> ${esc(l)}</text>`).join("\n    ");
+  const sx = W / 2, sw = 300, sy = 64, sh = 62;
+  const note = c.fast.note
+    ? c.fast.note.match(/.{1,34}(\s|$)/g).map((l, i) =>
+        `<text x="${L.x + 24}" y="${panelBottom - 44 + i * 19}" font-size="13" fill="${t.dim}">${esc(l.trim())}</text>`).join("\n    ")
+    : "";
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.label)}: a change takes ${esc(c.fast.title)} or ${esc(c.full.title)}, then verify">
+  <defs>
+    ${bgFull.defs}
+  </defs>
+
+  ${bgFull.body}
+
+  <g font-family="${KIIT_FONT}" transform="translate(0 ${vpad})">
+    <text x="60" y="46" font-size="26" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
+
+    <rect x="${sx - sw / 2}" y="${sy}" width="${sw}" height="${sh}" rx="12" fill="${t.card}" stroke="${t.border}" stroke-width="1.5"/>
+    <text x="${sx}" y="${sy + 28}" font-size="20" font-weight="700" fill="${t.ink}" text-anchor="middle">${esc(c.start.name)}</text>
+    <text x="${sx}" y="${sy + 48}" font-size="14" fill="${t.dim}" text-anchor="middle">${esc(c.start.sub)}</text>
+    <line x1="${sx}" y1="${sy + sh + 1}" x2="${sx}" y2="${elbow}" stroke="${t.ink}" stroke-width="3"/>
+    <path d="M ${sx} ${elbow} H ${Lcx} V ${panelTop - 14}" fill="none" stroke="${t.highlight}" stroke-width="3"/>
+    ${kiitHead(Lcx, panelTop - 1, "down", 14, t.highlight)}
+    <path d="M ${sx} ${elbow} H ${Rcx} V ${panelTop - 14}" fill="none" stroke="${t.blue}" stroke-width="3"/>
+    ${kiitHead(Rcx, panelTop - 1, "down", 14, t.blue)}
+
+    ${column(L, "1", c.fast.title, c.fast.sub, t.highlight, t.fastTint, t.fastBorder, left.rows)}
+    ${fastLinks}
+    ${goLines}
+    ${note}
+    ${column(R, "2", c.full.title, c.full.sub, t.blue, t.card, t.border, right.rows)}
+    ${links}
+    ${loop}
+
+    <path d="M ${Lcx} ${panelBottom + 2} V ${barY - 14}" fill="none" stroke="${t.highlight}" stroke-width="3" stroke-dasharray="6 5"/>
+    ${kiitHead(Lcx, barY - 1, "down", 14, t.highlight)}
+    <text x="${Lcx + 14}" y="${panelBottom + 32}" font-size="13" fill="${t.highlight}">${esc(c.verify.fastLabel)}</text>
+    <line x1="${Rcx}" y1="${panelBottom + 2}" x2="${Rcx}" y2="${barY - 14}" stroke="${t.blue}" stroke-width="3"/>
+    ${kiitHead(Rcx, barY - 1, "down", 14, t.blue)}
+
+    <rect x="${barX}" y="${barY}" width="${barW}" height="${barH}" rx="12" fill="#FFFFFF" stroke="${t.border}" stroke-width="1.5"/>
+    <circle cx="${barX + 28}" cy="${barY + barH / 2}" r="6" fill="${t.ink}"/>
+    <text x="${barX + 46}" y="${barY + barH / 2 + 8}" font-size="22" font-weight="700" fill="${t.ink}">${esc(c.verify.name)}</text>
+    <text x="${barX + 210}" y="${barY + barH / 2 + 6}" font-size="${size}" fill="${t.sub}">${esc(c.verify.files)}</text>
+
+    <text x="60" y="${Hc - 56}" font-size="14" fill="${t.dim}">${esc(c.footerLeft)}</text>
+    <text x="60" y="${Hc - 32}" font-size="14" fill="${t.dim}">${esc(c.footerRight)}</text>
+  </g>
+</svg>
+`;
+}
+
+kiitMount(buildSvg(CONFIG), "kiit-flow-diagram.svg");
+</script>

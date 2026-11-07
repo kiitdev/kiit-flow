@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Kiit work item card</title>
+<!--
+  Work item card template (1280x520). Edit CONFIG below, then either:
+    1. open this file in a browser and press "Download SVG", or
+    2. export from the command line: ./banner.sh work-item.html kiit-flow-work-item.svg
+-->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
+  #banner svg { width: 100%; max-width: 1280px; height: auto; display: block; }
+  button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+
+<script src="kiit-svg.js"></script>
+<script>
+// ---- CONFIG: change these for each project ---------------------------------
+const CONFIG = {
+  label: "Work item",
+  location: "_kiit/flow/",
+  folder: "260928-kiit-codes-fix-1234",
+  groups: [
+    {
+      label: "stage files, written in order",
+      files: [
+        { name: "01-change.md", icon: "pencil", color: "#007FFF", purpose: "The change: requirements and acceptance criteria", by: ["begin", "go"] },
+        { name: "02-design.md", icon: "square", color: "#7C4DFF", purpose: "The design: approach, files, how to test it", by: ["design", "revise"] },
+        { name: "03-phases.md", icon: "steps", color: "#0FA3A3", purpose: "The plan: numbered phases and steps", by: ["design", "revise"] },
+        { name: "04-review.md", icon: "magnifier", color: "#E8590C", purpose: "The latest review: stage, verdict, findings", by: ["review"] },
+      ],
+    },
+    {
+      label: "living files, updated as the work goes on",
+      files: [
+        { name: "_status.md", icon: "checklist", color: "#1B8A5A", purpose: "Where each step stands: todo, done, blocked, skip", by: ["design", "revise", "update", "resume"] },
+        { name: "_history.md", icon: "clock", color: "#6B7A99", purpose: "Append-only log of what ran and when", by: ["every command"] },
+      ],
+    },
+  ],
+  theme: KIIT_THEME,
+};
+// ---------------------------------------------------------------------------
+
+// A small white pictogram for a badge, centered on (0,0)
+const GLYPHS = {
+  pencil:    '<polygon points="-5,5 -4,1.5 2.5,-5 5,-2.5 -1.5,4" fill="#FFFFFF"/>',
+  square:    '<polygon points="-5,5 5,5 -5,-5" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linejoin="round"/>',
+  steps:     '<polyline points="-5,5 -5,2 -2,2 -2,-1 1,-1 1,-4 5,-4" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>',
+  magnifier: '<circle cx="-1" cy="-1" r="3.3" fill="none" stroke="#FFFFFF" stroke-width="1.7"/><line x1="1.6" y1="1.6" x2="5" y2="5" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round"/>',
+  checklist: '<polyline points="-5,-2 -3.5,0 -1,-4" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><line x1="1.5" y1="-2" x2="5" y2="-2" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/><line x1="-5" y1="3.5" x2="5" y2="3.5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>',
+  clock:     '<circle cx="0" cy="0" r="5" fill="none" stroke="#FFFFFF" stroke-width="1.5"/><polyline points="0,-2.8 0,0 2.4,1.6" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+};
+
+// The file icon with text lines, and a round badge for what the file is
+function fileIcon(x, y, kind, color, t) {
+  return `<path d="M${x} ${y} H${x + 15} L${x + 22} ${y + 7} V${y + 28} H${x} Z" fill="${t.card}" stroke="${color}" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M${x + 15} ${y} V${y + 7} H${x + 22}" fill="none" stroke="${color}" stroke-width="1.6" stroke-linejoin="round"/>
+    <line x1="${x + 4}" y1="${y + 12}" x2="${x + 15}" y2="${y + 12}" stroke="${color}" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="${x + 4}" y1="${y + 17}" x2="${x + 12}" y2="${y + 17}" stroke="${color}" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="${x + 4}" y1="${y + 22}" x2="${x + 9}" y2="${y + 22}" stroke="${color}" stroke-width="1.4" stroke-linecap="round"/>
+    <circle cx="${x + 21}" cy="${y + 26}" r="10" fill="${color}" stroke="${t.card}" stroke-width="2"/>
+    <g transform="translate(${x + 21} ${y + 26})">${GLYPHS[kind] || ""}</g>`;
+}
+
+function buildSvg(c) {
+  const t = c.theme;
+  // size the card to its content: the commands sit in one column right after the longest description
+  const files = c.groups.flatMap((g) => g.files);
+  const chipW = (cmd) => Math.round(cmd.length * 7.8 + 22);
+  const chipsW = (f) => f.by.reduce((sum, cmd) => sum + chipW(cmd), 0) + 8 * (f.by.length - 1);
+  const nameX = 114, purposeX = Math.round(nameX + Math.max(...files.map((f) => f.name.length)) * 10.2 + 28);
+  const pillsX = Math.round(purposeX + Math.max(...files.map((f) => f.purpose.length)) * 8.4 + 28);
+  const cardX = 48, cardRight = pillsX + Math.max(...files.map(chipsW)) + 24;
+  const W = Math.max(cardRight + 48, Math.round(48 + (c.location + c.folder + "/").length * 14.4 + 48));
+  const rowH = 50, labelH = 34, groupGap = 14, cardTop = 104, pad = 16;
+  const cardH = pad + c.groups.reduce((h, g) => h + labelH + g.files.length * rowH, 0) + groupGap * (c.groups.length - 1);
+  const vpad = 20;                              // space between the frame and the content, top and bottom
+  const H = cardTop + cardH + 36 + 2 * vpad;
+  const bg = kiitBackground(t, W, H);
+
+  let y = cardTop + pad;
+  const parts = [];
+  c.groups.forEach((g, gi) => {
+    if (gi > 0) {
+      y += groupGap;
+      parts.push(`<line x1="48" y1="${y - 8}" x2="${cardRight}" y2="${y - 8}" stroke="${t.rule}"/>`);
+    }
+    parts.push(`<text x="72" y="${y + 20}" font-size="12" font-weight="700" fill="${t.dim}" letter-spacing="2">${esc(g.label.toUpperCase())}</text>`);
+    y += labelH;
+    g.files.forEach((f, fi) => {
+      const iconColor = f.color || (f.name.startsWith("_") ? t.dim : t.blue);
+      parts.push(fileIcon(72, y + 10, f.icon, iconColor, t));
+      parts.push(`<text x="114" y="${y + 31}" font-size="17" font-weight="700" fill="${t.ink}">${esc(f.name)}</text>`);
+      parts.push(`<text x="${purposeX}" y="${y + 31}" font-size="14" fill="${t.sub}">${esc(f.purpose)}</text>`);
+      // the commands that write it, as chips in one column
+      let x = pillsX;
+      f.by.forEach((cmd) => {
+        const w = chipW(cmd);
+        parts.push(`<rect x="${x}" y="${y + 13}" width="${w}" height="26" rx="13" fill="${t.paper}" stroke="${t.border}"/>
+    <text x="${x + w / 2}" y="${y + 31}" font-size="13" font-weight="700" fill="${t.blue}" text-anchor="middle">${esc(cmd)}</text>`);
+        x += w + 8;
+      });
+      if (fi < g.files.length - 1) parts.push(`<line x1="72" y1="${y + rowH}" x2="${cardRight - 24}" y2="${y + rowH}" stroke="${t.rule}" stroke-dasharray="3 4"/>`);
+      y += rowH;
+    });
+  });
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.label)}: ${esc(c.folder)}">
+  <defs>
+    ${bg.defs}
+  </defs>
+
+  ${bg.body}
+
+  <g font-family="${KIIT_FONT}" transform="translate(0 ${vpad})">
+    <text x="48" y="46" font-size="26" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
+    <text x="48" y="80" font-size="24" font-weight="700" fill="${t.dim}">${esc(c.location)}<tspan fill="${t.blue}">${esc(c.folder)}</tspan>/</text>
+
+    <rect x="${cardX}" y="${cardTop}" width="${cardRight - cardX}" height="${cardH}" rx="12" fill="${t.card}" stroke="${t.border}" stroke-width="1.5"/>
+    ${parts.join("\n    ")}
+  </g>
+</svg>
+`;
+}
+
+kiitMount(buildSvg(CONFIG), "kiit-flow-work-item.svg");
+</script>

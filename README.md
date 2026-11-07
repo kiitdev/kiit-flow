@@ -3,9 +3,9 @@
   <img src="./assets/kiit-flow-banner.svg" alt="kiit-flow" align="center" />
 </h1>
 
-**A fast or structured multi-project agentic skills framework for SDLC**
+**A fast or flow based skills framework for coding with AI**
 
-A fast or structured multi-project agentic skills framework and spec-driven development (SDD) approach for AI coding assistants.
+Skills for AI coding assistants that take a change from a ticket to a pull request. Run `go` for a small change in one pass, or the flow for a medium or large one: design, review, implement, and verify. Every change lives in plain markdown files, so a session can stop and another can pick up from the files, in one repo or across several.
 
 [![License](https://img.shields.io/github/license/kiitdev/kiit-flow)](./LICENSE)
 
@@ -13,7 +13,7 @@ Part of [Kiit](https://www.kiit.dev)
 
 </div>
 
-<!-- Overview diagram goes here: ./assets/kiit-flow-overview.png -->
+![A change takes Fast or Flow, then verify](./assets/kiit-flow-diagram.svg)
 
 ## 📚 Table of Contents
 
@@ -110,14 +110,7 @@ workspace/
 
 The folder name is the date, project, type, and ticket. Files appear as the commands run, so a new work item has only `01-change.md` and `_history.md`. `go` writes just those two.
 
-| # | File | Purpose | Written by |
-|---:|---|---|---|
-| 1 | `01-change.md` | The change: requirements, acceptance criteria, notes, and open questions | `begin` and `go`. `design` and `revise` add answers to the open questions |
-| 2 | `02-design.md` | The design: approach, files, reuse, constraints, and how to test it | `design` and `revise` |
-| 3 | `03-phases.md` | The plan: numbered phases and steps | `design` and `revise` |
-| 4 | `04-review.md` | The latest review: its stage, verdict, findings, and the response to them | `review`. `revise` adds the response |
-| 5 | `_status.md` | Where each step stands: `todo`, `done`, `blocked`, or `skip` | `design` and `revise` create and change it. `update` and `resume` update it |
-| 6 | `_history.md` | An append-only log of what ran and when | every command except `help` and `recent` |
+![A work item: its files, what each is for, and which commands write it](./assets/kiit-flow-work-item.svg)
 
 The numbered files are stage artifacts, written in order. The files that start with an underscore change as the work goes on.
 
