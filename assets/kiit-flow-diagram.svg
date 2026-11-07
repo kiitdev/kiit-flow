@@ -9,9 +9,9 @@
   <g clip-path="url(#frame)">
     <rect width="1040" height="1004" fill="#E8F1FF"/>
     <rect width="1040" height="1004" fill="url(#grid)"/>
-    <rect x="0" y="0" width="8" height="1004" fill="#007FFF"/>
   </g>
-  <rect x="0.5" y="0.5" width="1039" height="1003" rx="20" fill="none" stroke="#B7CDEE"/>
+  <path d="M 20 6 H 1020 A 14 14 0 0 1 1034 20 V 984 A 14 14 0 0 1 1020 998 H 20" fill="none" stroke="#007FFF" stroke-width="12"/>
+  <path d="M 20 6 A 14 14 0 0 0 6 20 V 984 A 14 14 0 0 0 20 998" fill="none" stroke="#D9480F" stroke-width="12"/>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
     <text x="60" y="46" font-size="26" font-weight="700" fill="#111827">Workflow</text>

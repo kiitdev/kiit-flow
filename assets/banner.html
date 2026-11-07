@@ -45,7 +45,7 @@ const CONFIG = {
     footer: "",                   // optional line under the card
   },
   theme: {
-    paper: "#E8F1FF", grid: "#C4D8F6", frame: "#B7CDEE",
+    paper: "#E8F1FF", grid: "#C4D8F6", frame: "#007FFF", frameWidth: 12,   // the outline, in the brand blue. The left edge uses the highlight
     blue: "#007FFF",              // blueprint blue
     ink: "#111827", sub: "#4B5563", dim: "#6B7A99",
     highlight: "#D9480F",         // the steps line
@@ -91,6 +91,10 @@ function buildSvg(c) {
     ? `\n    <text x="1200" y="${top + h + 26}" font-size="14" fill="${t.dim}" text-anchor="end">${esc(c.card.footer)}</text>`
     : "";
 
+  const f = t.frameWidth, o = f / 2, r = 20 - o;          // outline inset and corner radius
+  const leftEdge = `M 20 ${o} A ${r} ${r} 0 0 0 ${o} 20 V ${320 - 20} A ${r} ${r} 0 0 0 20 ${320 - o}`;
+  const rest = `M 20 ${o} H ${1280 - 20} A ${r} ${r} 0 0 1 ${1280 - o} 20 V ${320 - 20} A ${r} ${r} 0 0 1 ${1280 - 20} ${320 - o} H 20`;
+
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="${esc(full)} — ${esc(c.tagline)}">
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
@@ -110,9 +114,9 @@ function buildSvg(c) {
   <g clip-path="url(#frame)">
     <rect width="1280" height="320" fill="${t.paper}"/>
     <rect width="1280" height="320" fill="url(#grid)"/>
-    <rect x="0" y="0" width="8" height="320" fill="${t.blue}"/>
   </g>
-  <rect x="0.5" y="0.5" width="1279" height="319" rx="20" fill="none" stroke="${t.frame}"/>
+  <path d="${rest}" fill="none" stroke="${t.frame}" stroke-width="${f}"/>
+  <path d="${leftEdge}" fill="none" stroke="${t.highlight}" stroke-width="${f}"/>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
     <text x="84" y="166" font-size="${titleSize}" font-weight="700" fill="${t.ink}" letter-spacing="-3" textLength="${titleWidth}" lengthAdjust="spacing"><tspan fill="${t.blue}">${esc(c.brand)}</tspan>-${esc(c.name)}</text>

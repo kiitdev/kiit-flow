@@ -69,7 +69,15 @@ function fileIcon(x, y, kind, color, t) {
 }
 
 function buildSvg(c) {
-  const t = c.theme, W = 1280;
+  const t = c.theme;
+  // size the card to its content: the commands sit in one column right after the longest description
+  const files = c.groups.flatMap((g) => g.files);
+  const chipW = (cmd) => Math.round(cmd.length * 7.8 + 22);
+  const chipsW = (f) => f.by.reduce((sum, cmd) => sum + chipW(cmd), 0) + 8 * (f.by.length - 1);
+  const nameX = 114, purposeX = Math.round(nameX + Math.max(...files.map((f) => f.name.length)) * 10.2 + 28);
+  const pillsX = Math.round(purposeX + Math.max(...files.map((f) => f.purpose.length)) * 8.4 + 28);
+  const cardX = 48, cardRight = pillsX + Math.max(...files.map(chipsW)) + 24;
+  const W = Math.max(cardRight + 48, Math.round(48 + (c.location + c.folder + "/").length * 14.4 + 48));
   const rowH = 50, labelH = 34, groupGap = 14, cardTop = 104, pad = 16;
   const cardH = pad + c.groups.reduce((h, g) => h + labelH + g.files.length * rowH, 0) + groupGap * (c.groups.length - 1);
   const H = cardTop + cardH + 36;
@@ -80,7 +88,7 @@ function buildSvg(c) {
   c.groups.forEach((g, gi) => {
     if (gi > 0) {
       y += groupGap;
-      parts.push(`<line x1="48" y1="${y - 8}" x2="1232" y2="${y - 8}" stroke="${t.rule}"/>`);
+      parts.push(`<line x1="48" y1="${y - 8}" x2="${cardRight}" y2="${y - 8}" stroke="${t.rule}"/>`);
     }
     parts.push(`<text x="72" y="${y + 20}" font-size="12" font-weight="700" fill="${t.dim}" letter-spacing="2">${esc(g.label.toUpperCase())}</text>`);
     y += labelH;
@@ -88,17 +96,16 @@ function buildSvg(c) {
       const iconColor = f.color || (f.name.startsWith("_") ? t.dim : t.blue);
       parts.push(fileIcon(72, y + 10, f.icon, iconColor, t));
       parts.push(`<text x="114" y="${y + 31}" font-size="17" font-weight="700" fill="${t.ink}">${esc(f.name)}</text>`);
-      parts.push(`<text x="290" y="${y + 31}" font-size="14" fill="${t.sub}">${esc(f.purpose)}</text>`);
-      // the commands that write it, as chips from the right edge
-      let right = 1208;
-      [...f.by].reverse().forEach((cmd) => {
-        const w = Math.round(cmd.length * 7.8 + 22);
-        right -= w;
-        parts.push(`<rect x="${right}" y="${y + 13}" width="${w}" height="26" rx="13" fill="${t.paper}" stroke="${t.border}"/>
-    <text x="${right + w / 2}" y="${y + 31}" font-size="13" font-weight="700" fill="${t.blue}" text-anchor="middle">${esc(cmd)}</text>`);
-        right -= 8;
+      parts.push(`<text x="${purposeX}" y="${y + 31}" font-size="14" fill="${t.sub}">${esc(f.purpose)}</text>`);
+      // the commands that write it, as chips in one column
+      let x = pillsX;
+      f.by.forEach((cmd) => {
+        const w = chipW(cmd);
+        parts.push(`<rect x="${x}" y="${y + 13}" width="${w}" height="26" rx="13" fill="${t.paper}" stroke="${t.border}"/>
+    <text x="${x + w / 2}" y="${y + 31}" font-size="13" font-weight="700" fill="${t.blue}" text-anchor="middle">${esc(cmd)}</text>`);
+        x += w + 8;
       });
-      if (fi < g.files.length - 1) parts.push(`<line x1="72" y1="${y + rowH}" x2="1208" y2="${y + rowH}" stroke="${t.rule}" stroke-dasharray="3 4"/>`);
+      if (fi < g.files.length - 1) parts.push(`<line x1="72" y1="${y + rowH}" x2="${cardRight - 24}" y2="${y + rowH}" stroke="${t.rule}" stroke-dasharray="3 4"/>`);
       y += rowH;
     });
   });
@@ -114,7 +121,7 @@ function buildSvg(c) {
     <text x="48" y="46" font-size="26" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
     <text x="48" y="80" font-size="24" font-weight="700" fill="${t.dim}">${esc(c.location)}<tspan fill="${t.blue}">${esc(c.folder)}</tspan>/</text>
 
-    <rect x="48" y="${cardTop}" width="1184" height="${cardH}" rx="12" fill="${t.card}" stroke="${t.border}" stroke-width="1.5"/>
+    <rect x="${cardX}" y="${cardTop}" width="${cardRight - cardX}" height="${cardH}" rx="12" fill="${t.card}" stroke="${t.border}" stroke-width="1.5"/>
     ${parts.join("\n    ")}
   </g>
 </svg>

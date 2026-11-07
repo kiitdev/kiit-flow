@@ -17,9 +17,9 @@
   <g clip-path="url(#frame)">
     <rect width="1280" height="320" fill="#E8F1FF"/>
     <rect width="1280" height="320" fill="url(#grid)"/>
-    <rect x="0" y="0" width="8" height="320" fill="#007FFF"/>
   </g>
-  <rect x="0.5" y="0.5" width="1279" height="319" rx="20" fill="none" stroke="#B7CDEE"/>
+  <path d="M 20 6 H 1260 A 14 14 0 0 1 1274 20 V 300 A 14 14 0 0 1 1260 314 H 20" fill="none" stroke="#007FFF" stroke-width="12"/>
+  <path d="M 20 6 A 14 14 0 0 0 6 20 V 300 A 14 14 0 0 0 20 314" fill="none" stroke="#D9480F" stroke-width="12"/>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
     <text x="84" y="166" font-size="104" font-weight="700" fill="#111827" letter-spacing="-3" textLength="535" lengthAdjust="spacing"><tspan fill="#007FFF">kiit</tspan>-flow</text>

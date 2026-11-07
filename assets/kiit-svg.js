@@ -3,7 +3,7 @@
 // Export from the command line with: ./banner.sh <template>.html <out>.svg
 
 const KIIT_THEME = {
-  paper: "#E8F1FF", grid: "#C4D8F6", frame: "#B7CDEE",
+  paper: "#E8F1FF", grid: "#C4D8F6", frame: "#007FFF", frameWidth: 12,   // the outline, in the brand blue. The left edge uses the highlight
   blue: "#007FFF",              // blueprint blue
   ink: "#111827", sub: "#4B5563", dim: "#6B7A99",
   highlight: "#D9480F",         // the fast path and other emphasis
@@ -19,6 +19,9 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 
 // Graph-paper background with the blue bar and a thin frame. Returns {defs, body}.
 function kiitBackground(t, w, h) {
+  const f = t.frameWidth, o = f / 2, r = 20 - o;          // outline inset and corner radius
+  const leftEdge = `M 20 ${o} A ${r} ${r} 0 0 0 ${o} 20 V ${h - 20} A ${r} ${r} 0 0 0 20 ${h - o}`;
+  const rest = `M 20 ${o} H ${w - 20} A ${r} ${r} 0 0 1 ${w - o} 20 V ${h - 20} A ${r} ${r} 0 0 1 ${w - 20} ${h - o} H 20`;
   return {
     defs: `<pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="${t.grid}" stroke-width="1"/>
@@ -27,9 +30,9 @@ function kiitBackground(t, w, h) {
     body: `<g clip-path="url(#frame)">
     <rect width="${w}" height="${h}" fill="${t.paper}"/>
     <rect width="${w}" height="${h}" fill="url(#grid)"/>
-    <rect x="0" y="0" width="8" height="${h}" fill="${t.blue}"/>
   </g>
-  <rect x="0.5" y="0.5" width="${w - 1}" height="${h - 1}" rx="20" fill="none" stroke="${t.frame}"/>`,
+  <path d="${rest}" fill="none" stroke="${t.frame}" stroke-width="${f}"/>
+  <path d="${leftEdge}" fill="none" stroke="${t.highlight}" stroke-width="${f}"/>`,
   };
 }
 
