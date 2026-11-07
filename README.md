@@ -95,6 +95,8 @@ The `flow.work_items` setting in `kiit.json` changes the location. The full layo
 
 Flow reads `.claude/kiit/kiit.json` in your workspace. It lists the ticket systems, the projects, and any named resources, and has a section for flow's own settings.
 
+Flow works from a workspace that holds one or more projects. For a single project, list it with a path of `.`.
+
 [`shared/kiit.example.json`](./shared/kiit.example.json) shows the shape. Each key is described in [`shared/shared.md`](./shared/shared.md#workspace-and-config).
 
 ## Requirements
