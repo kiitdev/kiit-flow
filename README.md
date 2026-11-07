@@ -13,7 +13,7 @@ Part of [Kiit](https://www.kiit.dev)
 
 </div>
 
-<!-- Overview diagram goes here: ./assets/kiit-flow-overview.png -->
+![A change takes Fast or Flow, then verify](./assets/kiit-flow-diagram.svg)
 
 ## 📚 Table of Contents
 
@@ -109,6 +109,8 @@ workspace/
 ```
 
 The folder name is the date, project, type, and ticket. Files appear as the commands run, so a new work item has only `01-change.md` and `_history.md`. `go` writes just those two.
+
+![A work item: its files, what each is for, and which commands write it](./assets/kiit-flow-work-item.svg)
 
 | # | File | Purpose | Written by |
 |---:|---|---|---|

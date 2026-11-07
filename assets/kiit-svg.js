@@ -7,6 +7,7 @@ const KIIT_THEME = {
   blue: "#007FFF",              // blueprint blue
   ink: "#111827", sub: "#4B5563", dim: "#6B7A99",
   highlight: "#D9480F",         // the fast path and other emphasis
+  fastTint: "#FFF3EA", fastBorder: "#F0B896",   // the fast path column
   sheen: "#BFE0FF",
   card: "#F6FAFF", border: "#8FB0E3", rule: "#C4D8F6",
   done: "#1B8A5A", todo: "#C26A00", blocked: "#C0392B", skip: "#8A94A8",
