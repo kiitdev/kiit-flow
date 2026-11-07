@@ -66,7 +66,6 @@ One folder per unit of work, inside `flow.work_items`:
 ├── 04-review.md   # findings and verdict, optional (review)
 ├── _status.md     # where each step stands (design, update)
 ├── _record.md     # append-only table of what happened
-├── _summary.md    # PR title and body (verify)
 └── _files/
     ├── input/
     └── output/
@@ -103,6 +102,98 @@ An append-only table of what happened:
 4. The note is one short line: what ran and the outcome.
    - Write `|` in a note as `/`
 5. Rows are never edited or removed. A later row corrects a mistake.
+
+## Resolve the work item
+The argument is a folder name, or a prefix that matches one folder in `flow.work_items`.
+A prefix that matches several: list them and stop.
+
+No argument: use the folder that holds the most recently modified file. Folder times are
+unreliable. This lists work items newest first, one per line. The default is the first:
+
+```sh
+cd {work_items} && find . -mindepth 2 -type f ! -name .DS_Store -exec stat -f '%m %N' {} + \
+  | sort -rn | awk '{split($2,p,"/"); if(!seen[p[2]]++) print p[2]}'
+```
+
+`stat -f` is macOS. On Linux use `stat -c '%Y %n'`. No work items: `error: no work items`,
+and suggest `/flow-begin`.
+
+Every skill except `begin`, `help` and `recent` tells the user which work item it picked.
+
+## Read a ticket
+To get a ticket's title, labels and description:
+
+1. GitHub: `gh issue view {id} --repo {owner}/{repo} --json title,labels,body`
+   - `owner` is from the ticket system, `repo` from the URL or the project
+2. Any other URL (Jira, Linear, ...): fetch the page and read its title and fields
+3. It fails (login, no network), or the ticket is only a key like `ABC-123`: say so, go on
+
+## 03-phases.md
+Numbered phases, each with numbered steps. A step is small enough to implement and check
+on its own. Steps are numbered `{phase}.{step}` because other skills address them by number.
+`remove` puts `[skipped]` after the number of a step it skips.
+
+```markdown
+# Phases: {title}
+
+## Phase 1: {name}
+1.1 {step}
+1.2 {step}
+
+## Phase 2: {name}
+2.1 {step}
+```
+
+## _status.md
+One line per step, under the phase headings of `03-phases.md`:
+
+```markdown
+# Status: {title}
+
+## Phase 1: {name}
+1.1 done | Move sinks to kiit.logs.sinks
+1.2 todo | Move policies to kiit.logs.policies
+1.3 blocked | Move internals | Console expect doesn't exist in commonMain
+1.4 skip | Add trace methods | superseded by 2.3
+```
+
+`{N.M} {status} | {short title}`, plus a reason as a third field for `blocked` and `skip`.
+
+| Status | Meaning |
+|---|---|
+| `todo` | not done yet |
+| `done` | implemented and its check passed |
+| `blocked` | can't be done as designed. The reason says what happened and what was assumed |
+| `skip` | deliberately not done. The reason says why |
+
+1. Step numbers match `03-phases.md` exactly.
+   - Short titles, about 60 characters at most, with no history notes
+2. A `skip` step is not run, is not a gap, and counts as finished.
+3. Only `design` creates the file.
+   - `update` and `resume` change `todo` to `done` or `blocked`
+   - `remove` changes steps to `skip`
+   - No skill changes a `done` step
+
+## Review gate
+Applies when `04-review.md` exists and its verdict is `NEEDS_CHANGES`.
+
+The review is **open** while any blocker or major finding is missing from its `## Response`
+section, or is marked `open` there. When every one is `applied` or `declined`, it is **closed**.
+
+1. Closed: say so and go on.
+2. Open: tell the user and ask whether to continue or re-run `/flow-design`. Wait.
+
+An `APPROVE` verdict, or no `04-review.md`, needs no gate. `design` writes the `## Response`.
+
+## Blocked gate
+Applies when `_status.md` has a `blocked` step. For each one, show the step and its reason.
+Ask whether the blocker is resolved, and wait. The answer is one of:
+
+1. Re-run `/flow-design` with the new information.
+2. Continue with a deviation the user states.
+3. Continue because it is already fixed.
+
+For 2 and 3, set the step back to `todo` and add a record row with the step and the answer.
 
 ## Rules for every skill
 1. Never run git write commands. Read-only git is fine.

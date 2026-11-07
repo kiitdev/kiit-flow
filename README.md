@@ -69,9 +69,12 @@ Every command prints its own usage with `--help`, for example `/kiit-flow-begin 
 | # | Command | Description |
 |---:|---|---|
 | 1 | `/kiit-flow-begin` | Create a work item from a ticket or a description. |
-| 2 | `/kiit-flow-help` | Show the commands, or the usage of one. |
+| 2 | `/kiit-flow-design` | Write or update the design, phases, and status. |
+| 3 | `/kiit-flow-verify` | Run the project's own lint, tests, security, and docs checks. |
+| 4 | `/kiit-flow-recent` | List work items, newest first, one line each. |
+| 5 | `/kiit-flow-help` | Show the commands, or the usage of one. |
 
-Planned, in workflow order: `design`, `review`, `update`, `resume`, `remove`, `verify`, and `recent`.
+Planned, in workflow order: `review`, `update`, `resume`, and `remove`.
 
 ## Work Item
 

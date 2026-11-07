@@ -39,11 +39,9 @@ EXAMPLES:
 2. Decide what the rest is.
    - A ticket is one token: `1234`, `#1234`, `ABC-123` or an issue URL
    - For a URL the id is the last path segment. Anything else is a description
-3. Load the ticket when the project or type is missing and it has a URL or number.
-   - GitHub: `gh issue view {id} --repo {owner}/{repo} --json title,labels`
-   - Other URL (Jira, Linear, ...): fetch the page, read its title and fields
+3. Read the ticket (shared.md) when the project or type is missing and it has a link.
    - A bare number needs a project: the one given, else the one you are in
-   - Load fails (login, no network) or the ticket is `ABC-123`: infer nothing
+   - Nothing could be read: infer nothing
 4. Infer what is missing. Arguments always win.
    - Project: the one whose repo matches a GitHub URL, else the one you are in
    - Else the project the ticket names, as a project name or alias
