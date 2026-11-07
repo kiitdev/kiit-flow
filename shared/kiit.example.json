@@ -15,5 +15,8 @@
     { "name": "app", "path": "./app", "aliases": ["web"] },
     { "name": "api", "path": "./api", "tickets": "jira" }
   ],
-  "flow": { "work_items": "_kiit/flow" }
+  "flow": {
+    "work_items": "_kiit/flow",
+    "review": { "baseline": "standards", "model": "sonnet" }
+  }
 }

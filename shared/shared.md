@@ -52,6 +52,8 @@ A ticket link is `https://github.com/{owner}/{repo}/issues/{id}` for GitHub and 
 | Field | Meaning |
 |---|---|
 | `work_items` | Where work items live. Default `_kiit/flow`. |
+| `review.baseline` | What `flow-review` checks against. Default `standards`. |
+| `review.model` | The model for `independent` reviews. Default: not the session's. |
 
 A name or alias used twice in a list: `error: duplicate {list} name '{x}'`.
 
@@ -60,12 +62,12 @@ One folder per unit of work, inside `flow.work_items`:
 
 ```
 {YYMMDD}-{project}-{type}-{ticket|short-name}/
-├── 01-change.md   # requirements (begin)
+├── 01-change.md   # requirements (begin; design answers open questions)
 ├── 02-design.md   # the design (design)
 ├── 03-phases.md   # numbered phases and steps (design)
-├── 04-review.md   # findings and verdict, optional (review)
+├── 04-review.md   # findings, verdict and stage: plan or code, optional (review)
 ├── _status.md     # where each step stands (design, update)
-├── _record.md     # append-only table of what happened
+├── _history.md     # append-only table of what happened
 └── _files/
     ├── input/
     └── output/
@@ -83,11 +85,11 @@ Numbered files are stage artifacts, written in order. Underscore files are updat
 3. The project is in `01-change.md` (`Project` and `Path` lines).
    - Project names can contain hyphens, so never parse the folder name
 
-## _record.md
+## _history.md
 An append-only table of what happened:
 
 ```markdown
-# Record: {title}
+# History: {title}
 
 | Time | Skill | Note |
 |---|---|---|
@@ -128,10 +130,17 @@ To get a ticket's title, labels and description:
 2. Any other URL (Jira, Linear, ...): fetch the page and read its title and fields
 3. It fails (login, no network), or the ticket is only a key like `ABC-123`: say so, go on
 
+## Changed files
+The files a work item changed in its project, found with read-only git:
+
+1. `git diff --name-only <base>...HEAD`, plus uncommitted changes
+2. `<base>` is the merge base with the remote's default branch
+   - No remote: the uncommitted changes only
+
 ## 03-phases.md
 Numbered phases, each with numbered steps. A step is small enough to implement and check
 on its own. Steps are numbered `{phase}.{step}` because other skills address them by number.
-`remove` puts `[skipped]` after the number of a step it skips.
+Only `design` edits this file.
 
 ```markdown
 # Phases: {title}
@@ -174,6 +183,27 @@ One line per step, under the phase headings of `03-phases.md`:
    - `remove` changes steps to `skip`
    - No skill changes a `done` step
 
+## Run steps
+How `update` and `resume` carry out steps. For each step, in order:
+
+1. Implement it in the project repo, following the design and the project's conventions.
+2. Run the narrowest check that covers it (compile, or the relevant test), if one exists.
+3. Set it to `done` in `_status.md` only after the check passes.
+
+Stop right away if any of these happens:
+1. The design doesn't match the code (a file, API or assumption isn't there).
+2. A step can't be done as written.
+3. A check fails and the fix isn't clearly inside the step.
+
+Then:
+1. Set the step to `blocked` in `_status.md`, with a reason.
+   - Say what happened and what the design assumed
+   - `1.3 blocked | Move internals | Console expect missing in commonMain`
+2. Add a history row with the step and the reason.
+3. Tell the user, and ask what to do: re-run `/flow-design` with the new information, or
+   approve a specific deviation.
+4. Never edit `02-design.md` or `03-phases.md`, and never work around a blocker.
+
 ## Review gate
 Applies when `04-review.md` exists and its verdict is `NEEDS_CHANGES`.
 
@@ -193,7 +223,7 @@ Ask whether the blocker is resolved, and wait. The answer is one of:
 2. Continue with a deviation the user states.
 3. Continue because it is already fixed.
 
-For 2 and 3, set the step back to `todo` and add a record row with the step and the answer.
+For 2 and 3, set the step back to `todo` and add a history row with the step and the answer.
 
 ## Rules for every skill
 1. Never run git write commands. Read-only git is fine.

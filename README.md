@@ -70,11 +70,13 @@ Every command prints its own usage with `--help`, for example `/kiit-flow-begin 
 |---:|---|---|
 | 1 | `/kiit-flow-begin` | Create a work item from a ticket or a description. |
 | 2 | `/kiit-flow-design` | Write or update the design, phases, and status. |
-| 3 | `/kiit-flow-verify` | Run the project's own lint, tests, security, and docs checks. |
-| 4 | `/kiit-flow-recent` | List work items, newest first, one line each. |
-| 5 | `/kiit-flow-help` | Show the commands, or the usage of one. |
+| 3 | `/kiit-flow-review` | Review the plan or the code, and write a verdict. |
+| 4 | `/kiit-flow-resume` | Pick up a work item where it stopped and continue. |
+| 5 | `/kiit-flow-verify` | Run the project's own lint, tests, security, and docs checks. |
+| 6 | `/kiit-flow-recent` | List work items, newest first, one line each. |
+| 7 | `/kiit-flow-help` | Show the commands, or the usage of one. |
 
-Planned, in workflow order: `review`, `update`, `resume`, and `remove`.
+Planned, in workflow order: `update` and `remove`.
 
 ## Work Item
 
@@ -86,7 +88,7 @@ workspace/
 ├── _kiit/flow/
 │   └── 260928-kiit-codes-fix-1234/
 │       ├── 01-change.md
-│       └── _record.md
+│       └── _history.md
 └── kiit-codes/
 ```
 

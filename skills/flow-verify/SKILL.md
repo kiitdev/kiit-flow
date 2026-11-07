@@ -31,15 +31,13 @@ EXAMPLES:
 ## Steps
 1. Resolve the work item and project (shared.md). Tell the user which.
    - Names like `lint` are checks. The first other argument is the work item
-2. Find the changed files in the project with read-only git.
-   - `git diff --name-only <base>...HEAD`, plus uncommitted changes
-   - `<base>`: the merge base with the remote's default branch, else none
+2. Find the changed files in the project (Changed files, shared.md).
 3. Run each check below that was asked for, all by default.
    - Run every check even when an earlier one fails
    - Save the output to `_files/output/verify.log`
 4. Report each check as `pass`, `fail` or `skipped`, with the reason for the last two.
    - No command in the project: `skipped`. Never invent a command
-5. Add a row to `_record.md` (shared.md) with the results.
+5. Add a row to `_history.md` (shared.md) with the results.
 6. Print the report, then the next step.
    - Nothing failed: the work is ready for a PR
    - Failed: suggest `/flow-update` or `/flow-resume`, then verify again
@@ -65,6 +63,6 @@ The project's own setup is the source of truth. Run its commands from the folder
 4. Docs is `fail` only when a doc the change touched is now wrong. Otherwise `pass`.
 
 ## Rules
-1. Write only `_files/output/verify.log` and a row in `_record.md`.
+1. Write only `_files/output/verify.log` and a row in `_history.md`.
 2. Never change project code or fix a failure. That is for `/flow-update`.
 3. Never print a secret, in the report or in the log.

@@ -30,6 +30,14 @@ Every `SKILL.md` has the same parts, in this order, and nothing else unless need
 
 A skill that writes a file adds `## Template` between Steps and Rules.
 
+A skill may add named sections after Steps, such as `## Re-runs`. Steps must point to each one.
+
+The purpose line and the Usage line are different on purpose.
+1. The purpose line is for someone reading the skill file.
+   - It says what the skill does, and what it does not do
+2. The Usage line is a short summary for the command line.
+   - It is what `--help` prints
+
 | Frontmatter | Value |
 |---|---|
 | `description` | One line. `flow-help` shows it. |
@@ -43,7 +51,7 @@ The `## Usage` block is the only help text. `flow-help` and `--help` print it.
 ```
 USAGE: /flow-begin [project] [type] {ticket|description}
 
-  Create a work item: a folder with 01-change.md and _record.md.
+  Create a work item: a folder with 01-change.md and _history.md.
 
 
 ARGUMENTS:
@@ -85,7 +93,7 @@ EXAMPLES:
 ## Behavior
 1. Stop and ask when a choice changes the result. Don't guess.
 2. Report outcomes as they are. A skipped check is skipped, a failed one is failed.
-3. Add one row to `_record.md` per run, except `help` and `recent`.
+3. Add one row to `_history.md` per run, except `help` and `recent`.
 4. Never run git write commands. The user commits and pushes.
 5. Write only inside the work item folder, plus the project repo when code changes.
 
