@@ -1,0 +1,10 @@
+{
+  "tickets": { "base_url": "https://github.com/acme/app/issues" },
+  "projects": {
+    "app": "./app",
+    "api": { "path": "./api" }
+  },
+  "flow": {
+    "paths": { "work_items": "_kiit/flow" }
+  }
+}
