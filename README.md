@@ -56,8 +56,13 @@ cd kiit-flow
 **Run** from the workspace, after restarting your assistant so it loads the skills:
 
 ```text
-/kiit-flow-help
-/kiit-flow-begin https://github.com/acme/app/issues/12
+/kiit-flow-help                                           # list the commands
+/kiit-flow-begin https://github.com/acme/app/issues/12    # create the work item
+/kiit-flow-design                                         # write the design and phases
+/kiit-flow-review                                         # optional: review the plan
+/kiit-flow-revise                                         # change the design, or apply the review
+/kiit-flow-update                                         # implement the phases
+/kiit-flow-verify                                         # lint, tests, security, docs
 ```
 
 `begin` reads the ticket, fills in the project and type, asks you to confirm, and creates the work item.
@@ -65,6 +70,8 @@ cd kiit-flow
 ## Commands
 
 Every command prints its own usage with `--help`, for example `/kiit-flow-begin --help`.
+
+The commands are listed in workflow order. `review`, `revise`, and `update` can repeat in a loop until the work is right. After `verify`, `review code` checks the finished code.
 
 | # | Command | Description |
 |---:|---|---|
