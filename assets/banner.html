@@ -64,7 +64,10 @@ function buildSvg(c) {
   const n = full.length;
   // shrink long names so the title and arrow stay left of the card (x < 760)
   const titleSize = Math.min(104, Math.floor((664 + 3 * n) / (0.6 * n + 0.62)));
-  const titleWidth = Math.round(n * (0.6 * titleSize - 3));   // fixed, so the arrow lines up
+  const advance = 0.6 * titleSize - 3;                        // the step from one letter to the next
+  const titleWidth = Math.round(n * advance);
+  // every letter gets its own x, so no font can push the word under the arrow
+  const letterXs = Array.from({ length: n }, (_, i) => (84 + i * advance).toFixed(1)).join(" ");
   const aw = Math.round(0.62 * titleSize);        // arrow width
   const head = Math.round(0.34 * titleSize);      // length of the pointed head
   const half = Math.round(0.2 * titleSize);       // half the height of the head
@@ -119,7 +122,7 @@ function buildSvg(c) {
   <path d="${leftEdge}" fill="none" stroke="${t.frameLeft}" stroke-width="${f}"/>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
-    <text x="84" y="166" font-size="${titleSize}" font-weight="700" fill="${t.ink}" letter-spacing="-3" textLength="${titleWidth}" lengthAdjust="spacing"><tspan fill="${t.blue}">${esc(c.brand)}</tspan>-${esc(c.name)}</text>
+    <text x="${letterXs}" y="166" font-size="${titleSize}" font-weight="700" fill="${t.ink}"><tspan fill="${t.blue}">${esc(c.brand)}</tspan>-${esc(c.name)}</text>
     <path d="${arrowPath}" fill="url(#sheen)"/>
     <text x="88" y="218" font-size="${tagSize}" fill="${t.sub}">${esc(c.tagline)}</text>
     <text x="88" y="264" font-size="18" font-weight="700" fill="${t.highlight}">${steps}</text>
