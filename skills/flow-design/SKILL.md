@@ -1,7 +1,7 @@
 ---
 description: Write the design, phases and status for a work item.
 argument-hint: "[work-item] [--fresh]"
-order: 2
+order: 3
 disable-model-invocation: true
 ---
 

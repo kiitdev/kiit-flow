@@ -1,7 +1,7 @@
 ---
 description: Revise the design and phases from your text, a review, or a blocked step.
 argument-hint: "[work-item] [text...]"
-order: 4
+order: 5
 disable-model-invocation: true
 ---
 

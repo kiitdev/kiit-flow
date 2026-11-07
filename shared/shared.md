@@ -66,8 +66,8 @@ One folder per unit of work, inside `flow.work_items`:
 ├── 02-design.md   # the design (design, revise)
 ├── 03-phases.md   # numbered phases and steps (design, revise)
 ├── 04-review.md   # findings, verdict and stage: plan or code, optional (review)
-├── _status.md     # where each step stands (design, revise, update)
-├── _history.md     # append-only table of what happened
+├── _status.md     # where each step stands (design, revise, update, resume)
+├── _history.md    # append-only table of what happened
 └── _files/
     ├── input/
     └── output/
@@ -104,6 +104,70 @@ An append-only table of what happened:
 4. The note is one short line: what ran and the outcome.
    - Write `|` in a note as `/`
 5. Rows are never edited or removed. A later row corrects a mistake.
+
+## Identify the change
+Used by `begin` and `go`. The arguments are `[project] [type] {ticket|description}`.
+
+1. Read the leading arguments.
+   - A project name or alias is the project. A type word after it is the type
+   - Either can be missing. The rest is the ticket or description
+2. Decide what the rest is.
+   - A ticket is one token: `1234`, `#1234`, `ABC-123` or an issue URL
+   - For a URL the id is the last path segment. Anything else is a description
+3. Read the ticket (Read a ticket) when the project or type is missing and it has a link.
+   - A bare number needs a project: the one given, else the one you are in
+   - Nothing could be read: infer nothing
+4. Infer what is missing. Arguments always win.
+   - Project: the one whose repo matches a GitHub URL, else the one you are in
+   - Else the project the ticket names, as a project name or alias
+   - Type: a title prefix like `fix:` or `feat(api):`, else the label or type
+   - Labels: bug = fix, enhancement or feature = feat, documentation = docs
+5. Project or type still missing: `error: cannot infer {project|type}`.
+   - Then `valid: {choices}`, and stop
+6. Confirm what was inferred.
+   - Show each value and its source, such as `type: fix (label: bug)`
+   - Ask the user to confirm or correct it, and wait
+   - Skip this for a GitHub issue of the project the working directory is in
+7. Check the project path exists.
+
+The types are `feat fix build chore ci docs perf refactor revert style test`.
+`feature` means `feat`, and `tests` means `test`.
+
+## Create the work item
+Used by `begin` and `go`.
+
+1. Name the folder (Folder name), with today's date.
+   - Folder exists: `error: {name} already exists`. Never overwrite
+2. Create the folder with `_files/input/` and `_files/output/`.
+3. Write `01-change.md` from the template below.
+   - Title: the ticket title, else the description in short, else `ticket {id}`
+   - Ticket: the URL, or the system's link for the id. Link it, don't copy it
+   - Description: the requirements as given, tidied, with no new scope
+   - Anything unclear goes under Open questions
+4. Write `_history.md` with its first row.
+   - Note: `created from ticket {id}` or `created from description`
+
+```markdown
+# {type}: {title}
+
+- **Project:** {project}
+- **Path:** {project path}
+- **Type:** {type}
+- **Ticket:** {link, or none}
+- **Created:** {YYYY-MM-DD}
+
+## Requirements
+<!-- Description: the full requirements. Ticket: leave empty, the ticket is the source of truth. -->
+
+## Acceptance criteria
+<!-- How we know it is done. One checkable statement per line. -->
+
+## Notes
+<!-- Context that is not in the ticket -->
+
+## Open questions
+<!-- Anything unclear -->
+```
 
 ## Resolve the work item
 The argument is a folder name, or a prefix that matches one folder in `flow.work_items`.

@@ -1,7 +1,7 @@
 ---
 description: Cold-start a work item and continue its implementation where it stopped.
 argument-hint: "[work-item] [scope]"
-order: 6
+order: 7
 disable-model-invocation: true
 ---
 
