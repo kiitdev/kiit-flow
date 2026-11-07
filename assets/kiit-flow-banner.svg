@@ -1,30 +1,39 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="kiit-flow — A fast or structured multi-project skills framework">
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="#D6E2F5" stroke-width="1"/>
+      <path d="M32 0H0V32" fill="none" stroke="#C4D8F6" stroke-width="1"/>
     </pattern>
+    <linearGradient id="sheen" gradientUnits="userSpaceOnUse" x1="569" y1="0" x2="633" y2="0" gradientTransform="matrix(1 0 -0.6 1 81 0)">
+      <stop offset="0" stop-color="#007FFF"/>
+      <stop offset="0.3" stop-color="#007FFF"/>
+      <stop offset="0.5" stop-color="#BFE0FF"/>
+      <stop offset="0.7" stop-color="#007FFF"/>
+      <stop offset="1" stop-color="#007FFF"/>
+      <animateTransform attributeName="gradientTransform" type="translate" additive="sum" values="0 0;0 0;128 0;128 0" keyTimes="0;0.15;0.75;1" dur="2.4s" repeatCount="indefinite"/>
+    </linearGradient>
     <clipPath id="frame"><rect width="1280" height="320" rx="20"/></clipPath>
   </defs>
 
   <g clip-path="url(#frame)">
-    <rect width="1280" height="320" fill="#FFFFFF"/>
+    <rect width="1280" height="320" fill="#E8F1FF"/>
     <rect width="1280" height="320" fill="url(#grid)"/>
     <rect x="0" y="0" width="8" height="320" fill="#007FFF"/>
   </g>
-  <rect x="0.5" y="0.5" width="1279" height="319" rx="20" fill="none" stroke="#C9D8F0"/>
+  <rect x="0.5" y="0.5" width="1279" height="319" rx="20" fill="none" stroke="#B7CDEE"/>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
-    <text x="84" y="166" font-size="104" font-weight="700" fill="#111827" letter-spacing="-3"><tspan fill="#007FFF">kiit</tspan>-flow<tspan fill="#007FFF">_<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1.1s" repeatCount="indefinite"/></tspan></text>
+    <text x="84" y="166" font-size="104" font-weight="700" fill="#111827" letter-spacing="-3" textLength="535" lengthAdjust="spacing"><tspan fill="#007FFF">kiit</tspan>-flow</text>
+    <path d="M 633 129.5 H 662 V 114 L 697 135 L 662 156 V 140.5 H 633 Z" fill="url(#sheen)"/>
     <text x="88" y="218" font-size="20" fill="#4B5563">A fast or structured multi-project skills framework</text>
-    <text x="88" y="264" font-size="18" font-weight="700" fill="#D9480F"><tspan>go</tspan><tspan fill="#6B7A99" font-weight="400"> | </tspan>begin → design → review → revise → update → verify</text>
+    <text x="88" y="264" font-size="18" font-weight="700" fill="#D9480F"><tspan>go</tspan><tspan fill="#111827" stroke="#111827" stroke-width="1"> | </tspan>begin<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>design<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>review<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>revise<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>update<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>verify</text>
 
     <g transform="translate(772 39)">
-      <rect width="428" height="242" rx="12" fill="#F4F8FD" stroke="#9DB6DE"/>
+      <rect width="428" height="242" rx="12" fill="#F6FAFF" stroke="#8FB0E3"/>
       <text x="24" y="34" font-size="14" font-weight="700" fill="#007FFF">260928-kiit-codes-fix-1234</text>
-      <line x1="24" y1="48" x2="404" y2="48" stroke="#9DB6DE"/>
+      <line x1="24" y1="48" x2="404" y2="48" stroke="#8FB0E3"/>
       <text x="24" y="70" font-size="14" fill="#6B7A99">stage</text>
       <text x="404" y="70" font-size="14" fill="#6B7A99" text-anchor="end">status</text>
-      <line x1="24" y1="80" x2="404" y2="80" stroke="#C9D8F0" stroke-dasharray="3 4"/>
+      <line x1="24" y1="80" x2="404" y2="80" stroke="#C4D8F6" stroke-dasharray="3 4"/>
       <text x="24" y="104" font-size="16" fill="#111827"><tspan fill="#6B7A99">1. </tspan>begin</text>
       <text x="404" y="104" font-size="16" fill="#1B8A5A" text-anchor="end">done</text>
       <text x="24" y="128" font-size="16" fill="#111827"><tspan fill="#6B7A99">2. </tspan>design</text>
