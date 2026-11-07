@@ -1,7 +1,7 @@
 ---
 description: Review a work item's plan or code and write 04-review.md with a verdict.
 argument-hint: "[work-item] [stage] [resource]"
-order: 3
+order: 4
 disable-model-invocation: true
 ---
 

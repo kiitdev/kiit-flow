@@ -73,17 +73,20 @@ Every command prints its own usage with `--help`, for example `/kiit-flow-begin 
 
 The commands are listed in workflow order. `review`, `revise`, and `update` can repeat in a loop until the work is right. After `verify`, `review code` checks the finished code.
 
+For a small change, `go` skips the design and does it in one pass.
+
 | # | Command | Description |
 |---:|---|---|
 | 1 | `/kiit-flow-begin` | Create a work item from a ticket or a description. |
-| 2 | `/kiit-flow-design` | Write the design, phases, and status for a work item. |
-| 3 | `/kiit-flow-review` | Review the plan or the code, and write a verdict. |
-| 4 | `/kiit-flow-revise` | Revise the design from your text, a review, or a blocked step. |
-| 5 | `/kiit-flow-update` | Implement all phases, a phase, a step, or a range. |
-| 6 | `/kiit-flow-resume` | Pick up a work item where it stopped and continue. |
-| 7 | `/kiit-flow-verify` | Run the project's own lint, tests, security, and docs checks. |
-| 8 | `/kiit-flow-recent` | List work items, newest first, one line each. |
-| 9 | `/kiit-flow-help` | Show the commands, or the usage of one. |
+| 2 | `/kiit-flow-go` | Do a small change in one pass, without a design. |
+| 3 | `/kiit-flow-design` | Write the design, phases, and status for a work item. |
+| 4 | `/kiit-flow-review` | Review the plan or the code, and write a verdict. |
+| 5 | `/kiit-flow-revise` | Revise the design from your text, a review, or a blocked step. |
+| 6 | `/kiit-flow-update` | Implement all phases, a phase, a step, or a range. |
+| 7 | `/kiit-flow-resume` | Pick up a work item where it stopped and continue. |
+| 8 | `/kiit-flow-verify` | Run the project's own lint, tests, security, and docs checks. |
+| 9 | `/kiit-flow-recent` | List work items, newest first, one line each. |
+| 10 | `/kiit-flow-help` | Show the commands, or the usage of one. |
 
 ## Work Item
 
@@ -95,11 +98,26 @@ workspace/
 ├── _kiit/flow/
 │   └── 260928-kiit-codes-fix-1234/
 │       ├── 01-change.md
+│       ├── 02-design.md
+│       ├── 03-phases.md
+│       ├── 04-review.md
+│       ├── _status.md
 │       └── _history.md
 └── kiit-codes/
 ```
 
-The folder name is the date, project, type, and ticket. `begin` creates the first two files, and later commands add the rest.
+The folder name is the date, project, type, and ticket. Files appear as the commands run, so a new work item has only `01-change.md` and `_history.md`. `go` writes just those two.
+
+| # | File | Purpose | Written by |
+|---:|---|---|---|
+| 1 | `01-change.md` | The change: requirements, acceptance criteria, notes, and open questions | `begin` and `go`. `design` and `revise` add answers to the open questions |
+| 2 | `02-design.md` | The design: approach, files, reuse, constraints, and how to test it | `design` and `revise` |
+| 3 | `03-phases.md` | The plan: numbered phases and steps | `design` and `revise` |
+| 4 | `04-review.md` | The latest review: its stage, verdict, findings, and the response to them | `review`. `revise` adds the response |
+| 5 | `_status.md` | Where each step stands: `todo`, `done`, `blocked`, or `skip` | `design` and `revise` create and change it. `update` and `resume` update it |
+| 6 | `_history.md` | An append-only log of what ran and when | every command except `help` and `recent` |
+
+The numbered files are stage artifacts, written in order. The files that start with an underscore change as the work goes on.
 
 The `flow.work_items` setting in `kiit.json` changes the location. The full layout and the file formats are in [`shared/shared.md`](./shared/shared.md).
 
