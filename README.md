@@ -112,15 +112,6 @@ The folder name is the date, project, type, and ticket. Files appear as the comm
 
 ![A work item: its files, what each is for, and which commands write it](./assets/kiit-flow-work-item.svg)
 
-| # | File | Purpose | Written by |
-|---:|---|---|---|
-| 1 | `01-change.md` | The change: requirements, acceptance criteria, notes, and open questions | `begin` and `go`. `design` and `revise` add answers to the open questions |
-| 2 | `02-design.md` | The design: approach, files, reuse, constraints, and how to test it | `design` and `revise` |
-| 3 | `03-phases.md` | The plan: numbered phases and steps | `design` and `revise` |
-| 4 | `04-review.md` | The latest review: its stage, verdict, findings, and the response to them | `review`. `revise` adds the response |
-| 5 | `_status.md` | Where each step stands: `todo`, `done`, `blocked`, or `skip` | `design` and `revise` create and change it. `update` and `resume` update it |
-| 6 | `_history.md` | An append-only log of what ran and when | every command except `help` and `recent` |
-
 The numbered files are stage artifacts, written in order. The files that start with an underscore change as the work goes on.
 
 The `flow.work_items` setting in `kiit.json` changes the location. The full layout and the file formats are in [`shared/shared.md`](./shared/shared.md).
