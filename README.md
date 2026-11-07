@@ -3,7 +3,7 @@
   <img src="./assets/kiit-flow-banner.svg" alt="kiit-flow" align="center" />
 </h1>
 
-**A fast or structured multi-project agentic skills framework for SDLC**
+**A fast or flow based skills framework for coding**
 
 A fast or structured multi-project agentic skills framework and spec-driven development (SDD) approach for AI coding assistants.
 
