@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Kiit weights banner</title>
+<!--
+  Light, medium, and heavy: what each weight of change uses (1100 wide). Edit CONFIG below, then either:
+    1. open this file in a browser and press "Download SVG", or
+    2. export from the command line: ./banner.sh weights.html kiit-flow-weights.svg
+-->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
+  #banner svg { width: 100%; max-width: 1100px; height: auto; display: block; }
+  button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+
+<script src="kiit-svg.js"></script>
+<script>
+// ---- CONFIG: change these for each project ---------------------------------
+const CONFIG = {
+  label: "Choose the weight of a change",
+  levels: [
+    {
+      name: "Light", letter: "L", weight: 1,
+      color: KIIT_THEME.fast, tint: KIIT_THEME.fastTint, border: KIIT_THEME.fastBorder, borderWidth: 2,
+      when: "Clear and low risk, whatever its size.",
+      commands: [["go"], ["verify", "optional"]],
+      files: ["01-change.md", "code"],
+    },
+    {
+      name: "Medium", letter: "M", weight: 2,
+      color: KIIT_THEME.flow, tint: KIIT_THEME.flowTint, border: KIIT_THEME.flowBorder, borderWidth: 3,
+      when: "Needs a design choice or a plan first.",
+      commands: [["begin"], ["design"], ["update"], ["verify"], ["review", "optional"]],
+      files: ["01-change.md", "02-design.md", "03-phases.md", "_status.md", "code"],
+    },
+    {
+      name: "Heavy", letter: "H", weight: 3,
+      color: KIIT_THEME.heavy, tint: KIIT_THEME.heavyTint, border: KIIT_THEME.heavyBorder, borderWidth: 4,
+      when: "Risky or wide. Review it and iterate.",
+      commands: [["begin"], ["design"], ["review"], ["revise"], ["update"], ["verify"], ["review code"]],
+      files: ["01-change.md", "02-design.md", "03-phases.md", "04-review.md", "_status.md", "code"],
+    },
+  ],
+  footer: "_history.md is written by every command. go hands off to Flow when a change needs a design or is risky.",
+  theme: KIIT_THEME,
+};
+// ---------------------------------------------------------------------------
+
+function buildSvg(c) {
+  const t = c.theme, W = 1100, vpad = 20;
+  const margin = 56, gap = 24, n = c.levels.length;
+  const cardW = Math.floor((W - 2 * margin - gap * (n - 1)) / n);
+  const innerW = cardW - 44, cardTop = 84;
+  const chipW = (label) => Math.round(label.length * 7.8 + 22);
+
+  // lay out each card from the top down, then give every card the height of the tallest
+  const laid = c.levels.map((lv, i) => {
+    const x = margin + i * (cardW + gap);
+    const whenLines = lv.when.match(/.{1,31}(\s|$)/g).map((l) => l.trim());
+    let y = cardTop + 100 + whenLines.length * 20;
+    const cmdLabelY = y + 18;
+    y = cmdLabelY + 14;
+    let cx = x + 22, rows = 1;
+    const chips = lv.commands.map(([label, kind]) => {
+      const w = chipW(label);
+      if (cx + w > x + 22 + innerW) { cx = x + 22; y += 34; rows++; }
+      const chip = { label, kind, x: cx, y, w };
+      cx += w + 8;
+      return chip;
+    });
+    y += 34;
+    const fileLabelY = y + 16;
+    const fileStart = fileLabelY + 26;
+    const bottom = fileStart + lv.files.length * 24 + 12;
+    return { lv, x, whenLines, cmdLabelY, chips, fileLabelY, fileStart, bottom };
+  });
+  // line the "files" sections up across the cards
+  const fileLabelAt = Math.max(...laid.map((l) => l.fileLabelY));
+  laid.forEach((l) => {
+    l.fileLabelY = fileLabelAt;
+    l.fileStart = fileLabelAt + 26;
+    l.bottom = l.fileStart + l.lv.files.length * 24 + 12;
+  });
+  const cardH = Math.max(...laid.map((l) => l.bottom)) - cardTop;
+  const Hc = cardTop + cardH + 74, H = Hc + 2 * vpad;
+  const bg = kiitBackground(t, W, H);
+
+  const cards = laid.map(({ lv, x, whenLines, cmdLabelY, chips, fileLabelY, fileStart }) => {
+    const meter = [0, 1, 2].map((k) => {
+      const h = 10 + k * 8, mx = x + cardW - 22 - 3 * 14 - 2 * 5 + k * 19;
+      return `<rect x="${mx}" y="${cardTop + 50 - h}" width="14" height="${h}" rx="3" fill="${k < lv.weight ? lv.color : lv.border}" opacity="${k < lv.weight ? 1 : 0.45}"/>`;
+    }).join("\n    ");
+    const chipSvg = chips.map((ch) => {
+      const optional = ch.kind === "optional";
+      return `<rect x="${ch.x}" y="${ch.y}" width="${ch.w}" height="26" rx="13" fill="#FFFFFF" stroke="${lv.color}" stroke-width="1.5"${optional ? ' stroke-dasharray="4 3" opacity="0.8"' : ""}/>
+    <text x="${ch.x + ch.w / 2}" y="${ch.y + 18}" font-size="13" font-weight="700" fill="${optional ? t.dim : lv.color}" text-anchor="middle">${esc(ch.label)}</text>`;
+    }).join("\n    ");
+    const files = lv.files.map((f, i) =>
+      `<circle cx="${x + 28}" cy="${fileStart + i * 24 - 5}" r="4" fill="${lv.color}"/>
+    <text x="${x + 42}" y="${fileStart + i * 24}" font-size="15" fill="${f === "code" ? t.dim : t.ink}"${f === "code" ? ' font-style="italic"' : ""}>${esc(f)}</text>`).join("\n    ");
+    return `<rect x="${x}" y="${cardTop}" width="${cardW}" height="${cardH}" rx="16" fill="${lv.tint}" stroke="${lv.border}" stroke-width="${lv.borderWidth}"/>
+    <circle cx="${x + 44}" cy="${cardTop + 44}" r="21" fill="${lv.color}"/>
+    <text x="${x + 44}" y="${cardTop + 52}" font-size="22" font-weight="700" fill="#FFFFFF" text-anchor="middle">${esc(lv.letter)}</text>
+    <text x="${x + 78}" y="${cardTop + 53}" font-size="30" font-weight="700" fill="${lv.color}">${esc(lv.name)}</text>
+    ${meter}
+    ${whenLines.map((l, i) => `<text x="${x + 22}" y="${cardTop + 100 + i * 20}" font-size="14" fill="${t.sub}">${esc(l)}</text>`).join("\n    ")}
+    <text x="${x + 22}" y="${cmdLabelY}" font-size="12" font-weight="700" fill="${t.dim}" letter-spacing="2">COMMANDS</text>
+    ${chipSvg}
+    <text x="${x + 22}" y="${fileLabelY}" font-size="12" font-weight="700" fill="${t.dim}" letter-spacing="2">FILES WRITTEN</text>
+    ${files}`;
+  }).join("\n\n    ");
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.label)}: ${esc(c.levels.map((l) => l.name).join(", "))}">
+  <defs>
+    ${bg.defs}
+  </defs>
+
+  ${bg.body}
+
+  <g font-family="${KIIT_FONT}" transform="translate(0 ${vpad})">
+    <text x="${margin}" y="46" font-size="26" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
+
+    ${cards}
+
+    <text x="${margin}" y="${cardTop + cardH + 40}" font-size="14" fill="${t.dim}">${esc(c.footer)}</text>
+  </g>
+</svg>
+`;
+}
+
+kiitMount(buildSvg(CONFIG), "kiit-flow-weights.svg");
+</script>

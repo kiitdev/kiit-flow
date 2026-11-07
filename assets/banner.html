@@ -49,6 +49,7 @@ const CONFIG = {
     blue: "#007FFF",              // blueprint blue
     ink: "#111827", sub: "#4B5563", dim: "#6B7A99",
     highlight: "#D9480F",         // the steps line
+    fast: "#1B8A5A",              // the fast path word, go: calm green, low risk
     sheen: "#BFE0FF",             // the light band that sweeps through the arrow
     card: "#F6FAFF", border: "#8FB0E3", rule: "#C4D8F6",
     done: "#1B8A5A", todo: "#C26A00", blocked: "#C0392B", skip: "#8A94A8",
@@ -87,7 +88,7 @@ function buildSvg(c) {
   }).join("\n");
 
   const lead = c.steps.lead
-    ? `<tspan>${esc(c.steps.lead)}</tspan><tspan fill="${t.ink}" stroke="${t.ink}" stroke-width="1"> | </tspan>`
+    ? `<tspan fill="${t.fast}">${esc(c.steps.lead)}</tspan><tspan fill="${t.ink}" stroke="${t.ink}" stroke-width="1"> | </tspan>`
     : "";
   const steps = lead + c.steps.items.map(esc).join(`<tspan fill="${t.ink}" stroke="${t.ink}" stroke-width="1"> ${esc(c.steps.join)} </tspan>`);
   const footer = c.card.footer

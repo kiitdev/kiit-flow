@@ -5,7 +5,7 @@
 
 **A fast or flow based skills framework for coding with AI**
 
-Skills for AI coding assistants that take a change from a ticket to a pull request. Run `go` for a small change in one pass, or the flow for a medium or large one: design, review, implement, and verify. Every change lives in plain markdown files, so a session can stop and another can pick up from the files, in one repo or across several.
+Skills for AI coding assistants that take a change from a ticket to a pull request. Run `go` for a clear, low-risk change in one pass, or the flow for one that needs a design or a review: design, review, implement, and verify. Every change lives in plain markdown files, so a session can stop and another can pick up from the files, in one repo or across several.
 
 [![License](https://img.shields.io/github/license/kiitdev/kiit-flow)](./LICENSE)
 
@@ -14,6 +14,8 @@ Part of [Kiit](https://www.kiit.dev)
 </div>
 
 ![A change takes Fast or Flow, then verify](./assets/kiit-flow-diagram.svg)
+
+![Light, medium, and heavy changes: the commands and files each one uses](./assets/kiit-flow-weights.svg)
 
 ## 📚 Table of Contents
 
@@ -75,12 +77,14 @@ Every command prints its own usage with `--help`, for example `/kiit-flow-begin 
 
 The commands are listed in workflow order. `review`, `revise`, and `update` can repeat in a loop until the work is right. After `verify`, `review code` checks the finished code.
 
-For a small change, `go` skips the design and does it in one pass.
+For a clear, low-risk change, `go` skips the design and does it in one pass, whatever its size. If it finds the change needs a design or is risky, it saves the work item and hands off to `design`.
+
+`review` and `revise` are optional. Skip them for a medium change, and use them for a heavy one.
 
 | # | Command | Description |
 |---:|---|---|
 | 1 | `/kiit-flow-begin` | Create a work item from a ticket or a description. |
-| 2 | `/kiit-flow-go` | Do a small change in one pass, without a design. |
+| 2 | `/kiit-flow-go` | Do a clear, low-risk change in one pass, or hand off to `design` if it needs one. |
 | 3 | `/kiit-flow-design` | Write the design, phases, and status for a work item. |
 | 4 | `/kiit-flow-review` | Review the plan or the code, and write a verdict. |
 | 5 | `/kiit-flow-revise` | Revise the design from your text, a review, or a blocked step. |
