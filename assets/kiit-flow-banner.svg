@@ -25,7 +25,13 @@
     <text x="84.0 143.4 202.8 262.2 321.6 381.0 440.4 499.8 559.2" y="166" font-size="104" font-weight="700" fill="#111827"><tspan fill="#007FFF">kiit</tspan>-flow</text>
     <path d="M 633 129.5 H 662 V 114 L 697 135 L 662 156 V 140.5 H 633 Z" fill="url(#sheen)"/>
     <text x="88" y="218" font-size="20" fill="#4B5563">A fast or flow based skills framework for coding</text>
-    <text x="88" y="264" font-size="18" font-weight="700" fill="#D9480F"><tspan fill="#1B8A5A">go</tspan><tspan fill="#111827" stroke="#111827" stroke-width="1"> | </tspan>begin<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>design<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>review<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>revise<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>update<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>verify</text>
+    <rect x="88" y="234" width="51" height="38" rx="10" fill="#EAF7F1" stroke="#8FD1B3" stroke-width="2"/>
+    <text x="104.0 113.6" y="259" font-size="16" font-weight="700" fill="#1B8A5A">go</text>
+    <text x="151" y="259" font-size="16" fill="#6B7A99">or</text>
+    <rect x="182.2" y="234" width="339" height="38" rx="10" fill="#FFF8DC" stroke="#E6C65C" stroke-width="2"/>
+    <text x="198.2 207.8 217.4 227.0 236.6 246.2 255.8 265.4 275.0 284.6 294.2 303.8 313.4 323.0 332.6 342.2 351.8 361.4 371.0 380.6 390.2 399.8 409.4 419.0 428.6 438.2 447.8 457.4 467.0 476.6 486.2 495.8" y="259" font-size="16" font-weight="700" fill="#A66F00">begin<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>design<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>update<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>verify</text>
+    <rect x="533.2" y="234" width="195" height="38" rx="10" fill="#F5F0FF" stroke="#B49CFF" stroke-width="2"/>
+    <text x="549.2 558.8 568.4 578.0 587.6 597.2 606.8 616.4 626.0 635.6 645.2 654.8 664.4 674.0 683.6 693.2 702.8" y="259" font-size="16" font-weight="700" fill="#7C4DFF">+ review<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>revise</text>
 
     <g transform="translate(772 39)">
       <rect width="428" height="242" rx="12" fill="#F6FAFF" stroke="#8FB0E3"/>

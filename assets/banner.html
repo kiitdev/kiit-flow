@@ -18,6 +18,7 @@
 <button id="dl">Download SVG</button>
 <pre id="svg"></pre>
 
+<script src="kiit-svg.js"></script>
 <script>
 // ---- CONFIG: change these for each project ---------------------------------
 const CONFIG = {
@@ -25,11 +26,12 @@ const CONFIG = {
   name: "flow",                   // black, joined to the brand with a hyphen
   slant: -0.6,                    // lean of the sweep: -0.6 leans like /, 0.6 like \, 0 is upright
   tagline: "A fast or flow based skills framework for coding",
-  steps: {
-    lead: "go",                   // the fast path. Leave empty to omit
-    items: ["begin", "design", "review", "revise", "update", "verify"],
-    join: "→",                    // between the steps. Try ">" too
-  },
+  steps: { join: "→" },           // between the steps. Try ">" too
+  tiers: [                        // the bottom row, one box each. style: fast, flow, or heavy
+    { style: "fast", words: ["go"] },
+    { style: "flow", before: "or", words: ["begin", "design", "update", "verify"] },
+    { style: "heavy", prefix: "+", words: ["review", "revise"] },
+  ],
   card: {
     title: "260928-kiit-codes-fix-1234",
     left: "stage",
@@ -44,20 +46,9 @@ const CONFIG = {
     ],
     footer: "",                   // optional line under the card
   },
-  theme: {
-    paper: "#E8F1FF", grid: "#C4D8F6", frame: "#4DA3FF", frameLeft: "#E8794A", frameWidth: 8,   // the outline: soft blue, with a soft orange left edge
-    blue: "#007FFF",              // blueprint blue
-    ink: "#111827", sub: "#4B5563", dim: "#6B7A99",
-    highlight: "#D9480F",         // the steps line
-    fast: "#1B8A5A",              // the fast path word, go: calm green, low risk
-    sheen: "#BFE0FF",             // the light band that sweeps through the arrow
-    card: "#F6FAFF", border: "#8FB0E3", rule: "#C4D8F6",
-    done: "#1B8A5A", todo: "#C26A00", blocked: "#C0392B", skip: "#8A94A8",
-  },
+  theme: KIIT_THEME,
 };
 // ---------------------------------------------------------------------------
-
-const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 function buildSvg(c) {
   const t = c.theme;
@@ -87,10 +78,33 @@ function buildSvg(c) {
       <text x="404" y="${y}" font-size="16" fill="${t[st] || t.dim}" text-anchor="end">${esc(st)}</text>`;
   }).join("\n");
 
-  const lead = c.steps.lead
-    ? `<tspan fill="${t.fast}">${esc(c.steps.lead)}</tspan><tspan fill="${t.ink}" stroke="${t.ink}" stroke-width="1"> | </tspan>`
-    : "";
-  const steps = lead + c.steps.items.map(esc).join(`<tspan fill="${t.ink}" stroke="${t.ink}" stroke-width="1"> ${esc(c.steps.join)} </tspan>`);
+  // the bottom row: a box per tier. Every character gets its own x, so no font can spill out of its box
+  const boxY = 234, boxH = 38, textY = boxY + 25, rowStart = 88, rowEnd = 745;
+  const tiersAt = (sz) => {
+    const cw = sz * 0.6;
+    let x = rowStart;
+    const items = c.tiers.map((tier, i) => {
+      if (i > 0) x += 12;
+      const item = { tier, cw };
+      if (tier.before) { item.beforeX = x; x += tier.before.length * cw + 12; }
+      item.str = (tier.prefix ? tier.prefix + " " : "") + tier.words.join(` ${c.steps.join} `);
+      item.x = x;
+      item.w = Math.round(item.str.length * cw + 32);
+      x += item.w;
+      return item;
+    });
+    return { items, end: x };
+  };
+  let sz = 16, lay = tiersAt(sz);
+  if (lay.end > rowEnd) { sz = Math.floor(16 * (rowEnd - rowStart) / (lay.end - rowStart)); lay = tiersAt(sz); }
+  const arrow = `<tspan fill="${t.ink}" stroke="${t.ink}" stroke-width="1"> ${esc(c.steps.join)} </tspan>`;
+  const tierSvg = lay.items.map(({ tier, cw, str, x, w, beforeX }) => {
+    const color = t[tier.style], tint = t[tier.style + "Tint"], border = t[tier.style + "Border"];
+    const xs = Array.from(str, (_, j) => (x + 16 + j * cw).toFixed(1)).join(" ");
+    const before = tier.before ? `<text x="${beforeX}" y="${textY}" font-size="${sz}" fill="${t.dim}">${esc(tier.before)}</text>\n    ` : "";
+    return `${before}<rect x="${x}" y="${boxY}" width="${w}" height="${boxH}" rx="10" fill="${tint}" stroke="${border}" stroke-width="2"/>
+    <text x="${xs}" y="${textY}" font-size="${sz}" font-weight="700" fill="${color}">${tier.prefix ? esc(tier.prefix) + " " : ""}${tier.words.map(esc).join(arrow)}</text>`;
+  }).join("\n    ");
   const footer = c.card.footer
     ? `\n    <text x="1200" y="${top + h + 26}" font-size="14" fill="${t.dim}" text-anchor="end">${esc(c.card.footer)}</text>`
     : "";
@@ -126,7 +140,7 @@ function buildSvg(c) {
     <text x="${letterXs}" y="166" font-size="${titleSize}" font-weight="700" fill="${t.ink}"><tspan fill="${t.blue}">${esc(c.brand)}</tspan>-${esc(c.name)}</text>
     <path d="${arrowPath}" fill="url(#sheen)"/>
     <text x="88" y="218" font-size="${tagSize}" fill="${t.sub}">${esc(c.tagline)}</text>
-    <text x="88" y="264" font-size="18" font-weight="700" fill="${t.highlight}">${steps}</text>
+    ${tierSvg}
 
     <g transform="translate(772 ${top})">
       <rect width="428" height="${h}" rx="12" fill="${t.card}" stroke="${t.border}"/>
