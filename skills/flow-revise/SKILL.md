@@ -103,7 +103,7 @@ EXAMPLES:
 
 ## Rules
 1. Write only inside the work item folder.
-   - The only change to `01-change.md` is an `- Answer:` under an open question
+   - The only change to `01-change.md` is an `- Answer:` under a question
    - The only change to `04-review.md` is its `## Response`
    - `_research.md` is read only here. New research is `/flow-research`
 2. Add no scope beyond what the text, the review or the blocked step asks for.

@@ -36,19 +36,29 @@ EXAMPLES:
 1. Identify the change (shared.md): the project, the type, and the ticket or description.
 2. Read what the change needs.
    - The `standards` resource, if the config has one
-   - The project's `CLAUDE.md` and the code the change touches
+   - The project's `CLAUDE.md`, and `AGENTS.md` if it points there
+   - The code the change touches
+   - The build, test and lint commands, from those files
 3. Create the work item (shared.md).
-4. Check before editing. If it needs a design choice, is unclear or is risky, hand off.
+   - Write the acceptance criteria and keep every constraint, as shared.md says
+4. Find an anchor. References is empty: find one existing example of the same kind.
+   - Add its path and why under References
+   - None exists: leave References empty
+5. Check before editing. If it needs a design choice, is unclear or is risky, hand off.
    - Risky: auth or secrets, data or migrations, a public API, build or release
    - Add a row to `_history.md` (shared.md): `not one-pass, handed to Flow`
    - Print `go: this change needs a design or a review`, then `/flow-design`
    - Change no code, and stop
-5. Implement the change in the project repo, following its conventions.
+6. Implement the change in the project repo, following its conventions.
+   - Follow References, and keep to Scope and Constraints
    - Do what the request asks and no more
-6. Run the narrowest check that covers it (compile, or the relevant test), if one exists.
+   - The change needs more than Scope allows: stop and report it
+7. Run the narrowest check that covers the acceptance criteria.
+   - Use the project's own test command. Add a test when the behavior is new
+   - No check can be found: report `no check found`. Don't call it passed
    - It fails and the fix isn't clearly inside the change: stop and report it
-7. Add a row to `_history.md` (shared.md) with what changed and the check result.
-8. Print the files changed and the check result, then the next step.
+8. Add a row to `_history.md` (shared.md) with what changed and the check result.
+9. Print the files changed and the check result, then the next step.
    - Suggest `/flow-verify` for the full set of checks
 
 ## Rules
