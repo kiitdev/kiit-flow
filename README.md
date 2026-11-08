@@ -58,7 +58,9 @@ Choose by the risk and clarity of the change, not by its size.
 
 A change moves up a tier when it needs to. `go` saves the work item and hands off to `design` if it finds the change needs a design or is risky.
 
-In Focus, `review`, `revise`, and `update` repeat until the work is right. `research` can be used at any step after `begin`, and writes to `_research.md`.
+`design` picks Flow or Focus and writes it to `_status.md`. You can pass `flow` or `focus` to choose it yourself. Running `research`, `review`, or `revise` on a Flow work item moves it up to Focus.
+
+In Focus, `update` and `resume` ask for a review first. `review`, `revise`, and `update` repeat until the work is right. `research` can be used at any step after `begin`, and writes to `_research.md`.
 
 ## Start
 
