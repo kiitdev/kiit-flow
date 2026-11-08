@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Kiit commands list</title>
+<!--
+  The commands as a numbered list, in workflow order (1100 wide). Edit CONFIG below, then either:
+    1. open this file in a browser and press "Download SVG", or
+    2. export from the command line: ./banner.sh commands.html kiit-flow-commands.svg
+-->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
+  #banner svg { width: 100%; max-width: 1100px; height: auto; display: block; }
+  button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+
+<script src="kiit-svg.js"></script>
+<script>
+// ---- CONFIG: change these for each project ---------------------------------
+const T = KIIT_THEME;
+const GROUPS = {                                   // the colors match the workflow diagram
+  fast:  { color: T.fast,  border: T.fastBorder },
+  flow:  { color: T.flow,  border: T.flowBorder },
+  focus: { color: T.heavy, border: T.heavyBorder },
+  any:   { color: T.ink,   border: T.border },
+};
+const CONFIG = {
+  label: "Commands, in workflow order",
+  width: 1100,
+  prefix: "/kiit-flow-",                            // the full command is this plus the short name
+  legend: [["fast", "Fast"], ["flow", "Flow and Focus"], ["focus", "Focus"], ["any", "Any mode"]],
+  commands: [                                      // [name, group, description, files written]
+    ["go",       "fast",  "do a clear, low-risk change in one pass",         "01-change.md, code"],
+    ["begin",    "flow",  "create a work item from a ticket or description", "01-change.md"],
+    ["design",   "flow",  "write the design, phases, and status",            "02-design.md, 03-phases.md, _status.md"],
+    ["research", "focus", "look into the unknowns of a work item",           "_research.md"],
+    ["review",   "focus", "review the plan or the code, write a verdict",    "04-review.md"],
+    ["revise",   "focus", "revise the design from your text or a review",    "02-design.md, 03-phases.md"],
+    ["update",   "flow",  "implement all phases, a phase, a step, or a range", "code, _status.md"],
+    ["resume",   "any",   "pick up a work item where it stopped",            "code, _status.md"],
+    ["verify",   "any",   "run the project's lint, tests, security, docs",   "_files/output/verify.log"],
+    ["recent",   "any",   "list work items, newest first",                   ""],
+    ["help",     "any",   "show the commands, or the usage of one",          ""],
+  ],
+  footer: "Every command except recent and help adds a row to _history.md.",
+  theme: KIIT_THEME,
+};
+// ---------------------------------------------------------------------------
+
+function buildSvg(c) {
+  const t = c.theme, W = c.width, vpad = 20, margin = 56;
+  const rowH = 48, rowGap = 14, pitch = rowH + rowGap, rowsTop = 108;
+  const cx = margin + 16, rowX = margin + 56, rowW = W - margin - rowX;
+  const n = c.commands.length;
+  const rowsBottom = rowsTop + n * pitch - rowGap;
+  const footerY = rowsBottom + 44;
+  const Hc = footerY + 36, H = Hc + 2 * vpad;
+  const bg = kiitBackground(t, W, H);
+
+  // the legend, right aligned on the title line
+  const itemW = (label) => Math.round(label.length * 8.4 + 40);
+  let lx = W - margin - c.legend.reduce((sum, [, label]) => sum + itemW(label), 0);
+  const legend = c.legend.map(([key, label]) => {
+    const g = GROUPS[key], x = lx;
+    lx += itemW(label);
+    return `<circle cx="${x + 6}" cy="40" r="6" fill="${g.color}"/>
+    <text x="${x + 20}" y="45" font-size="14" fill="${t.sub}">${esc(label)}</text>`;
+  }).join("\n    ");
+
+  // a thin line behind the numbers, to show the order
+  const spine = `<line x1="${cx}" y1="${rowsTop + rowH / 2}" x2="${cx}" y2="${rowsTop + (n - 1) * pitch + rowH / 2}" stroke="${t.rule}" stroke-width="3"/>`;
+
+  const rows = c.commands.map(([name, group, caption, files], i) => {
+    const g = GROUPS[group], y = rowsTop + i * pitch, ym = y + rowH / 2;
+    return `<circle cx="${cx}" cy="${ym}" r="17" fill="${g.color}"/>
+    <text x="${cx}" y="${ym + 6}" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">${i + 1}</text>
+    <rect x="${rowX}" y="${y}" width="${rowW}" height="${rowH}" rx="10" fill="#FFFFFF" stroke="${g.border}" stroke-width="1.5"/>
+    <circle cx="${rowX + 22}" cy="${ym}" r="6" fill="${g.color}"/>
+    <text x="${rowX + 40}" y="${ym + 8}" font-size="22" font-weight="700" fill="${t.ink}">${esc(name)}</text>
+    <text x="${rowX + 164}" y="${ym + 6}" font-size="15" fill="${t.dim}">${esc(caption)}</text>${files ? `
+    <text x="${rowX + rowW - 16}" y="${ym + 5}" font-size="13" fill="${t.dim}" text-anchor="end">${esc(files)}</text>` : ""}`;
+  }).join("\n\n    ");
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.label)}: ${esc(c.commands.map(([name]) => name).join(", "))}">
+  <defs>
+    ${bg.defs}
+  </defs>
+
+  ${bg.body}
+
+  <g font-family="${KIIT_FONT}" transform="translate(0 ${vpad})">
+    <text x="${margin}" y="46" font-size="26" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
+    ${legend}
+    <text x="${margin}" y="76" font-size="15" fill="${t.dim}">run each as <tspan font-weight="700" fill="${t.ink}">${esc(c.prefix)}</tspan><tspan fill="${t.dim}">{name}</tspan>, such as <tspan font-weight="700" fill="${t.ink}">${esc(c.prefix)}${esc(c.commands[0][0])}</tspan></text>
+
+    ${spine}
+
+    ${rows}
+
+    <text x="${margin}" y="${footerY}" font-size="14" fill="${t.dim}">${esc(c.footer)}</text>
+  </g>
+</svg>
+`;
+}
+
+kiitMount(buildSvg(CONFIG), "kiit-flow-commands.svg");
+</script>

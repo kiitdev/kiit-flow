@@ -15,8 +15,6 @@ Part of [Kiit](https://www.kiit.dev)
 
 ![A change takes Fast, Flow, or Focus, then verify](./assets/kiit-flow-diagram.svg)
 
-![Choose Fast, Flow, or Focus: when to use each, and the commands and files each one uses](./assets/kiit-flow-weights.svg)
-
 ## 📚 Table of Contents
 
 | # | | Topic | Description |
@@ -72,19 +70,14 @@ A short set of commands moves the change through its stages: requirements, desig
 
 ## Modes
 
-Choose by the scope, effort, and time the change needs. Risk or unclear requirements move it up a level.
+Pick the mode by the scope, effort, and time the change needs. Risk or unclear requirements move it up a level.
 
-| Mode | Use it when | Commands |
-|---|---|---|
-| **Fast** | The change is clear, and low risk. | `go`, then `verify` if you want the full checks |
-| **Flow** | The change needs a design before the implementation. | `begin`, `design`, `update`, `verify` |
-| **Focus** | Deep work: the change is risky, wide, or unclear. | `begin`, `design`, `review`, `revise`, `update`, `verify`, and `research` when needed |
+![Choose Fast, Flow, or Focus: when to use each, and the commands and files each one uses](./assets/kiit-flow-weights.svg)
 
-A change switches mode when it needs to. `go` saves the work item and hands off to `design` if it finds the change needs a design or is risky.
-
-`design` writes the mode to `_status.md`. It is Flow unless you pass `focus`, as in `/kiit-flow-design focus`. Running `research`, `review`, or `revise` on a Flow work item switches it to Focus, so you can start in Flow and move up.
-
-In Focus, `update` and `resume` ask for a review first. `review`, `revise`, and `update` iterate and correct until the work is right. `research` can be used at any step after `begin`, and writes to `_research.md`.
+1. `go` hands off to `design` when it finds the change needs a design or is risky.
+2. `design` writes the mode to `_status.md`. It is Flow unless you run `/kiit-flow-design focus`.
+3. `research`, `review`, and `revise` switch a Flow work item to Focus, so you can start in Flow and move up.
+4. In Focus, `update` and `resume` ask for a review first.
 
 ## Start
 
@@ -100,13 +93,7 @@ cd kiit-flow
 
 **Run** from the workspace, after restarting your assistant so it loads the skills:
 
-```text
-/kiit-flow-help                                           # list the commands
-/kiit-flow-begin https://github.com/acme/app/issues/12    # create the work item
-/kiit-flow-design                                         # write the design and phases
-/kiit-flow-update                                         # implement the phases
-/kiit-flow-verify                                         # lint, tests, security, docs
-```
+![The first commands to run: help, begin with a ticket link, design, update, and verify, each with a short comment](./assets/kiit-flow-start.svg)
 
 That is Flow. `begin` reads the ticket, fills in the project and type, asks you to confirm, and creates the work item.
 
@@ -118,42 +105,15 @@ Every command prints its own usage with `--help`, for example `/kiit-flow-begin 
 
 The commands are listed in workflow order. In Focus, `review`, `revise`, and `update` form a loop that iterates and corrects until the work is right. After `verify`, `review code` checks the finished code.
 
-| # | Command | Description |
-|---:|---|---|
-| 1 | `/kiit-flow-begin` | Create a work item from a ticket or a description. |
-| 2 | `/kiit-flow-go` | Do a clear, low-risk change in one pass, or hand off to `design` if it needs one. |
-| 3 | `/kiit-flow-design` | Write the design, phases, and status for a work item. |
-| 4 | `/kiit-flow-research` | Look into the unknowns of a work item, and add them to `_research.md`. |
-| 5 | `/kiit-flow-review` | Review the plan or the code, and write a verdict. |
-| 6 | `/kiit-flow-revise` | Revise the design from your text, a review, or a blocked step. |
-| 7 | `/kiit-flow-update` | Implement all phases, a phase, a step, or a range. |
-| 8 | `/kiit-flow-resume` | Pick up a work item where it stopped and continue. |
-| 9 | `/kiit-flow-verify` | Run the project's own lint, tests, security, and docs checks. |
-| 10 | `/kiit-flow-recent` | List work items, newest first, one line each. |
-| 11 | `/kiit-flow-help` | Show the commands, or the usage of one. |
+![The 11 commands in workflow order: go, begin, design, research, review, revise, update, resume, verify, recent, and help, colored by mode, with the files each one writes](./assets/kiit-flow-commands.svg)
 
 ## Work Item
 
-A work item is one folder per change. Work items live in `_kiit/flow/` at the workspace root, next to `.claude/` and your project repos:
+A work item is one folder per change. Work items live in `_kiit/flow/` at the workspace root, next to `.claude/` and your project repos.
 
-```text
-workspace/
-├── .claude/
-├── _kiit/flow/
-│   └── 260928-kiit-codes-fix-1234/
-│       ├── 01-change.md
-│       ├── 02-design.md
-│       ├── 03-phases.md
-│       ├── 04-review.md
-│       ├── _status.md
-│       ├── _history.md
-│       └── _research.md
-└── kiit-codes/
-```
+![A work item: the folder _kiit/flow/260928-kiit-codes-fix-1234, its files, what each is for, and which commands write it](./assets/kiit-flow-work-item.svg)
 
 The folder name is `{YYMMDD}-{project}-{type}-{ticket|short-name}`: the date, the project, the type, and the ticket id, or a short name when there is only a description. Files appear as the commands run, so a new work item has only `01-change.md` and `_history.md`. `go` writes just those two. `_research.md` is written by `research`.
-
-![A work item: its files, what each is for, and which commands write it](./assets/kiit-flow-work-item.svg)
 
 The numbered files are stage artifacts, written in order. The files that start with an underscore change as the work goes on.
 

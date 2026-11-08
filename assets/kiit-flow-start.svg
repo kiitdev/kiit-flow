@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1028" height="436" viewBox="0 0 1028 436" role="img" aria-label="Run it from the workspace: /kiit-flow-help, /kiit-flow-begin https://github.com/acme/app/issues/12, /kiit-flow-design, /kiit-flow-update, /kiit-flow-verify">
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#C4D8F6" stroke-width="1"/>
+    </pattern>
+    <clipPath id="frame"><rect width="1028" height="436" rx="20"/></clipPath>
+    <clipPath id="card"><rect x="48" y="78" width="932" height="282" rx="12"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="1028" height="436" fill="#E8F1FF"/>
+    <rect width="1028" height="436" fill="url(#grid)"/>
+  </g>
+  <path d="M 20 4 H 1008 A 16 16 0 0 1 1024 20 V 416 A 16 16 0 0 1 1008 432 H 20" fill="none" stroke="#4DA3FF" stroke-width="8"/>
+  <path d="M 20 4 A 16 16 0 0 0 4 20 V 416 A 16 16 0 0 0 20 432" fill="none" stroke="#E8794A" stroke-width="8"/>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" transform="translate(0 20)">
+    <text x="48" y="46" font-size="26" font-weight="700" fill="#111827">Run it from the workspace</text>
+
+    <rect x="48" y="78" width="932" height="282" rx="12" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <g clip-path="url(#card)">
+      <rect x="48" y="78" width="932" height="38" fill="#E8F1FF"/>
+    </g>
+    <line x1="48" y1="116" x2="980" y2="116" stroke="#C4D8F6"/>
+    <circle cx="70" cy="97" r="6" fill="#E8794A"/>
+    <circle cx="90" cy="97" r="6" fill="#F2C94C"/>
+    <circle cx="110" cy="97" r="6" fill="#1B8A5A"/>
+
+    <text x="72" y="158" font-size="18" font-weight="700" fill="#D9480F">&gt;</text>
+    <text x="100" y="158" font-size="17"><tspan font-weight="700" fill="#111827">/kiit-flow-help</tspan></text>
+    <text x="691" y="157" font-size="15" fill="#6B7A99"># list the commands</text>
+    <text x="72" y="202" font-size="18" font-weight="700" fill="#D9480F">&gt;</text>
+    <text x="100" y="202" font-size="17"><tspan font-weight="700" fill="#111827">/kiit-flow-begin</tspan><tspan fill="#007FFF"> https://github.com/acme/app/issues/12</tspan></text>
+    <text x="691" y="201" font-size="15" fill="#6B7A99"># create the work item</text>
+    <text x="72" y="246" font-size="18" font-weight="700" fill="#D9480F">&gt;</text>
+    <text x="100" y="246" font-size="17"><tspan font-weight="700" fill="#111827">/kiit-flow-design</tspan></text>
+    <text x="691" y="245" font-size="15" fill="#6B7A99"># write the design and phases</text>
+    <text x="72" y="290" font-size="18" font-weight="700" fill="#D9480F">&gt;</text>
+    <text x="100" y="290" font-size="17"><tspan font-weight="700" fill="#111827">/kiit-flow-update</tspan></text>
+    <text x="691" y="289" font-size="15" fill="#6B7A99"># implement the phases</text>
+    <text x="72" y="334" font-size="18" font-weight="700" fill="#D9480F">&gt;</text>
+    <text x="100" y="334" font-size="17"><tspan font-weight="700" fill="#111827">/kiit-flow-verify</tspan></text>
+    <text x="691" y="333" font-size="15" fill="#6B7A99"># lint, tests, security, docs</text>
+  </g>
+</svg>

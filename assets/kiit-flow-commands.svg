@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="896" viewBox="0 0 1100 896" role="img" aria-label="Commands, in workflow order: go, begin, design, research, review, revise, update, resume, verify, recent, help">
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#C4D8F6" stroke-width="1"/>
+    </pattern>
+    <clipPath id="frame"><rect width="1100" height="896" rx="20"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="1100" height="896" fill="#E8F1FF"/>
+    <rect width="1100" height="896" fill="url(#grid)"/>
+  </g>
+  <path d="M 20 4 H 1080 A 16 16 0 0 1 1096 20 V 876 A 16 16 0 0 1 1080 892 H 20" fill="none" stroke="#4DA3FF" stroke-width="8"/>
+  <path d="M 20 4 A 16 16 0 0 0 4 20 V 876 A 16 16 0 0 0 20 892" fill="none" stroke="#E8794A" stroke-width="8"/>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" transform="translate(0 20)">
+    <text x="56" y="46" font-size="26" font-weight="700" fill="#111827">Commands, in workflow order</text>
+    <circle cx="629" cy="40" r="6" fill="#1B8A5A"/>
+    <text x="643" y="45" font-size="14" fill="#4B5563">Fast</text>
+    <circle cx="703" cy="40" r="6" fill="#A66F00"/>
+    <text x="717" y="45" font-size="14" fill="#4B5563">Flow and Focus</text>
+    <circle cx="861" cy="40" r="6" fill="#7C4DFF"/>
+    <text x="875" y="45" font-size="14" fill="#4B5563">Focus</text>
+    <circle cx="943" cy="40" r="6" fill="#111827"/>
+    <text x="957" y="45" font-size="14" fill="#4B5563">Any mode</text>
+    <text x="56" y="76" font-size="15" fill="#6B7A99">run each as <tspan font-weight="700" fill="#111827">/kiit-flow-</tspan><tspan fill="#6B7A99">{name}</tspan>, such as <tspan font-weight="700" fill="#111827">/kiit-flow-go</tspan></text>
+
+    <line x1="72" y1="132" x2="72" y2="752" stroke="#C4D8F6" stroke-width="3"/>
+
+    <circle cx="72" cy="132" r="17" fill="#1B8A5A"/>
+    <text x="72" y="138" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
+    <rect x="112" y="108" width="932" height="48" rx="10" fill="#FFFFFF" stroke="#8FD1B3" stroke-width="1.5"/>
+    <circle cx="134" cy="132" r="6" fill="#1B8A5A"/>
+    <text x="152" y="140" font-size="22" font-weight="700" fill="#111827">go</text>
+    <text x="276" y="138" font-size="15" fill="#6B7A99">do a clear, low-risk change in one pass</text>
+    <text x="1028" y="137" font-size="13" fill="#6B7A99" text-anchor="end">01-change.md, code</text>
+
+    <circle cx="72" cy="194" r="17" fill="#A66F00"/>
+    <text x="72" y="200" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">2</text>
+    <rect x="112" y="170" width="932" height="48" rx="10" fill="#FFFFFF" stroke="#E6C65C" stroke-width="1.5"/>
+    <circle cx="134" cy="194" r="6" fill="#A66F00"/>
+    <text x="152" y="202" font-size="22" font-weight="700" fill="#111827">begin</text>
+    <text x="276" y="200" font-size="15" fill="#6B7A99">create a work item from a ticket or description</text>
+    <text x="1028" y="199" font-size="13" fill="#6B7A99" text-anchor="end">01-change.md</text>
+
+    <circle cx="72" cy="256" r="17" fill="#A66F00"/>
+    <text x="72" y="262" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">3</text>
+    <rect x="112" y="232" width="932" height="48" rx="10" fill="#FFFFFF" stroke="#E6C65C" stroke-width="1.5"/>
+    <circle cx="134" cy="256" r="6" fill="#A66F00"/>
+    <text x="152" y="264" font-size="22" font-weight="700" fill="#111827">design</text>
+    <text x="276" y="262" font-size="15" fill="#6B7A99">write the design, phases, and status</text>
+    <text x="1028" y="261" font-size="13" fill="#6B7A99" text-anchor="end">02-design.md, 03-phases.md, _status.md</text>
+
+    <circle cx="72" cy="318" r="17" fill="#7C4DFF"/>
+    <text x="72" y="324" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">4</text>
+    <rect x="112" y="294" width="932" height="48" rx="10" fill="#FFFFFF" stroke="#B49CFF" stroke-width="1.5"/>
+    <circle cx="134" cy="318" r="6" fill="#7C4DFF"/>
+    <text x="152" y="326" font-size="22" font-weight="700" fill="#111827">research</text>
+    <text x="276" y="324" font-size="15" fill="#6B7A99">look into the unknowns of a work item</text>
+    <text x="1028" y="323" font-size="13" fill="#6B7A99" text-anchor="end">_research.md</text>
+
+    <circle cx="72" cy="380" r="17" fill="#7C4DFF"/>
+    <text x="72" y="386" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">5</text>
+    <rect x="112" y="356" width="932" height="48" rx="10" fill="#FFFFFF" stroke="#B49CFF" stroke-width="1.5"/>
+    <circle cx="134" cy="380" r="6" fill="#7C4DFF"/>
+    <text x="152" y="388" font-size="22" font-weight="700" fill="#111827">review</text>
+    <text x="276" y="386" font-size="15" fill="#6B7A99">review the plan or the code, write a verdict</text>
+    <text x="1028" y="385" font-size="13" fill="#6B7A99" text-anchor="end">04-review.md</text>
+
+    <circle cx="72" cy="442" r="17" fill="#7C4DFF"/>
+    <text x="72" y="448" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">6</text>
+    <rect x="112" y="418" width="932" height="48" rx="10" fill="#FFFFFF" stroke="#B49CFF" stroke-width="1.5"/>
+    <circle cx="134" cy="442" r="6" fill="#7C4DFF"/>
+    <text x="152" y="450" font-size="22" font-weight="700" fill="#111827">revise</text>
+    <text x="276" y="448" font-size="15" fill="#6B7A99">revise the design from your text or a review</text>
+    <text x="1028" y="447" font-size="13" fill="#6B7A99" text-anchor="end">02-design.md, 03-phases.md</text>
+
+    <circle cx="72" cy="504" r="17" fill="#A66F00"/>
+    <text x="72" y="510" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">7</text>
+    <rect x="112" y="480" width="932" height="48" rx="10" fill="#FFFFFF" stroke="#E6C65C" stroke-width="1.5"/>
+    <circle cx="134" cy="504" r="6" fill="#A66F00"/>
+    <text x="152" y="512" font-size="22" font-weight="700" fill="#111827">update</text>
+    <text x="276" y="510" font-size="15" fill="#6B7A99">implement all phases, a phase, a step, or a range</text>
+    <text x="1028" y="509" font-size="13" fill="#6B7A99" text-anchor="end">code, _status.md</text>
+
+    <circle cx="72" cy="566" r="17" fill="#111827"/>
+    <text x="72" y="572" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">8</text>
+    <rect x="112" y="542" width="932" height="48" rx="10" fill="#FFFFFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <circle cx="134" cy="566" r="6" fill="#111827"/>
+    <text x="152" y="574" font-size="22" font-weight="700" fill="#111827">resume</text>
+    <text x="276" y="572" font-size="15" fill="#6B7A99">pick up a work item where it stopped</text>
+    <text x="1028" y="571" font-size="13" fill="#6B7A99" text-anchor="end">code, _status.md</text>
+
+    <circle cx="72" cy="628" r="17" fill="#111827"/>
+    <text x="72" y="634" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">9</text>
+    <rect x="112" y="604" width="932" height="48" rx="10" fill="#FFFFFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <circle cx="134" cy="628" r="6" fill="#111827"/>
+    <text x="152" y="636" font-size="22" font-weight="700" fill="#111827">verify</text>
+    <text x="276" y="634" font-size="15" fill="#6B7A99">run the project's lint, tests, security, docs</text>
+    <text x="1028" y="633" font-size="13" fill="#6B7A99" text-anchor="end">_files/output/verify.log</text>
+
+    <circle cx="72" cy="690" r="17" fill="#111827"/>
+    <text x="72" y="696" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">10</text>
+    <rect x="112" y="666" width="932" height="48" rx="10" fill="#FFFFFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <circle cx="134" cy="690" r="6" fill="#111827"/>
+    <text x="152" y="698" font-size="22" font-weight="700" fill="#111827">recent</text>
+    <text x="276" y="696" font-size="15" fill="#6B7A99">list work items, newest first</text>
+
+    <circle cx="72" cy="752" r="17" fill="#111827"/>
+    <text x="72" y="758" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">11</text>
+    <rect x="112" y="728" width="932" height="48" rx="10" fill="#FFFFFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <circle cx="134" cy="752" r="6" fill="#111827"/>
+    <text x="152" y="760" font-size="22" font-weight="700" fill="#111827">help</text>
+    <text x="276" y="758" font-size="15" fill="#6B7A99">show the commands, or the usage of one</text>
+
+    <text x="56" y="820" font-size="14" fill="#6B7A99">Every command except recent and help adds a row to _history.md.</text>
+  </g>
+</svg>

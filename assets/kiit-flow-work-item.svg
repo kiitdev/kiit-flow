@@ -1,133 +1,137 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1076" height="700" viewBox="0 0 1076 700" role="img" aria-label="Work item: 260928-kiit-codes-fix-1234">
+<svg xmlns="http://www.w3.org/2000/svg" width="1076" height="768" viewBox="0 0 1076 768" role="img" aria-label="Work item: 260928-kiit-codes-fix-1234">
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="#C4D8F6" stroke-width="1"/>
     </pattern>
-    <clipPath id="frame"><rect width="1076" height="700" rx="20"/></clipPath>
+    <clipPath id="frame"><rect width="1076" height="768" rx="20"/></clipPath>
   </defs>
 
   <g clip-path="url(#frame)">
-    <rect width="1076" height="700" fill="#E8F1FF"/>
-    <rect width="1076" height="700" fill="url(#grid)"/>
+    <rect width="1076" height="768" fill="#E8F1FF"/>
+    <rect width="1076" height="768" fill="url(#grid)"/>
   </g>
-  <path d="M 20 4 H 1056 A 16 16 0 0 1 1072 20 V 680 A 16 16 0 0 1 1056 696 H 20" fill="none" stroke="#4DA3FF" stroke-width="8"/>
-  <path d="M 20 4 A 16 16 0 0 0 4 20 V 680 A 16 16 0 0 0 20 696" fill="none" stroke="#E8794A" stroke-width="8"/>
+  <path d="M 20 4 H 1056 A 16 16 0 0 1 1072 20 V 748 A 16 16 0 0 1 1056 764 H 20" fill="none" stroke="#4DA3FF" stroke-width="8"/>
+  <path d="M 20 4 A 16 16 0 0 0 4 20 V 748 A 16 16 0 0 0 20 764" fill="none" stroke="#E8794A" stroke-width="8"/>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" transform="translate(0 20)">
     <text x="48" y="46" font-size="26" font-weight="700" fill="#111827">Work item</text>
     <g transform="translate(0 16)">
     <path d="M48 60 a3 3 0 0 1 3 -3 h12 l4 5 h19 a3 3 0 0 1 3 3 v22 a3 3 0 0 1 -3 3 h-35 a3 3 0 0 1 -3 -3z" fill="#F2A33A" stroke="#D9822B" stroke-width="1.5" stroke-linejoin="round"/>
     <rect x="48" y="66" width="41" height="22" rx="3" fill="#FFC25E" stroke="#D9822B" stroke-width="1.5"/>
-    <text x="98" y="82" font-size="24" font-weight="700" fill="#6B7A99">_kiit/flow/<tspan fill="#007FFF">260928</tspan>-<tspan fill="#007FFF">kiit-codes</tspan>-<tspan fill="#007FFF">fix</tspan>-<tspan fill="#007FFF">1234</tspan>/</text>
-    <line x1="258.4" y1="92" x2="340.79999999999995" y2="92" stroke="#8FB0E3" stroke-width="2" stroke-linecap="round"/>
-    <text x="256.4" y="110" font-size="12" fill="#6B7A99">{YYMMDD}</text>
-    <line x1="359.2" y1="92" x2="499.2" y2="92" stroke="#8FB0E3" stroke-width="2" stroke-linecap="round"/>
-    <text x="357.2" y="110" font-size="12" fill="#6B7A99">{project}</text>
-    <line x1="517.6" y1="92" x2="556.8000000000001" y2="92" stroke="#8FB0E3" stroke-width="2" stroke-linecap="round"/>
-    <text x="515.6" y="110" font-size="12" fill="#6B7A99">{type}</text>
-    <line x1="575.2" y1="92" x2="628.8000000000001" y2="92" stroke="#8FB0E3" stroke-width="2" stroke-linecap="round"/>
-    <text x="573.2" y="110" font-size="12" fill="#6B7A99">{ticket | short-name}</text>
+    <text x="98" y="82" font-size="24" font-weight="700" fill="#6B7A99">_kiit/</text>
+    <text x="142" y="116" font-size="24" font-weight="700" fill="#6B7A99">flow/</text>
+    <path d="M 106 90 V 108 H 136" fill="none" stroke="#8FB0E3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 150 124 V 142 H 180" fill="none" stroke="#8FB0E3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="186" y="150" font-size="24" font-weight="700" fill="#6B7A99"><tspan fill="#007FFF">260928</tspan>-<tspan fill="#007FFF">kiit-codes</tspan>-<tspan fill="#007FFF">fix</tspan>-<tspan fill="#007FFF">1234</tspan>/</text>
+    <line x1="188" y1="160" x2="270.4" y2="160" stroke="#8FB0E3" stroke-width="2" stroke-linecap="round"/>
+    <text x="186" y="178" font-size="12" fill="#6B7A99">{YYMMDD}</text>
+    <line x1="288.8" y1="160" x2="428.8" y2="160" stroke="#8FB0E3" stroke-width="2" stroke-linecap="round"/>
+    <text x="286.8" y="178" font-size="12" fill="#6B7A99">{project}</text>
+    <line x1="447.20000000000005" y1="160" x2="486.40000000000003" y2="160" stroke="#8FB0E3" stroke-width="2" stroke-linecap="round"/>
+    <text x="445.20000000000005" y="178" font-size="12" fill="#6B7A99">{type}</text>
+    <line x1="504.80000000000007" y1="160" x2="558.4000000000001" y2="160" stroke="#8FB0E3" stroke-width="2" stroke-linecap="round"/>
+    <text x="502.80000000000007" y="178" font-size="12" fill="#6B7A99">{ticket | short-name}</text>
     </g>
 
-    <rect x="48" y="152" width="150" height="40" rx="10" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>
-    <rect x="48" y="176" width="980" height="448" rx="12" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>
-    <rect x="49.5" y="174.5" width="147" height="4" fill="#F6FAFF"/>
-    <text x="72" y="212" font-size="12" font-weight="700" fill="#6B7A99" letter-spacing="2">STAGE FILES, WRITTEN IN ORDER</text>
-    <path d="M72 236 H87 L94 243 V264 H72 Z" fill="#F6FAFF" stroke="#007FFF" stroke-width="1.6" stroke-linejoin="round"/>
-    <path d="M87 236 V243 H94" fill="none" stroke="#007FFF" stroke-width="1.6" stroke-linejoin="round"/>
-    <line x1="76" y1="248" x2="87" y2="248" stroke="#007FFF" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="76" y1="253" x2="84" y2="253" stroke="#007FFF" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="76" y1="258" x2="81" y2="258" stroke="#007FFF" stroke-width="1.4" stroke-linecap="round"/>
-    <circle cx="93" cy="262" r="10" fill="#007FFF" stroke="#F6FAFF" stroke-width="2"/>
-    <g transform="translate(93 262)"><polygon points="-5,5 -4,1.5 2.5,-5 5,-2.5 -1.5,4" fill="#FFFFFF"/></g>
-    <text x="114" y="257" font-size="17" font-weight="700" fill="#111827">01-change.md</text>
-    <text x="264" y="257" font-size="14" fill="#4B5563">The change: requirements and acceptance criteria</text>
-    <rect x="704" y="239" width="61" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
-    <text x="734.5" y="257" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">begin</text>
-    <rect x="773" y="239" width="38" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
-    <text x="792" y="257" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">go</text>
-    <line x1="72" y1="276" x2="1004" y2="276" stroke="#C4D8F6" stroke-dasharray="3 4"/>
-    <path d="M72 286 H87 L94 293 V314 H72 Z" fill="#F6FAFF" stroke="#7C4DFF" stroke-width="1.6" stroke-linejoin="round"/>
-    <path d="M87 286 V293 H94" fill="none" stroke="#7C4DFF" stroke-width="1.6" stroke-linejoin="round"/>
-    <line x1="76" y1="298" x2="87" y2="298" stroke="#7C4DFF" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="76" y1="303" x2="84" y2="303" stroke="#7C4DFF" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="76" y1="308" x2="81" y2="308" stroke="#7C4DFF" stroke-width="1.4" stroke-linecap="round"/>
-    <circle cx="93" cy="312" r="10" fill="#7C4DFF" stroke="#F6FAFF" stroke-width="2"/>
-    <g transform="translate(93 312)"><polygon points="-5,5 5,5 -5,-5" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linejoin="round"/></g>
-    <text x="114" y="307" font-size="17" font-weight="700" fill="#111827">02-design.md</text>
-    <text x="264" y="307" font-size="14" fill="#4B5563">The design: approach, files, how to test it</text>
-    <rect x="704" y="289" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
-    <text x="738.5" y="307" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">design</text>
-    <rect x="781" y="289" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
-    <text x="815.5" y="307" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">revise</text>
-    <line x1="72" y1="326" x2="1004" y2="326" stroke="#C4D8F6" stroke-dasharray="3 4"/>
-    <path d="M72 336 H87 L94 343 V364 H72 Z" fill="#F6FAFF" stroke="#0FA3A3" stroke-width="1.6" stroke-linejoin="round"/>
-    <path d="M87 336 V343 H94" fill="none" stroke="#0FA3A3" stroke-width="1.6" stroke-linejoin="round"/>
-    <line x1="76" y1="348" x2="87" y2="348" stroke="#0FA3A3" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="76" y1="353" x2="84" y2="353" stroke="#0FA3A3" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="76" y1="358" x2="81" y2="358" stroke="#0FA3A3" stroke-width="1.4" stroke-linecap="round"/>
-    <circle cx="93" cy="362" r="10" fill="#0FA3A3" stroke="#F6FAFF" stroke-width="2"/>
-    <g transform="translate(93 362)"><polyline points="-5,5 -5,2 -2,2 -2,-1 1,-1 1,-4 5,-4" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/></g>
-    <text x="114" y="357" font-size="17" font-weight="700" fill="#111827">03-phases.md</text>
-    <text x="264" y="357" font-size="14" fill="#4B5563">The plan: numbered phases and steps</text>
-    <rect x="704" y="339" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
-    <text x="738.5" y="357" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">design</text>
-    <rect x="781" y="339" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
-    <text x="815.5" y="357" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">revise</text>
-    <line x1="72" y1="376" x2="1004" y2="376" stroke="#C4D8F6" stroke-dasharray="3 4"/>
-    <path d="M72 386 H87 L94 393 V414 H72 Z" fill="#F6FAFF" stroke="#E8590C" stroke-width="1.6" stroke-linejoin="round"/>
-    <path d="M87 386 V393 H94" fill="none" stroke="#E8590C" stroke-width="1.6" stroke-linejoin="round"/>
-    <line x1="76" y1="398" x2="87" y2="398" stroke="#E8590C" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="76" y1="403" x2="84" y2="403" stroke="#E8590C" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="76" y1="408" x2="81" y2="408" stroke="#E8590C" stroke-width="1.4" stroke-linecap="round"/>
-    <circle cx="93" cy="412" r="10" fill="#E8590C" stroke="#F6FAFF" stroke-width="2"/>
-    <g transform="translate(93 412)"><circle cx="-1" cy="-1" r="3.3" fill="none" stroke="#FFFFFF" stroke-width="1.7"/><line x1="1.6" y1="1.6" x2="5" y2="5" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round"/></g>
-    <text x="114" y="407" font-size="17" font-weight="700" fill="#111827">04-review.md</text>
-    <text x="264" y="407" font-size="14" fill="#4B5563">The latest review: stage, verdict, findings</text>
-    <rect x="704" y="389" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
-    <text x="738.5" y="407" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">review</text>
-    <line x1="48" y1="432" x2="1028" y2="432" stroke="#C4D8F6"/>
-    <text x="72" y="460" font-size="12" font-weight="700" fill="#6B7A99" letter-spacing="2">LIVING FILES, UPDATED AS THE WORK GOES ON</text>
-    <path d="M72 484 H87 L94 491 V512 H72 Z" fill="#F6FAFF" stroke="#1B8A5A" stroke-width="1.6" stroke-linejoin="round"/>
-    <path d="M87 484 V491 H94" fill="none" stroke="#1B8A5A" stroke-width="1.6" stroke-linejoin="round"/>
-    <line x1="76" y1="496" x2="87" y2="496" stroke="#1B8A5A" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="76" y1="501" x2="84" y2="501" stroke="#1B8A5A" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="76" y1="506" x2="81" y2="506" stroke="#1B8A5A" stroke-width="1.4" stroke-linecap="round"/>
-    <circle cx="93" cy="510" r="10" fill="#1B8A5A" stroke="#F6FAFF" stroke-width="2"/>
-    <g transform="translate(93 510)"><polyline points="-5,-2 -3.5,0 -1,-4" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><line x1="1.5" y1="-2" x2="5" y2="-2" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/><line x1="-5" y1="3.5" x2="5" y2="3.5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/></g>
-    <text x="114" y="505" font-size="17" font-weight="700" fill="#111827">_status.md</text>
-    <text x="264" y="505" font-size="14" fill="#4B5563">Where each step stands: todo, done, blocked, skip</text>
-    <rect x="704" y="487" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
-    <text x="738.5" y="505" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">design</text>
-    <rect x="781" y="487" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
-    <text x="815.5" y="505" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">revise</text>
-    <rect x="858" y="487" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
-    <text x="892.5" y="505" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">update</text>
-    <rect x="935" y="487" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
-    <text x="969.5" y="505" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">resume</text>
-    <line x1="72" y1="524" x2="1004" y2="524" stroke="#C4D8F6" stroke-dasharray="3 4"/>
-    <path d="M72 534 H87 L94 541 V562 H72 Z" fill="#F6FAFF" stroke="#6B7A99" stroke-width="1.6" stroke-linejoin="round"/>
-    <path d="M87 534 V541 H94" fill="none" stroke="#6B7A99" stroke-width="1.6" stroke-linejoin="round"/>
-    <line x1="76" y1="546" x2="87" y2="546" stroke="#6B7A99" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="76" y1="551" x2="84" y2="551" stroke="#6B7A99" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="76" y1="556" x2="81" y2="556" stroke="#6B7A99" stroke-width="1.4" stroke-linecap="round"/>
-    <circle cx="93" cy="560" r="10" fill="#6B7A99" stroke="#F6FAFF" stroke-width="2"/>
-    <g transform="translate(93 560)"><circle cx="0" cy="0" r="5" fill="none" stroke="#FFFFFF" stroke-width="1.5"/><polyline points="0,-2.8 0,0 2.4,1.6" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g>
-    <text x="114" y="555" font-size="17" font-weight="700" fill="#111827">_history.md</text>
-    <text x="264" y="555" font-size="14" fill="#4B5563">Append-only log of what ran and when</text>
-    <rect x="704" y="537" width="123" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
-    <text x="765.5" y="555" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">every command</text>
-    <line x1="72" y1="574" x2="1004" y2="574" stroke="#C4D8F6" stroke-dasharray="3 4"/>
-    <path d="M72 584 H87 L94 591 V612 H72 Z" fill="#F6FAFF" stroke="#D6336C" stroke-width="1.6" stroke-linejoin="round"/>
-    <path d="M87 584 V591 H94" fill="none" stroke="#D6336C" stroke-width="1.6" stroke-linejoin="round"/>
-    <line x1="76" y1="596" x2="87" y2="596" stroke="#D6336C" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="76" y1="601" x2="84" y2="601" stroke="#D6336C" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="76" y1="606" x2="81" y2="606" stroke="#D6336C" stroke-width="1.4" stroke-linecap="round"/>
-    <circle cx="93" cy="610" r="10" fill="#D6336C" stroke="#F6FAFF" stroke-width="2"/>
-    <g transform="translate(93 610)"><circle cx="0" cy="0" r="5" fill="none" stroke="#FFFFFF" stroke-width="1.5"/><polygon points="0,-3 1.7,0 0,3 -1.7,0" fill="#FFFFFF" transform="rotate(45)"/></g>
-    <text x="114" y="605" font-size="17" font-weight="700" fill="#111827">_research.md</text>
-    <text x="264" y="605" font-size="14" fill="#4B5563">Dated entries: questions, findings, sources</text>
-    <rect x="704" y="587" width="84" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
-    <text x="746" y="605" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">research</text>
+    <rect x="48" y="220" width="150" height="40" rx="10" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <rect x="48" y="244" width="980" height="448" rx="12" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <rect x="49.5" y="242.5" width="147" height="4" fill="#F6FAFF"/>
+    <text x="72" y="280" font-size="12" font-weight="700" fill="#6B7A99" letter-spacing="2">STAGE FILES, WRITTEN IN ORDER</text>
+    <path d="M72 304 H87 L94 311 V332 H72 Z" fill="#F6FAFF" stroke="#007FFF" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M87 304 V311 H94" fill="none" stroke="#007FFF" stroke-width="1.6" stroke-linejoin="round"/>
+    <line x1="76" y1="316" x2="87" y2="316" stroke="#007FFF" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="76" y1="321" x2="84" y2="321" stroke="#007FFF" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="76" y1="326" x2="81" y2="326" stroke="#007FFF" stroke-width="1.4" stroke-linecap="round"/>
+    <circle cx="93" cy="330" r="10" fill="#007FFF" stroke="#F6FAFF" stroke-width="2"/>
+    <g transform="translate(93 330)"><polygon points="-5,5 -4,1.5 2.5,-5 5,-2.5 -1.5,4" fill="#FFFFFF"/></g>
+    <text x="114" y="325" font-size="17" font-weight="700" fill="#111827">01-change.md</text>
+    <text x="264" y="325" font-size="14" fill="#4B5563">The change: requirements and acceptance criteria</text>
+    <rect x="704" y="307" width="61" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="734.5" y="325" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">begin</text>
+    <rect x="773" y="307" width="38" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="792" y="325" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">go</text>
+    <line x1="72" y1="344" x2="1004" y2="344" stroke="#C4D8F6" stroke-dasharray="3 4"/>
+    <path d="M72 354 H87 L94 361 V382 H72 Z" fill="#F6FAFF" stroke="#7C4DFF" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M87 354 V361 H94" fill="none" stroke="#7C4DFF" stroke-width="1.6" stroke-linejoin="round"/>
+    <line x1="76" y1="366" x2="87" y2="366" stroke="#7C4DFF" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="76" y1="371" x2="84" y2="371" stroke="#7C4DFF" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="76" y1="376" x2="81" y2="376" stroke="#7C4DFF" stroke-width="1.4" stroke-linecap="round"/>
+    <circle cx="93" cy="380" r="10" fill="#7C4DFF" stroke="#F6FAFF" stroke-width="2"/>
+    <g transform="translate(93 380)"><polygon points="-5,5 5,5 -5,-5" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linejoin="round"/></g>
+    <text x="114" y="375" font-size="17" font-weight="700" fill="#111827">02-design.md</text>
+    <text x="264" y="375" font-size="14" fill="#4B5563">The design: approach, files, how to test it</text>
+    <rect x="704" y="357" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="738.5" y="375" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">design</text>
+    <rect x="781" y="357" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="815.5" y="375" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">revise</text>
+    <line x1="72" y1="394" x2="1004" y2="394" stroke="#C4D8F6" stroke-dasharray="3 4"/>
+    <path d="M72 404 H87 L94 411 V432 H72 Z" fill="#F6FAFF" stroke="#0FA3A3" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M87 404 V411 H94" fill="none" stroke="#0FA3A3" stroke-width="1.6" stroke-linejoin="round"/>
+    <line x1="76" y1="416" x2="87" y2="416" stroke="#0FA3A3" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="76" y1="421" x2="84" y2="421" stroke="#0FA3A3" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="76" y1="426" x2="81" y2="426" stroke="#0FA3A3" stroke-width="1.4" stroke-linecap="round"/>
+    <circle cx="93" cy="430" r="10" fill="#0FA3A3" stroke="#F6FAFF" stroke-width="2"/>
+    <g transform="translate(93 430)"><polyline points="-5,5 -5,2 -2,2 -2,-1 1,-1 1,-4 5,-4" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/></g>
+    <text x="114" y="425" font-size="17" font-weight="700" fill="#111827">03-phases.md</text>
+    <text x="264" y="425" font-size="14" fill="#4B5563">The plan: numbered phases and steps</text>
+    <rect x="704" y="407" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="738.5" y="425" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">design</text>
+    <rect x="781" y="407" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="815.5" y="425" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">revise</text>
+    <line x1="72" y1="444" x2="1004" y2="444" stroke="#C4D8F6" stroke-dasharray="3 4"/>
+    <path d="M72 454 H87 L94 461 V482 H72 Z" fill="#F6FAFF" stroke="#E8590C" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M87 454 V461 H94" fill="none" stroke="#E8590C" stroke-width="1.6" stroke-linejoin="round"/>
+    <line x1="76" y1="466" x2="87" y2="466" stroke="#E8590C" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="76" y1="471" x2="84" y2="471" stroke="#E8590C" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="76" y1="476" x2="81" y2="476" stroke="#E8590C" stroke-width="1.4" stroke-linecap="round"/>
+    <circle cx="93" cy="480" r="10" fill="#E8590C" stroke="#F6FAFF" stroke-width="2"/>
+    <g transform="translate(93 480)"><circle cx="-1" cy="-1" r="3.3" fill="none" stroke="#FFFFFF" stroke-width="1.7"/><line x1="1.6" y1="1.6" x2="5" y2="5" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round"/></g>
+    <text x="114" y="475" font-size="17" font-weight="700" fill="#111827">04-review.md</text>
+    <text x="264" y="475" font-size="14" fill="#4B5563">The latest review: stage, verdict, findings</text>
+    <rect x="704" y="457" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="738.5" y="475" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">review</text>
+    <line x1="48" y1="500" x2="1028" y2="500" stroke="#C4D8F6"/>
+    <text x="72" y="528" font-size="12" font-weight="700" fill="#6B7A99" letter-spacing="2">LIVING FILES, UPDATED AS THE WORK GOES ON</text>
+    <path d="M72 552 H87 L94 559 V580 H72 Z" fill="#F6FAFF" stroke="#1B8A5A" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M87 552 V559 H94" fill="none" stroke="#1B8A5A" stroke-width="1.6" stroke-linejoin="round"/>
+    <line x1="76" y1="564" x2="87" y2="564" stroke="#1B8A5A" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="76" y1="569" x2="84" y2="569" stroke="#1B8A5A" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="76" y1="574" x2="81" y2="574" stroke="#1B8A5A" stroke-width="1.4" stroke-linecap="round"/>
+    <circle cx="93" cy="578" r="10" fill="#1B8A5A" stroke="#F6FAFF" stroke-width="2"/>
+    <g transform="translate(93 578)"><polyline points="-5,-2 -3.5,0 -1,-4" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><line x1="1.5" y1="-2" x2="5" y2="-2" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/><line x1="-5" y1="3.5" x2="5" y2="3.5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/></g>
+    <text x="114" y="573" font-size="17" font-weight="700" fill="#111827">_status.md</text>
+    <text x="264" y="573" font-size="14" fill="#4B5563">Where each step stands: todo, done, blocked, skip</text>
+    <rect x="704" y="555" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="738.5" y="573" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">design</text>
+    <rect x="781" y="555" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="815.5" y="573" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">revise</text>
+    <rect x="858" y="555" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="892.5" y="573" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">update</text>
+    <rect x="935" y="555" width="69" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="969.5" y="573" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">resume</text>
+    <line x1="72" y1="592" x2="1004" y2="592" stroke="#C4D8F6" stroke-dasharray="3 4"/>
+    <path d="M72 602 H87 L94 609 V630 H72 Z" fill="#F6FAFF" stroke="#6B7A99" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M87 602 V609 H94" fill="none" stroke="#6B7A99" stroke-width="1.6" stroke-linejoin="round"/>
+    <line x1="76" y1="614" x2="87" y2="614" stroke="#6B7A99" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="76" y1="619" x2="84" y2="619" stroke="#6B7A99" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="76" y1="624" x2="81" y2="624" stroke="#6B7A99" stroke-width="1.4" stroke-linecap="round"/>
+    <circle cx="93" cy="628" r="10" fill="#6B7A99" stroke="#F6FAFF" stroke-width="2"/>
+    <g transform="translate(93 628)"><circle cx="0" cy="0" r="5" fill="none" stroke="#FFFFFF" stroke-width="1.5"/><polyline points="0,-2.8 0,0 2.4,1.6" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <text x="114" y="623" font-size="17" font-weight="700" fill="#111827">_history.md</text>
+    <text x="264" y="623" font-size="14" fill="#4B5563">Append-only log of what ran and when</text>
+    <rect x="704" y="605" width="123" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="765.5" y="623" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">every command</text>
+    <line x1="72" y1="642" x2="1004" y2="642" stroke="#C4D8F6" stroke-dasharray="3 4"/>
+    <path d="M72 652 H87 L94 659 V680 H72 Z" fill="#F6FAFF" stroke="#D6336C" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M87 652 V659 H94" fill="none" stroke="#D6336C" stroke-width="1.6" stroke-linejoin="round"/>
+    <line x1="76" y1="664" x2="87" y2="664" stroke="#D6336C" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="76" y1="669" x2="84" y2="669" stroke="#D6336C" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="76" y1="674" x2="81" y2="674" stroke="#D6336C" stroke-width="1.4" stroke-linecap="round"/>
+    <circle cx="93" cy="678" r="10" fill="#D6336C" stroke="#F6FAFF" stroke-width="2"/>
+    <g transform="translate(93 678)"><circle cx="0" cy="0" r="5" fill="none" stroke="#FFFFFF" stroke-width="1.5"/><polygon points="0,-3 1.7,0 0,3 -1.7,0" fill="#FFFFFF" transform="rotate(45)"/></g>
+    <text x="114" y="673" font-size="17" font-weight="700" fill="#111827">_research.md</text>
+    <text x="264" y="673" font-size="14" fill="#4B5563">Dated entries: questions, findings, sources</text>
+    <rect x="704" y="655" width="84" height="26" rx="13" fill="#E8F1FF" stroke="#8FB0E3"/>
+    <text x="746" y="673" font-size="13" font-weight="700" fill="#007FFF" text-anchor="middle">research</text>
   </g>
 </svg>
