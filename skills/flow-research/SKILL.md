@@ -45,7 +45,7 @@ EXAMPLES:
    - The project code, the resources in `kiit.json`, the ticket, and URLs
    - Stop when the question is answered. Don't survey more than it needs
 5. Add to `_research.md` (shared.md). Create it if it is missing.
-   - Raise the tier in `_status.md`, if it exists (shared.md)
+   - Switch the mode in `_status.md`, if it exists (shared.md)
 6. Add a row to `_history.md` (shared.md) with the topic and the outcome.
 7. Print a short summary and the next step.
    - What was found, and what is still open
@@ -54,7 +54,7 @@ EXAMPLES:
 
 ## Rules
 1. Write only `_research.md` and `_history.md`. Change no code and no other file.
-   - The one other change is raising the Tier line in `_status.md`
+   - The one other change is switching the Mode line in `_status.md`
 2. Never edit or remove text already in `_research.md`.
 3. Say where each finding came from. Mark your own reasoning as inferred.
 4. A question only the user can answer goes under open. Don't guess it.

@@ -45,7 +45,7 @@ EXAMPLES:
    - Code: does the code match the design, and is each acceptance criterion met
    - `independent`: see below. Otherwise name the rule behind each finding
 5. Write `04-review.md` from the template. It replaces any earlier one.
-   - Raise the tier in `_status.md` (shared.md)
+   - Switch the mode in `_status.md` (shared.md)
 6. Add a row to `_history.md` (shared.md) with the stage, the verdict and the baseline.
 7. Print the verdict and the top findings, then the next step.
    - `NEEDS_CHANGES`: suggest `/flow-revise`, which applies the findings
@@ -106,6 +106,6 @@ A blocker or major finding makes the verdict `NEEDS_CHANGES`. Otherwise it is `A
 
 ## Rules
 1. Write only `04-review.md` and a row in `_history.md`.
-   - The one other change is raising the Tier line in `_status.md`
+   - The one other change is switching the Mode line in `_status.md`
    - Don't edit the other artifacts or the project code
 2. A new review replaces the file, including a `## Response` that revise added.

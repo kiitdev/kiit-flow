@@ -1,6 +1,6 @@
 ---
 description: Write the design, phases and status for a work item.
-argument-hint: "[work-item] [tier] [--fresh]"
+argument-hint: "[work-item] [mode] [--fresh]"
 order: 3
 disable-model-invocation: true
 ---
@@ -13,14 +13,14 @@ Read `.claude/kiit/flow/shared.md` first.
 
 ## Usage
 ```
-USAGE: /flow-design [work-item] [tier] [--fresh]
+USAGE: /flow-design [work-item] [mode] [--fresh]
 
   Write 02-design.md, 03-phases.md and _status.md. To change them later, use /flow-revise.
 
 
 ARGUMENTS:
   [work-item] : Optional : a folder name or a unique prefix. Omit for the most recent
-  [tier]      : Optional : flow or focus. Omit to let design pick from the risk
+  [mode]      : Optional : flow or focus. Omit to let design pick from the risk
   [--fresh]   : Optional : start over, replacing an existing design
 
 
@@ -31,7 +31,7 @@ EXAMPLES:
 
 ## Steps
 1. Resolve the work item and project (shared.md). Tell the user which.
-   - `flow` or `focus` is the tier. The first other argument is the work item
+   - `flow` or `focus` is the mode. The first other argument is the work item
    - No `01-change.md`: `error: no 01-change.md`, and suggest `/flow-begin`
 2. Check for an existing design.
    - Any of the three files exists: `error: already designed`
@@ -47,7 +47,7 @@ EXAMPLES:
 5. Read the project repo.
    - Its `CLAUDE.md`, the code the change touches, and how similar code is done
    - Reuse existing utilities and patterns before proposing new ones
-6. Pick the tier. Use the one given, else decide.
+6. Pick the mode. Use the one given, else decide.
    - `focus` if the change is risky, wide or unclear, or `_research.md` exists
    - Otherwise `flow`
    - Risky or wide: a public API, data, auth, the build, or several projects
@@ -58,15 +58,15 @@ EXAMPLES:
    - Write other assumptions under `## Assumptions` in `02-design.md`
 8. Write `02-design.md`, `03-phases.md` and `_status.md` (all in shared.md).
    - End each phase with a step for its tests. If it needs none, say why
-   - `_status.md` starts with the Tier line, then every step as `todo`
+   - `_status.md` starts with the Mode line, then every step as `todo`
    - Name the `_research.md` section behind a choice that rests on it
-9. Add a row to `_history.md` (shared.md) with the tier and the phase and step counts.
-10. Print a short summary, the tier and why, the assumptions made, and the next step.
+9. Add a row to `_history.md` (shared.md) with the mode and the phase and step counts.
+10. Print a short summary, the mode and why, the assumptions made, and the next step.
    - Ask the user to review the files and discuss
    - An assumption rests on a fact nobody checked: suggest `/flow-research`
    - To change them, suggest `/flow-revise`. For a second view, `/flow-review`
    - Or `/flow-update` to start implementing
-   - Tier `focus`: `update` asks for a review first (Review gate, shared.md)
+   - Mode `focus`: `update` asks for a review first (Review gate, shared.md)
 
 ## Rules
 1. Write only inside the work item folder.

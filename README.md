@@ -22,7 +22,7 @@ Part of [Kiit](https://www.kiit.dev)
 | # | | Topic | Description |
 |---:|:---:|---|---|
 | 1 | 💡 | [Why](#why) | The problems flow addresses, and the approach it takes |
-| 2 | 🧭 | [Tiers](#tiers) | Fast, Flow, or Focus: how to choose for a change |
+| 2 | 🧭 | [Modes](#modes) | Fast, Flow, or Focus: how to choose for a change |
 | 3 | 🚀 | [Start](#start) | Install, set up the config, and create a first work item |
 | 4 | ⌨️ | [Commands](#commands) | The skills you run, and what is planned |
 | 5 | 📁 | [Work Item](#work-item) | The folder of plain markdown files that holds one change |
@@ -46,19 +46,19 @@ Work with an AI coding assistant tends to go wrong in a few repeatable ways:
 
 A short set of commands moves the change through its stages: requirements, design, research, review, implementation, and checks. Every command reads what the earlier ones wrote, so a session can stop at any point and another can pick up from the files.
 
-## Tiers
+## Modes
 
 Choose by the risk and clarity of the change, not by its size.
 
-| Tier | Use it when | Commands |
+| Mode | Use it when | Commands |
 |---|---|---|
 | **Fast** | The change is clear and low risk, whatever its size. | `go`, then `verify` if you want the full checks |
 | **Flow** | The change needs a design before the implementation. | `begin`, `design`, `update`, `verify` |
 | **Focus** | Deep work: the change is risky, wide, or unclear. | `begin`, `design`, `review`, `revise`, `update`, `verify`, and `research` when needed |
 
-A change moves up a tier when it needs to. `go` saves the work item and hands off to `design` if it finds the change needs a design or is risky.
+A change switches mode when it needs to. `go` saves the work item and hands off to `design` if it finds the change needs a design or is risky.
 
-`design` picks Flow or Focus and writes it to `_status.md`. You can pass `flow` or `focus` to choose it yourself. Running `research`, `review`, or `revise` on a Flow work item moves it up to Focus.
+`design` picks Flow or Focus and writes it to `_status.md`. You can pass `flow` or `focus` to choose it yourself. Running `research`, `review`, or `revise` on a Flow work item switches it to Focus.
 
 In Focus, `update` and `resume` ask for a review first. `review`, `revise`, and `update` repeat until the work is right. `research` can be used at any step after `begin`, and writes to `_research.md`.
 

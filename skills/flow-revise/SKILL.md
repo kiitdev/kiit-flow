@@ -49,7 +49,7 @@ EXAMPLES:
    - A choice changes the design, or a finding needs a decision
 5. Update `02-design.md`, `03-phases.md` and `_status.md` in place.
    - Keep `done` steps `done`, and `skip` steps `skip`
-   - Raise the tier to `focus` (shared.md). Lower it only when your text asks
+   - Switch the mode to `focus` (shared.md). Back only when your text asks
    - Renumber nothing that is `done` or referred to by other steps
    - Add new steps at the end of a phase, or in a new phase
    - Drop a `todo` or `blocked` step by setting it to `skip`, with a reason

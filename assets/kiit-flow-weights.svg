@@ -107,9 +107,9 @@
     <text x="772" y="544" font-size="15" fill="#6B7A99" font-style="italic">code</text>
 
     <rect x="56" y="602" width="988" height="46" rx="12" fill="#FFFFFF" stroke="#8FB0E3" stroke-width="1.5"/>
-    <text x="78" y="630" font-size="12" font-weight="700" fill="#6B7A99" letter-spacing="2">ALL TIERS</text>
+    <text x="78" y="630" font-size="12" font-weight="700" fill="#6B7A99" letter-spacing="2">ALL MODES</text>
     <text x="194" y="631" font-size="17" font-weight="700" fill="#111827">_history.md</text>
     <text x="324.2" y="631" font-size="14" fill="#6B7A99">written by every command, a log of what happened</text>
-    <text x="56" y="678" font-size="14" fill="#6B7A99">A change moves up a tier when it needs a design or is risky.</text>
+    <text x="56" y="678" font-size="14" fill="#6B7A99">A change switches mode when it needs a design or is risky.</text>
   </g>
 </svg>

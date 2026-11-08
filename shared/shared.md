@@ -66,7 +66,7 @@ One folder per unit of work, inside `flow.work_items`:
 ├── 02-design.md   # the design (design, revise)
 ├── 03-phases.md   # numbered phases and steps (design, revise)
 ├── 04-review.md   # findings, verdict and stage: plan or code, optional (review)
-├── _status.md     # the tier, and where each step stands (design, revise, update, resume)
+├── _status.md     # the mode, and where each step stands (design, revise, update, resume)
 ├── _history.md    # append-only table of what happened
 ├── _research.md   # what was looked into: a log, then sections (research)
 └── _files/
@@ -283,7 +283,7 @@ One line per step, under the phase headings of `03-phases.md`:
 ```markdown
 # Status: {title}
 
-- **Tier:** focus
+- **Mode:** focus
 
 ## Phase 1: {name}
 1.1 done | Move sinks to kiit.logs.sinks
@@ -294,7 +294,7 @@ One line per step, under the phase headings of `03-phases.md`:
 
 `{N.M} {status} | {short title}`, plus a reason as a third field for `blocked` and `skip`.
 
-The Tier line is `flow` or `focus`. A file with no Tier line counts as `flow`.
+The Mode line is `flow` or `focus`. A file with no Mode line counts as `flow`.
 
 | Status | Meaning |
 |---|---|
@@ -307,12 +307,12 @@ The Tier line is `flow` or `focus`. A file with no Tier line counts as `flow`.
    - Short titles, about 60 characters at most, with no history notes
 2. A `skip` step is not run, is not a gap, and counts as finished.
 3. `design` creates the file, and `revise` keeps it in step with `03-phases.md`.
-   - `design` writes the Tier line
-4. `research`, `review` and `revise` are Focus commands. They change a `flow` tier to `focus`.
+   - `design` writes the Mode line
+4. `research`, `review` and `revise` are Focus commands. They switch a `flow` mode to `focus`.
    - Say so in the report
    - No `_status.md` yet, such as research before the design: change nothing
    - `design` then picks `focus`, because `_research.md` exists
-   - Lowering the tier is a request to `revise`. Nothing else does it
+   - Switching back to `flow` is a request to `revise`. Nothing else does it
    - `update` and `resume` change `todo` to `done` or `blocked`
    - `revise` changes steps to `skip`
    - No skill changes a `done` step
@@ -368,7 +368,7 @@ Then:
 ## Review gate
 Applies in two cases:
 1. `04-review.md` exists and its verdict is `NEEDS_CHANGES`.
-2. `_status.md` says `Tier: focus`, and there is no `04-review.md`.
+2. `_status.md` says `Mode: focus`, and there is no `04-review.md`.
 
 In case 1 the review is **open** while any blocker or major finding is missing from its
 `## Response` section, or is marked `open` there. When every one is `applied` or `declined`,
@@ -380,7 +380,7 @@ it is **closed**.
 In case 2, tell the user the plan has not been reviewed. Ask whether to run `/flow-review`
 or to continue without one. Wait. To continue, add a history row that says the review was skipped.
 
-An `APPROVE` verdict needs no gate. With no `04-review.md` and a `flow` tier, no gate either.
+An `APPROVE` verdict needs no gate. With no `04-review.md` and a `flow` mode, no gate either.
 `revise` writes the `## Response`.
 
 ## Blocked gate
