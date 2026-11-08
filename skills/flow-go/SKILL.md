@@ -45,7 +45,8 @@ EXAMPLES:
    - Add its path and why under References
    - None exists: leave References empty
 5. Check before editing. If it needs a design choice, is unclear or is risky, hand off.
-   - Risky: auth or secrets, data or migrations, a public API, build or release
+   - Risky: auth or secrets, data or migrations, build or release,
+     or a breaking change to a public API
    - Add a row to `_history.md` (shared.md): `not one-pass, handed to Flow`
    - Print `go: this change needs a design or a review`, then `/flow-design`
    - Change no code, and stop
