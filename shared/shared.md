@@ -62,7 +62,7 @@ One folder per unit of work, inside `flow.work_items`:
 
 ```
 {YYMMDD}-{project}-{type}-{ticket|short-name}/
-├── 01-change.md   # the change: requirements, criteria, scope (begin; design and revise answer questions)
+├── 01-change.md   # the change as asked (begin; design and revise answer questions)
 ├── 02-design.md   # the design (design, revise)
 ├── 03-phases.md   # numbered phases and steps (design, revise)
 ├── 04-review.md   # findings, verdict and stage: plan or code, optional (review)
@@ -171,11 +171,9 @@ Used by `begin` and `go`.
 3. Write `01-change.md` from the template below.
    - Title: the ticket title, else the description in short, else `ticket {id}`
    - Ticket: the URL, or the system's link for the id. Link it, don't copy it
-   - Description: the requirements as given, tidied, with no new scope
-   - Keep every constraint (no X, must Y, don't change Z) in the user's words
-   - Acceptance criteria: for a description, one to three checkable lines from it
-   - Fill References, Scope, Constraints and Examples only from what was given
-   - A ticket: leave Requirements empty, and fill the rest only with what it lacks
+   - Fill the sections from what was given, tidied, with no new scope
+   - Keep every limit (no X, must Y, don't change Z) in the user's words
+   - A section with nothing given stays empty. Its comment says what it holds
    - Anything unclear goes under Questions
 4. Write `_history.md` with its first row.
    - Note: `created from ticket {id}` or `created from description`
@@ -193,7 +191,7 @@ Used by `begin` and `go`.
 <!-- Description: the full requirements, with constraints in the user's words. Ticket: leave empty, the ticket is the source of truth. -->
 
 ## Acceptance criteria
-<!-- How we know it is done. One checkable statement per line. -->
+<!-- How we know it is done. One checkable statement per line. A description with none given: write one to three from it. -->
 
 ## References
 <!-- Existing code or docs to follow, one per line: the path, and why. -->
@@ -364,7 +362,8 @@ How `update` and `resume` carry out steps. For each step, in order:
 
 1. Implement it in the project repo, following the design and the project's conventions.
    - The design names a `_research.md` section for it: read that section first
-2. Run the narrowest check that covers it (compile, or the relevant test), if one exists.
+2. Run the narrowest check that covers it, using the project's own commands.
+   - None found: report `no check found`. Don't call it passed
 3. Set it to `done` in `_status.md` only after the check passes.
 
 Stop right away if any of these happens:

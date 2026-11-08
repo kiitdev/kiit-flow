@@ -45,20 +45,21 @@ EXAMPLES:
 ## Checks
 | Check | What it does |
 |---|---|
-| `criteria` | The changes against `01-change.md`: criteria, Scope, Constraints |
+| `criteria` | The changes against what `01-change.md` asks and limits |
 | `lint` | The project's own lint, inferred from the project |
 | `tests` | The project's own tests, inferred from the project |
 | `security` | A scan of added and modified files for leaks, and the project's audit if it has one |
 | `docs` | `fail` only when a doc the change touched is now wrong. Otherwise `pass` |
 
 ### Criteria
-1. Read Acceptance criteria, Scope and Constraints in `01-change.md`.
-   - A ticket with none written: use the ticket's (Read a ticket, shared.md)
-   - None anywhere: `skipped`, with `no acceptance criteria`
-2. Mark each criterion `met` (name the file or test), `not met` or `not checked`.
+1. Read `01-change.md`: what must be true, and what the change must not do.
+   - A ticket: also use the ticket's own (Read a ticket, shared.md)
+   - Nothing to check against: `skipped`, with `nothing to check against`
+2. Mark each point `met` (name the file or test), `not met` or `not checked`.
    - `not checked`: code can't show it, such as a manual or runtime check
-3. The check is `fail` if a criterion or a Constraint is `not met`.
-4. A changed file outside Scope is a note, `outside scope: {file}`. It never fails.
+3. The check is `fail` if a point is `not met`.
+4. A changed file the change doesn't call for is a note, `unrelated: {file}`.
+   - It never fails the check
 5. The report lists the `not checked` ones and the notes.
 
 ### Lint and tests

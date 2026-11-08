@@ -40,10 +40,9 @@ EXAMPLES:
    - The code the change touches
    - The build, test and lint commands, from those files
 3. Create the work item (shared.md).
-   - Write the acceptance criteria and keep every constraint, as shared.md says
-4. Find an anchor. References is empty: find one existing example of the same kind.
-   - Add its path and why under References
-   - None exists: leave References empty
+4. Find an anchor. `01-change.md` names none: find one existing example of the kind.
+   - Add its path and why to `01-change.md`
+   - None exists: skip this
 5. Check before editing. If it needs a design choice, is unclear or is risky, hand off.
    - Risky: auth or secrets, data or migrations, build or release,
      or a breaking change to a public API
@@ -51,10 +50,9 @@ EXAMPLES:
    - Print `go: this change needs a design or a review`, then `/flow-design`
    - Change no code, and stop
 6. Implement the change in the project repo, following its conventions.
-   - Follow References, and keep to Scope and Constraints
-   - Do what the request asks and no more
-   - The change needs more than Scope allows: stop and report it
-7. Run the narrowest check that covers the acceptance criteria.
+   - Follow `01-change.md`, and do what it asks and no more
+   - The change needs more than it allows: stop and report it
+7. Run the narrowest check that covers what `01-change.md` asks.
    - Use the project's own test command. Add a test when the behavior is new
    - No check can be found: report `no check found`. Don't call it passed
    - It fails and the fix isn't clearly inside the change: stop and report it

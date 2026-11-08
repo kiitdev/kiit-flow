@@ -42,7 +42,7 @@ EXAMPLES:
    - Plan: are the requirements clear, the design sound, and the phases in order
    - Plan: does each phase have tests, and can each criterion be checked
    - Plan: does the design agree with what `_research.md` found
-   - Code: does the code match the design, and is each acceptance criterion met
+   - Code: does the code match the design and what `01-change.md` asks
    - `independent`: see below. Otherwise name the rule behind each finding
 5. Write `04-review.md` from the template. It replaces any earlier one.
    - Switch the mode in `_status.md` (shared.md)
@@ -79,7 +79,7 @@ The brief:
 ```text
 Review these as a fresh reader. Find gaps in the requirements, design flaws, missing
 or badly ordered steps, risks, and simpler options. For code, check it against the
-design and the acceptance criteria. Read only. Return findings, each with a severity
+design and `01-change.md`. Read only. Return findings, each with a severity
 (blocker, major, minor, nit) and a location.
 ```
 
