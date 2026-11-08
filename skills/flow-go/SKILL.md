@@ -1,7 +1,7 @@
 ---
 description: Do a clear, low-risk change in one pass: no design, just implement and check.
 argument-hint: "[project] [type] {ticket|description}"
-order: 2
+order: 1
 disable-model-invocation: true
 ---
 

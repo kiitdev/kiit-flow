@@ -42,10 +42,15 @@ EXAMPLES:
 flow: take a change from idea to PR, one work item at a time
 
 COMMANDS:
-  1. /flow-begin  {project} {type} {ticket|description}
+  1. /flow-go     [project] [type] {ticket|description}
+                  Do a clear, low-risk change in one pass: no design, just implement and check.
+
+  2. /flow-begin  {project} {type} {ticket|description}
                   Create a work item from a ticket or a description.
 
-  2. /flow-help   [command]
+  ...
+
+  11. /flow-help  [command]
                   Show the flow commands, or the usage of one command.
 
 Run /flow-help <command> for arguments and examples.
