@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="kiit-flow — A fast, flow, or focus based skills framework for coding with AI">
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-label="kiit-flow — A skills framework with three modes: Fast, Flow, and Focus">
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="#C4D8F6" stroke-width="1"/>
     </pattern>
-    <linearGradient id="sheen" gradientUnits="userSpaceOnUse" x1="569" y1="0" x2="633" y2="0" gradientTransform="matrix(1 0 -0.6 1 81 0)">
+    <linearGradient id="sheen" gradientUnits="userSpaceOnUse" x1="569" y1="0" x2="633" y2="0" gradientTransform="matrix(1 0 -0.6 1 87 0)">
       <stop offset="0" stop-color="#007FFF"/>
       <stop offset="0.3" stop-color="#007FFF"/>
       <stop offset="0.5" stop-color="#BFE0FF"/>
@@ -11,29 +11,29 @@
       <stop offset="1" stop-color="#007FFF"/>
       <animateTransform attributeName="gradientTransform" type="translate" additive="sum" values="0 0;0 0;128 0;128 0" keyTimes="0;0.15;0.75;1" dur="2.4s" repeatCount="indefinite"/>
     </linearGradient>
-    <clipPath id="frame"><rect width="1280" height="320" rx="20"/></clipPath>
+    <clipPath id="frame"><rect width="1280" height="360" rx="20"/></clipPath>
   </defs>
 
   <g clip-path="url(#frame)">
-    <rect width="1280" height="320" fill="#E8F1FF"/>
-    <rect width="1280" height="320" fill="url(#grid)"/>
+    <rect width="1280" height="360" fill="#E8F1FF"/>
+    <rect width="1280" height="360" fill="url(#grid)"/>
   </g>
-  <path d="M 20 4 H 1260 A 16 16 0 0 1 1276 20 V 300 A 16 16 0 0 1 1260 316 H 20" fill="none" stroke="#4DA3FF" stroke-width="8"/>
-  <path d="M 20 4 A 16 16 0 0 0 4 20 V 300 A 16 16 0 0 0 20 316" fill="none" stroke="#E8794A" stroke-width="8"/>
+  <path d="M 20 4 H 1260 A 16 16 0 0 1 1276 20 V 340 A 16 16 0 0 1 1260 356 H 20" fill="none" stroke="#4DA3FF" stroke-width="8"/>
+  <path d="M 20 4 A 16 16 0 0 0 4 20 V 340 A 16 16 0 0 0 20 356" fill="none" stroke="#E8794A" stroke-width="8"/>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
-    <text x="84.0 143.4 202.8 262.2 321.6 381.0 440.4 499.8 559.2" y="166" font-size="104" font-weight="700" fill="#111827"><tspan fill="#007FFF">kiit</tspan>-flow</text>
-    <path d="M 633 129.5 H 662 V 114 L 697 135 L 662 156 V 140.5 H 633 Z" fill="url(#sheen)"/>
-    <text x="88" y="218" font-size="16" fill="#4B5563">A fast, flow, or focus based skills framework for coding with AI</text>
-    <rect x="88" y="234" width="49" height="38" rx="10" fill="#EAF7F1" stroke="#8FD1B3" stroke-width="2"/>
-    <text x="104.0 112.4" y="259" font-size="14" font-weight="700" fill="#1B8A5A">go</text>
-    <text x="149" y="259" font-size="14" fill="#6B7A99">or</text>
-    <rect x="177.8" y="234" width="301" height="38" rx="10" fill="#FFF8DC" stroke="#E6C65C" stroke-width="2"/>
-    <text x="193.8 202.2 210.6 219.0 227.4 235.8 244.2 252.6 261.0 269.4 277.8 286.2 294.6 303.0 311.4 319.8 328.2 336.6 345.0 353.4 361.8 370.2 378.6 387.0 395.4 403.8 412.2 420.6 429.0 437.4 445.8 454.2" y="259" font-size="14" font-weight="700" fill="#A66F00">begin<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>design<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>update<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>verify</text>
-    <rect x="490.8" y="234" width="267" height="38" rx="10" fill="#F5F0FF" stroke="#B49CFF" stroke-width="2"/>
-    <text x="506.8 515.2 523.6 532.0 540.4 548.8 557.2 565.6 574.0 582.4 590.8 599.2 607.6 616.0 624.4 632.8 641.2 649.6 658.0 666.4 674.8 683.2 691.6 700.0 708.4 716.8 725.2 733.6" y="259" font-size="14" font-weight="700" fill="#7C4DFF">+ research<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>review<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>revise</text>
+    <text x="84.0 143.4 202.8 262.2 321.6 381.0 440.4 499.8 559.2" y="176" font-size="104" font-weight="700" fill="#111827"><tspan fill="#007FFF">kiit</tspan>-flow</text>
+    <path d="M 633 139.5 H 662 V 124 L 697 145 L 662 166 V 150.5 H 633 Z" fill="url(#sheen)"/>
+    <text x="88" y="240" font-size="18" fill="#4B5563">A skills framework with three modes: Fast, Flow, and Focus</text>
+    <rect x="88" y="268" width="49" height="38" rx="10" fill="#EAF7F1" stroke="#8FD1B3" stroke-width="2"/>
+    <text x="104.0 112.4" y="293" font-size="14" font-weight="700" fill="#1B8A5A">go</text>
+    <text x="149" y="293" font-size="14" fill="#6B7A99">or</text>
+    <rect x="177.8" y="268" width="301" height="38" rx="10" fill="#FFF8DC" stroke="#E6C65C" stroke-width="2"/>
+    <text x="193.8 202.2 210.6 219.0 227.4 235.8 244.2 252.6 261.0 269.4 277.8 286.2 294.6 303.0 311.4 319.8 328.2 336.6 345.0 353.4 361.8 370.2 378.6 387.0 395.4 403.8 412.2 420.6 429.0 437.4 445.8 454.2" y="293" font-size="14" font-weight="700" fill="#A66F00">begin<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>design<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>update<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>verify</text>
+    <rect x="490.8" y="268" width="267" height="38" rx="10" fill="#F5F0FF" stroke="#B49CFF" stroke-width="2"/>
+    <text x="506.8 515.2 523.6 532.0 540.4 548.8 557.2 565.6 574.0 582.4 590.8 599.2 607.6 616.0 624.4 632.8 641.2 649.6 658.0 666.4 674.8 683.2 691.6 700.0 708.4 716.8 725.2 733.6" y="293" font-size="14" font-weight="700" fill="#7C4DFF">+ research<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>review<tspan fill="#111827" stroke="#111827" stroke-width="1"> → </tspan>revise</text>
 
-    <g transform="translate(772 39)">
+    <g transform="translate(772 47)">
       <rect width="428" height="242" rx="12" fill="#F6FAFF" stroke="#8FB0E3"/>
       <text x="24" y="34" font-size="14" font-weight="700" fill="#007FFF">260928-kiit-codes-fix-1234</text>
       <line x1="24" y1="48" x2="404" y2="48" stroke="#8FB0E3"/>
@@ -53,5 +53,6 @@
       <text x="24" y="224" font-size="16" fill="#111827"><tspan fill="#6B7A99">6. </tspan>verify</text>
       <text x="404" y="224" font-size="16" fill="#C26A00" text-anchor="end">todo</text>
     </g>
+    <text x="1200" y="323" font-size="14" fill="#4B5563" text-anchor="end">Built for <tspan font-weight="700" fill="#C15F3C">Claude Code</tspan>. Other assistants later.</text>
   </g>
 </svg>

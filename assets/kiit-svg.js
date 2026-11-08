@@ -78,6 +78,7 @@ const GLYPHS = {
   magnifier: '<circle cx="-1" cy="-1" r="3.3" fill="none" stroke="#FFFFFF" stroke-width="1.7"/><line x1="1.6" y1="1.6" x2="5" y2="5" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round"/>',
   checklist: '<polyline points="-5,-2 -3.5,0 -1,-4" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><line x1="1.5" y1="-2" x2="5" y2="-2" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/><line x1="-5" y1="3.5" x2="5" y2="3.5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>',
   compass:   '<circle cx="0" cy="0" r="5" fill="none" stroke="#FFFFFF" stroke-width="1.5"/><polygon points="0,-3 1.7,0 0,3 -1.7,0" fill="#FFFFFF" transform="rotate(45)"/>',
+  download:  '<line x1="0" y1="-5" x2="0" y2="2.5" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round"/><polyline points="-3.5,-1 0,2.5 3.5,-1" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><line x1="-5" y1="5.5" x2="5" y2="5.5" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round"/>',
   clock:     '<circle cx="0" cy="0" r="5" fill="none" stroke="#FFFFFF" stroke-width="1.5"/><polyline points="0,-2.8 0,0 2.4,1.6" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
 };
 
