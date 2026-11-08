@@ -13,9 +13,9 @@ Part of [Kiit](https://www.kiit.dev)
 
 </div>
 
-![Choose Fast, Flow, or Focus: when to use each, and the commands and files each one uses](./assets/kiit-flow-weights.svg)
-
 ![A change takes Fast, Flow, or Focus, then verify](./assets/kiit-flow-diagram.svg)
+
+![Choose Fast, Flow, or Focus: when to use each, and the commands and files each one uses](./assets/kiit-flow-weights.svg)
 
 ## 📚 Table of Contents
 
