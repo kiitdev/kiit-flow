@@ -27,8 +27,11 @@ const CONFIG = {
   width: 900,                                // narrow enough to show at full size in a GitHub README
   heads: ["Goal", "Claude Code gives you", "kiit-flow adds"],
   rows: [                                    // each row: a name, an icon, its colors, and the two cards
+    { name: "Workspace", icon: "workspace", accent: "#3B5BDB", tint: "#EBEFFD",
+      has: "The folder you start in, and --add-dir",
+      adds: ["One config, many projects", "Work items kept outside repos", "Project inferred from ticket", "Works for one project or many"] },
     { name: "Organized", icon: "folder", accent: "#D9822B", tint: "#FFF3E3",
-      has: "A todo list in the session",
+      has: "A session todo list",
       adds: ["One work item per change", "Criteria and a check per step", "Reads the ticket and CLAUDE.md", "Code is the truth, no spec"] },
     { name: "Saved", icon: "file", accent: "#007FFF", tint: "#EAF3FF",
       has: "Transcript and --resume",
@@ -49,8 +52,8 @@ function buildSvg(c) {
   const t = c.theme, W = c.width, vpad = 20, margin = 40;
   const rowH = 126, rowGap = 30, pitch = rowH + rowGap, headY = 130, headH = 36, rowsTop = 182;
   const cw = 9, size = 15, lineH = 22;                  // mid and right text: 15px mono
-  const probX = margin, midX = 216, rightX = 536;
-  const midW = 284, rightW = W - margin - rightX;
+  const probX = margin, midX = 236, rightX = 538;
+  const midW = 262, rightW = W - margin - rightX;
   const rowsBottom = rowsTop + c.rows.length * pitch - rowGap;
   const Hc = rowsBottom + 36, H = Hc + 2 * vpad;
   const bg = kiitBackground(t, W, H);
@@ -80,6 +83,8 @@ function buildSvg(c) {
   const icon = (kind, accent, ym) => {
     if (kind === "file" || kind === "review") return `<g transform="translate(${probX} ${ym - 24}) scale(1.3)">${fileIcon(0, 0, kind === "review" ? "magnifier" : "checklist", accent, t)}</g>`;
     if (kind === "folder") return kiitFolderIcon(probX, ym - 19, 1.15);
+    if (kind === "workspace") return [0, 1].flatMap((r) => [0, 1].map((k) =>
+      `<rect x="${probX + 2 + k * 24}" y="${ym - 23 + r * 24}" width="20" height="20" rx="5" fill="${accent}"/>`)).join("\n    ");
     const bars = [[t.fast, 16], [t.flow, 26], [t.heavy, 36]];
     return bars.map(([col, h], k) => `<rect x="${probX + 2 + k * 16}" y="${ym + 20 - h}" width="12" height="${h}" rx="3" fill="${col}"/>`).join("\n    ");
   };

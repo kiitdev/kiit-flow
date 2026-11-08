@@ -5,7 +5,7 @@
 
 **A skills framework with three modes: Fast, Flow, and Focus**
 
-Skills for AI coding assistants that take a change from a ticket to a pull request, in one of three ways. **Fast** does a clear, low-risk change in one pass. **Flow** designs first, then implements and verifies. **Focus** is for deep work, risky or unclear changes, with research and a review loop. Every change lives in plain markdown files, so a session can stop and another can pick up from the files, in one repo or across several.
+Skills for Claude Code that take a change from a ticket to a pull request, in one of three ways. **Fast** does a clear, low-risk change in one pass. **Flow** designs first, then implements and verifies. **Focus** is for deep work, risky or unclear changes, with research and a review loop. Every change lives in plain markdown files, so a session can stop and another can pick up from the files, in one repo or across several.
 
 [![License](https://img.shields.io/github/license/kiitdev/kiit-flow)](./LICENSE)
 
@@ -32,7 +32,7 @@ Part of [Kiit](https://www.kiit.dev)
 
 ## Why
 
-![What Claude Code gives you and what kiit-flow adds, for four goals. Organized: one work item per change, criteria and a check per step, reads the ticket and CLAUDE.md, code is the truth with no spec. Saved: markdown files per change, resume in any new session, every run logged, blocked steps stop the run. Modes: Fast, Flow, and Focus, risk moves a change up, start small and move up as needed. Reviewed: plan review first in Focus, another model can review, a verdict in 04-review.md, verify runs lint, tests, and security](./assets/kiit-flow-why.svg)
+![What Claude Code gives you and what kiit-flow adds, for five goals. Workspace: one config for many projects, work items kept outside the repos, project inferred from the ticket, works for one project or many. Organized: one work item per change, criteria and a check per step, reads the ticket and CLAUDE.md, code is the truth with no spec. Saved: markdown files per change, resume in any new session, every run logged, blocked steps stop the run. Modes: Fast, Flow, and Focus, risk moves a change up, start small and move up as needed. Reviewed: plan review first in Focus, another model can review, a verdict in 04-review.md, verify runs lint, tests, and security](./assets/kiit-flow-why.svg)
 
 ## Modes
 
