@@ -352,6 +352,7 @@ Then:
 2. Add a history row with the step and the reason.
 3. Tell the user, and ask what to do: run `/flow-revise` with the new information, or
    approve a specific deviation.
+   - The blocker is a fact nobody checked: suggest `/flow-research` first
 4. Never edit `02-design.md` or `03-phases.md`, and never work around a blocker.
 
 ## Review gate

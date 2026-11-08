@@ -72,8 +72,8 @@
     <line x1="398" y1="495" x2="398" y2="530" stroke="#111827" stroke-width="3"/>
     <polygon points="390.8,529 405.2,529 398,541" fill="#111827"/>
     
-    <text x="380" y="809" font-size="13" fill="#6B7A99">risky or wide? design saves the work item</text>
-    <text x="380" y="828" font-size="13" fill="#6B7A99">and hands off to Focus</text>
+    <text x="380" y="809" font-size="13" fill="#6B7A99">risky or wide? keep the work item and</text>
+    <text x="380" y="828" font-size="13" fill="#6B7A99">carry on in Focus</text>
     
     
 
