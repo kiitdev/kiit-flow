@@ -3,9 +3,9 @@
   <img src="./assets/kiit-flow-banner.svg" alt="kiit-flow" align="center" />
 </h1>
 
-**A fast, flow, or focus based skills framework for coding with AI**
+**A skills framework with three modes: Fast, Flow, and Focus**
 
-Skills for AI coding assistants that take a change from a ticket to a pull request, in one of three ways. **Fast** does a clear, low-risk change in one pass. **Flow** designs first, then implements and verifies. **Focus** is for deep work, risky or unclear changes, with research and a review loop. Every change lives in plain markdown files, so a session can stop and another can pick up from the files, in one repo or across several.
+Skills for Claude Code that take a change from a ticket to a pull request, in one of three ways. **Fast** does a clear, low-risk change in one pass. **Flow** designs first, then implements and verifies. **Focus** is for deep work, risky or unclear changes, with research and a review loop. Every change lives in plain markdown files, so a session can stop and another can pick up from the files, in one repo or across several.
 
 [![License](https://img.shields.io/github/license/kiitdev/kiit-flow)](./LICENSE)
 
@@ -22,16 +22,17 @@ Part of [Kiit](https://www.kiit.dev)
 | 1 | 💡 | [Why](#why) | What flow adds on top of Claude Code |
 | 2 | 🧭 | [Modes](#modes) | Fast, Flow, or Focus: how to choose for a change |
 | 3 | 🚀 | [Start](#start) | Install, set up the config, and create a first work item |
-| 4 | ⌨️ | [Commands](#commands) | The skills you run, and what is planned |
+| 4 | ⌨️ | [Commands](#commands) | The skills you run, in workflow order |
 | 5 | 📁 | [Work Item](#work-item) | The folder of plain markdown files that holds one change |
 | 6 | ⚙️ | [Configuration](#configuration) | Ticket systems, projects, and resources in `kiit.json` |
-| 7 | 📋 | [Requirements](#requirements) | What flow needs to run |
-| 8 | 🤝 | [Contributing](#contributing) | How to write or change a skill |
-| 9 | 📄 | [License](#license) | Apache 2.0 license terms |
+| 7 | 🔜 | [Coming soon](#coming-soon) | Planned next: skills, resources, and extras |
+| 8 | 📋 | [Requirements](#requirements) | What flow needs to run |
+| 9 | 🤝 | [Contributing](#contributing) | How to write or change a skill |
+| 10 | 📄 | [License](#license) | Apache 2.0 license terms |
 
 ## Why
 
-![What Claude Code gives you and what kiit-flow adds, for four goals. Organized: one work item per change, criteria and a check per step, reads the ticket and CLAUDE.md, code is the truth with no spec. Saved: markdown files per change, resume in any new session, every run logged, blocked steps stop the run. Modes: Fast, Flow, and Focus, risk moves a change up, start small and move up as needed. Reviewed: plan review first in Focus, another model can review, a verdict in 04-review.md, verify runs lint, tests, and security](./assets/kiit-flow-why.svg)
+![What Claude Code gives you and what kiit-flow adds, for five goals. Workspace: one config for many projects, work items kept outside the repos, project inferred from the ticket, works for one project or many. Organized: one work item per change, criteria and a check per step, reads the ticket and CLAUDE.md, code is the truth with no spec. Saved: markdown files per change, resume in any new session, every run logged, blocked steps stop the run. Modes: Fast, Flow, and Focus, risk moves a change up, start small and move up as needed. Reviewed: plan review first in Focus, another model can review, a verdict in 04-review.md, verify runs lint, tests, and security](./assets/kiit-flow-why.svg)
 
 ## Modes
 
@@ -91,6 +92,10 @@ Flow reads `.claude/kiit/kiit.json` in your workspace. It lists the ticket syste
 Flow works from a workspace that holds one or more projects. For a single project, list it with a path of `.`.
 
 [`shared/kiit.example.json`](./shared/kiit.example.json) shows the shape. Each key is described in [`shared/shared.md`](./shared/shared.md#workspace-and-config).
+
+## Coming soon
+
+![What is planned next, in no set order. Each item is a skill you run, a resource skills use, or a feature of kiit. Skills: Docs, where a metadata.json holds a project's facts as structured fields and a standard README.md is generated from it. Diagrams, where architecture is kept as structured metadata and diagrams and other outputs are generated from it. Recipes, grouped recipes for specific tasks that take in standards and patterns to generate code. Resources: Standards you write and control, for databases, API design, and more, applied to every project or to one. Patterns, established design and architecture patterns to use. Templates, downloadable templates for apps, APIs, jobs, and more, used to create new apps and components. Features: Extendible, where people can enhance kiit with extras, with the details still being worked out](./assets/kiit-flow-coming-soon.svg)
 
 ## Requirements
 

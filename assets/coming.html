@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Kiit flow: coming soon</title>
+<!--
+  What is planned next (900 wide, to fit a GitHub README). Edit CONFIG below, then either:
+    1. open this file in a browser and press "Download SVG", or
+    2. export from the command line: ./banner.sh coming.html kiit-flow-coming-soon.svg
+-->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
+  #banner svg { width: 100%; max-width: 900px; height: auto; display: block; }
+  button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+
+<script src="kiit-svg.js"></script>
+<script>
+// ---- CONFIG: change these for each project ---------------------------------
+// Icons: drawn at full size inside the 48px circle, centered on (0,0)
+const W_ = 'fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"';
+const ICONS = {
+  standards: [-7, 0, 7].map((y) => `<polyline points="-9,${y} -7,${y + 2} -4,${y - 2.5}" ${W_}/><line x1="0" y1="${y}" x2="9" y2="${y}" ${W_}/>`).join(""),
+  docs: `<path d="M-7 -10 H2 L8 -4 V10 H-7 Z" ${W_}/><path d="M2 -10 V-4 H8" ${W_}/><line x1="-3" y1="1" x2="4" y2="1" ${W_}/><line x1="-3" y1="5" x2="4" y2="5" ${W_}/>`,
+  diagrams: `<rect x="-4" y="-10" width="8" height="6" rx="1.2" ${W_}/><rect x="-10" y="4" width="8" height="6" rx="1.2" ${W_}/><rect x="2" y="4" width="8" height="6" rx="1.2" ${W_}/><path d="M0 -4 V0 M-6 4 V0 H6 V4" ${W_}/>`,
+  patterns: `<circle cx="-5.5" cy="-5.5" r="4" fill="#FFFFFF"/><rect x="1.5" y="-9.5" width="8" height="8" rx="1" fill="#FFFFFF"/><polygon points="-9.5,9.5 -1.5,9.5 -5.5,1.5" fill="#FFFFFF"/><polygon points="5.5,1.5 9.5,5.5 5.5,9.5 1.5,5.5" fill="#FFFFFF"/>`,
+  recipes: `<path d="M0 -7 C-4 -9.5 -8 -9.5 -11 -7.5 V8 C-8 6 -4 6 0 8.5 C4 6 8 6 11 8 V-7.5 C8 -9.5 4 -9.5 0 -7 Z" ${W_}/><line x1="0" y1="-7" x2="0" y2="8.5" ${W_}/>`,
+  templates: `<line x1="0" y1="-10" x2="0" y2="3" ${W_}/><polyline points="-5.5,-2 0,3.5 5.5,-2" ${W_}/><polyline points="-9,5 -9,10 9,10 9,5" ${W_}/>`,
+  extendible: `<rect x="-9" y="-9" width="18" height="18" rx="3.5" ${W_}/><line x1="0" y1="-4.5" x2="0" y2="4.5" ${W_}/><line x1="-4.5" y1="0" x2="4.5" y2="0" ${W_}/>`,
+};
+
+const CONFIG = {
+  label: "Coming soon",
+  sub: "Planned, in no set order. None of this is available yet.",
+  width: 900,                                // narrow enough to show at full size in a GitHub README
+  types: [                                   // the kinds of thing: a color, and a short note for the legend
+    { name: "Skills",    note: "you run them",    color: KIIT_THEME.ink },
+    { name: "Resources", note: "skills use them", color: KIIT_THEME.blue },
+    { name: "Features",  note: "part of kiit",    color: "#6B7A99" },
+  ],
+  items: [                                   // name, type, icon, color, and what it is
+    { name: "Docs", type: "Skills", icon: ICONS.docs, accent: "#007FFF",
+      text: "A metadata.json holds a project's facts as structured fields. A standard README.md is generated from it." },
+    { name: "Diagrams", type: "Skills", icon: ICONS.diagrams, accent: "#0FA3A3",
+      text: "Architecture kept as structured metadata. Architecture diagrams, and other outputs, are generated from it." },
+    { name: "Recipes", type: "Skills", icon: ICONS.recipes, accent: "#D6336C",
+      text: "Grouped recipes for specific tasks. Each takes in standards and patterns to generate code." },
+    { name: "Standards", type: "Resources", icon: ICONS.standards, accent: "#1B8A5A",
+      text: "Standards you write and control, for databases, API design, and more. Apply them to every project, or to one." },
+    { name: "Patterns", type: "Resources", icon: ICONS.patterns, accent: "#7C4DFF",
+      text: "Established design and architecture patterns to use." },
+    { name: "Templates", type: "Resources", icon: ICONS.templates, accent: "#E8590C",
+      text: "Downloadable templates for apps, APIs, jobs, and more, used to create new apps and components." },
+    { name: "Extendible", type: "Features", icon: ICONS.extendible, accent: "#3B5BDB",
+      text: "People can enhance kiit with extras. The details are still being worked out." },
+  ],
+  theme: KIIT_THEME,
+};
+// ---------------------------------------------------------------------------
+
+function buildSvg(c) {
+  const t = c.theme, W = c.width, vpad = 20, margin = 40;
+  const rowH = 88, rowGap = 14, pitch = rowH + rowGap, typeGap = 12, legendY = 108, rowsTop = 154;
+  const cardX = margin, cardW = W - 2 * margin;
+  const cw = 8.4, size = 14, lineH = 19;
+  const textX = cardX + 78, tagBox = 150;              // the text column, and the room kept for the type pill
+  const textW = cardW - 78 - tagBox;
+  const typeOf = Object.fromEntries(c.types.map((ty) => [ty.name, ty]));
+
+  const wrap = (text, width) => {                       // break on spaces to fit the card
+    const per = Math.floor(width / cw), lines = [];
+    let cur = "";
+    text.split(" ").forEach((w) => {
+      if ((cur + " " + w).trim().length > per) { lines.push(cur); cur = w; } else cur = (cur + " " + w).trim();
+    });
+    lines.push(cur);
+    return lines;
+  };
+
+  // the legend: each type as a solid pill, with a short note
+  let lx = cardX;
+  const legend = c.types.map((ty) => {
+    const pw = Math.round(ty.name.length * 9.2 + 28), x = lx;
+    lx += pw + 12 + Math.round(ty.note.length * 8.4) + 28;
+    return `<rect x="${x}" y="${legendY}" width="${pw}" height="28" rx="14" fill="${ty.color}"/>
+    <text x="${x + pw / 2}" y="${legendY + 19}" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">${esc(ty.name)}</text>
+    <text x="${x + pw + 12}" y="${legendY + 19}" font-size="14" fill="${t.dim}">${esc(ty.note)}</text>`;
+  }).join("\n    ");
+
+  // the cards, with a little extra space between one type and the next
+  let y = rowsTop, prev = null;
+  const rows = c.items.map((it) => {
+    if (prev && prev !== it.type) y += typeGap;
+    prev = it.type;
+    const ty = typeOf[it.type], ym = y + rowH / 2, pillW = Math.round(it.type.length * 8.4 + 28);
+    const lines = wrap(it.text, textW);
+    const out = `<rect x="${cardX}" y="${y}" width="${cardW}" height="${rowH}" rx="12" fill="#FFFFFF" stroke="${it.accent}" stroke-width="1.5"/>
+    <circle cx="${cardX + 38}" cy="${ym}" r="24" fill="${it.accent}"/>
+    <g transform="translate(${cardX + 38} ${ym}) scale(1.25)">${it.icon}</g>
+    <text x="${textX}" y="${y + 33}" font-size="21" font-weight="700" fill="${t.ink}">${esc(it.name)}</text>
+    ${lines.map((l, k) => `<text x="${textX}" y="${y + 56 + k * lineH}" font-size="${size}" fill="${t.sub}">${esc(l)}</text>`).join("\n    ")}
+    <rect x="${cardX + cardW - 18 - pillW}" y="${ym - 14}" width="${pillW}" height="28" rx="14" fill="${ty.color}"/>
+    <text x="${cardX + cardW - 18 - pillW / 2}" y="${ym + 5}" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">${esc(it.type)}</text>`;
+    y += pitch;
+    return out;
+  }).join("\n\n    ");
+
+  const rowsBottom = y - rowGap;
+  const Hc = rowsBottom + 36, H = Hc + 2 * vpad;
+  const bg = kiitBackground(t, W, H);
+  const label = `${c.label}: ` + c.items.map((it) => `${it.name} (${it.type.toLowerCase()}). ${it.text}`).join(" ");
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
+  <defs>
+    ${bg.defs}
+  </defs>
+
+  ${bg.body}
+
+  <g font-family="${KIIT_FONT}" transform="translate(0 ${vpad})">
+    <text x="${margin}" y="52" font-size="36" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
+    <text x="${margin}" y="86" font-size="15" fill="${t.dim}">${esc(c.sub)}</text>
+    ${legend}
+
+    ${rows}
+  </g>
+</svg>
+`;
+}
+
+kiitMount(buildSvg(CONFIG), "kiit-flow-coming-soon.svg");
+</script>

@@ -1,125 +1,149 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="852" viewBox="0 0 900 852" role="img" aria-label="Why flow: Organized. Claude Code: A todo list in the session. kiit-flow: One work item per change, Criteria and a check per step, Reads the ticket and CLAUDE.md, Code is the truth, no spec. Saved. Claude Code: Transcript and --resume. kiit-flow: Markdown files per change, resume in any new session, Every run is logged, Blocked steps stop the run. Modes. Claude Code: Plan mode, and one loop for every task. kiit-flow: Fast, Flow, Focus, Risk moves a change up, Start small, move up as needed. Reviewed. Claude Code: Subagents, any model. kiit-flow: Plan review first in Focus, Another model can review, A verdict in 04-review.md, verify: lint, tests, security">
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1008" viewBox="0 0 900 1008" role="img" aria-label="Why flow: Workspace. Claude Code: The folder you start in, and --add-dir. kiit-flow: One config, many projects, Work items kept outside repos, Project inferred from ticket, Works for one project or many. Organized. Claude Code: A session todo list. kiit-flow: One work item per change, Criteria and a check per step, Reads the ticket and CLAUDE.md, Code is the truth, no spec. Saved. Claude Code: Transcript and --resume. kiit-flow: Markdown files per change, resume in any new session, Every run is logged, Blocked steps stop the run. Modes. Claude Code: Plan mode, and one loop for every task. kiit-flow: Fast, Flow, Focus, Risk moves a change up, Start small, move up as needed. Reviewed. Claude Code: Subagents, any model. kiit-flow: Plan review first in Focus, Another model can review, A verdict in 04-review.md, verify: lint, tests, security">
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="#C4D8F6" stroke-width="1"/>
     </pattern>
-    <clipPath id="frame"><rect width="900" height="852" rx="20"/></clipPath>
+    <clipPath id="frame"><rect width="900" height="1008" rx="20"/></clipPath>
   </defs>
 
   <g clip-path="url(#frame)">
-    <rect width="900" height="852" fill="#E8F1FF"/>
-    <rect width="900" height="852" fill="url(#grid)"/>
+    <rect width="900" height="1008" fill="#E8F1FF"/>
+    <rect width="900" height="1008" fill="url(#grid)"/>
   </g>
-  <path d="M 20 4 H 880 A 16 16 0 0 1 896 20 V 832 A 16 16 0 0 1 880 848 H 20" fill="none" stroke="#4DA3FF" stroke-width="8"/>
-  <path d="M 20 4 A 16 16 0 0 0 4 20 V 832 A 16 16 0 0 0 20 848" fill="none" stroke="#E8794A" stroke-width="8"/>
+  <path d="M 20 4 H 880 A 16 16 0 0 1 896 20 V 988 A 16 16 0 0 1 880 1004 H 20" fill="none" stroke="#4DA3FF" stroke-width="8"/>
+  <path d="M 20 4 A 16 16 0 0 0 4 20 V 988 A 16 16 0 0 0 20 1004" fill="none" stroke="#E8794A" stroke-width="8"/>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" transform="translate(0 20)">
     <text x="40" y="52" font-size="36" font-weight="700" fill="#111827">Why flow</text>
     <text x="40" y="86" font-size="17" fill="#6B7A99"><tspan font-weight="700" fill="#007FFF">kiit-flow</tspan> is a layer on top of <tspan font-weight="700" fill="#111827">Claude Code</tspan></text>
     <text x="40" y="157" font-size="26" font-weight="700" fill="#111827">Goal</text>
-    <rect x="216" y="130" width="284" height="36" rx="9" fill="#111827"/>
-    <text x="358" y="154" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">Claude Code gives you</text>
-    <rect x="536" y="130" width="324" height="36" rx="9" fill="#007FFF"/>
-    <text x="698" y="154" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">kiit-flow adds</text>
+    <rect x="236" y="130" width="262" height="36" rx="9" fill="#111827"/>
+    <text x="367" y="154" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">Claude Code gives you</text>
+    <rect x="538" y="130" width="322" height="36" rx="9" fill="#007FFF"/>
+    <text x="699" y="154" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">kiit-flow adds</text>
 
-    <g transform="translate(40 226) scale(1.15) translate(-48 -57)">
+    <rect x="42" y="222" width="20" height="20" rx="5" fill="#3B5BDB"/>
+    <rect x="66" y="222" width="20" height="20" rx="5" fill="#3B5BDB"/>
+    <rect x="42" y="246" width="20" height="20" rx="5" fill="#3B5BDB"/>
+    <rect x="66" y="246" width="20" height="20" rx="5" fill="#3B5BDB"/>
+    <text x="98" y="252" font-size="20" font-weight="700" fill="#111827">Workspace</text>
+
+    <rect x="236" y="182" width="262" height="126" rx="10" fill="#FFFFFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <circle cx="252" cy="245" r="4" fill="#6B7A99"/>
+    <text x="266" y="239" font-size="15" fill="#4B5563">The folder you start in,</text>
+    <text x="266" y="261" font-size="15" fill="#4B5563">and --add-dir</text>
+
+    <line x1="504" y1="245" x2="526" y2="245" stroke="#3B5BDB" stroke-width="3"/>
+    <polygon points="526,239 526,251 536,245" fill="#3B5BDB"/>
+
+    <rect x="538" y="182" width="322" height="126" rx="10" fill="#EBEFFD" stroke="#3B5BDB" stroke-width="2"/>
+    <circle cx="556" cy="212" r="3.5" fill="#3B5BDB"/>
+    <text x="570" y="217" font-size="15" fill="#111827">One config, many projects</text>
+    <circle cx="556" cy="234" r="3.5" fill="#3B5BDB"/>
+    <text x="570" y="239" font-size="15" fill="#111827">Work items kept outside repos</text>
+    <circle cx="556" cy="256" r="3.5" fill="#3B5BDB"/>
+    <text x="570" y="261" font-size="15" fill="#111827">Project inferred from ticket</text>
+    <circle cx="556" cy="278" r="3.5" fill="#3B5BDB"/>
+    <text x="570" y="283" font-size="15" fill="#111827">Works for one project or many</text>
+
+    <g transform="translate(40 382) scale(1.15) translate(-48 -57)">
     <path d="M48 60 a3 3 0 0 1 3 -3 h12 l4 5 h19 a3 3 0 0 1 3 3 v22 a3 3 0 0 1 -3 3 h-35 a3 3 0 0 1 -3 -3z" fill="#F2A33A" stroke="#D9822B" stroke-width="1.5" stroke-linejoin="round"/>
     <rect x="48" y="66" width="41" height="22" rx="3" fill="#FFC25E" stroke="#D9822B" stroke-width="1.5"/>
   </g>
-    <text x="98" y="252" font-size="20" font-weight="700" fill="#111827">Organized</text>
+    <text x="98" y="408" font-size="20" font-weight="700" fill="#111827">Organized</text>
 
-    <rect x="216" y="182" width="284" height="126" rx="10" fill="#FFFFFF" stroke="#8FB0E3" stroke-width="1.5"/>
-    <circle cx="232" cy="245" r="4" fill="#6B7A99"/>
-    <text x="246" y="250" font-size="15" fill="#4B5563">A todo list in the session</text>
+    <rect x="236" y="338" width="262" height="126" rx="10" fill="#FFFFFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <circle cx="252" cy="401" r="4" fill="#6B7A99"/>
+    <text x="266" y="406" font-size="15" fill="#4B5563">A session todo list</text>
 
-    <line x1="506" y1="245" x2="524" y2="245" stroke="#D9822B" stroke-width="3"/>
-    <polygon points="524,239 524,251 534,245" fill="#D9822B"/>
+    <line x1="504" y1="401" x2="526" y2="401" stroke="#D9822B" stroke-width="3"/>
+    <polygon points="526,395 526,407 536,401" fill="#D9822B"/>
 
-    <rect x="536" y="182" width="324" height="126" rx="10" fill="#FFF3E3" stroke="#D9822B" stroke-width="2"/>
-    <circle cx="554" cy="212" r="3.5" fill="#D9822B"/>
-    <text x="568" y="217" font-size="15" fill="#111827">One work item per change</text>
-    <circle cx="554" cy="234" r="3.5" fill="#D9822B"/>
-    <text x="568" y="239" font-size="15" fill="#111827">Criteria and a check per step</text>
-    <circle cx="554" cy="256" r="3.5" fill="#D9822B"/>
-    <text x="568" y="261" font-size="15" fill="#111827">Reads the ticket and CLAUDE.md</text>
-    <circle cx="554" cy="278" r="3.5" fill="#D9822B"/>
-    <text x="568" y="283" font-size="15" fill="#111827">Code is the truth, no spec</text>
+    <rect x="538" y="338" width="322" height="126" rx="10" fill="#FFF3E3" stroke="#D9822B" stroke-width="2"/>
+    <circle cx="556" cy="368" r="3.5" fill="#D9822B"/>
+    <text x="570" y="373" font-size="15" fill="#111827">One work item per change</text>
+    <circle cx="556" cy="390" r="3.5" fill="#D9822B"/>
+    <text x="570" y="395" font-size="15" fill="#111827">Criteria and a check per step</text>
+    <circle cx="556" cy="412" r="3.5" fill="#D9822B"/>
+    <text x="570" y="417" font-size="15" fill="#111827">Reads the ticket and CLAUDE.md</text>
+    <circle cx="556" cy="434" r="3.5" fill="#D9822B"/>
+    <text x="570" y="439" font-size="15" fill="#111827">Code is the truth, no spec</text>
 
-    <g transform="translate(40 377) scale(1.3)"><path d="M0 0 H15 L22 7 V28 H0 Z" fill="#F6FAFF" stroke="#007FFF" stroke-width="1.6" stroke-linejoin="round"/>
+    <g transform="translate(40 533) scale(1.3)"><path d="M0 0 H15 L22 7 V28 H0 Z" fill="#F6FAFF" stroke="#007FFF" stroke-width="1.6" stroke-linejoin="round"/>
     <path d="M15 0 V7 H22" fill="none" stroke="#007FFF" stroke-width="1.6" stroke-linejoin="round"/>
     <line x1="4" y1="12" x2="15" y2="12" stroke="#007FFF" stroke-width="1.4" stroke-linecap="round"/>
     <line x1="4" y1="17" x2="12" y2="17" stroke="#007FFF" stroke-width="1.4" stroke-linecap="round"/>
     <line x1="4" y1="22" x2="9" y2="22" stroke="#007FFF" stroke-width="1.4" stroke-linecap="round"/>
     <circle cx="21" cy="26" r="10" fill="#007FFF" stroke="#F6FAFF" stroke-width="2"/>
     <g transform="translate(21 26)"><polyline points="-5,-2 -3.5,0 -1,-4" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><line x1="1.5" y1="-2" x2="5" y2="-2" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/><line x1="-5" y1="3.5" x2="5" y2="3.5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/></g></g>
-    <text x="98" y="408" font-size="20" font-weight="700" fill="#111827">Saved</text>
+    <text x="98" y="564" font-size="20" font-weight="700" fill="#111827">Saved</text>
 
-    <rect x="216" y="338" width="284" height="126" rx="10" fill="#FFFFFF" stroke="#8FB0E3" stroke-width="1.5"/>
-    <circle cx="232" cy="401" r="4" fill="#6B7A99"/>
-    <text x="246" y="406" font-size="15" fill="#4B5563">Transcript and --resume</text>
+    <rect x="236" y="494" width="262" height="126" rx="10" fill="#FFFFFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <circle cx="252" cy="557" r="4" fill="#6B7A99"/>
+    <text x="266" y="562" font-size="15" fill="#4B5563">Transcript and --resume</text>
 
-    <line x1="506" y1="401" x2="524" y2="401" stroke="#007FFF" stroke-width="3"/>
-    <polygon points="524,395 524,407 534,401" fill="#007FFF"/>
+    <line x1="504" y1="557" x2="526" y2="557" stroke="#007FFF" stroke-width="3"/>
+    <polygon points="526,551 526,563 536,557" fill="#007FFF"/>
 
-    <rect x="536" y="338" width="324" height="126" rx="10" fill="#EAF3FF" stroke="#007FFF" stroke-width="2"/>
-    <circle cx="554" cy="368" r="3.5" fill="#007FFF"/>
-    <text x="568" y="373" font-size="15" fill="#111827">Markdown files per change</text>
-    <circle cx="554" cy="390" r="3.5" fill="#007FFF"/>
-    <text x="568" y="395" font-size="15" fill="#111827">resume in any new session</text>
-    <circle cx="554" cy="412" r="3.5" fill="#007FFF"/>
-    <text x="568" y="417" font-size="15" fill="#111827">Every run is logged</text>
-    <circle cx="554" cy="434" r="3.5" fill="#007FFF"/>
-    <text x="568" y="439" font-size="15" fill="#111827">Blocked steps stop the run</text>
+    <rect x="538" y="494" width="322" height="126" rx="10" fill="#EAF3FF" stroke="#007FFF" stroke-width="2"/>
+    <circle cx="556" cy="524" r="3.5" fill="#007FFF"/>
+    <text x="570" y="529" font-size="15" fill="#111827">Markdown files per change</text>
+    <circle cx="556" cy="546" r="3.5" fill="#007FFF"/>
+    <text x="570" y="551" font-size="15" fill="#111827">resume in any new session</text>
+    <circle cx="556" cy="568" r="3.5" fill="#007FFF"/>
+    <text x="570" y="573" font-size="15" fill="#111827">Every run is logged</text>
+    <circle cx="556" cy="590" r="3.5" fill="#007FFF"/>
+    <text x="570" y="595" font-size="15" fill="#111827">Blocked steps stop the run</text>
 
-    <rect x="42" y="561" width="12" height="16" rx="3" fill="#1B8A5A"/>
-    <rect x="58" y="551" width="12" height="26" rx="3" fill="#A66F00"/>
-    <rect x="74" y="541" width="12" height="36" rx="3" fill="#7C4DFF"/>
-    <text x="98" y="564" font-size="20" font-weight="700" fill="#111827">Modes</text>
+    <rect x="42" y="717" width="12" height="16" rx="3" fill="#1B8A5A"/>
+    <rect x="58" y="707" width="12" height="26" rx="3" fill="#A66F00"/>
+    <rect x="74" y="697" width="12" height="36" rx="3" fill="#7C4DFF"/>
+    <text x="98" y="720" font-size="20" font-weight="700" fill="#111827">Modes</text>
 
-    <rect x="216" y="494" width="284" height="126" rx="10" fill="#FFFFFF" stroke="#8FB0E3" stroke-width="1.5"/>
-    <circle cx="232" cy="557" r="4" fill="#6B7A99"/>
-    <text x="246" y="551" font-size="15" fill="#4B5563">Plan mode, and one loop</text>
-    <text x="246" y="573" font-size="15" fill="#4B5563">for every task</text>
+    <rect x="236" y="650" width="262" height="126" rx="10" fill="#FFFFFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <circle cx="252" cy="713" r="4" fill="#6B7A99"/>
+    <text x="266" y="707" font-size="15" fill="#4B5563">Plan mode, and one loop</text>
+    <text x="266" y="729" font-size="15" fill="#4B5563">for every task</text>
 
-    <line x1="506" y1="557" x2="524" y2="557" stroke="#0FA3A3" stroke-width="3"/>
-    <polygon points="524,551 524,563 534,557" fill="#0FA3A3"/>
+    <line x1="504" y1="713" x2="526" y2="713" stroke="#0FA3A3" stroke-width="3"/>
+    <polygon points="526,707 526,719 536,713" fill="#0FA3A3"/>
 
-    <rect x="536" y="494" width="324" height="126" rx="10" fill="#E6F7F7" stroke="#0FA3A3" stroke-width="2"/>
-    <rect x="552" y="519" width="56" height="22" rx="11" fill="#FFFFFF" stroke="#1B8A5A" stroke-width="1.5"/>
-    <text x="580" y="535" font-size="13" font-weight="700" fill="#1B8A5A" text-anchor="middle">Fast</text>
-    <rect x="616" y="519" width="56" height="22" rx="11" fill="#FFFFFF" stroke="#A66F00" stroke-width="1.5"/>
-    <text x="644" y="535" font-size="13" font-weight="700" fill="#A66F00" text-anchor="middle">Flow</text>
-    <rect x="680" y="519" width="64" height="22" rx="11" fill="#FFFFFF" stroke="#7C4DFF" stroke-width="1.5"/>
-    <text x="712" y="535" font-size="13" font-weight="700" fill="#7C4DFF" text-anchor="middle">Focus</text>
-    <circle cx="554" cy="562" r="3.5" fill="#0FA3A3"/>
-    <text x="568" y="567" font-size="15" fill="#111827">Risk moves a change up</text>
-    <circle cx="554" cy="584" r="3.5" fill="#0FA3A3"/>
-    <text x="568" y="589" font-size="15" fill="#111827">Start small, move up as needed</text>
+    <rect x="538" y="650" width="322" height="126" rx="10" fill="#E6F7F7" stroke="#0FA3A3" stroke-width="2"/>
+    <rect x="554" y="675" width="56" height="22" rx="11" fill="#FFFFFF" stroke="#1B8A5A" stroke-width="1.5"/>
+    <text x="582" y="691" font-size="13" font-weight="700" fill="#1B8A5A" text-anchor="middle">Fast</text>
+    <rect x="618" y="675" width="56" height="22" rx="11" fill="#FFFFFF" stroke="#A66F00" stroke-width="1.5"/>
+    <text x="646" y="691" font-size="13" font-weight="700" fill="#A66F00" text-anchor="middle">Flow</text>
+    <rect x="682" y="675" width="64" height="22" rx="11" fill="#FFFFFF" stroke="#7C4DFF" stroke-width="1.5"/>
+    <text x="714" y="691" font-size="13" font-weight="700" fill="#7C4DFF" text-anchor="middle">Focus</text>
+    <circle cx="556" cy="718" r="3.5" fill="#0FA3A3"/>
+    <text x="570" y="723" font-size="15" fill="#111827">Risk moves a change up</text>
+    <circle cx="556" cy="740" r="3.5" fill="#0FA3A3"/>
+    <text x="570" y="745" font-size="15" fill="#111827">Start small, move up as needed</text>
 
-    <g transform="translate(40 689) scale(1.3)"><path d="M0 0 H15 L22 7 V28 H0 Z" fill="#F6FAFF" stroke="#D6336C" stroke-width="1.6" stroke-linejoin="round"/>
+    <g transform="translate(40 845) scale(1.3)"><path d="M0 0 H15 L22 7 V28 H0 Z" fill="#F6FAFF" stroke="#D6336C" stroke-width="1.6" stroke-linejoin="round"/>
     <path d="M15 0 V7 H22" fill="none" stroke="#D6336C" stroke-width="1.6" stroke-linejoin="round"/>
     <line x1="4" y1="12" x2="15" y2="12" stroke="#D6336C" stroke-width="1.4" stroke-linecap="round"/>
     <line x1="4" y1="17" x2="12" y2="17" stroke="#D6336C" stroke-width="1.4" stroke-linecap="round"/>
     <line x1="4" y1="22" x2="9" y2="22" stroke="#D6336C" stroke-width="1.4" stroke-linecap="round"/>
     <circle cx="21" cy="26" r="10" fill="#D6336C" stroke="#F6FAFF" stroke-width="2"/>
     <g transform="translate(21 26)"><circle cx="-1" cy="-1" r="3.3" fill="none" stroke="#FFFFFF" stroke-width="1.7"/><line x1="1.6" y1="1.6" x2="5" y2="5" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round"/></g></g>
-    <text x="98" y="720" font-size="20" font-weight="700" fill="#111827">Reviewed</text>
+    <text x="98" y="876" font-size="20" font-weight="700" fill="#111827">Reviewed</text>
 
-    <rect x="216" y="650" width="284" height="126" rx="10" fill="#FFFFFF" stroke="#8FB0E3" stroke-width="1.5"/>
-    <circle cx="232" cy="713" r="4" fill="#6B7A99"/>
-    <text x="246" y="718" font-size="15" fill="#4B5563">Subagents, any model</text>
+    <rect x="236" y="806" width="262" height="126" rx="10" fill="#FFFFFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <circle cx="252" cy="869" r="4" fill="#6B7A99"/>
+    <text x="266" y="874" font-size="15" fill="#4B5563">Subagents, any model</text>
 
-    <line x1="506" y1="713" x2="524" y2="713" stroke="#D6336C" stroke-width="3"/>
-    <polygon points="524,707 524,719 534,713" fill="#D6336C"/>
+    <line x1="504" y1="869" x2="526" y2="869" stroke="#D6336C" stroke-width="3"/>
+    <polygon points="526,863 526,875 536,869" fill="#D6336C"/>
 
-    <rect x="536" y="650" width="324" height="126" rx="10" fill="#FDECF3" stroke="#D6336C" stroke-width="2"/>
-    <circle cx="554" cy="680" r="3.5" fill="#D6336C"/>
-    <text x="568" y="685" font-size="15" fill="#111827">Plan review first in Focus</text>
-    <circle cx="554" cy="702" r="3.5" fill="#D6336C"/>
-    <text x="568" y="707" font-size="15" fill="#111827">Another model can review</text>
-    <circle cx="554" cy="724" r="3.5" fill="#D6336C"/>
-    <text x="568" y="729" font-size="15" fill="#111827">A verdict in 04-review.md</text>
-    <circle cx="554" cy="746" r="3.5" fill="#D6336C"/>
-    <text x="568" y="751" font-size="15" fill="#111827">verify: lint, tests, security</text>
+    <rect x="538" y="806" width="322" height="126" rx="10" fill="#FDECF3" stroke="#D6336C" stroke-width="2"/>
+    <circle cx="556" cy="836" r="3.5" fill="#D6336C"/>
+    <text x="570" y="841" font-size="15" fill="#111827">Plan review first in Focus</text>
+    <circle cx="556" cy="858" r="3.5" fill="#D6336C"/>
+    <text x="570" y="863" font-size="15" fill="#111827">Another model can review</text>
+    <circle cx="556" cy="880" r="3.5" fill="#D6336C"/>
+    <text x="570" y="885" font-size="15" fill="#111827">A verdict in 04-review.md</text>
+    <circle cx="556" cy="902" r="3.5" fill="#D6336C"/>
+    <text x="570" y="907" font-size="15" fill="#111827">verify: lint, tests, security</text>
   </g>
 </svg>

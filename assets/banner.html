@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <title>Kiit banner</title>
 <!--
-  Kiit banner template (1280x320). Edit CONFIG below, then either:
+  Kiit banner template (1280x360). Edit CONFIG below, then either:
     1. open this file in a browser and press "Download SVG", or
     2. export from the command line: ./banner.sh banner.html kiit-flow-banner.svg
 -->
@@ -25,7 +25,7 @@ const CONFIG = {
   brand: "kiit",                  // blue
   name: "flow",                   // black, joined to the brand with a hyphen
   slant: -0.6,                    // lean of the sweep: -0.6 leans like /, 0.6 like \, 0 is upright
-  tagline: "A fast, flow, or focus based skills framework for coding with AI",
+  tagline: "A skills framework with three modes: Fast, Flow, and Focus",
   steps: { join: "→" },           // between the steps. Try ">" too
   modes: [                        // the bottom row, one box each. style: fast, flow, or heavy
     { style: "fast", words: ["go"] },
@@ -44,7 +44,8 @@ const CONFIG = {
       ["5.", "update", "todo"],
       ["6.", "verify", "todo"],
     ],
-    footer: "",                   // optional line under the card
+    footer: "Built for Claude Code. Other assistants later.",   // optional line under the card
+    footerAccent: "Claude Code",    // the part of the footer set in Claude's orange
   },
   theme: KIIT_THEME,
 };
@@ -65,12 +66,12 @@ function buildSvg(c) {
   const half = Math.round(0.2 * titleSize);       // half the height of the head
   const shaft = Math.round(0.11 * titleSize) / 2; // half the thickness of the shaft
   const ax = 84 + titleWidth + 14;
-  const ay = 166 - Math.round(0.3 * titleSize);   // vertical middle of the lowercase letters
+  const ay = 176 - Math.round(0.3 * titleSize);   // vertical middle of the lowercase letters
   const arrowPath = `M ${ax} ${ay - shaft} H ${ax + aw - head} V ${ay - half} L ${ax + aw} ${ay} L ${ax + aw - head} ${ay + half} V ${ay + shaft} H ${ax} Z`;
   const tagSize = Math.min(20, Math.floor(650 / (0.6 * c.tagline.length)));
   const rows = c.card.rows;
   const h = 98 + 24 * rows.length;
-  const top = (320 - h) / 2;
+  const H = 360, top = (H - h) / 2 - 12;                 // the banner height, and the card, a little above the middle
 
   const rowSvg = rows.map(([num, text, st], i) => {
     const y = 104 + 24 * i;
@@ -79,7 +80,7 @@ function buildSvg(c) {
   }).join("\n");
 
   // the bottom row: a box per mode. Every character gets its own x, so no font can spill out of its box
-  const boxY = 234, boxH = 38, textY = boxY + 25, rowStart = 88, rowEnd = 745;
+  const boxY = 268, boxH = 38, textY = boxY + 25, rowStart = 88, rowEnd = 745;
   const modesAt = (sz) => {
     const cw = sz * 0.6;
     let x = rowStart;
@@ -105,15 +106,20 @@ function buildSvg(c) {
     return `${before}<rect x="${x}" y="${boxY}" width="${w}" height="${boxH}" rx="10" fill="${tint}" stroke="${border}" stroke-width="2"/>
     <text x="${xs}" y="${textY}" font-size="${sz}" font-weight="700" fill="${color}">${mode.prefix ? esc(mode.prefix) + " " : ""}${mode.words.map(esc).join(arrow)}</text>`;
   }).join("\n    ");
-  const footer = c.card.footer
-    ? `\n    <text x="1200" y="${top + h + 26}" font-size="14" fill="${t.dim}" text-anchor="end">${esc(c.card.footer)}</text>`
+  const claude = "#C15F3C";                                  // Claude's orange, a little deeper so it reads on the pale blue
+  const fa = c.card.footerAccent, ft = c.card.footer || "";
+  const footerText = fa && ft.includes(fa)
+    ? `${esc(ft.slice(0, ft.indexOf(fa)))}<tspan font-weight="700" fill="${claude}">${esc(fa)}</tspan>${esc(ft.slice(ft.indexOf(fa) + fa.length))}`
+    : esc(ft);
+  const footer = ft
+    ? `\n    <text x="1200" y="${top + h + 34}" font-size="14" fill="${t.sub}" text-anchor="end">${footerText}</text>`
     : "";
 
   const f = t.frameWidth, o = f / 2, r = 20 - o;          // outline inset and corner radius
-  const leftEdge = `M 20 ${o} A ${r} ${r} 0 0 0 ${o} 20 V ${320 - 20} A ${r} ${r} 0 0 0 20 ${320 - o}`;
-  const rest = `M 20 ${o} H ${1280 - 20} A ${r} ${r} 0 0 1 ${1280 - o} 20 V ${320 - 20} A ${r} ${r} 0 0 1 ${1280 - 20} ${320 - o} H 20`;
+  const leftEdge = `M 20 ${o} A ${r} ${r} 0 0 0 ${o} 20 V ${H - 20} A ${r} ${r} 0 0 0 20 ${H - o}`;
+  const rest = `M 20 ${o} H ${1280 - 20} A ${r} ${r} 0 0 1 ${1280 - o} 20 V ${H - 20} A ${r} ${r} 0 0 1 ${1280 - 20} ${H - o} H 20`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="${esc(full)} — ${esc(c.tagline)}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="${H}" viewBox="0 0 1280 ${H}" role="img" aria-label="${esc(full)} — ${esc(c.tagline)}">
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="${t.grid}" stroke-width="1"/>
@@ -126,20 +132,20 @@ function buildSvg(c) {
       <stop offset="1" stop-color="${t.blue}"/>
       <animateTransform attributeName="gradientTransform" type="translate" additive="sum" values="0 0;0 0;${2 * aw} 0;${2 * aw} 0" keyTimes="0;0.15;0.75;1" dur="2.4s" repeatCount="indefinite"/>
     </linearGradient>
-    <clipPath id="frame"><rect width="1280" height="320" rx="20"/></clipPath>
+    <clipPath id="frame"><rect width="1280" height="${H}" rx="20"/></clipPath>
   </defs>
 
   <g clip-path="url(#frame)">
-    <rect width="1280" height="320" fill="${t.paper}"/>
-    <rect width="1280" height="320" fill="url(#grid)"/>
+    <rect width="1280" height="${H}" fill="${t.paper}"/>
+    <rect width="1280" height="${H}" fill="url(#grid)"/>
   </g>
   <path d="${rest}" fill="none" stroke="${t.frame}" stroke-width="${f}"/>
   <path d="${leftEdge}" fill="none" stroke="${t.frameLeft}" stroke-width="${f}"/>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
-    <text x="${letterXs}" y="166" font-size="${titleSize}" font-weight="700" fill="${t.ink}"><tspan fill="${t.blue}">${esc(c.brand)}</tspan>-${esc(c.name)}</text>
+    <text x="${letterXs}" y="176" font-size="${titleSize}" font-weight="700" fill="${t.ink}"><tspan fill="${t.blue}">${esc(c.brand)}</tspan>-${esc(c.name)}</text>
     <path d="${arrowPath}" fill="url(#sheen)"/>
-    <text x="88" y="218" font-size="${tagSize}" fill="${t.sub}">${esc(c.tagline)}</text>
+    <text x="88" y="240" font-size="${tagSize}" fill="${t.sub}">${esc(c.tagline)}</text>
     ${modeSvg}
 
     <g transform="translate(772 ${top})">
