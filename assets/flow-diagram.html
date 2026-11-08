@@ -30,7 +30,7 @@ const CONFIG = {
   start: { name: "a change", sub: "a ticket or a description" },
   lanes: [
     {
-      title: "Fast", sub: "a clear, low-risk change",
+      title: "Fast", sub: "clear, low risk, any size",
       color: T.fast, fill: T.fastTint, border: T.fastBorder,
       x: 40, w: 300, descDx: 78,
       rows: [["go", "do it in one pass", "01-change.md, code"]],     // [name, description, files written]
@@ -39,7 +39,7 @@ const CONFIG = {
       verify: "optional",
     },
     {
-      title: "Flow", sub: "design first, then build",
+      title: "Flow", sub: "needs a design first",
       color: T.flow, fill: T.flowTint, border: T.flowBorder,
       x: 356, w: 380, descDx: 143,
       rows: [
@@ -50,7 +50,7 @@ const CONFIG = {
       note: "risky or wide? design saves the work item and hands off to Focus",
     },
     {
-      title: "Focus", sub: "deep work: research, review, iterate",
+      title: "Focus", sub: "deep work: risky, wide, or unclear",
       color: T.heavy, fill: T.heavyTint, border: T.heavyBorder,
       x: 752, w: 600, descDx: 143,
       rows: [

@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
 <meta charset="utf-8">
-<title>Kiit weights banner</title>
+<title>Kiit tiers banner</title>
 <!--
-  Light, medium, and heavy: what each weight of change uses (1100 wide). Edit CONFIG below, then either:
+  Fast, Flow, and Focus: what each tier of change uses (1100 wide). Edit CONFIG below, then either:
     1. open this file in a browser and press "Download SVG", or
     2. export from the command line: ./banner.sh weights.html kiit-flow-weights.svg
 -->
@@ -22,31 +22,32 @@
 <script>
 // ---- CONFIG: change these for each project ---------------------------------
 const CONFIG = {
-  label: "Choose the weight of a change",
+  label: "Choose Fast, Flow, or Focus",
   levels: [
     {
-      name: "Light", letter: "L", weight: 1,
+      name: "Fast", letter: "1", weight: 1,
       color: KIIT_THEME.fast, tint: KIIT_THEME.fastTint, border: KIIT_THEME.fastBorder, borderWidth: 2,
-      when: "Clear and low risk, whatever its size.",
+      when: "A clear, low-risk change, whatever its size.",
       commands: [["go"], ["verify", "optional"]],
       files: ["01-change.md", "code"],
     },
     {
-      name: "Medium", letter: "M", weight: 2,
+      name: "Flow", letter: "2", weight: 2,
       color: KIIT_THEME.flow, tint: KIIT_THEME.flowTint, border: KIIT_THEME.flowBorder, borderWidth: 3,
-      when: "Needs a design choice or a plan first.",
-      commands: [["begin"], ["design"], ["review", "optional"], ["update"], ["verify"]],
+      when: "Needs a design before the implementation.",
+      commands: [["begin"], ["design"], ["update"], ["verify"]],
       files: ["01-change.md", "02-design.md", "03-phases.md", "_status.md", "code"],
     },
     {
-      name: "Heavy", letter: "H", weight: 3,
+      name: "Focus", letter: "3", weight: 3,
       color: KIIT_THEME.heavy, tint: KIIT_THEME.heavyTint, border: KIIT_THEME.heavyBorder, borderWidth: 4,
-      when: "Risky or wide. Review it and iterate.",
-      commands: [["begin"], ["design"], ["review"], ["revise"], ["update"], ["verify"]],
-      files: ["01-change.md", "02-design.md", "03-phases.md", "04-review.md", "_status.md", "code"],
+      when: "Risky, wide, or unclear. Research, review, and iterate.",
+      commands: [["begin"], ["design"], ["research", "optional"], ["review"], ["revise"], ["update"], ["verify"]],
+      files: ["01-change.md", "02-design.md", "03-phases.md", "04-review.md", "_research.md", "_status.md", "code"],
     },
   ],
-  footer: "_history.md is written by every command. go hands off to Flow when a change needs a design or is risky.",
+  always: { label: "ALL TIERS", file: "_history.md", text: "written by every command, a log of what happened" },
+  footer: "A change moves up a tier when it needs a design or is risky.",
   theme: KIIT_THEME,
 };
 // ---------------------------------------------------------------------------
@@ -87,7 +88,7 @@ function buildSvg(c) {
     l.bottom = l.fileStart + l.lv.files.length * 24 + 12;
   });
   const cardH = Math.max(...laid.map((l) => l.bottom)) - cardTop;
-  const Hc = cardTop + cardH + 74, H = Hc + 2 * vpad;
+  const Hc = cardTop + cardH + 124, H = Hc + 2 * vpad;
   const bg = kiitBackground(t, W, H);
 
   const cards = laid.map(({ lv, x, whenLines, cmdLabelY, chips, fileLabelY, fileStart }) => {
@@ -127,7 +128,11 @@ function buildSvg(c) {
 
     ${cards}
 
-    <text x="${margin}" y="${cardTop + cardH + 40}" font-size="14" fill="${t.dim}">${esc(c.footer)}</text>
+    <rect x="${margin}" y="${cardTop + cardH + 22}" width="${W - 2 * margin}" height="46" rx="12" fill="#FFFFFF" stroke="${t.border}" stroke-width="1.5"/>
+    <text x="${margin + 22}" y="${cardTop + cardH + 50}" font-size="12" font-weight="700" fill="${t.dim}" letter-spacing="2">${esc(c.always.label)}</text>
+    <text x="${margin + 138}" y="${cardTop + cardH + 51}" font-size="17" font-weight="700" fill="${t.ink}">${esc(c.always.file)}</text>
+    <text x="${margin + 138 + 11 * 10.2 + 18}" y="${cardTop + cardH + 51}" font-size="14" fill="${t.dim}">${esc(c.always.text)}</text>
+    <text x="${margin}" y="${cardTop + cardH + 98}" font-size="14" fill="${t.dim}">${esc(c.footer)}</text>
   </g>
 </svg>
 `;

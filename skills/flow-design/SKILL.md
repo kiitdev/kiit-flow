@@ -39,6 +39,7 @@ EXAMPLES:
 3. Read the inputs.
    - `01-change.md`, and the ticket it links (Read a ticket, shared.md)
    - Anything in `_files/input/`
+   - `_research.md`, if it exists. Use what it found, and don't look it up again
 4. Read the `standards` resource, if the config has one, before designing anything.
    - Treat the standards as constraints on the design
 5. Read the project repo.
@@ -51,9 +52,11 @@ EXAMPLES:
 7. Write `02-design.md`, `03-phases.md` and `_status.md` (all in shared.md).
    - End each phase with a step for its tests. If it needs none, say why
    - Every step in `_status.md` starts as `todo`
+   - Name the `_research.md` section behind a choice that rests on it
 8. Add a row to `_history.md` (shared.md) with the phase and step counts.
 9. Print a short summary, the assumptions made, and the next step.
    - Ask the user to review the files and discuss
+   - An assumption rests on a fact nobody checked: suggest `/flow-research`
    - To change them, suggest `/flow-revise`. For a second view, `/flow-review`
    - Or `/flow-update` to start implementing
 

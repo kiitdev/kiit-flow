@@ -1,7 +1,7 @@
 ---
 description: Revise the design and phases from your text, a review, or a blocked step.
 argument-hint: "[work-item] [text...]"
-order: 5
+order: 6
 disable-model-invocation: true
 ---
 
@@ -36,11 +36,13 @@ EXAMPLES:
 2. Read the work item.
    - `01-change.md`, `02-design.md`, `03-phases.md` and `_status.md`
    - `04-review.md`, if it exists
+   - `_research.md`, if it exists
    - The `standards` resource, if the config has one. The design must respect it
 3. Work out what to apply. Use each input that is there.
    - Your text
    - Findings in `04-review.md` that are not `applied` (Review findings)
    - `blocked` steps in `_status.md` (Blocked steps)
+   - Findings in `_research.md` that the design does not reflect yet
    - None of these: say there is nothing to revise, and stop
 4. Talk it through when it helps. Ask the user, and wait for the answer.
    - Your text is a question: answer it, and edit only if the answer needs it
@@ -102,4 +104,5 @@ EXAMPLES:
 1. Write only inside the work item folder.
    - The only change to `01-change.md` is an `- Answer:` under an open question
    - The only change to `04-review.md` is its `## Response`
+   - `_research.md` is read only here. New research is `/flow-research`
 2. Add no scope beyond what the text, the review or the blocked step asks for.
