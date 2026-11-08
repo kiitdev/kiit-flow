@@ -22,10 +22,26 @@
 <script>
 // ---- CONFIG: change these for each project ---------------------------------
 const CONFIG = {
-  label: "Work item",
+  label: "Work items",
+  sub: "one folder per change, in the workspace",
   width: 1392,                               // the same width as the workflow diagram
-  location: "_kiit/flow/",
-  parts: [                                   // the folder name, one part per segment of the format
+  tree: [                                    // the workspace, one line per folder: [depth, name, kind]
+    [0, "workspace/", "root"],
+    [1, ".claude/", "plain"],
+    [1, "_kiit/", "plain"],
+    [2, "flow/", "plain"],
+    [3, "260926-kiit-codes-docs-12/", "item"],
+    [3, "260928-kiit-codes-fix-1234/", "open"],     // the work item shown below
+    [3, "261002-kiit-result-feat-ts-port/", "item"],
+    [1, "kiit-codes/", "project"],
+    [1, "kiit-result/", "project"],
+  ],
+  notes: [                                   // a bracket beside rows from..to (row numbers in the tree)
+    { from: 1, to: 1, label: "skills and kiit.json", color: "dim" },
+    { from: 4, to: 6, label: "work item: one folder per change", color: "blue" },
+    { from: 7, to: 8, label: "your projects", color: "sub" },
+  ],
+  parts: [                                   // the open folder's name, one part per segment of the format
     { text: "260928", label: "{YYMMDD}" },
     { text: "kiit-codes", label: "{project}" },
     { text: "fix", label: "{type}" },
@@ -61,37 +77,64 @@ function buildSvg(c) {
   const chipW = (cmd) => Math.round(cmd.length * 8.4 + 26);
   const chipsW = (f) => f.by.reduce((sum, cmd) => sum + chipW(cmd), 0) + 8 * (f.by.length - 1);
   const folder = c.parts.map((p) => p.text).join("-");
-  const levels = c.location.split("/").filter(Boolean).map((s) => s + "/");   // the folders above the work item
-  const indent = 44, lineH = 34, tx = 98;       // the indent per level, the line height, and where the tree starts
   const nameX = 114, purposeX0 = Math.round(nameX + Math.max(...files.map((f) => f.name.length)) * 11.4 + 36);
   const pillsX0 = Math.round(purposeX0 + Math.max(...files.map((f) => f.purpose.length)) * 9.6 + 36);
   const cardX = 48, cardRight0 = pillsX0 + Math.max(...files.map(chipsW)) + 24;
-  const W = c.width || Math.max(cardRight0 + 48, Math.round(tx + levels.length * indent + (folder.length + 1) * 14.4 + 48));
+  const W = c.width || cardRight0 + 96;
   const cardRight = W - 48;
   const extra = Math.max(0, cardRight - cardRight0);       // spare width goes between the columns
   const purposeX = purposeX0 + Math.round(extra * 0.4), pillsX = pillsX0 + Math.round(extra * 0.8);
-  const rowH = 56, labelH = 38, groupGap = 14, cardTop = 190 + levels.length * lineH, pad = 16;
+  const rowH = 56, labelH = 38, groupGap = 14, pad = 16;
+
+  // the workspace tree: each folder on its own line, one level deeper than its parent
+  const cw = 13.2, indent = 40, lineH = 34, openGap = 30, tx = 98, y0 = 140;   // character width at 22px, and the spacing
+  const openAt = c.tree.findIndex(([, , kind]) => kind === "open");
+  const lineY = (i) => y0 + i * lineH + (i > openAt ? openGap : 0);
+  const treeBottom = lineY(c.tree.length - 1);
+  const cardTop = treeBottom + 78, tabText = "inside " + folder;
+  const tabW = Math.round(tabText.length * 8.4 + 40);      // the folder tab on the card
   const cardH = pad + c.groups.reduce((h, g) => h + labelH + g.files.length * rowH, 0) + groupGap * (c.groups.length - 1);
   const vpad = 20;                              // space between the frame and the content, top and bottom
   const H = cardTop + cardH + 36 + 2 * vpad;
   const bg = kiitBackground(t, W, H);
 
-  // the folder name, with a bracket and the format label under each of its parts
-  const cw = 14.4;                              // character width at 24px
-  const L = levels.length, lineY = (i) => 82 + i * lineH, nameY = lineY(L), nameX0 = tx + L * indent;
-  let ox = nameX0;
+  const segX = []; { let sx = tx + c.tree[openAt][0] * indent; c.parts.forEach((p) => { segX.push(sx); sx += (p.text.length + 1) * cw; }); }
+  const openPx = tx + c.tree[openAt][0] * indent;
+  const openW = Math.round(Math.max((c.tree[openAt][1].length + 1) * cw, ...c.parts.map((g, k) => segX[k] - openPx + Math.max(g.text.length * cw, g.label.length * 8))) + 56);
+  const kindColor = { root: t.ink, plain: t.dim, item: t.sub, project: t.sub, open: t.blue };
+  const px = (i) => tx + c.tree[i][0] * indent;
+  const treeText = c.tree.map(([, name, kind], i) => {
+    const bold = kind === "item" ? "400" : "700";
+    if (kind === "open") {
+      const nameSvg = c.parts.map((p) => `<tspan>${esc(p.text)}</tspan>`).join("-");
+      return `<rect x="${px(i) - 14}" y="${lineY(i) - 24}" width="${openW}" height="62" rx="10" fill="#FFFFFF" stroke="${t.blue}" stroke-width="2"/>
+    <text x="${px(i)}" y="${lineY(i)}" font-size="22" font-weight="700" fill="${t.blue}">${nameSvg}/</text>`;
+    }
+    return `<text x="${px(i)}" y="${lineY(i)}" font-size="22" font-weight="${bold}" fill="${kindColor[kind]}">${esc(name)}</text>`;
+  }).join("\n    ");
+  // the format of the open folder's name: a bracket and a label under each part
+  let ox = px(openAt);
   const segs = c.parts.map((p) => { const seg = { ...p, x: ox, w: p.text.length * cw }; ox += (p.text.length + 1) * cw; return seg; });
-  const nameSvg = c.parts.map((p) => `<tspan fill="${t.blue}">${esc(p.text)}</tspan>`).join("-");
-  const brackets = segs.map((g) => `<line x1="${g.x + 2}" y1="${nameY + 10}" x2="${g.x + g.w - 2}" y2="${nameY + 10}" stroke="${t.border}" stroke-width="2" stroke-linecap="round"/>
-    <text x="${g.x}" y="${nameY + 28}" font-size="12" fill="${t.dim}">${esc(g.label)}</text>`).join("\n    ");
-  // each folder on its own line, indented one level deeper, with an elbow from its parent
-  const tree = levels.map((s, i) => `<text x="${tx + i * indent}" y="${lineY(i)}" font-size="24" font-weight="700" fill="${t.dim}">${esc(s)}</text>`).join("\n    ");
-  const elbows = levels.map((_, k) => { const i = k + 1, xv = tx + k * indent + 8;
-    return `<path d="M ${xv} ${lineY(k) + 8} V ${lineY(i) - 8} H ${tx + i * indent - 6}" fill="none" stroke="${t.border}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`; }).join("\n    ");
-  const folderIcon = `<path d="M48 60 a3 3 0 0 1 3 -3 h12 l4 5 h19 a3 3 0 0 1 3 3 v22 a3 3 0 0 1 -3 3 h-35 a3 3 0 0 1 -3 -3z" fill="${FOLDER.back}" stroke="${FOLDER.edge}" stroke-width="1.5" stroke-linejoin="round"/>
-    <rect x="48" y="66" width="41" height="22" rx="3" fill="${FOLDER.front}" stroke="${FOLDER.edge}" stroke-width="1.5"/>`;
-  const nameDy = 28;                            // space between the title and the folder name
-  const tabW = 150;                             // the folder tab on the card
+  const brackets = segs.map((g) => `<line x1="${g.x + 2}" y1="${lineY(openAt) + 10}" x2="${g.x + g.w - 2}" y2="${lineY(openAt) + 10}" stroke="${t.border}" stroke-width="2" stroke-linecap="round"/>
+    <text x="${g.x}" y="${lineY(openAt) + 28}" font-size="12" fill="${t.dim}">${esc(g.label)}</text>`).join("\n    ");
+  // elbows from each folder to its parent
+  const parentOf = c.tree.map(([d], i) => { for (let j = i - 1; j >= 0; j--) if (c.tree[j][0] === d - 1) return j; return -1; });
+  const lastChild = {};
+  parentOf.forEach((pi, i) => { if (pi >= 0) lastChild[pi] = i; });
+  const elbows = [
+    ...Object.entries(lastChild).map(([pi, ci]) => { const xv = px(+pi) + 8;
+      return `<line x1="${xv}" y1="${lineY(+pi) + 8}" x2="${xv}" y2="${lineY(ci) - 8}" stroke="${t.border}" stroke-width="2" stroke-linecap="round"/>`; }),
+    ...parentOf.map((pi, i) => pi < 0 ? "" : `<line x1="${px(pi) + 8}" y1="${lineY(i) - 8}" x2="${px(i) - 6}" y2="${lineY(i) - 8}" stroke="${t.border}" stroke-width="2" stroke-linecap="round"/>`),
+  ].join("\n    ");
+  // a bracket beside rows, with a label
+  const noteX = Math.max(tx + 3 * indent + 33 * cw + 40, openPx - 14 + openW + 36);
+  const notes = c.notes.map((n) => {
+    const y1 = lineY(n.from) - 8, y2 = lineY(n.to) - 8, col = t[n.color] || t.dim;
+    const shape = n.from === n.to ? `M ${noteX} ${y1} H ${noteX + 14}` : `M ${noteX} ${y1} H ${noteX + 12} V ${y2} H ${noteX}`;
+    return `<path d="${shape}" fill="none" stroke="${col}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="${noteX + 28}" y="${(y1 + y2) / 2 + 5}" font-size="16" font-weight="700" fill="${col}">${esc(n.label)}</text>`;
+  }).join("\n    ");
+  const rootIcon = kiitFolderIcon(48, lineY(0) - 23, 0.72);
 
   let y = cardTop + pad;
   const parts = [];
@@ -120,7 +163,7 @@ function buildSvg(c) {
     });
   });
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.label)}: ${esc(folder)}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.label)}: the workspace holds one folder per change, such as ${esc(folder)}">
   <defs>
     ${bg.defs}
   </defs>
@@ -129,17 +172,17 @@ function buildSvg(c) {
 
   <g font-family="${KIIT_FONT}" transform="translate(0 ${vpad})">
     <text x="48" y="56" font-size="40" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
-    <g transform="translate(0 ${nameDy})">
-    ${folderIcon}
-    ${tree}
+    <text x="48" y="90" font-size="16" fill="${t.dim}">${esc(c.sub)}</text>
+    ${rootIcon}
     ${elbows}
-    <text x="${nameX0}" y="${nameY}" font-size="24" font-weight="700" fill="${t.dim}">${nameSvg}/</text>
+    ${treeText}
     ${brackets}
-    </g>
+    ${notes}
 
-    <rect x="${cardX}" y="${cardTop - 24}" width="${tabW}" height="40" rx="10" fill="${t.card}" stroke="${t.border}" stroke-width="1.5"/>
-    <rect x="${cardX}" y="${cardTop}" width="${cardRight - cardX}" height="${cardH}" rx="12" fill="${t.card}" stroke="${t.border}" stroke-width="1.5"/>
+    <rect x="${cardX}" y="${cardTop - 24}" width="${tabW}" height="40" rx="10" fill="${t.card}" stroke="${t.blue}" stroke-width="1.5"/>
+    <rect x="${cardX}" y="${cardTop}" width="${cardRight - cardX}" height="${cardH}" rx="12" fill="${t.card}" stroke="${t.blue}" stroke-width="1.5"/>
     <rect x="${cardX + 1.5}" y="${cardTop - 1.5}" width="${tabW - 3}" height="4" fill="${t.card}"/>
+    <text x="${cardX + 20}" y="${cardTop - 4}" font-size="14" font-weight="700" fill="${t.blue}">${esc(tabText)}</text>
     ${parts.join("\n    ")}
   </g>
 </svg>

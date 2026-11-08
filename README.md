@@ -57,7 +57,7 @@ cd kiit-flow
 
 **Configure** by editing `.claude/kiit/kiit.json` in the workspace. Install creates it from the example, and running install again never overwrites it.
 
-**Run** from the workspace, after restarting your assistant so it loads the skills:
+**Run** from the workspace, after a restart:
 
 ![The first commands to run: help, begin with a ticket link, design, update, and verify, each with a short comment](./assets/kiit-flow-start.svg)
 
@@ -77,7 +77,7 @@ The commands are listed in workflow order. In Focus, `review`, `revise`, and `up
 
 A work item is one folder per change. Work items live in `_kiit/flow/` at the workspace root, next to `.claude/` and your project repos.
 
-![A work item: the folder _kiit/flow/260928-kiit-codes-fix-1234, its files, what each is for, and which commands write it](./assets/kiit-flow-work-item.svg)
+![The workspace holds .claude, your project repos, and _kiit/flow with one folder per change, such as 260928-kiit-codes-fix-1234. Inside that work item: its files, what each is for, and which commands write it](./assets/kiit-flow-work-item.svg)
 
 The folder name is `{YYMMDD}-{project}-{type}-{ticket|short-name}`: the date, the project, the type, and the ticket id, or a short name when there is only a description. Files appear as the commands run, so a new work item has only `01-change.md` and `_history.md`. `go` writes just those two. `_research.md` is written by `research`.
 

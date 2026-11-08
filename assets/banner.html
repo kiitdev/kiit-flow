@@ -3,13 +3,13 @@
 <meta charset="utf-8">
 <title>Kiit banner</title>
 <!--
-  Kiit banner template (1280x360). Edit CONFIG below, then either:
+  Kiit banner template (1392x360). Edit CONFIG below, then either:
     1. open this file in a browser and press "Download SVG", or
     2. export from the command line: ./banner.sh banner.html kiit-flow-banner.svg
 -->
 <style>
   body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
-  #banner svg { width: 100%; max-width: 1280px; height: auto; display: block; }
+  #banner svg { width: 100%; max-width: 1392px; height: auto; display: block; }
   button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
   pre#svg { display: none; }
 </style>
@@ -71,7 +71,7 @@ function buildSvg(c) {
   const tagSize = Math.min(20, Math.floor(650 / (0.6 * c.tagline.length)));
   const rows = c.card.rows;
   const h = 98 + 24 * rows.length;
-  const H = 360, top = (H - h) / 2 - 12;                 // the banner height, and the card, a little above the middle
+  const W = 1392, H = 360, top = (H - h) / 2 - 12;                 // the banner height, and the card, a little above the middle
 
   const rowSvg = rows.map(([num, text, st], i) => {
     const y = 104 + 24 * i;
@@ -80,7 +80,7 @@ function buildSvg(c) {
   }).join("\n");
 
   // the bottom row: a box per mode. Every character gets its own x, so no font can spill out of its box
-  const boxY = 268, boxH = 38, textY = boxY + 25, rowStart = 88, rowEnd = 745;
+  const boxY = 268, boxH = 38, textY = boxY + 25, rowStart = 88, rowEnd = 745 + (W - 1280);
   const modesAt = (sz) => {
     const cw = sz * 0.6;
     let x = rowStart;
@@ -112,14 +112,14 @@ function buildSvg(c) {
     ? `${esc(ft.slice(0, ft.indexOf(fa)))}<tspan font-weight="700" fill="${claude}">${esc(fa)}</tspan>${esc(ft.slice(ft.indexOf(fa) + fa.length))}`
     : esc(ft);
   const footer = ft
-    ? `\n    <text x="1200" y="${top + h + 34}" font-size="14" fill="${t.sub}" text-anchor="end">${footerText}</text>`
+    ? `\n    <text x="${W - 80}" y="${top + h + 34}" font-size="14" fill="${t.sub}" text-anchor="end">${footerText}</text>`
     : "";
 
   const f = t.frameWidth, o = f / 2, r = 20 - o;          // outline inset and corner radius
   const leftEdge = `M 20 ${o} A ${r} ${r} 0 0 0 ${o} 20 V ${H - 20} A ${r} ${r} 0 0 0 20 ${H - o}`;
-  const rest = `M 20 ${o} H ${1280 - 20} A ${r} ${r} 0 0 1 ${1280 - o} 20 V ${H - 20} A ${r} ${r} 0 0 1 ${1280 - 20} ${H - o} H 20`;
+  const rest = `M 20 ${o} H ${W - 20} A ${r} ${r} 0 0 1 ${W - o} 20 V ${H - 20} A ${r} ${r} 0 0 1 ${W - 20} ${H - o} H 20`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="${H}" viewBox="0 0 1280 ${H}" role="img" aria-label="${esc(full)} — ${esc(c.tagline)}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(full)} — ${esc(c.tagline)}">
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="${t.grid}" stroke-width="1"/>
@@ -132,12 +132,12 @@ function buildSvg(c) {
       <stop offset="1" stop-color="${t.blue}"/>
       <animateTransform attributeName="gradientTransform" type="translate" additive="sum" values="0 0;0 0;${2 * aw} 0;${2 * aw} 0" keyTimes="0;0.15;0.75;1" dur="2.4s" repeatCount="indefinite"/>
     </linearGradient>
-    <clipPath id="frame"><rect width="1280" height="${H}" rx="20"/></clipPath>
+    <clipPath id="frame"><rect width="${W}" height="${H}" rx="20"/></clipPath>
   </defs>
 
   <g clip-path="url(#frame)">
-    <rect width="1280" height="${H}" fill="${t.paper}"/>
-    <rect width="1280" height="${H}" fill="url(#grid)"/>
+    <rect width="${W}" height="${H}" fill="${t.paper}"/>
+    <rect width="${W}" height="${H}" fill="url(#grid)"/>
   </g>
   <path d="${rest}" fill="none" stroke="${t.frame}" stroke-width="${f}"/>
   <path d="${leftEdge}" fill="none" stroke="${t.frameLeft}" stroke-width="${f}"/>
@@ -148,7 +148,7 @@ function buildSvg(c) {
     <text x="88" y="240" font-size="${tagSize}" fill="${t.sub}">${esc(c.tagline)}</text>
     ${modeSvg}
 
-    <g transform="translate(772 ${top})">
+    <g transform="translate(${W - 508} ${top})">
       <rect width="428" height="${h}" rx="12" fill="${t.card}" stroke="${t.border}"/>
       <text x="24" y="34" font-size="14" font-weight="700" fill="${t.blue}">${esc(c.card.title)}</text>
       <line x1="24" y1="48" x2="404" y2="48" stroke="${t.border}"/>
