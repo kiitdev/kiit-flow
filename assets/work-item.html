@@ -23,6 +23,7 @@
 // ---- CONFIG: change these for each project ---------------------------------
 const CONFIG = {
   label: "Work item",
+  width: 1392,                               // the same width as the workflow diagram
   location: "_kiit/flow/",
   parts: [                                   // the folder name, one part per segment of the format
     { text: "260928", label: "{YYMMDD}" },
@@ -53,44 +54,23 @@ const CONFIG = {
 };
 // ---------------------------------------------------------------------------
 
-const FOLDER = { back: "#F2A33A", front: "#FFC25E", edge: "#D9822B" };   // the orange folder
-
-// A small white pictogram for a badge, centered on (0,0)
-const GLYPHS = {
-  pencil:    '<polygon points="-5,5 -4,1.5 2.5,-5 5,-2.5 -1.5,4" fill="#FFFFFF"/>',
-  square:    '<polygon points="-5,5 5,5 -5,-5" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linejoin="round"/>',
-  steps:     '<polyline points="-5,5 -5,2 -2,2 -2,-1 1,-1 1,-4 5,-4" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>',
-  magnifier: '<circle cx="-1" cy="-1" r="3.3" fill="none" stroke="#FFFFFF" stroke-width="1.7"/><line x1="1.6" y1="1.6" x2="5" y2="5" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round"/>',
-  checklist: '<polyline points="-5,-2 -3.5,0 -1,-4" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><line x1="1.5" y1="-2" x2="5" y2="-2" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/><line x1="-5" y1="3.5" x2="5" y2="3.5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>',
-  compass:   '<circle cx="0" cy="0" r="5" fill="none" stroke="#FFFFFF" stroke-width="1.5"/><polygon points="0,-3 1.7,0 0,3 -1.7,0" fill="#FFFFFF" transform="rotate(45)"/>',
-  clock:     '<circle cx="0" cy="0" r="5" fill="none" stroke="#FFFFFF" stroke-width="1.5"/><polyline points="0,-2.8 0,0 2.4,1.6" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
-};
-
-// The file icon with text lines, and a round badge for what the file is
-function fileIcon(x, y, kind, color, t) {
-  return `<path d="M${x} ${y} H${x + 15} L${x + 22} ${y + 7} V${y + 28} H${x} Z" fill="${t.card}" stroke="${color}" stroke-width="1.6" stroke-linejoin="round"/>
-    <path d="M${x + 15} ${y} V${y + 7} H${x + 22}" fill="none" stroke="${color}" stroke-width="1.6" stroke-linejoin="round"/>
-    <line x1="${x + 4}" y1="${y + 12}" x2="${x + 15}" y2="${y + 12}" stroke="${color}" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="${x + 4}" y1="${y + 17}" x2="${x + 12}" y2="${y + 17}" stroke="${color}" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="${x + 4}" y1="${y + 22}" x2="${x + 9}" y2="${y + 22}" stroke="${color}" stroke-width="1.4" stroke-linecap="round"/>
-    <circle cx="${x + 21}" cy="${y + 26}" r="10" fill="${color}" stroke="${t.card}" stroke-width="2"/>
-    <g transform="translate(${x + 21} ${y + 26})">${GLYPHS[kind] || ""}</g>`;
-}
-
 function buildSvg(c) {
   const t = c.theme;
   // size the card to its content: the commands sit in one column right after the longest description
   const files = c.groups.flatMap((g) => g.files);
-  const chipW = (cmd) => Math.round(cmd.length * 7.8 + 22);
+  const chipW = (cmd) => Math.round(cmd.length * 8.4 + 26);
   const chipsW = (f) => f.by.reduce((sum, cmd) => sum + chipW(cmd), 0) + 8 * (f.by.length - 1);
   const folder = c.parts.map((p) => p.text).join("-");
   const levels = c.location.split("/").filter(Boolean).map((s) => s + "/");   // the folders above the work item
   const indent = 44, lineH = 34, tx = 98;       // the indent per level, the line height, and where the tree starts
-  const nameX = 114, purposeX = Math.round(nameX + Math.max(...files.map((f) => f.name.length)) * 10.2 + 28);
-  const pillsX = Math.round(purposeX + Math.max(...files.map((f) => f.purpose.length)) * 8.4 + 28);
-  const cardX = 48, cardRight = pillsX + Math.max(...files.map(chipsW)) + 24;
-  const W = Math.max(cardRight + 48, Math.round(tx + levels.length * indent + (folder.length + 1) * 14.4 + 48));
-  const rowH = 50, labelH = 34, groupGap = 14, cardTop = 176 + levels.length * lineH, pad = 16;
+  const nameX = 114, purposeX0 = Math.round(nameX + Math.max(...files.map((f) => f.name.length)) * 11.4 + 36);
+  const pillsX0 = Math.round(purposeX0 + Math.max(...files.map((f) => f.purpose.length)) * 9.6 + 36);
+  const cardX = 48, cardRight0 = pillsX0 + Math.max(...files.map(chipsW)) + 24;
+  const W = c.width || Math.max(cardRight0 + 48, Math.round(tx + levels.length * indent + (folder.length + 1) * 14.4 + 48));
+  const cardRight = W - 48;
+  const extra = Math.max(0, cardRight - cardRight0);       // spare width goes between the columns
+  const purposeX = purposeX0 + Math.round(extra * 0.4), pillsX = pillsX0 + Math.round(extra * 0.8);
+  const rowH = 56, labelH = 38, groupGap = 14, cardTop = 190 + levels.length * lineH, pad = 16;
   const cardH = pad + c.groups.reduce((h, g) => h + labelH + g.files.length * rowH, 0) + groupGap * (c.groups.length - 1);
   const vpad = 20;                              // space between the frame and the content, top and bottom
   const H = cardTop + cardH + 36 + 2 * vpad;
@@ -110,7 +90,7 @@ function buildSvg(c) {
     return `<path d="M ${xv} ${lineY(k) + 8} V ${lineY(i) - 8} H ${tx + i * indent - 6}" fill="none" stroke="${t.border}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`; }).join("\n    ");
   const folderIcon = `<path d="M48 60 a3 3 0 0 1 3 -3 h12 l4 5 h19 a3 3 0 0 1 3 3 v22 a3 3 0 0 1 -3 3 h-35 a3 3 0 0 1 -3 -3z" fill="${FOLDER.back}" stroke="${FOLDER.edge}" stroke-width="1.5" stroke-linejoin="round"/>
     <rect x="48" y="66" width="41" height="22" rx="3" fill="${FOLDER.front}" stroke="${FOLDER.edge}" stroke-width="1.5"/>`;
-  const nameDy = 16;                            // space between the title and the folder name
+  const nameDy = 28;                            // space between the title and the folder name
   const tabW = 150;                             // the folder tab on the card
 
   let y = cardTop + pad;
@@ -120,19 +100,19 @@ function buildSvg(c) {
       y += groupGap;
       parts.push(`<line x1="48" y1="${y - 8}" x2="${cardRight}" y2="${y - 8}" stroke="${t.rule}"/>`);
     }
-    parts.push(`<text x="72" y="${y + 20}" font-size="12" font-weight="700" fill="${t.dim}" letter-spacing="2">${esc(g.label.toUpperCase())}</text>`);
+    parts.push(`<text x="72" y="${y + 22}" font-size="13" font-weight="700" fill="${t.dim}" letter-spacing="2">${esc(g.label.toUpperCase())}</text>`);
     y += labelH;
     g.files.forEach((f, fi) => {
       const iconColor = f.color || (f.name.startsWith("_") ? t.dim : t.blue);
-      parts.push(fileIcon(72, y + 10, f.icon, iconColor, t));
-      parts.push(`<text x="114" y="${y + 31}" font-size="17" font-weight="700" fill="${t.ink}">${esc(f.name)}</text>`);
-      parts.push(`<text x="${purposeX}" y="${y + 31}" font-size="14" fill="${t.sub}">${esc(f.purpose)}</text>`);
+      parts.push(fileIcon(72, y + 11, f.icon, iconColor, t));
+      parts.push(`<text x="114" y="${y + 34}" font-size="19" font-weight="700" fill="${t.ink}">${esc(f.name)}</text>`);
+      parts.push(`<text x="${purposeX}" y="${y + 33}" font-size="16" fill="${t.sub}">${esc(f.purpose)}</text>`);
       // the commands that write it, as chips in one column
       let x = pillsX;
       f.by.forEach((cmd) => {
         const w = chipW(cmd);
-        parts.push(`<rect x="${x}" y="${y + 13}" width="${w}" height="26" rx="13" fill="${t.paper}" stroke="${t.border}"/>
-    <text x="${x + w / 2}" y="${y + 31}" font-size="13" font-weight="700" fill="${t.blue}" text-anchor="middle">${esc(cmd)}</text>`);
+        parts.push(`<rect x="${x}" y="${y + 14}" width="${w}" height="28" rx="14" fill="${t.paper}" stroke="${t.border}"/>
+    <text x="${x + w / 2}" y="${y + 33}" font-size="14" font-weight="700" fill="${t.blue}" text-anchor="middle">${esc(cmd)}</text>`);
         x += w + 8;
       });
       if (fi < g.files.length - 1) parts.push(`<line x1="72" y1="${y + rowH}" x2="${cardRight - 24}" y2="${y + rowH}" stroke="${t.rule}" stroke-dasharray="3 4"/>`);
@@ -148,7 +128,7 @@ function buildSvg(c) {
   ${bg.body}
 
   <g font-family="${KIIT_FONT}" transform="translate(0 ${vpad})">
-    <text x="48" y="46" font-size="26" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
+    <text x="48" y="56" font-size="40" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
     <g transform="translate(0 ${nameDy})">
     ${folderIcon}
     ${tree}

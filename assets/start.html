@@ -23,6 +23,7 @@
 // ---- CONFIG: change these for each project ---------------------------------
 const CONFIG = {
   label: "Run it from the workspace",
+  width: 1392,                               // the same width as the workflow diagram
   lines: [                                   // [command, argument, comment]
     ["/kiit-flow-help",   "",                                         "list the commands"],
     ["/kiit-flow-begin",  "https://github.com/acme/app/issues/12",    "create the work item"],
@@ -35,25 +36,25 @@ const CONFIG = {
 // ---------------------------------------------------------------------------
 
 function buildSvg(c) {
-  const t = c.theme, vpad = 20, cardX = 48, cardTop = 78, barH = 38, rowH = 44, padTop = 14, padBottom = 10;
-  const cmdCw = 10.2, noteCw = 9;                                   // character widths at 17px and 15px
-  const cmdX = cardX + 52;
+  const t = c.theme, vpad = 20, cardX = 48, cardTop = 92, barH = 42, rowH = 60, padTop = 14, padBottom = 12;
+  const cmdCw = 14.4, noteCw = 12;                                  // character widths at 24px and 20px
+  const cmdX = cardX + 64;
   const full = (l) => l[0].length + (l[1] ? l[1].length + 1 : 0);
-  const noteX = Math.round(cmdX + Math.max(...c.lines.map(full)) * cmdCw + 40);
-  const cardRight = Math.round(noteX + (Math.max(...c.lines.map((l) => l[2].length)) + 2) * noteCw + 28);
-  const W = cardRight + 48;
+  const noteX = Math.round(cmdX + Math.max(...c.lines.map(full)) * cmdCw + 48);
+  const W = c.width || Math.round(noteX + (Math.max(...c.lines.map((l) => l[2].length)) + 2) * noteCw + 28) + 48;
+  const cardRight = W - 48;
   const cardH = barH + padTop + c.lines.length * rowH + padBottom;
   const H = cardTop + cardH + 36 + 2 * vpad;
   const bg = kiitBackground(t, W, H);
 
   const rows = c.lines.map(([cmd, arg, note], i) => {
     const y = cardTop + barH + padTop + i * rowH, ym = y + rowH / 2;
-    return `<text x="${cardX + 24}" y="${ym + 6}" font-size="18" font-weight="700" fill="${t.highlight}">&gt;</text>
-    <text x="${cmdX}" y="${ym + 6}" font-size="17"><tspan font-weight="700" fill="${t.ink}">${esc(cmd)}</tspan>${arg ? `<tspan fill="${t.blue}"> ${esc(arg)}</tspan>` : ""}</text>
-    <text x="${noteX}" y="${ym + 5}" font-size="15" fill="${t.dim}"># ${esc(note)}</text>`;
+    return `<text x="${cardX + 28}" y="${ym + 8}" font-size="24" font-weight="700" fill="${t.highlight}">&gt;</text>
+    <text x="${cmdX}" y="${ym + 8}" font-size="24"><tspan font-weight="700" fill="${t.ink}">${esc(cmd)}</tspan>${arg ? `<tspan fill="${t.blue}"> ${esc(arg)}</tspan>` : ""}</text>
+    <text x="${noteX}" y="${ym + 7}" font-size="20" fill="${t.dim}"># ${esc(note)}</text>`;
   }).join("\n    ");
 
-  const dots = [t.frameLeft, "#F2C94C", t.done].map((col, i) => `<circle cx="${cardX + 22 + i * 20}" cy="${cardTop + barH / 2}" r="6" fill="${col}"/>`).join("\n    ");
+  const dots = [t.frameLeft, "#F2C94C", t.done].map((col, i) => `<circle cx="${cardX + 26 + i * 22}" cy="${cardTop + barH / 2}" r="7" fill="${col}"/>`).join("\n    ");
   const label = `${c.label}: ${c.lines.map((l) => [l[0], l[1]].filter(Boolean).join(" ")).join(", ")}`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
@@ -65,7 +66,7 @@ function buildSvg(c) {
   ${bg.body}
 
   <g font-family="${KIIT_FONT}" transform="translate(0 ${vpad})">
-    <text x="${cardX}" y="46" font-size="26" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
+    <text x="${cardX}" y="56" font-size="40" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
 
     <rect x="${cardX}" y="${cardTop}" width="${cardRight - cardX}" height="${cardH}" rx="12" fill="${t.card}" stroke="${t.border}" stroke-width="1.5"/>
     <g clip-path="url(#card)">

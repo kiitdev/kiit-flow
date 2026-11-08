@@ -14,15 +14,15 @@ dir="$(cd "$(dirname "$0")" && pwd)"
 scale="${2:-2}"
 out="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
 
-# the page is the three images stacked, with 40px around and 28px between
+# the page is the four images stacked, with 40px around and 28px between
 size=$(python3 -I - "$dir" <<'PY'
 import re, sys
 w = h = 0
-for name in ("kiit-flow-banner", "kiit-flow-diagram", "kiit-flow-work-item"):
+for name in ("kiit-flow-banner", "kiit-flow-diagram", "kiit-flow-start", "kiit-flow-work-item"):
     head = open(f"{sys.argv[1]}/{name}.svg").read(400)
     m = re.search(r'width="(\d+)" height="(\d+)"', head)
     w, h = max(w, int(m.group(1))), h + int(m.group(2))
-print(w + 80, h + 80 + 2 * 28)
+print(w + 80, h + 80 + 3 * 28)
 PY
 )
 set -- $size

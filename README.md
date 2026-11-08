@@ -19,7 +19,7 @@ Part of [Kiit](https://www.kiit.dev)
 
 | # | | Topic | Description |
 |---:|:---:|---|---|
-| 1 | 💡 | [Why](#why) | The problems flow addresses, and the approach it takes |
+| 1 | 💡 | [Why](#why) | What flow adds on top of Claude Code |
 | 2 | 🧭 | [Modes](#modes) | Fast, Flow, or Focus: how to choose for a change |
 | 3 | 🚀 | [Start](#start) | Install, set up the config, and create a first work item |
 | 4 | ⌨️ | [Commands](#commands) | The skills you run, and what is planned |
@@ -31,42 +31,7 @@ Part of [Kiit](https://www.kiit.dev)
 
 ## Why
 
-Work with an AI coding assistant tends to go wrong in a few repeatable ways. Here is each one, and what flow does about it:
-
-| # | Problem | What goes wrong | How flow handles it |
-|---:|---|---|---|
-| 1 | **Lost context** | A session ends and the requirements, plan, and progress go with it. | The change lives in markdown files. A new session runs `/kiit-flow-resume` and continues from them. |
-| 2 | **Unreviewed plans** | Code is written before anyone has read the design. | `design` writes the plan first. In Focus, `update` asks for a review of the plan before it writes code. |
-| 3 | **Changes** | The design and the code diverge, and nothing records why. | `update` stops at a step the code can't support and marks it `blocked`. It never works around it. Every run adds a row to `_history.md`. |
-| 4 | **Unclear done** | There is no checklist to say when the change is finished. | `01-change.md` holds the acceptance criteria. Each step has a check, and `verify` runs the project's own lint, tests, security, and docs checks. |
-| 5 | **Self review** | The model that wrote the code reviews it, and shares its blind spots. | `review independent` reads the work cold, on another model. |
-| 6 | **One size of process** | A typo gets the same ceremony as a migration, or a risky change gets none. | Three modes. Fast does a clear change in one pass, Flow adds a design, and Focus adds research and review. Risk moves a change up a level. |
-| 7 | **Stale docs** | A spec kept beside the code becomes a second copy, and copies drift. | No living spec. The code is the source of truth, and the work item records intent. |
-| 8 | **Retyping tickets** | Requirements get copied by hand into the session and lose detail on the way. | `begin` reads the ticket and writes `01-change.md`, linking the ticket instead of copying it. |
-
-**kiit-flow keeps each change in a folder of plain markdown files.**
-
-A short set of commands moves the change through its stages: requirements, design, research, review, implementation, and checks. Every command reads what the earlier ones wrote, so a session can stop at any point and another can pick up from the files.
-
-### The approach
-
-1. **Code is the source of truth.** The code defines behavior, so flow keeps no living spec. If you want a spec, derive it from the code. Git holds the code history. The work item holds the rest:
-
-   | Source | Of what |
-   |---|---|
-   | The ticket | Intent: what was asked |
-   | The code | Behavior: what the system does |
-   | The work item | The path between them: what was decided, planned, and done |
-
-   When the design and the code disagree, the code wins. `update` stops and asks.
-
-2. **One change, one folder.** A change usually maps to one session and one ticket, so each gets one folder, named with the ticket id. A change can outlast its session, because a new session picks it up with `resume`. A ticket that touches several repos stays in the tracker. A work item starts in the repo where the work begins.
-
-3. **Three modes, because work comes in sizes.** Small, medium, and large changes are different jobs, and coding is no exception. Scope, effort, and time pick the level. Risk is a separate axis that moves a change up a level, so a one line change to auth does not run as Fast.
-
-4. **Review by a different model, when you ask for it.** A model reviewing its own code tends to agree with itself. `independent` hands the work to another model with no session context, only the files and a fixed brief. It is opt in, in every mode.
-
-5. **Claude Code for now.** The skills use Claude Code features directly. Other assistants can come once it works well here.
+![What Claude Code gives you and what kiit-flow adds, for four goals. Organized: one work item per change, criteria and a check per step, reads the ticket and CLAUDE.md, code is the truth with no spec. Saved: markdown files per change, resume in any new session, every run logged, blocked steps stop the run. Modes: Fast, Flow, and Focus, risk moves a change up, start small and move up as needed. Reviewed: plan review first in Focus, another model can review, a verdict in 04-review.md, verify runs lint, tests, and security](./assets/kiit-flow-why.svg)
 
 ## Modes
 

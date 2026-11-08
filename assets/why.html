@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Kiit flow: what it adds to Claude Code</title>
+<!--
+  A problem, what Claude Code gives you, and what kiit-flow adds (900 wide, to fit a GitHub README). Edit CONFIG below, then either:
+    1. open this file in a browser and press "Download SVG", or
+    2. export from the command line: ./banner.sh why.html kiit-flow-why.svg
+-->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
+  #banner svg { width: 100%; max-width: 900px; height: auto; display: block; }
+  button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+
+<script src="kiit-svg.js"></script>
+<script>
+// ---- CONFIG: change these for each project ---------------------------------
+const CONFIG = {
+  label: "Why flow",
+  sub: ["kiit-flow", "is a layer on top of", "Claude Code"],   // the first and last are set in bold
+  width: 900,                                // narrow enough to show at full size in a GitHub README
+  heads: ["Goal", "Claude Code gives you", "kiit-flow adds"],
+  rows: [                                    // each row: a name, an icon, its colors, and the two cards
+    { name: "Organized", icon: "folder", accent: "#D9822B", tint: "#FFF3E3",
+      has: "A todo list in the session",
+      adds: ["One work item per change", "Criteria and a check per step", "Reads the ticket and CLAUDE.md", "Code is the truth, no spec"] },
+    { name: "Saved", icon: "file", accent: "#007FFF", tint: "#EAF3FF",
+      has: "Transcript and --resume",
+      adds: ["Markdown files per change", "resume in any new session", "Every run is logged", "Blocked steps stop the run"] },
+    { name: "Modes", icon: "modes", accent: "#0FA3A3", tint: "#E6F7F7",
+      has: "Plan mode, and one loop for every task",
+      adds: [{ chips: [["Fast", KIIT_THEME.fast], ["Flow", KIIT_THEME.flow], ["Focus", KIIT_THEME.heavy]] },
+             "Risk moves a change up", "Start small, move up as needed"] },
+    { name: "Reviewed", icon: "review", accent: "#D6336C", tint: "#FDECF3",
+      has: "Subagents, any model",
+      adds: ["Plan review first in Focus", "Another model can review", "A verdict in 04-review.md", "verify: lint, tests, security"] },
+  ],
+  theme: KIIT_THEME,
+};
+// ---------------------------------------------------------------------------
+
+function buildSvg(c) {
+  const t = c.theme, W = c.width, vpad = 20, margin = 40;
+  const rowH = 126, rowGap = 30, pitch = rowH + rowGap, headY = 130, headH = 36, rowsTop = 182;
+  const cw = 9, size = 15, lineH = 22;                  // mid and right text: 15px mono
+  const probX = margin, midX = 216, rightX = 536;
+  const midW = 284, rightW = W - margin - rightX;
+  const rowsBottom = rowsTop + c.rows.length * pitch - rowGap;
+  const Hc = rowsBottom + 36, H = Hc + 2 * vpad;
+  const bg = kiitBackground(t, W, H);
+
+  const wrap = (text, width) => {                       // break on spaces to fit the card
+    const per = Math.floor((width - 44) / cw), lines = [];
+    let cur = "";
+    text.split(" ").forEach((w) => {
+      if ((cur + " " + w).trim().length > per) { lines.push(cur); cur = w; } else cur = (cur + " " + w).trim();
+    });
+    lines.push(cur);
+    return lines;
+  };
+  const textBlock = (x, ym, lines, fill) => lines.map((l, i) =>
+    `<text x="${x}" y="${ym + 5 - (lines.length - 1) * lineH / 2 + i * lineH}" font-size="${size}" fill="${fill}">${esc(l)}</text>`).join("\n    ");
+
+  // the column headers: solid labels, so each column reads at a glance
+  const headBar = (x, w, fill, label) => `<rect x="${x}" y="${headY}" width="${w}" height="${headH}" rx="9" fill="${fill}"/>
+    <text x="${x + w / 2}" y="${headY + 24}" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">${esc(label)}</text>`;
+  const heads = [
+    `<text x="${probX}" y="${headY + 27}" font-size="26" font-weight="700" fill="${t.ink}">${esc(c.heads[0])}</text>`,
+    headBar(midX, midW, t.ink, c.heads[1]),
+    headBar(rightX, rightW, t.blue, c.heads[2]),
+  ].join("\n    ");
+
+  // the icon for a row: a file, the three mode bars, or the orange folder
+  const icon = (kind, accent, ym) => {
+    if (kind === "file" || kind === "review") return `<g transform="translate(${probX} ${ym - 24}) scale(1.3)">${fileIcon(0, 0, kind === "review" ? "magnifier" : "checklist", accent, t)}</g>`;
+    if (kind === "folder") return kiitFolderIcon(probX, ym - 19, 1.15);
+    const bars = [[t.fast, 16], [t.flow, 26], [t.heavy, 36]];
+    return bars.map(([col, h], k) => `<rect x="${probX + 2 + k * 16}" y="${ym + 20 - h}" width="12" height="${h}" rx="3" fill="${col}"/>`).join("\n    ");
+  };
+  const chips = (list, x, by) => { let cx = x; return list.map(([label, col]) => {
+      const w = Math.round(label.length * 8.4 + 22), out = `<rect x="${cx}" y="${by - 16}" width="${w}" height="22" rx="11" fill="#FFFFFF" stroke="${col}" stroke-width="1.5"/>
+    <text x="${cx + w / 2}" y="${by}" font-size="13" font-weight="700" fill="${col}" text-anchor="middle">${esc(label)}</text>`;
+      cx += w + 8; return out; }).join("\n    "); };
+
+  const rows = c.rows.map((r, i) => {
+    const y = rowsTop + i * pitch, ym = y + rowH / 2;
+    const gap = r.adds[0].chips ? 10 : 0;                 // space under the pills
+    const lineAt = (k) => ym + 5 - ((r.adds.length - 1) * lineH + gap) / 2 + k * lineH + (k > 0 ? gap : 0);
+    return `${icon(r.icon, r.accent, ym)}
+    <text x="${probX + 58}" y="${ym + 7}" font-size="20" font-weight="700" fill="${t.ink}">${esc(r.name)}</text>
+
+    <rect x="${midX}" y="${y}" width="${midW}" height="${rowH}" rx="10" fill="#FFFFFF" stroke="${t.border}" stroke-width="1.5"/>
+    <circle cx="${midX + 16}" cy="${ym}" r="4" fill="${t.dim}"/>
+    ${textBlock(midX + 30, ym, wrap(r.has, midW), t.sub)}
+
+    <line x1="${midX + midW + 6}" y1="${ym}" x2="${rightX - 12}" y2="${ym}" stroke="${r.accent}" stroke-width="3"/>
+    ${kiitHead(rightX - 2, ym, "right", 10, r.accent)}
+
+    <rect x="${rightX}" y="${y}" width="${rightW}" height="${rowH}" rx="10" fill="${r.tint}" stroke="${r.accent}" stroke-width="2"/>
+    ${r.adds.map((l, k) => {
+      const by = lineAt(k);
+      if (l.chips) return chips(l.chips, rightX + 16, by);
+      return `<circle cx="${rightX + 18}" cy="${by - 5}" r="3.5" fill="${r.accent}"/>
+    <text x="${rightX + 32}" y="${by}" font-size="${size}" fill="${t.ink}">${esc(l)}</text>`;
+    }).join("\n    ")}`;
+  }).join("\n\n    ");
+
+  const label = `${c.label}: ${c.rows.map((r) => `${r.name}. Claude Code: ${r.has}. kiit-flow: ${r.adds.map((l) => l.chips ? l.chips.map(([n]) => n).join(', ') : l).join(', ')}`).join(". ")}`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
+  <defs>
+    ${bg.defs}
+  </defs>
+
+  ${bg.body}
+
+  <g font-family="${KIIT_FONT}" transform="translate(0 ${vpad})">
+    <text x="${margin}" y="52" font-size="36" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
+    <text x="${margin}" y="86" font-size="17" fill="${t.dim}"><tspan font-weight="700" fill="${t.blue}">${esc(c.sub[0])}</tspan> ${esc(c.sub[1])} <tspan font-weight="700" fill="${t.ink}">${esc(c.sub[2])}</tspan></text>
+    ${heads}
+
+    ${rows}
+  </g>
+</svg>
+`;
+}
+
+kiitMount(buildSvg(CONFIG), "kiit-flow-why.svg");
+</script>

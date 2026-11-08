@@ -14,7 +14,7 @@
   <path d="M 20 4 A 16 16 0 0 0 4 20 V 1084 A 16 16 0 0 0 20 1100" fill="none" stroke="#E8794A" stroke-width="8"/>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" transform="translate(0 20)">
-    <text x="60" y="46" font-size="26" font-weight="700" fill="#111827">Workflow</text>
+    <text x="60" y="56" font-size="40" font-weight="700" fill="#111827">Workflow</text>
 
     <rect x="546" y="64" width="300" height="62" rx="12" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>
     <text x="696" y="92" font-size="20" font-weight="700" fill="#111827" text-anchor="middle">a change</text>
