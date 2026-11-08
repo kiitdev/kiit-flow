@@ -64,7 +64,7 @@ The resource defaults to `flow.review.baseline`, which defaults to `standards`.
 | `independent` | No baseline. Another model reads the work cold |
 
 ## Independent
-1. Start one subagent (Agent tool, `general-purpose`) on another model.
+1. Start one subagent (Agent tool, `Plan`, which has no Edit or Write) on another model.
    - `flow.review.model` if set, else a model other than this session's
 2. Give it no session context. Its prompt has only these:
    - Absolute paths to `01`-`03`, `_status.md`, any `_research.md`, the project
