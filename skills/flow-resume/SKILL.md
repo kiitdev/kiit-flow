@@ -1,7 +1,7 @@
 ---
 description: Cold-start a work item and continue its implementation where it stopped.
 argument-hint: "[work-item] [scope]"
-order: 7
+order: 8
 disable-model-invocation: true
 ---
 
@@ -35,6 +35,7 @@ EXAMPLES:
 2. Read the work item from the start.
    - `01-change.md`, `02-design.md` and `03-phases.md`
    - `04-review.md`, if it exists, every finding
+   - `_research.md`, if it exists: the Log table
    - No design or phases: `error: no design yet`, and suggest `/flow-design`
 3. Read `_status.md`, then the last 10 rows of `_history.md`.
    - No `_status.md`: `error: no status yet`, and suggest `/flow-design`

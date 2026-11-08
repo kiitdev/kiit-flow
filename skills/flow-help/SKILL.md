@@ -1,7 +1,7 @@
 ---
 description: Show the flow commands, or the usage of one command.
 argument-hint: "[command]"
-order: 10
+order: 11
 disable-model-invocation: true
 ---
 

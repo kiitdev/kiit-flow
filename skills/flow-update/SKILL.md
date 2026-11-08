@@ -1,7 +1,7 @@
 ---
 description: Implement the design for all phases, a phase, a step or a range.
 argument-hint: "[work-item] [part]"
-order: 6
+order: 7
 disable-model-invocation: true
 ---
 

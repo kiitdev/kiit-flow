@@ -25,12 +25,12 @@ const CONFIG = {
   brand: "kiit",                  // blue
   name: "flow",                   // black, joined to the brand with a hyphen
   slant: -0.6,                    // lean of the sweep: -0.6 leans like /, 0.6 like \, 0 is upright
-  tagline: "A fast or flow based skills framework for coding",
+  tagline: "A fast, flow, or focus based skills framework for coding with AI",
   steps: { join: "→" },           // between the steps. Try ">" too
-  tiers: [                        // the bottom row, one box each. style: fast, flow, or heavy
+  modes: [                        // the bottom row, one box each. style: fast, flow, or heavy
     { style: "fast", words: ["go"] },
     { style: "flow", before: "or", words: ["begin", "design", "update", "verify"] },
-    { style: "heavy", prefix: "+", words: ["review", "revise"] },
+    { style: "heavy", prefix: "+", words: ["research", "review", "revise"] },
   ],
   card: {
     title: "260928-kiit-codes-fix-1234",
@@ -78,16 +78,16 @@ function buildSvg(c) {
       <text x="404" y="${y}" font-size="16" fill="${t[st] || t.dim}" text-anchor="end">${esc(st)}</text>`;
   }).join("\n");
 
-  // the bottom row: a box per tier. Every character gets its own x, so no font can spill out of its box
+  // the bottom row: a box per mode. Every character gets its own x, so no font can spill out of its box
   const boxY = 234, boxH = 38, textY = boxY + 25, rowStart = 88, rowEnd = 745;
-  const tiersAt = (sz) => {
+  const modesAt = (sz) => {
     const cw = sz * 0.6;
     let x = rowStart;
-    const items = c.tiers.map((tier, i) => {
+    const items = c.modes.map((mode, i) => {
       if (i > 0) x += 12;
-      const item = { tier, cw };
-      if (tier.before) { item.beforeX = x; x += tier.before.length * cw + 12; }
-      item.str = (tier.prefix ? tier.prefix + " " : "") + tier.words.join(` ${c.steps.join} `);
+      const item = { mode, cw };
+      if (mode.before) { item.beforeX = x; x += mode.before.length * cw + 12; }
+      item.str = (mode.prefix ? mode.prefix + " " : "") + mode.words.join(` ${c.steps.join} `);
       item.x = x;
       item.w = Math.round(item.str.length * cw + 32);
       x += item.w;
@@ -95,15 +95,15 @@ function buildSvg(c) {
     });
     return { items, end: x };
   };
-  let sz = 16, lay = tiersAt(sz);
-  if (lay.end > rowEnd) { sz = Math.floor(16 * (rowEnd - rowStart) / (lay.end - rowStart)); lay = tiersAt(sz); }
+  let sz = 16, lay = modesAt(sz);
+  if (lay.end > rowEnd) { sz = Math.floor(16 * (rowEnd - rowStart) / (lay.end - rowStart)); lay = modesAt(sz); }
   const arrow = `<tspan fill="${t.ink}" stroke="${t.ink}" stroke-width="1"> ${esc(c.steps.join)} </tspan>`;
-  const tierSvg = lay.items.map(({ tier, cw, str, x, w, beforeX }) => {
-    const color = t[tier.style], tint = t[tier.style + "Tint"], border = t[tier.style + "Border"];
+  const modeSvg = lay.items.map(({ mode, cw, str, x, w, beforeX }) => {
+    const color = t[mode.style], tint = t[mode.style + "Tint"], border = t[mode.style + "Border"];
     const xs = Array.from(str, (_, j) => (x + 16 + j * cw).toFixed(1)).join(" ");
-    const before = tier.before ? `<text x="${beforeX}" y="${textY}" font-size="${sz}" fill="${t.dim}">${esc(tier.before)}</text>\n    ` : "";
+    const before = mode.before ? `<text x="${beforeX}" y="${textY}" font-size="${sz}" fill="${t.dim}">${esc(mode.before)}</text>\n    ` : "";
     return `${before}<rect x="${x}" y="${boxY}" width="${w}" height="${boxH}" rx="10" fill="${tint}" stroke="${border}" stroke-width="2"/>
-    <text x="${xs}" y="${textY}" font-size="${sz}" font-weight="700" fill="${color}">${tier.prefix ? esc(tier.prefix) + " " : ""}${tier.words.map(esc).join(arrow)}</text>`;
+    <text x="${xs}" y="${textY}" font-size="${sz}" font-weight="700" fill="${color}">${mode.prefix ? esc(mode.prefix) + " " : ""}${mode.words.map(esc).join(arrow)}</text>`;
   }).join("\n    ");
   const footer = c.card.footer
     ? `\n    <text x="1200" y="${top + h + 26}" font-size="14" fill="${t.dim}" text-anchor="end">${esc(c.card.footer)}</text>`
@@ -140,7 +140,7 @@ function buildSvg(c) {
     <text x="${letterXs}" y="166" font-size="${titleSize}" font-weight="700" fill="${t.ink}"><tspan fill="${t.blue}">${esc(c.brand)}</tspan>-${esc(c.name)}</text>
     <path d="${arrowPath}" fill="url(#sheen)"/>
     <text x="88" y="218" font-size="${tagSize}" fill="${t.sub}">${esc(c.tagline)}</text>
-    ${tierSvg}
+    ${modeSvg}
 
     <g transform="translate(772 ${top})">
       <rect width="428" height="${h}" rx="12" fill="${t.card}" stroke="${t.border}"/>

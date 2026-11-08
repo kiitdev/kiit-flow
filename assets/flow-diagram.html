@@ -3,14 +3,14 @@
 <meta charset="utf-8">
 <title>Kiit flow diagram</title>
 <!--
-  Workflow diagram template: a change splits into two paths that meet at verify (1040 wide).
+  Workflow diagram template: a change takes Fast, Flow, or Focus, and all meet at verify (1392 wide).
   Edit CONFIG below, then either:
     1. open this file in a browser and press "Download SVG", or
     2. export from the command line: ./banner.sh flow-diagram.html kiit-flow-diagram.svg
 -->
 <style>
   body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
-  #banner svg { width: 100%; max-width: 1040px; height: auto; display: block; }
+  #banner svg { width: 100%; max-width: 1392px; height: auto; display: block; }
   button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
   pre#svg { display: none; }
 </style>
@@ -22,30 +22,48 @@
 <script src="kiit-svg.js"></script>
 <script>
 // ---- CONFIG: change these for each project ---------------------------------
+const T = KIIT_THEME;
 const CONFIG = {
   label: "Workflow",
-  captionSize: 15,                 // size of the short description under each step
+  width: 1392,
+  captionSize: 15,                 // size of the short description beside each step
   start: { name: "a change", sub: "a ticket or a description" },
-  fast: {                          // option 1, the short column
-    title: "Fast",
-    sub: "one pass for a clear, low-risk change",
-    rows: [["go", "do it in one pass", null, "01-change.md, code"]],
-    lines: ["creates the work item", "implements the change", "runs the narrowest check"],
-    note: "needs a design, or is risky? go saves the work item and hands off to Flow",
-  },
-  full: {                          // option 2, the long column
-    title: "Flow",
-    sub: "intentional: design first, then review and build",
-    rows: [                      // [name, description, "optional", files written]
-      ["begin", "create the work item", null, "01-change.md"],
-      ["design", "plan the change", null, "02-design.md, 03-phases.md, _status.md"],
-      ["review", "get a second look", "optional", "04-review.md"],
-      ["revise", "change the plan", "optional", "02-design.md, 03-phases.md"],
-      ["update", "implement the steps", null, "code, _status.md"],
-    ],
-    loop: { from: 4, to: 2, label: "repeat until it is right" },   // row indexes
-    skip: { from: 1, to: 4, label: "or skip review and revise" },
-  },
+  lanes: [
+    {
+      title: "Fast", sub: "clear, low risk, any size",
+      color: T.fast, fill: T.fastTint, border: T.fastBorder,
+      x: 40, w: 300, descDx: 78,
+      rows: [["go", "do it in one pass", "01-change.md, code"]],     // [name, description, files written]
+      lines: ["creates the work item", "implements the change", "runs the narrowest check"],
+      note: "needs a design, or is risky? go saves the work item and hands off to Flow",
+      verify: "optional",
+    },
+    {
+      title: "Flow", sub: "needs a design first",
+      color: T.flow, fill: T.flowTint, border: T.flowBorder,
+      x: 356, w: 380, descDx: 143,
+      rows: [
+        ["begin", "create the work item", "01-change.md"],
+        ["design", "plan the change", "02-design.md, 03-phases.md, _status.md"],
+        ["update", "implement the steps", "code, _status.md"],
+      ],
+      note: "risky or wide? keep the work item and carry on in Focus",
+    },
+    {
+      title: "Focus", sub: "deep work: risky, wide, or unclear",
+      color: T.heavy, fill: T.heavyTint, border: T.heavyBorder,
+      x: 752, w: 600, descDx: 143,
+      rows: [
+        ["begin", "create the work item", "01-change.md"],
+        ["design", "plan the change", "02-design.md, 03-phases.md, _status.md"],
+        ["review", "get a second look", "04-review.md"],
+        ["revise", "change the plan", "02-design.md, 03-phases.md"],
+        ["update", "implement the steps", "code, _status.md"],
+      ],
+      loop: { from: 4, to: 2, label: "repeat until it is right" },   // row indexes
+      side: { label: "research", caption: "find the unknowns", file: "_research.md", from: 1 },  // a bar beside the steps from this row on
+    },
+  ],
   verify: { name: "verify", caption: "lint, tests, security, and docs", fastLabel: "optional" },
   footerLeft: "also: resume, recent, help",
   footerRight: "after verify: review the code, then revise and update",
@@ -54,103 +72,105 @@ const CONFIG = {
 // ---------------------------------------------------------------------------
 
 function buildSvg(c) {
-  const t = c.theme, W = 1108;
-  const fs = { color: t.fast, fill: t.fastTint, border: t.fastBorder, ...c.fast.style };   // option 1
-  const ws = { color: t.flow, fill: t.flowTint, border: t.flowBorder, ...c.full.style };        // option 2
-  const size = c.captionSize;
-  const L = { x: 40, w: 360 }, R = { x: 416, w: 652 };
-  const panelTop = 236, rowsTop = panelTop + 94, rowGap = 48, rowH = 58, pad = 20, lane = 68, elbow = 176;
-  const Lcx = L.x + L.w / 2, Rcx = R.x + R.w / 2;
-  const bg = kiitBackground(t, W, 0 /* set below */);
+  const t = c.theme, W = c.width, size = c.captionSize;
+  const panelTop = 236, rowsTop = panelTop + 94, rowGap = 48, rowH = 58, pad = 20, elbow = 176;
+  const barLane = 68;                                   // room for the loop arrow
 
-  // lay out the rows of one column. The files go on one line, comma separated, and wrap when long
-  function layout(rows, col, descDx, rightLane, leftLane = 0) {   // descDx: where the descriptions start
-    const rowX = col.x + pad + leftLane, rowW = col.w - 2 * pad - leftLane - rightLane;
+  // lay out the rows of every lane
+  const lanes = c.lanes.map((ln) => {
+    const leftLane = ln.side ? rowH + 28 : 0, rightLane = ln.loop ? barLane : 0;   // the research box is as thick as a step
+    const rowX = ln.x + pad + leftLane, rowW = ln.w - 2 * pad - leftLane - rightLane;
     let y = rowsTop;
-    const out = rows.map(([name, caption, opt, files]) => {
-      const row = { name, caption, y, h: rowH, ym: y + rowH / 2, rowX, rowW, descDx, files, optional: opt === "optional" };
+    const rows = ln.rows.map(([name, caption, files]) => {
+      const row = { name, caption, files, y, h: rowH, ym: y + rowH / 2, rowX, rowW, descDx: ln.descDx };
       y += rowH + rowGap;
       return row;
     });
-    return { rows: out, bottom: y - rowGap };
-  }
-  const left = layout(c.fast.rows, L, 78, 0);
-  const right = layout(c.full.rows, R, 143, lane, c.full.skip ? 56 : 0);
-  const panelBottom = Math.max(left.bottom, right.bottom) + pad + 18;   // 18: room for the files under the last step
-  const barY = panelBottom + 56, barH = rowH, barX = 140, barW = 760;
-  const vpad = 20;                              // space between the frame and the content, top and bottom
+    return { ...ln, cx: ln.x + ln.w / 2, rowX, rowW, rows, bottom: y - rowGap };
+  });
+  const panelBottom = Math.max(...lanes.map((l) => l.bottom)) + pad + 18;   // 18: room for the files under the last step
+  const Lcx = lanes[0].cx, Rcx = lanes[lanes.length - 1].cx;
+  const barY = panelBottom + 56, barH = rowH, barX = Lcx - 60, barW = Rcx + 60 - barX;
+  const vpad = 20;                                      // space between the frame and the content, top and bottom
   const Hc = barY + barH + 100, H = Hc + 2 * vpad;
-  const bgFull = kiitBackground(t, W, H);
+  const bg = kiitBackground(t, W, H);
 
-  const rowSvg = (r, dot, border, fill) => {
-    const o = r.optional;
-    const caption = `<text x="${r.rowX + r.descDx}" y="${r.ym + 6}" font-size="${size}" fill="${o ? t.heavy : t.dim}"${o ? ' opacity="0.7"' : ""}>${esc(r.caption)}</text>`;
-    const tag = o
-      ? `<rect x="${r.rowX + r.rowW - 78}" y="${r.y - 9}" width="64" height="18" rx="9" fill="${t.heavyTint}" stroke="${t.heavyBorder}"/>
-    <text x="${r.rowX + r.rowW - 46}" y="${r.y + 4}" font-size="11" font-weight="700" fill="${t.heavy}" text-anchor="middle">optional</text>`
-      : "";
-    const files = r.files ? `<text x="${r.rowX + r.rowW - 12}" y="${r.y + r.h + 19}" font-size="13" fill="${t.dim}" text-anchor="end">${esc(r.files)}</text>` : "";
-    return `<rect x="${r.rowX}" y="${r.y}" width="${r.rowW}" height="${r.h}" rx="10" fill="${o ? t.heavyTint : "#FFFFFF"}" stroke="${o ? t.heavyBorder : border}" stroke-width="1.5"${o ? ' stroke-dasharray="7 5"' : ""}/>
-    ${tag}
-    <circle cx="${r.rowX + 22}" cy="${r.ym}" r="6" fill="${o ? t.heavy : dot}"/>
-    <text x="${r.rowX + 40}" y="${r.ym + 8}" font-size="22" font-weight="700" fill="${o ? t.heavy : t.ink}">${esc(r.name)}</text>
-    ${caption}
-    ${files}`;
-  };
+  const rowSvg = (r, dot, border) =>
+    `<rect x="${r.rowX}" y="${r.y}" width="${r.rowW}" height="${r.h}" rx="10" fill="#FFFFFF" stroke="${border}" stroke-width="1.5"/>
+    <circle cx="${r.rowX + 22}" cy="${r.ym}" r="6" fill="${dot}"/>
+    <text x="${r.rowX + 40}" y="${r.ym + 8}" font-size="22" font-weight="700" fill="${t.ink}">${esc(r.name)}</text>
+    <text x="${r.rowX + r.descDx}" y="${r.ym + 6}" font-size="${size}" fill="${t.dim}">${esc(r.caption)}</text>
+    ${r.files ? `<text x="${r.rowX + r.rowW - 12}" y="${r.y + r.h + 19}" font-size="13" fill="${t.dim}" text-anchor="end">${esc(r.files)}</text>` : ""}`;
 
-  const column = (col, opt, title, sub, color, fill, border, rows) => `<rect x="${col.x}" y="${panelTop}" width="${col.w}" height="${panelBottom - panelTop}" rx="16" fill="${fill}" stroke="${border}" stroke-width="1.5" stroke-dasharray="7 5"/>
-    <circle cx="${col.x + 38}" cy="${panelTop + 38}" r="17" fill="${color}"/>
-    <text x="${col.x + 38}" y="${panelTop + 45}" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">${opt}</text>
-    <text x="${col.x + 68}" y="${panelTop + 46}" font-size="30" font-weight="700" fill="${color}">${esc(title)}</text>
-    <text x="${col.x + 24}" y="${panelTop + 76}" font-size="14" fill="${t.dim}">${esc(sub)}</text>
-    ${rows.map((r) => rowSvg(r, color, border, fill)).join("\n    ")}`;
+  const column = (ln, n) => `<rect x="${ln.x}" y="${panelTop}" width="${ln.w}" height="${panelBottom - panelTop}" rx="16" fill="${ln.fill}" stroke="${ln.border}" stroke-width="1.5" stroke-dasharray="7 5"/>
+    <circle cx="${ln.x + 38}" cy="${panelTop + 38}" r="17" fill="${ln.color}"/>
+    <text x="${ln.x + 38}" y="${panelTop + 45}" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">${n}</text>
+    <text x="${ln.x + 68}" y="${panelTop + 46}" font-size="30" font-weight="700" fill="${ln.color}">${esc(ln.title)}</text>
+    <text x="${ln.x + 24}" y="${panelTop + 76}" font-size="14" fill="${t.dim}">${esc(ln.sub)}</text>
+    ${ln.rows.map((_, i) => rowSvg(ln.rows[i], ln.color, ln.border)).join("\n    ")}`;
 
-  // the loop inside the structured column
-  let loop = "";
-  const lp = c.full.loop;
-  if (lp) {
-    const a = right.rows[lp.from], b = right.rows[lp.to];
-    const edge = a.rowX + a.rowW, lx = edge + 30;
-    loop = `<path d="M ${edge + 3} ${a.ym} H ${lx} V ${b.ym} H ${edge + 16}" fill="none" stroke="${t.heavy}" stroke-width="3"/>
-    ${kiitHead(edge + 3, b.ym, "left", 14, t.heavy)}
-    <text transform="translate(${lx + 24} ${(a.ym + b.ym) / 2}) rotate(-90)" font-size="14" font-weight="700" fill="${t.heavy}" text-anchor="middle">${esc(lp.label)}</text>`;
-  }
-
-  // the skip arrow: out of one step, down the left lane, into a later step
-  let skip = "";
-  const sk = c.full.skip;
-  if (sk) {
-    const a = right.rows[sk.from], b = right.rows[sk.to], lx = a.rowX - 30;
-    skip = `<path d="M ${a.rowX - 3} ${a.ym} H ${lx} V ${b.ym} H ${b.rowX - 16}" fill="none" stroke="${ws.color}" stroke-width="3"/>
-    ${kiitHead(b.rowX - 3, b.ym, "right", 14, ws.color)}
-    <text transform="translate(${lx - 12} ${(a.ym + b.ym) / 2}) rotate(-90)" font-size="14" font-weight="700" fill="${ws.color}" text-anchor="middle">${esc(sk.label)}</text>`;
-  }
-
-  const links = c.full.rows.slice(0, -1).map((_, i) => {
-    const a = right.rows[i], b = right.rows[i + 1], x = a.rowX + 22;
+  // arrows between the steps of a lane (a lane of one step has none)
+  const links = (ln) => ln.rows.slice(0, -1).map((_, i) => {
+    const a = ln.rows[i], b = ln.rows[i + 1], x = a.rowX + 22;
     return `<line x1="${x}" y1="${a.y + a.h + 1}" x2="${x}" y2="${b.y - 12}" stroke="${t.ink}" stroke-width="3"/>
     ${kiitHead(x, b.y - 1, "down", 12, t.ink)}`;
   }).join("\n    ");
-  const fastLinks = c.fast.rows.slice(0, -1).map((_, i) => {
-    const a = left.rows[i], b = left.rows[i + 1], x = a.rowX + 22;
-    return `<line x1="${x}" y1="${a.y + a.h + 1}" x2="${x}" y2="${b.y - 12}" stroke="${fs.color}" stroke-width="3"/>
-    ${kiitHead(x, b.y - 1, "down", 12, fs.color)}`;
-  }).join("\n    ");
 
-  const lastLeft = left.rows[left.rows.length - 1];
-  const goLines = (c.fast.lines || []).map((l, i) =>
-    `<text x="${L.x + 28}" y="${lastLeft.y + lastLeft.h + 50 + i * 26}" font-size="${size}" fill="${t.sub}"><tspan fill="${fs.color}">–</tspan> ${esc(l)}</text>`).join("\n    ");
+  // the loop on the right of a lane
+  const loop = (ln) => {
+    if (!ln.loop) return "";
+    const a = ln.rows[ln.loop.from], b = ln.rows[ln.loop.to], edge = a.rowX + a.rowW, lx = edge + 30;
+    return `<path d="M ${edge + 3} ${a.ym} H ${lx} V ${b.ym} H ${edge + 16}" fill="none" stroke="${ln.color}" stroke-width="3"/>
+    ${kiitHead(edge + 3, b.ym, "left", 14, ln.color)}
+    <text transform="translate(${lx + 24} ${(a.ym + b.ym) / 2}) rotate(-90)" font-size="14" font-weight="700" fill="${ln.color}" text-anchor="middle">${esc(ln.loop.label)}</text>`;
+  };
+
+  // a bar beside every step: it cuts across them, so it has no place in the order
+  const side = (ln) => {
+    if (!ln.side) return "";
+    const steps = ln.rows.slice(ln.side.from || 0);
+    const first = steps[0], last = steps[steps.length - 1];
+    const bx = ln.x + pad, bw = rowH, by = first.y, bh = last.y + last.h - first.y;
+    const ticks = steps.map((r) =>
+      `<line x1="${bx + bw}" y1="${r.ym}" x2="${r.rowX - 3}" y2="${r.ym}" stroke="${ln.color}" stroke-width="2" stroke-dasharray="4 4" opacity="0.7"/>
+    <circle cx="${bx + bw}" cy="${r.ym}" r="4" fill="${ln.color}"/>`).join("\n    ");
+    return `<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" rx="10" fill="#FFFFFF" stroke="${ln.border}" stroke-width="1.5"/>
+    <circle cx="${bx + bw / 2}" cy="${by + bh - 22}" r="6" fill="${ln.color}"/>
+    <text transform="translate(${bx + bw / 2 + 8} ${by + bh - 40}) rotate(-90)" font-size="22" font-weight="700" fill="${t.ink}">${esc(ln.side.label)}<tspan dx="16" dy="-2" font-size="${size}" font-weight="400" fill="${t.dim}">${esc(ln.side.caption)}</tspan></text>
+    ${ticks}
+    <text x="${bx}" y="${by + bh + 19}" font-size="13" fill="${t.dim}">${esc(ln.side.file)}</text>`;
+  };
+
+  // the bullets and the hand-off note
+  const text = (ln) => {
+    const last = ln.rows[ln.rows.length - 1];
+    const bullets = (ln.lines || []).map((l, i) =>
+      `<text x="${ln.x + 28}" y="${last.y + last.h + 50 + i * 26}" font-size="${size}" fill="${t.sub}"><tspan fill="${ln.color}">–</tspan> ${esc(l)}</text>`).join("\n    ");
+    const per = Math.floor((ln.w - 48) / 7.9);
+    const noteLines = ln.note ? ln.note.match(new RegExp(`.{1,${per}}(\\s|$)`, "g")) : [];
+    const note = noteLines.map((l, i) =>
+      `<text x="${ln.x + 24}" y="${panelBottom - 22 - (noteLines.length - 1 - i) * 19}" font-size="13" fill="${t.dim}">${esc(l.trim())}</text>`).join("\n    ");
+    return `${bullets}\n    ${note}`;
+  };
+
+  // the start box splits to every lane; every lane runs into verify
   const sx = W / 2, sw = 300, sy = 64, sh = 62;
-  const noteLines = c.fast.note ? c.fast.note.match(/.{1,34}(\s|$)/g) : [];
-  const note = noteLines.map((l, i) =>
-    `<text x="${L.x + 24}" y="${panelBottom - 22 - (noteLines.length - 1 - i) * 19}" font-size="13" fill="${t.dim}">${esc(l.trim())}</text>`).join("\n    ");
+  const fan = lanes.map((ln) => `<path d="M ${sx} ${elbow} H ${ln.cx} V ${panelTop - 14}" fill="none" stroke="${ln.color}" stroke-width="3"/>
+    ${kiitHead(ln.cx, panelTop - 1, "down", 14, ln.color)}`).join("\n    ");
+  const toVerify = lanes.map((ln) => {
+    const optional = ln.verify === "optional";
+    return `<path d="M ${ln.cx} ${panelBottom + 2} V ${barY - 14}" fill="none" stroke="${ln.color}" stroke-width="3"${optional ? ' stroke-dasharray="6 5"' : ""}/>
+    ${kiitHead(ln.cx, barY - 1, "down", 14, ln.color)}${optional ? `
+    <text x="${ln.cx + 14}" y="${panelBottom + 32}" font-size="13" fill="${ln.color}">${esc(c.verify.fastLabel)}</text>` : ""}`;
+  }).join("\n    ");
+  const vcx = barX + barW / 2;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.label)}: a change takes ${esc(c.fast.title)} or ${esc(c.full.title)}, then verify">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.label)}: a change takes ${esc(c.lanes.map((l) => l.title).join(", "))}, then verify">
   <defs>
-    ${bgFull.defs}
+    ${bg.defs}
   </defs>
 
-  ${bgFull.body}
+  ${bg.body}
 
   <g font-family="${KIIT_FONT}" transform="translate(0 ${vpad})">
     <text x="60" y="46" font-size="26" font-weight="700" fill="${t.ink}">${esc(c.label)}</text>
@@ -159,30 +179,20 @@ function buildSvg(c) {
     <text x="${sx}" y="${sy + 28}" font-size="20" font-weight="700" fill="${t.ink}" text-anchor="middle">${esc(c.start.name)}</text>
     <text x="${sx}" y="${sy + 48}" font-size="14" fill="${t.dim}" text-anchor="middle">${esc(c.start.sub)}</text>
     <line x1="${sx}" y1="${sy + sh + 1}" x2="${sx}" y2="${elbow}" stroke="${t.ink}" stroke-width="3"/>
-    <path d="M ${sx} ${elbow} H ${Lcx} V ${panelTop - 14}" fill="none" stroke="${fs.color}" stroke-width="3"/>
-    ${kiitHead(Lcx, panelTop - 1, "down", 14, fs.color)}
-    <path d="M ${sx} ${elbow} H ${Rcx} V ${panelTop - 14}" fill="none" stroke="${ws.color}" stroke-width="3"/>
-    ${kiitHead(Rcx, panelTop - 1, "down", 14, ws.color)}
+    ${fan}
 
-    ${column(L, "1", c.fast.title, c.fast.sub, fs.color, fs.fill, fs.border, left.rows)}
-    ${fastLinks}
-    ${goLines}
-    ${note}
-    ${column(R, "2", c.full.title, c.full.sub, ws.color, ws.fill, ws.border, right.rows)}
-    ${links}
-    ${loop}
-    ${skip}
+    ${lanes.map((ln, i) => `${column(ln, i + 1)}
+    ${links(ln)}
+    ${text(ln)}
+    ${loop(ln)}
+    ${side(ln)}`).join("\n\n    ")}
 
-    <path d="M ${Lcx} ${panelBottom + 2} V ${barY - 14}" fill="none" stroke="${fs.color}" stroke-width="3" stroke-dasharray="6 5"/>
-    ${kiitHead(Lcx, barY - 1, "down", 14, fs.color)}
-    <text x="${Lcx + 14}" y="${panelBottom + 32}" font-size="13" fill="${fs.color}">${esc(c.verify.fastLabel)}</text>
-    <line x1="${Rcx}" y1="${panelBottom + 2}" x2="${Rcx}" y2="${barY - 14}" stroke="${ws.color}" stroke-width="3"/>
-    ${kiitHead(Rcx, barY - 1, "down", 14, ws.color)}
+    ${toVerify}
 
     <rect x="${barX}" y="${barY}" width="${barW}" height="${barH}" rx="12" fill="#FFFFFF" stroke="${t.border}" stroke-width="1.5"/>
-    <circle cx="${barX + 28}" cy="${barY + barH / 2}" r="6" fill="${t.ink}"/>
-    <text x="${barX + 46}" y="${barY + barH / 2 + 8}" font-size="22" font-weight="700" fill="${t.ink}">${esc(c.verify.name)}</text>
-    <text x="${barX + 169}" y="${barY + barH / 2 + 6}" font-size="${size}" fill="${t.dim}">${esc(c.verify.caption)}</text>
+    <circle cx="${vcx - 190}" cy="${barY + barH / 2}" r="6" fill="${t.ink}"/>
+    <text x="${vcx - 172}" y="${barY + barH / 2 + 8}" font-size="22" font-weight="700" fill="${t.ink}">${esc(c.verify.name)}</text>
+    <text x="${vcx - 49}" y="${barY + barH / 2 + 6}" font-size="${size}" fill="${t.dim}">${esc(c.verify.caption)}</text>
 
     <text x="60" y="${Hc - 56}" font-size="14" fill="${t.dim}">${esc(c.footerLeft)}</text>
     <text x="60" y="${Hc - 32}" font-size="14" fill="${t.dim}">${esc(c.footerRight)}</text>

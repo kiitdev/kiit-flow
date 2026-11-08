@@ -1,7 +1,7 @@
 ---
 description: List work items, newest first, with a one-line description of each.
 argument-hint: "[count]"
-order: 9
+order: 10
 disable-model-invocation: true
 ---
 
