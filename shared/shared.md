@@ -347,6 +347,7 @@ A part names phases or steps. `update` takes one.
 How `update` and `resume` carry out steps. For each step, in order:
 
 1. Implement it in the project repo, following the design and the project's conventions.
+   - The design names a `_research.md` section for it: read that section first
 2. Run the narrowest check that covers it (compile, or the relevant test), if one exists.
 3. Set it to `done` in `_status.md` only after the check passes.
 
