@@ -83,6 +83,8 @@ EXAMPLES:
 3. No history notes, no "previously" or "now".
 4. Errors are `error: {what}`, then `valid: {choices}` when there is a fixed set.
 5. Every run ends with a short report and the next command to run.
+6. A skill is about 100 lines or fewer, excluding the front matter.
+   - Move what two skills share to `shared.md`. Cut what the model already knows
 
 ## Shared or specific
 1. A fact used by two or more skills goes in `shared.md`. Write it once.
@@ -100,7 +102,7 @@ EXAMPLES:
 ## Checklist
 1. The parts are in the order under Shape.
 2. Headers in the Usage block are in caps and `argument-hint` matches the USAGE line.
-3. No line is over the limits under Writing style.
+3. No line is over the limits under Writing style, and the skill is about 100 lines.
 4. Nothing is repeated from `shared.md` or another skill.
 5. References to other skills are written `/flow-{name}`.
 6. `./install.sh .`, restart, and run it. Then `/kiit-flow-help` lists it correctly.
