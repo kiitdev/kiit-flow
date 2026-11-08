@@ -20,7 +20,7 @@ USAGE: /flow-design [work-item] [mode] [--fresh]
 
 ARGUMENTS:
   [work-item] : Optional : a folder name or a unique prefix. Omit for the most recent
-  [mode]      : Optional : flow or focus. Omit to let design pick from the risk
+  [mode]      : Optional : flow or focus. Omit for flow
   [--fresh]   : Optional : start over, replacing an existing design
 
 
@@ -47,11 +47,9 @@ EXAMPLES:
 5. Read the project repo.
    - Its `CLAUDE.md`, the code the change touches, and how similar code is done
    - Reuse existing utilities and patterns before proposing new ones
-6. Pick the mode. Use the one given, else decide.
-   - `focus` if the change is risky, wide or unclear, or `_research.md` exists
-   - Otherwise `flow`
-   - Risky or wide: a public API, data, auth, the build, or several projects
-   - Unclear: an open question needs facts that nobody has looked up yet
+6. Pick the mode. Use the one given.
+   - None given: `focus` if `_research.md` exists, else `flow`
+   - Don't decide it from the risk. The user can move up to Focus later
 7. Don't stop to ask the user. Settle anything unclear yourself.
    - Take the simplest reading that fits `01-change.md`
    - Write the answer under each Open question in `01-change.md` as `- Answer:`
@@ -61,11 +59,12 @@ EXAMPLES:
    - `_status.md` starts with the Mode line, then every step as `todo`
    - Name the `_research.md` section behind a choice that rests on it
 9. Add a row to `_history.md` (shared.md) with the mode and the phase and step counts.
-10. Print a short summary, the mode and why, the assumptions made, and the next step.
+10. Print a short summary, the mode, the assumptions made, and the next step.
    - Ask the user to review the files and discuss
    - An assumption rests on a fact nobody checked: suggest `/flow-research`
    - To change them, suggest `/flow-revise`. For a second view, `/flow-review`
    - Or `/flow-update` to start implementing
+   - Mode `flow`: `/flow-review` or `/flow-revise` switches it to Focus
    - Mode `focus`: `update` asks for a review first (Review gate, shared.md)
 
 ## Rules

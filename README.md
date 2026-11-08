@@ -58,7 +58,7 @@ Choose by the risk and clarity of the change, not by its size.
 
 A change switches mode when it needs to. `go` saves the work item and hands off to `design` if it finds the change needs a design or is risky.
 
-`design` picks Flow or Focus and writes it to `_status.md`. You can pass `flow` or `focus` to choose it yourself. Running `research`, `review`, or `revise` on a Flow work item switches it to Focus.
+`design` writes the mode to `_status.md`. It is Flow unless you pass `focus`, as in `/kiit-flow-design focus`. Running `research`, `review`, or `revise` on a Flow work item switches it to Focus, so you can start in Flow and move up.
 
 In Focus, `update` and `resume` ask for a review first. `review`, `revise`, and `update` repeat until the work is right. `research` can be used at any step after `begin`, and writes to `_research.md`.
 
