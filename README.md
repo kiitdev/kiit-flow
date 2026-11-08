@@ -60,7 +60,7 @@ A change switches mode when it needs to. `go` saves the work item and hands off 
 
 `design` writes the mode to `_status.md`. It is Flow unless you pass `focus`, as in `/kiit-flow-design focus`. Running `research`, `review`, or `revise` on a Flow work item switches it to Focus, so you can start in Flow and move up.
 
-In Focus, `update` and `resume` ask for a review first. `review`, `revise`, and `update` repeat until the work is right. `research` can be used at any step after `begin`, and writes to `_research.md`.
+In Focus, `update` and `resume` ask for a review first. `review`, `revise`, and `update` iterate and correct until the work is right. `research` can be used at any step after `begin`, and writes to `_research.md`.
 
 ## Start
 
@@ -92,7 +92,7 @@ For a clear, low-risk change, run `/kiit-flow-go` instead (Fast). For risky or u
 
 Every command prints its own usage with `--help`, for example `/kiit-flow-begin --help`.
 
-The commands are listed in workflow order. In Focus, `review`, `revise`, and `update` repeat in a loop until the work is right. After `verify`, `review code` checks the finished code.
+The commands are listed in workflow order. In Focus, `review`, `revise`, and `update` form a loop that iterates and corrects until the work is right. After `verify`, `review code` checks the finished code.
 
 | # | Command | Description |
 |---:|---|---|
