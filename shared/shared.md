@@ -313,7 +313,7 @@ The Mode line is `flow` or `focus`. A file with no Mode line counts as `flow`.
 | Status | Meaning |
 |---|---|
 | `todo` | not done yet |
-| `done` | implemented and its check passed |
+| `done` | implemented, and its check passed or none was found |
 | `blocked` | can't be done as designed. The reason says what happened and what was assumed |
 | `skip` | deliberately not done. The reason says why |
 
@@ -363,8 +363,9 @@ How `update` and `resume` carry out steps. For each step, in order:
 1. Implement it in the project repo, following the design and the project's conventions.
    - The design names a `_research.md` section for it: read that section first
 2. Run the narrowest check that covers it, using the project's own commands.
-   - None found: report `no check found`. Don't call it passed
-3. Set it to `done` in `_status.md` only after the check passes.
+   - None found: that is `no check found`, never a pass
+3. Set it to `done` in `_status.md` after the check passes, or when none was found.
+   - None found: say so in the `_history.md` row and in the final report
 
 Stop right away if any of these happens:
 1. The design doesn't match the code (a file, API or assumption isn't there).
