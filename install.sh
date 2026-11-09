@@ -23,14 +23,11 @@ for dir in "$src"/skills/flow-*/; do
   echo "installed kiit-$name"
 done
 
-# shared files, when there are any: markdown gets the same rewrite, the rest is copied
+# shared rules, with the same rewrite. kiit.example.json stays in the repo, it is not installed
 if [ -d "$src/shared" ]; then
   mkdir -p "$dest/.claude/kiit/flow"
-  for f in "$src"/shared/*; do
-    case "$f" in
-      *.md) sed -E "$rewrite" "$f" > "$dest/.claude/kiit/flow/$(basename "$f")" ;;
-      *) cp "$f" "$dest/.claude/kiit/flow/" ;;
-    esac
+  for f in "$src"/shared/*.md; do
+    sed -E "$rewrite" "$f" > "$dest/.claude/kiit/flow/$(basename "$f")"
   done
   echo "installed shared files"
 fi

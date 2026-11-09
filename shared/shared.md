@@ -12,7 +12,7 @@ Print `error: {what is wrong}` and, when there is a fixed set of answers, `valid
 ## Workspace and config
 The workspace root is the nearest folder, starting at the working directory and going up, that contains `.claude/kiit/kiit.json`. No such folder: `error: .claude/kiit/kiit.json not found`, and suggest `/flow-init`, the one skill that runs without it.
 
-`kiit.example.json`, next to this file, shows the whole shape. Paths are relative to the root.
+Paths are relative to the root.
 
 | Key | Meaning |
 |---|---|

@@ -44,17 +44,41 @@ EXAMPLES:
 4. Look for a folder of standards: `standards`, or `standards` one level down.
    - Found: include it as the `standards` resource
 5. A `github` system is set and `gh` isn't installed: warn that tickets need it.
-6. Show what was found and what will be written, then ask once.
-   - The projects, ticket systems, standards folder and work item folder
+6. Show what was found and what will be written, then ask once (Report).
    - Ask: `Write this? Say yes, or what to change`, such as adding Jira
    - A change in the reply is applied. Don't ask again
    - An existing file: add what is missing, and keep every value it has
    - Change an existing value only when the reply says to
 7. Write `.claude/kiit/kiit.json`, and create the `flow.work_items` folder.
    - `flow.work_items` is `_kiit/flow` unless the file sets it
-8. Print what was set up, then the next step.
+8. Print what was set up, then the next step (Report).
    - `/flow-begin {project} {type} {description}`, with a real project name
    - The workspace is a repository: suggest `_kiit/` in `.gitignore`, no edit
+
+## Report
+Print the findings under these headers, in caps, one block each. Leave out a header
+with nothing under it. An existing file: end each line with `new` or `kept`.
+```
+GIT REPOS
+  kiit-rpc      ./kiit-rpc
+  kiit-site1    ./kiit-site1    repo: kiit-site
+
+TICKETS
+  kiitdev       github          default, kiit-rpc and 9 more
+  slatekit      github          kiit-ace, kiit-spm
+
+STANDARDS
+  standards     ./kiit-eng/standards
+
+WORK ITEMS
+  _kiit/flow
+
+WARNINGS
+  gh is not installed. GitHub tickets need it
+
+Write .claude/kiit/kiit.json? Say yes, or what to change, such as adding Jira.
+```
+After writing, print `DONE` (the files written) and `NEXT` (the commands to run).
 
 ## Rules
 1. Write only `.claude/kiit/kiit.json` and the work item folder.
