@@ -40,14 +40,16 @@ EXAMPLES:
    - Two or more owners: name each system by its owner, and set `tickets` on the
      projects. Put the owner with the most projects first
    - The repo name differs from the folder name: set `repo`
-   - Ask once whether to add Jira, Linear or another system, with its `url`
    - No system at all: write `"tickets": []`
 4. Look for a folder of standards: `standards`, or `standards` one level down.
-   - Found: offer it as the `standards` resource. Ask first
+   - Found: include it as the `standards` resource
 5. A `github` system is set and `gh` isn't installed: warn that tickets need it.
-6. Show what will be written, then ask to go ahead.
-   - An existing file: show only the changes, and keep every value it has
-   - Ask before changing a value. Never overwrite one
+6. Show what was found and what will be written, then ask once.
+   - The projects, ticket systems, standards folder and work item folder
+   - Ask: `Write this? Say yes, or what to change`, such as adding Jira
+   - A change in the reply is applied. Don't ask again
+   - An existing file: add what is missing, and keep every value it has
+   - Change an existing value only when the reply says to
 7. Write `.claude/kiit/kiit.json`, and create the `flow.work_items` folder.
    - `flow.work_items` is `_kiit/flow` unless the file sets it
 8. Print what was set up, then the next step.
