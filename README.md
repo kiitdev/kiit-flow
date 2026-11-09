@@ -55,11 +55,11 @@ cd kiit-flow
 ./install.sh /path/to/workspace
 ```
 
-**Configure** by editing `.claude/kiit/kiit.json` in the workspace. Install creates it from the example, and running install again never overwrites it.
+**Set up** by restarting Claude Code in the workspace and running `/kiit-flow-init`. It finds your repos and their ticket systems, and writes `.claude/kiit/kiit.json` after you confirm. Install never creates or overwrites that file.
 
-**Run** from the workspace, after a restart:
+**Run** from the workspace:
 
-![The first commands to run: help, begin with a ticket link, design, update, and verify, each with a short comment](./assets/kiit-flow-start.svg)
+![The first commands to run: init, help, begin with a ticket link, design, update, and verify, each with a short comment](./assets/kiit-flow-start.svg)
 
 That is Flow. `begin` reads the ticket, fills in the project and type, asks you to confirm, and creates the work item.
 
@@ -71,7 +71,7 @@ Every command prints its own usage with `--help`, for example `/kiit-flow-begin 
 
 The commands are listed in workflow order. In Focus, `review`, `revise`, and `update` form a loop that iterates and corrects until the work is right. After `verify`, `review code` checks the finished code.
 
-![The 11 commands in workflow order: go, begin, design, research, review, revise, update, resume, verify, recent, and help, colored by mode, with the files each one writes](./assets/kiit-flow-commands.svg)
+![The 12 commands in workflow order: init, go, begin, design, research, review, revise, update, resume, verify, recent, and help, colored by mode, with the files each one writes](./assets/kiit-flow-commands.svg)
 
 ## Work Item
 
@@ -91,7 +91,7 @@ Flow reads `.claude/kiit/kiit.json` in your workspace. It lists the ticket syste
 
 Flow works from a workspace that holds one or more projects. For a single project, list it with a path of `.`.
 
-[`shared/kiit.example.json`](./shared/kiit.example.json) shows the shape. Each key is described in [`shared/shared.md`](./shared/shared.md#workspace-and-config).
+`/kiit-flow-init` writes the file for you. [`shared/kiit.example.json`](./shared/kiit.example.json) shows the shape. Each key is described in [`shared/shared.md`](./shared/shared.md#workspace-and-config).
 
 ## Coming soon
 
