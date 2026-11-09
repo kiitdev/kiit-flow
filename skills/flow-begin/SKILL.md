@@ -1,7 +1,7 @@
 ---
 description: Create a work item from a ticket or a description.
 argument-hint: "[project] [type] {ticket|description}"
-order: 1
+order: 2
 disable-model-invocation: true
 ---
 

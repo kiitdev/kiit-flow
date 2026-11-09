@@ -62,7 +62,7 @@ One folder per unit of work, inside `flow.work_items`:
 
 ```
 {YYMMDD}-{project}-{type}-{ticket|short-name}/
-├── 01-change.md   # requirements (begin; design and revise answer open questions)
+├── 01-change.md   # the change as asked (begin; design and revise answer questions)
 ├── 02-design.md   # the design (design, revise)
 ├── 03-phases.md   # numbered phases and steps (design, revise)
 ├── 04-review.md   # findings, verdict and stage: plan or code, optional (review)
@@ -171,8 +171,10 @@ Used by `begin` and `go`.
 3. Write `01-change.md` from the template below.
    - Title: the ticket title, else the description in short, else `ticket {id}`
    - Ticket: the URL, or the system's link for the id. Link it, don't copy it
-   - Description: the requirements as given, tidied, with no new scope
-   - Anything unclear goes under Open questions
+   - Fill the sections from what was given, tidied, with no new scope
+   - Keep every limit (no X, must Y, don't change Z) in the user's words
+   - A section with nothing given stays empty. Its comment says what it holds
+   - Anything unclear goes under Questions
 4. Write `_history.md` with its first row.
    - Note: `created from ticket {id}` or `created from description`
 
@@ -186,16 +188,28 @@ Used by `begin` and `go`.
 - **Created:** {YYYY-MM-DD}
 
 ## Requirements
-<!-- Description: the full requirements. Ticket: leave empty, the ticket is the source of truth. -->
+<!-- Description: the full requirements, with constraints in the user's words. Ticket: leave empty, the ticket is the source of truth. -->
 
 ## Acceptance criteria
-<!-- How we know it is done. One checkable statement per line. -->
+<!-- How we know it is done. One checkable statement per line. A description with none given: write one to three from it. -->
+
+## References
+<!-- Existing code or docs to follow, one per line: the path, and why. -->
+
+## Scope
+<!-- Where the change may go: files and modules, and what stays untouched. -->
+
+## Constraints
+<!-- How the result must behave or be built: no X, must Y. -->
+
+## Examples
+<!-- Sample input and output the change must match. -->
+
+## Questions
+<!-- Anything unclear -->
 
 ## Notes
-<!-- Context that is not in the ticket -->
-
-## Open questions
-<!-- Anything unclear -->
+<!-- Context that is not in the ticket. Build and test commands and conventions come from CLAUDE.md or AGENTS.md -->
 ```
 
 ## Resolve the work item
@@ -240,7 +254,7 @@ Written by `design`, changed by `revise`.
 <!-- Why this change, what it should do -->
 
 ## Assumptions
-<!-- Choices made without asking, other than the Open questions in 01-change.md -->
+<!-- Choices made without asking, other than the Questions in 01-change.md -->
 
 ## Approach
 <!-- The chosen approach only, not the alternatives -->
@@ -299,7 +313,7 @@ The Mode line is `flow` or `focus`. A file with no Mode line counts as `flow`.
 | Status | Meaning |
 |---|---|
 | `todo` | not done yet |
-| `done` | implemented and its check passed |
+| `done` | implemented, and its check passed or none was found |
 | `blocked` | can't be done as designed. The reason says what happened and what was assumed |
 | `skip` | deliberately not done. The reason says why |
 
@@ -348,8 +362,10 @@ How `update` and `resume` carry out steps. For each step, in order:
 
 1. Implement it in the project repo, following the design and the project's conventions.
    - The design names a `_research.md` section for it: read that section first
-2. Run the narrowest check that covers it (compile, or the relevant test), if one exists.
-3. Set it to `done` in `_status.md` only after the check passes.
+2. Run the narrowest check that covers it, using the project's own commands.
+   - None found: that is `no check found`, never a pass
+3. Set it to `done` in `_status.md` after the check passes, or when none was found.
+   - None found: say so in the `_history.md` row and in the final report
 
 Stop right away if any of these happens:
 1. The design doesn't match the code (a file, API or assumption isn't there).

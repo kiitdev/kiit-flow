@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1008" viewBox="0 0 900 1008" role="img" aria-label="Why flow: Workspace. Claude Code: The folder you start in, and --add-dir. kiit-flow: One config, many projects, Work items kept outside repos, Project inferred from ticket, Works for one project or many. Organized. Claude Code: A session todo list. kiit-flow: One work item per change, Criteria and a check per step, Reads the ticket and CLAUDE.md, Code is the truth, no spec. Saved. Claude Code: Transcript and --resume. kiit-flow: Markdown files per change, resume in any new session, Every run is logged, Blocked steps stop the run. Modes. Claude Code: Plan mode, and one loop for every task. kiit-flow: Fast, Flow, Focus, Risk moves a change up, Start small, move up as needed. Reviewed. Claude Code: Subagents, any model. kiit-flow: Plan review first in Focus, Another model can review, A verdict in 04-review.md, verify: lint, tests, security">
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1008" viewBox="0 0 900 1008" role="img" aria-label="Why flow: Workspace. Claude Code: The folder you start in, and --add-dir. kiit-flow: One config, many projects, Work items kept outside repos, Project inferred from ticket, Works for one project or many. Organized. Claude Code: A session todo list. kiit-flow: One work item per change, Criteria and a check per step, Reads the ticket and CLAUDE.md, Code is the truth, no spec. Saved. Claude Code: Transcript and --resume. kiit-flow: Markdown files per change, resume in any new session, Every run is logged, Blocked steps stop the run. Modes. Claude Code: Plan mode, and one loop for every task. kiit-flow: Fast, Flow, Focus, Risk moves a change up, Start small, move up as needed. Reviewed. Claude Code: Subagents, any model. kiit-flow: Plan review first in Focus, Another model can review, A verdict in 04-review.md, verify: criteria and checks">
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="#C4D8F6" stroke-width="1"/>
@@ -144,6 +144,6 @@
     <circle cx="556" cy="880" r="3.5" fill="#D6336C"/>
     <text x="570" y="885" font-size="15" fill="#111827">A verdict in 04-review.md</text>
     <circle cx="556" cy="902" r="3.5" fill="#D6336C"/>
-    <text x="570" y="907" font-size="15" fill="#111827">verify: lint, tests, security</text>
+    <text x="570" y="907" font-size="15" fill="#111827">verify: criteria and checks</text>
   </g>
 </svg>

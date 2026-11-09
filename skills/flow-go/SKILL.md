@@ -1,7 +1,7 @@
 ---
 description: Do a clear, low-risk change in one pass: no design, just implement and check.
 argument-hint: "[project] [type] {ticket|description}"
-order: 2
+order: 1
 disable-model-invocation: true
 ---
 
@@ -36,19 +36,28 @@ EXAMPLES:
 1. Identify the change (shared.md): the project, the type, and the ticket or description.
 2. Read what the change needs.
    - The `standards` resource, if the config has one
-   - The project's `CLAUDE.md` and the code the change touches
+   - The project's `CLAUDE.md`, and `AGENTS.md` if it points there
+   - The code the change touches
+   - The build, test and lint commands, from those files
 3. Create the work item (shared.md).
-4. Check before editing. If it needs a design choice, is unclear or is risky, hand off.
-   - Risky: auth or secrets, data or migrations, a public API, build or release
+4. Find an anchor. `01-change.md` names none: find one existing example of the kind.
+   - Add its path and why to `01-change.md`
+   - None exists: skip this
+5. Check before editing. If it needs a design choice, is unclear or is risky, hand off.
+   - Risky: auth or secrets, data or migrations, build or release,
+     or a breaking change to a public API
    - Add a row to `_history.md` (shared.md): `not one-pass, handed to Flow`
    - Print `go: this change needs a design or a review`, then `/flow-design`
    - Change no code, and stop
-5. Implement the change in the project repo, following its conventions.
-   - Do what the request asks and no more
-6. Run the narrowest check that covers it (compile, or the relevant test), if one exists.
+6. Implement the change in the project repo, following its conventions.
+   - Follow `01-change.md`, and do what it asks and no more
+   - The change needs more than it allows: stop and report it
+7. Run the narrowest check that covers what `01-change.md` asks.
+   - Use the project's own test command. Add a test when the behavior is new
+   - No check can be found: report `no check found`. Don't call it passed
    - It fails and the fix isn't clearly inside the change: stop and report it
-7. Add a row to `_history.md` (shared.md) with what changed and the check result.
-8. Print the files changed and the check result, then the next step.
+8. Add a row to `_history.md` (shared.md) with what changed and the check result.
+9. Print the files changed and the check result, then the next step.
    - Suggest `/flow-verify` for the full set of checks
 
 ## Rules

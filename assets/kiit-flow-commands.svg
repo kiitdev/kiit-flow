@@ -96,7 +96,7 @@
     <rect x="112" y="604" width="932" height="48" rx="10" fill="#FFFFFF" stroke="#8FB0E3" stroke-width="1.5"/>
     <circle cx="134" cy="628" r="6" fill="#111827"/>
     <text x="152" y="636" font-size="22" font-weight="700" fill="#111827">verify</text>
-    <text x="276" y="634" font-size="15" fill="#6B7A99">run the project's lint, tests, security, docs</text>
+    <text x="276" y="634" font-size="15" fill="#6B7A99">check criteria, lint, tests, security, docs</text>
     <text x="1028" y="633" font-size="13" fill="#6B7A99" text-anchor="end">_files/output/verify.log</text>
 
     <circle cx="72" cy="690" r="17" fill="#111827"/>

@@ -52,7 +52,7 @@ EXAMPLES:
    - Don't decide it from the risk. The user can move up to Focus later
 7. Don't stop to ask the user. Settle anything unclear yourself.
    - Take the simplest reading that fits `01-change.md`
-   - Write the answer under each Open question in `01-change.md` as `- Answer:`
+   - Write the answer under each question in `01-change.md` as `- Answer:`
    - Write other assumptions under `## Assumptions` in `02-design.md`
 8. Write `02-design.md`, `03-phases.md` and `_status.md` (all in shared.md).
    - End each phase with a step for its tests. If it needs none, say why
@@ -69,5 +69,5 @@ EXAMPLES:
 
 ## Rules
 1. Write only inside the work item folder.
-   - The only change to `01-change.md` is an `- Answer:` under an open question
+   - The only change to `01-change.md` is an `- Answer:` under a question
 2. Add no scope beyond `01-change.md`.
