@@ -10,7 +10,7 @@ in a code block and stop. Do nothing else, not even read the config.
 Print `error: {what is wrong}` and, when there is a fixed set of answers, `valid: {the choices}`. Then stop.
 
 ## Workspace and config
-The workspace root is the nearest folder, starting at the working directory and going up, that contains `.claude/kiit/kiit.json`. No such folder: `error: .claude/kiit/kiit.json not found`.
+The workspace root is the nearest folder, starting at the working directory and going up, that contains `.claude/kiit/kiit.json`. No such folder: `error: .claude/kiit/kiit.json not found`, and suggest `/flow-init`, the one skill that runs without it.
 
 `kiit.example.json`, next to this file, shows the whole shape. Paths are relative to the root.
 
@@ -227,7 +227,7 @@ cd {work_items} && find . -mindepth 2 -type f ! -name .DS_Store -exec stat -f '%
 `stat -f` is macOS. On Linux use `stat -c '%Y %n'`. No work items: `error: no work items`,
 and suggest `/flow-begin`.
 
-Every skill except `begin`, `help` and `recent` tells the user which work item it picked.
+Every skill except `begin`, `help`, `recent` and `init` tells the user which work item it picked.
 
 ## Read a ticket
 To get a ticket's title, labels and description:

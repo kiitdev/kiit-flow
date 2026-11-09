@@ -34,6 +34,7 @@ const CONFIG = {
   prefix: "/kiit-flow-",                            // the full command is this plus the short name
   legend: [["fast", "Fast"], ["flow", "Flow and Focus"], ["focus", "Focus"], ["any", "Any mode"]],
   commands: [                                      // [name, group, description, files written]
+    ["init",     "any",   "set up the workspace config, once",               ".claude/kiit/kiit.json"],
     ["go",       "fast",  "do a clear, low-risk change in one pass",         "01-change.md, code"],
     ["begin",    "flow",  "create a work item from a ticket or description", "01-change.md"],
     ["design",   "flow",  "write the design, phases, and status",            "02-design.md, 03-phases.md, _status.md"],
@@ -46,14 +47,14 @@ const CONFIG = {
     ["recent",   "any",   "list work items, newest first",                   ""],
     ["help",     "any",   "show the commands, or the usage of one",          ""],
   ],
-  footer: "Every command except recent and help adds a row to _history.md.",
+  footer: "Every command except init, recent and help adds a row to _history.md.",
   theme: KIIT_THEME,
 };
 // ---------------------------------------------------------------------------
 
 function buildSvg(c) {
   const t = c.theme, W = c.width, vpad = 20, margin = 56;
-  const rowH = 48, rowGap = 14, pitch = rowH + rowGap, rowsTop = 108;
+  const rowH = 48, rowGap = 22, pitch = rowH + rowGap, rowsTop = 108;
   const cx = margin + 16, rowX = margin + 56, rowW = W - margin - rowX;
   const n = c.commands.length;
   const rowsBottom = rowsTop + n * pitch - rowGap;

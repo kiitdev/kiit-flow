@@ -29,11 +29,9 @@ if [ -d "$src/shared" ]; then
   echo "installed shared files"
 fi
 
-# the config is yours: create it from the example once, never overwrite it
-config="$dest/.claude/kiit/kiit.json"
-if [ -f "$config" ]; then
+# the config is yours: /kiit-flow-init writes it, and install never touches it
+if [ -f "$dest/.claude/kiit/kiit.json" ]; then
   echo "kept existing .claude/kiit/kiit.json"
 else
-  cp "$src/shared/kiit.example.json" "$config"
-  echo "created .claude/kiit/kiit.json, edit it for your tickets and projects"
+  echo "next: restart Claude Code in $dest, then run /kiit-flow-init"
 fi

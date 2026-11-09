@@ -1,23 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1392" height="536" viewBox="0 0 1392 536" role="img" aria-label="Examples: /kiit-flow-help, /kiit-flow-begin https://github.com/acme/app/issues/12, /kiit-flow-design, /kiit-flow-update, /kiit-flow-verify">
+<svg xmlns="http://www.w3.org/2000/svg" width="1392" height="596" viewBox="0 0 1392 596" role="img" aria-label="Examples: /kiit-flow-init, /kiit-flow-help, /kiit-flow-begin https://github.com/acme/app/issues/12, /kiit-flow-design, /kiit-flow-update, /kiit-flow-verify">
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="#C4D8F6" stroke-width="1"/>
     </pattern>
-    <clipPath id="frame"><rect width="1392" height="536" rx="20"/></clipPath>
-    <clipPath id="card"><rect x="48" y="92" width="1296" height="368" rx="12"/></clipPath>
+    <clipPath id="frame"><rect width="1392" height="596" rx="20"/></clipPath>
+    <clipPath id="card"><rect x="48" y="92" width="1296" height="428" rx="12"/></clipPath>
   </defs>
 
   <g clip-path="url(#frame)">
-    <rect width="1392" height="536" fill="#E8F1FF"/>
-    <rect width="1392" height="536" fill="url(#grid)"/>
+    <rect width="1392" height="596" fill="#E8F1FF"/>
+    <rect width="1392" height="596" fill="url(#grid)"/>
   </g>
-  <path d="M 20 4 H 1372 A 16 16 0 0 1 1388 20 V 516 A 16 16 0 0 1 1372 532 H 20" fill="none" stroke="#4DA3FF" stroke-width="8"/>
-  <path d="M 20 4 A 16 16 0 0 0 4 20 V 516 A 16 16 0 0 0 20 532" fill="none" stroke="#E8794A" stroke-width="8"/>
+  <path d="M 20 4 H 1372 A 16 16 0 0 1 1388 20 V 576 A 16 16 0 0 1 1372 592 H 20" fill="none" stroke="#4DA3FF" stroke-width="8"/>
+  <path d="M 20 4 A 16 16 0 0 0 4 20 V 576 A 16 16 0 0 0 20 592" fill="none" stroke="#E8794A" stroke-width="8"/>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" transform="translate(0 20)">
     <text x="48" y="56" font-size="40" font-weight="700" fill="#111827">Examples</text>
 
-    <rect x="48" y="92" width="1296" height="368" rx="12" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>
+    <rect x="48" y="92" width="1296" height="428" rx="12" fill="#F6FAFF" stroke="#8FB0E3" stroke-width="1.5"/>
     <g clip-path="url(#card)">
       <rect x="48" y="92" width="1296" height="42" fill="#E8F1FF"/>
     </g>
@@ -27,19 +27,22 @@
     <circle cx="118" cy="113" r="7" fill="#1B8A5A"/>
 
     <text x="76" y="186" font-size="24" font-weight="700" fill="#D9480F">&gt;</text>
-    <text x="112" y="186" font-size="24"><tspan font-weight="700" fill="#111827">/kiit-flow-help</tspan></text>
-    <text x="938" y="185" font-size="20" fill="#6B7A99"># list the commands</text>
+    <text x="112" y="186" font-size="24"><tspan font-weight="700" fill="#111827">/kiit-flow-init</tspan></text>
+    <text x="938" y="185" font-size="20" fill="#6B7A99"># set up the workspace, once</text>
     <text x="76" y="246" font-size="24" font-weight="700" fill="#D9480F">&gt;</text>
-    <text x="112" y="246" font-size="24"><tspan font-weight="700" fill="#111827">/kiit-flow-begin</tspan><tspan fill="#007FFF"> https://github.com/acme/app/issues/12</tspan></text>
-    <text x="938" y="245" font-size="20" fill="#6B7A99"># create the work item</text>
+    <text x="112" y="246" font-size="24"><tspan font-weight="700" fill="#111827">/kiit-flow-help</tspan></text>
+    <text x="938" y="245" font-size="20" fill="#6B7A99"># list the commands</text>
     <text x="76" y="306" font-size="24" font-weight="700" fill="#D9480F">&gt;</text>
-    <text x="112" y="306" font-size="24"><tspan font-weight="700" fill="#111827">/kiit-flow-design</tspan></text>
-    <text x="938" y="305" font-size="20" fill="#6B7A99"># write the design and phases</text>
+    <text x="112" y="306" font-size="24"><tspan font-weight="700" fill="#111827">/kiit-flow-begin</tspan><tspan fill="#007FFF"> https://github.com/acme/app/issues/12</tspan></text>
+    <text x="938" y="305" font-size="20" fill="#6B7A99"># create the work item</text>
     <text x="76" y="366" font-size="24" font-weight="700" fill="#D9480F">&gt;</text>
-    <text x="112" y="366" font-size="24"><tspan font-weight="700" fill="#111827">/kiit-flow-update</tspan></text>
-    <text x="938" y="365" font-size="20" fill="#6B7A99"># implement the phases</text>
+    <text x="112" y="366" font-size="24"><tspan font-weight="700" fill="#111827">/kiit-flow-design</tspan></text>
+    <text x="938" y="365" font-size="20" fill="#6B7A99"># write the design and phases</text>
     <text x="76" y="426" font-size="24" font-weight="700" fill="#D9480F">&gt;</text>
-    <text x="112" y="426" font-size="24"><tspan font-weight="700" fill="#111827">/kiit-flow-verify</tspan></text>
-    <text x="938" y="425" font-size="20" fill="#6B7A99"># lint, tests, security, docs</text>
+    <text x="112" y="426" font-size="24"><tspan font-weight="700" fill="#111827">/kiit-flow-update</tspan></text>
+    <text x="938" y="425" font-size="20" fill="#6B7A99"># implement the phases</text>
+    <text x="76" y="486" font-size="24" font-weight="700" fill="#D9480F">&gt;</text>
+    <text x="112" y="486" font-size="24"><tspan font-weight="700" fill="#111827">/kiit-flow-verify</tspan></text>
+    <text x="938" y="485" font-size="20" fill="#6B7A99"># lint, tests, security, docs</text>
   </g>
 </svg>

@@ -95,9 +95,10 @@ EXAMPLES:
 ## Behavior
 1. Stop and ask when a choice changes the result. Don't guess.
 2. Report outcomes as they are. A skipped check is skipped, a failed one is failed.
-3. Add one row to `_history.md` per run, except `help` and `recent`.
+3. Add one row to `_history.md` per run, except `help`, `recent` and `init`.
 4. Never run git write commands. The user commits and pushes.
 5. Write only inside the work item folder, plus the project repo when code changes.
+   - `init` writes the config and creates the work item folder
 
 ## Checklist
 1. The parts are in the order under Shape.
