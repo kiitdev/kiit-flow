@@ -27,7 +27,7 @@ const CONFIG = {
   width: 900,                                // narrow enough to show at full size in a GitHub README
   heads: ["Goal", "Claude Code gives you", "kiit-flow adds"],
   rows: [                                    // each row: a name, an icon, its colors, and the two cards
-    { name: "Workspace", icon: "workspace", accent: "#3B5BDB", tint: "#EBEFFD",
+    { name: "Multi-\nproject", icon: "workspace", accent: "#3B5BDB", tint: "#EBEFFD",
       has: "The folder you start in, and --add-dir",
       adds: ["One config, many projects", "Work items kept outside repos", "Project inferred from ticket", "Works for one project or many"] },
     { name: "Organized", icon: "folder", accent: "#D9822B", tint: "#FFF3E3",
@@ -98,7 +98,7 @@ function buildSvg(c) {
     const gap = r.adds[0].chips ? 10 : 0;                 // space under the pills
     const lineAt = (k) => ym + 5 - ((r.adds.length - 1) * lineH + gap) / 2 + k * lineH + (k > 0 ? gap : 0);
     return `${icon(r.icon, r.accent, ym)}
-    <text x="${probX + 58}" y="${ym + 7}" font-size="20" font-weight="700" fill="${t.ink}">${esc(r.name)}</text>
+    ${r.name.split("\n").map((part, k, all) => `<text x="${probX + 58}" y="${ym + 7 + (k - (all.length - 1) / 2) * 22}" font-size="20" font-weight="700" fill="${t.ink}">${esc(part)}</text>`).join("\n    ")}
 
     <rect x="${midX}" y="${y}" width="${midW}" height="${rowH}" rx="10" fill="#FFFFFF" stroke="${t.border}" stroke-width="1.5"/>
     <circle cx="${midX + 16}" cy="${ym}" r="4" fill="${t.dim}"/>
@@ -116,7 +116,7 @@ function buildSvg(c) {
     }).join("\n    ")}`;
   }).join("\n\n    ");
 
-  const label = `${c.label}: ${c.rows.map((r) => `${r.name}. Claude Code: ${r.has}. kiit-flow: ${r.adds.map((l) => l.chips ? l.chips.map(([n]) => n).join(', ') : l).join(', ')}`).join(". ")}`;
+  const label = `${c.label}: ${c.rows.map((r) => `${r.name.replace("\n", "")}. Claude Code: ${r.has}. kiit-flow: ${r.adds.map((l) => l.chips ? l.chips.map(([n]) => n).join(', ') : l).join(', ')}`).join(". ")}`;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
   <defs>
     ${bg.defs}
