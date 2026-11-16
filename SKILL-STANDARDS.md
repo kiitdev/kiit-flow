@@ -1,6 +1,6 @@
 # Skill standards
 
-The standards for writing kiit skills, collected from `CONVENTIONS.md`, `drafts/principles.md`, `shared/shared.md` and the `drafts/261115-updates/` files. This is the working index. Where a standard is settled, `CONVENTIONS.md` stays the rule text until this file replaces it.
+The standards for writing kiit skills, collected from `CONVENTIONS.md`, `drafts/principles.md`, `shared/shared.md` and the `drafts/261115-updates/` files. This is the working index. Standards for one skill group are in `GROUP-{GROUP}.md`, such as `GROUP-FLOW.md`. Security rules are in `SECURITY.md`. Where a standard is settled, `CONVENTIONS.md` stays the rule text until this file replaces it.
 
 ## Contents
 1. [Status](#status)
@@ -12,11 +12,9 @@ The standards for writing kiit skills, collected from `CONVENTIONS.md`, `drafts/
 7. [Writing style](#writing-style)
 8. [Shared versus specific](#shared-versus-specific)
 9. [Behavior](#behavior)
-10. [Work item records](#work-item-records)
-11. [Modes and enforcement](#modes-and-enforcement)
-12. [Standards and groups](#standards-and-groups)
-13. [Branding and wording](#branding-and-wording)
-14. [Ideas for later](#ideas-for-later)
+10. [Standards and groups](#standards-and-groups)
+11. [Branding and wording](#branding-and-wording)
+12. [Ideas for later](#ideas-for-later)
 
 ## Status
 
@@ -34,6 +32,13 @@ Every item starts as `todo`. Each one is assessed and moved on from there.
 ## What we are building
 
 We are building a **Claude Code plugin**. It is named `kiit` for now, and the name can change later. Every other standard in this file assumes this, so these terms are used the same way throughout.
+
+```
+/kiit:flow-go
+  |    |    '-- name    go
+  |    '------- group   flow
+  '------------ plugin  kiit
+```
 
 | Term | Meaning | Example |
 |---|---|---|
@@ -87,12 +92,44 @@ plugin/                            the plugin (item 9)
 | 7 | Group folder | decided | Each group has a folder `groups/{group}/` at the plugin root. It holds `skills/` (one instructions file per skill), `content/` (text its skills share), `scripts/` (scripts its skills run) and `settings.json` (the group's default settings). A file used by two or more groups goes in `core`. Anything else stays in its group, even if only one skill reads it. There is no rule yet about which groups may read which. | `groups/flow/content/work-item.md`, `groups/flow/scripts/find-work-item.sh` |
 | 8 | Core group | decided | `groups/core/` holds the content and scripts that two or more groups use, or that document a key every group shares in `kiit.json`. `core` is not a skill group. Its only instructions file is the global `help`. Any skill may read it. Content: `rules.md` (behavior rules for every skill), `cli.md` (help, errors, argument grammar), `config.md` (where `kiit.json` is, shared keys, group objects), `tickets.md`, `projects.md`, `types.md`. | `core/content/tickets.md` |
 | 9 | Plugin root | decided | The plugin lives in a subfolder of the repo, so only what runs is installed. The repo root keeps the README, license, drafts, assets and `.claude-plugin/marketplace.json`, which points at the subfolder. The folder name `plugin/` is provisional. | `plugin/skills/flow-go/SKILL.md`, with the marketplace file at the repo root |
-| 10 | Scripts | decided | Scripts that skills run live in `groups/{group}/scripts/`. Scripts used by two or more groups live in `groups/core/scripts/`. A skill calls a script by its path under `groups/`, joined with the groups folder (item 36). | `core/scripts/secret-scan.sh` |
+| 10 | Scripts | decided | Scripts that skills run live in `groups/{group}/scripts/`. Scripts used by two or more groups live in `groups/core/scripts/`. A skill calls a script by its path under `groups/`, joined with the groups folder (item 37). | `core/scripts/secret-scan.sh` |
 | 11 | Skill entry point | decided | `skills/{skill name}/SKILL.md` is only the entry point Claude Code needs. It holds the frontmatter, including `allowed-tools`, and a line that points to the skill's instructions. The instructions are `groups/{group}/skills/{name}.md`. | `flow-go/SKILL.md` has `Groups folder: ${CLAUDE_PLUGIN_ROOT}/groups` and `Follow flow/skills/go.md` |
 
 ## Skill shape
 
-The parts every `SKILL.md` has, and the order they come in.
+A skill is two files: an entry point that Claude Code loads, and an instructions file in its group. These items cover what each one holds, and the order of its parts.
+
+```
+skills/flow-go/SKILL.md                  the entry point Claude Code loads
+---
+description: Do a clear, low-risk change in one pass: no design, just implement and check.
+argument-hint: "[project] [type] {ticket|description}"
+order: 1
+disable-model-invocation: true
+---
+Groups folder: ${CLAUDE_PLUGIN_ROOT}/groups
+Follow flow/skills/go.md
+
+groups/flow/skills/go.md                 the instructions, no frontmatter
+# flow-go
+The fast path for a clear, low-risk change. It writes no design, phases or status.
+
+Read first:
+- core/content/cli.md
+- flow/content/intake.md
+
+## Usage
+USAGE: /kiit:flow-go [project] [type] {ticket|description}
+...
+
+## Steps
+1. Help check: print Usage and stop.
+2. Identify the change (intake.md).
+...
+
+## Rules
+1. Change only the project repo and the new work item folder.
+```
 
 | # | Lede | Status | Description | Example |
 |---|---|---|---|---|
@@ -105,6 +142,19 @@ The parts every `SKILL.md` has, and the order they come in.
 ## Config
 
 How `kiit.json` is structured. It is the one settings file in the user's workspace. Each group owns one object inside the `groups` key, and the keys every group shares are described in `groups/core/content/config.md`.
+
+```json
+{
+  "version": 1,
+  "tickets":  [ { "type": "github", "owner": "acme" } ],
+  "projects": [ { "name": "api", "path": "./api" } ],
+  "groups": {
+    "flow": { "work_items": "docs/work" },
+    ...
+  },
+  ...
+}
+```
 
 Two files hold settings, and they do different jobs:
 
@@ -127,71 +177,6 @@ what the flow skills use                      work_items = "docs/work"          
                                               review.baseline = "standards"     (from settings.json)
 ```
 
-The example below is a `kiit.json` that sets several overrides, to show the shape. A real one usually holds much less.
-
-```json
-{
-  "version": 1,
-
-  "tickets": [
-    {
-      "type": "github",
-      "owner": "acme"
-    },
-    {
-      "type": "jira",
-      "name": "acme-jira",
-      "url": "https://acme.atlassian.net/browse"
-    }
-  ],
-
-  "projects": [
-    {
-      "name": "api",
-      "path": "./api",
-      "aliases": ["backend"],
-      "tickets": "acme-jira"
-    },
-    {
-      "name": "web",
-      "path": "./web",
-      "repo": "acme-web"
-    }
-  ],
-
-  "resources": [
-    {
-      "name": "standards",
-      "path": "./docs/standards",
-      "purpose": "Engineering standards for all repos"
-    }
-  ],
-
-  "groups": {
-    "flow": {
-      "work_items": "_kiit/flow",
-      "review": {
-        "baseline": "standards",
-        "model": "sonnet"
-      },
-      "go": {
-        "auto": false
-      }
-    },
-    "vcs": {
-      "branch": {
-        "format": "{type}/{date}-{ref}"
-      },
-      "mr_title": {
-        "format": "{type}({scope}): {summary}"
-      }
-    }
-  }
-}
-```
-
-The shared keys (`tickets`, `projects`, `resources`) and `flow.work_items` and `flow.review` are what `shared.md` describes today, except that `flow` is now inside `groups`. `flow.go.auto` and the `vcs` object are proposals from the drafts, shown to make the group objects visible. They are not decided.
-
 | # | Lede | Status | Description | Example |
 |---|---|---|---|---|
 | 17 | File location | decided | The file is `.claude/kiit/kiit.json`. The workspace root is the nearest folder, from the working directory upward, that contains it. Paths in the file are relative to that root. A skill that finds no file stops with an error that suggests `init`. | `error: .claude/kiit/kiit.json not found` |
@@ -207,6 +192,33 @@ The shared keys (`tickets`, `projects`, `resources`) and `flow.work_items` and `
 
 Skills read like command-line tools: a man-page Usage block, predictable arguments and errors.
 
+```
+USAGE: /kiit:flow-go [project] [type] {ticket|description} [--auto]
+
+  Do a clear, low-risk change in one pass: create a work item, implement it, and check it.
+
+ARGUMENTS:
+  [project]      : Optional : a project name or alias. Needed with a description
+  [type]         : Optional : feat fix build chore ci docs perf refactor revert style test
+  {ticket}       : Required : 1234, #1234, ABC-123 or an issue URL
+  {description}  : Required : used when there is no ticket: the change to make
+  [--auto]       : Optional : do not ask, record what was assumed
+
+EXAMPLES:
+  /kiit:flow-go https://github.com/acme/api/issues/12
+  /kiit:flow-go api docs fix a typo in the status code table --auto
+```
+
+An error, and the end of a run:
+
+```
+error: cannot infer type
+valid: feat fix build chore ci docs perf refactor revert style test
+
+Changed 2 files. Tests pass.
+Next: /kiit:flow-verify
+```
+
 | # | Lede | Status | Description | Example |
 |---|---|---|---|---|
 | 25 | Man-page Usage block | decided | Caps headers, two blank lines between sections, colons aligned. | `USAGE:`, `ARGUMENTS:`, `EXAMPLES:` |
@@ -221,90 +233,99 @@ Skills read like command-line tools: a man-page Usage block, predictable argumen
 
 How the text of a skill is written, so it stays short and skimmable.
 
+```
+Good:
+1. Identify the change (intake.md): the project, the type, and the ticket or description.
+   - A ticket is one token: `1234`, `#1234`, `ABC-123` or an issue URL
+   - Anything else is a description
+
+Not:
+1. In the past this step read the config first, but it now identifies the change, which
+   covers the project, and also the type, and then the ticket or the description if any.
+```
+
 | # | Lede | Status | Description | Example |
 |---|---|---|---|---|
-| 32 | Line limits | todo | Numbered lines are 90 characters or fewer, child lines 80 or fewer. Code, tables and templates are exempt. | a 90-character step, an 80-character child line |
-| 33 | Plain steps | todo | One idea per line, start with a verb, no history notes. | `Create the work item (shared.md).` |
-| 34 | Skill size | todo | About 100 lines or fewer, excluding frontmatter. | `flow-go` is 66 lines |
+| 32 | Line limits | decided | In an instructions file, numbered lines are 90 characters or fewer and child lines 80 or fewer. Code, tables and templates are exempt. | a 90-character step, an 80-character child line |
+| 33 | Plain steps | decided | One idea per line, start with a verb, no history notes. | `Create the work item (work-item.md).` |
+| 34 | File size | decided | An instructions file or a content file is about 100 lines, excluding frontmatter. Aim for fewer. | `flow-go` is 66 lines. `flow-review` is 111, so it needs trimming or splitting |
 
 ## Shared versus specific
 
-Where a fact lives, so it is written once.
+Where a fact lives, so it is written once, and so a skill loads only what it uses.
+
+```
+groups/core/content/tickets.md        two or more groups use it    flow intake, vcs-branch
+groups/flow/content/work-item.md      several flow skills use it   begin, go, resume
+groups/flow/skills/verify.md          one skill uses it            the checks are written in verify
+
+before   every flow skill read shared.md, 418 lines, and used a small part of it
+after    flow-go reads the few small files in its Read first: list
+```
 
 | # | Lede | Status | Description | Example |
 |---|---|---|---|---|
-| 35 | Write a fact once | todo | Facts used by two or more skills go in `shared.md`. A skill never copies it or reads another skill's `SKILL.md`. | step says `Identify the change (shared.md)` |
-| 36 | Content path | decided | Only the entry point `SKILL.md` uses `${CLAUDE_PLUGIN_ROOT}`, because Claude Code substitutes it only in the skill body. The entry point states the groups folder once. Instructions and content refer to files by their path under `groups/`, and the model joins that with the groups folder. There are no `..` paths. | entry point: `Groups folder: ${CLAUDE_PLUGIN_ROOT}/groups`. Instructions: `Read core/content/tickets.md` |
-| 37 | Reference stays in shared | todo | The README links to `shared.md` instead of restating it. | README links to the config table |
+| 35 | Write a fact once | decided | A fact used by two or more skills of a group goes in that group's `content/`. A fact used by two or more groups goes in `core`. A fact used by one skill stays in that skill's instructions. A skill never copies a fact, and never reads another skill's instructions file. | the work item layout is in `flow/content/work-item.md`, and a step says `Create the work item (work-item.md)` |
+| 36 | Keep content light | decided | A content file holds one concept and stays within the file size limit (item 34), so a skill that reads it loads little it does not use. There is no large catch-all file. A skill lists under `Read first:` only the files it needs on every run. A file needed only on some paths is not listed, and the step that needs it reads it there. | `go` lists `intake.md` and `work-item.md`. It reads `gates.md` only if it hands off |
+| 37 | Content path | decided | Only the entry point `SKILL.md` uses `${CLAUDE_PLUGIN_ROOT}`, because Claude Code substitutes it only in the skill body. The entry point states the groups folder once. Instructions and content refer to files by their path under `groups/`, and the model joins that with the groups folder. There are no `..` paths. | entry point: `Groups folder: ${CLAUDE_PLUGIN_ROOT}/groups`. Instructions: `Read core/content/tickets.md` |
 
 ## Behavior
 
-What every skill does and never does, whatever its job.
+How a skill treats the user, whatever its job. Rules that keep a skill from doing harm are in `SECURITY.md`.
+
+```
+verify: lint pass
+        tests skipped: no test command found
+        security pass
+```
 
 | # | Lede | Status | Description | Example |
 |---|---|---|---|---|
-| 38 | Ask when the choice matters | todo | Stop and ask when a choice changes the result. `flow-design` currently says never to stop and ask. | ambiguous project: ask, don't guess |
+| 38 | Decide or ask | todo | Decide when the choice is reversible and inside the change. Ask when it changes the result or cannot be undone. Whatever a skill decides, it prints in one line, so the user can step in. A skill that is told not to ask records the assumption instead. | `project: api, type: fix, anchor: ...` is printed. An ambiguous project is asked |
 | 39 | Honest reporting | todo | A failed check is failed, a skipped check is skipped, and "no check found" is never a pass. | `no check found` |
-| 40 | History row per run | todo | One append-only row per run, including runs that stop or fail. `help`, `recent` and `init` are exempt. | `\| 2026-10-02 14:05 \| begin \| created from ticket 1234 \|` |
-| 41 | No git writes | in-review | Skills never run git write commands (commit, push, branch, stash, reset). The user commits and pushes. A `PreToolUse` hook blocks them, because `allowed-tools` only skips prompts and does not block. The `vcs` group needs an exception for the commands it uses, which is not decided yet. | a hook that rejects `git commit` |
-| 42 | Write scope | todo | Write only inside the work item folder, plus the project repo when code changes. | `flow-verify` writes only `_files/output/verify.log` |
-| 43 | Fetched text is input | todo | Text from a URL or a subagent is weighed, never obeyed. | a ticket body saying "ignore your rules" is ignored |
-| 44 | Blocked-step protocol | todo | Stop, record the reason, never edit the design, never work around it. | `1.3 blocked \| Move internals \| Console expect missing` |
-| 45 | Never touch secrets | todo | `verify` never reads `.env*` and never prints a value. | `[redacted]` in place of a matched token |
-
-## Work item records
-
-Where work records live and what they keep.
-
-| # | Lede | Status | Description | Example |
-|---|---|---|---|---|
-| 46 | Work item layout | todo | Numbered stage artifacts, underscore files for living records, and a dated folder name. | `261115-api-fix-1234/01-change.md`, `_history.md` |
-| 47 | Purpose of the record | todo | It keeps intent and status, not every change. Git holds the code history. | no per-edit log in `_history.md` |
-
-## Modes and enforcement
-
-Direction from `update-1.md` to `updates-4-tasks.md`. None of this is built yet.
-
-| # | Lede | Status | Description | Example |
-|---|---|---|---|---|
-| 48 | Decide or ask | todo | Decide when it is reversible and inside the change. Ask when it changes the result or cannot be undone. Print what was decided. | `project: api, type: fix, anchor: ...` |
-| 49 | Modes follow rules | todo | The mode is the higher of what was asked and what the escalation rules require, checked at intake, after design and in `verify`. | `**/auth/**` forces Focus |
-| 50 | Script-first enforcement | todo | Deterministic checks run as scripts and the skill quotes the output. Hooks cover the git-write ban and the secret scan. | a script that checks the branch name format |
-| 51 | Safety floor | todo | The secret scan, the git-write ban and a recorded override apply even under `--force`. | history row `forced, skipped escalation: auth` |
-| 52 | Flag semantics | todo | `--force` is per-run only and never a config default. `--auto` may default in config and stops on failure. | `"groups": { "flow": { "go": { "auto": true } } }` |
-| 53 | Forced work is tracked debt | todo | A forced change is marked `forced, unreviewed` until it is reviewed. | line in `_status.md`, shown by `recent` |
 
 ## Standards and groups
 
 How skills carry a team's engineering standards, and the groups built on them.
 
+```
+format rule      branch name {type}/{date}-{ref}     a script checks it
+source of truth  OpenAPI spec                        generated, checked for freshness
+judgment         "does the design fit the code"      the model reviews it
+```
+
 | # | Lede | Status | Description | Example |
 |---|---|---|---|---|
-| 54 | Three kinds of standard | todo | Format rules are script-checked, source-of-truth data is generated and freshness-checked, judgment guidance is model-reviewed. | branch format, OpenAPI spec, "does the design fit" |
-| 55 | Defaults first | todo | Solid defaults first, then the team's own. `init` ships a working default `kiit.json`. | a new user gets a valid branch name with no config edits |
-| 56 | Scaffold standard | todo | Templates produce compliant code from the first commit. The model proposes and a script applies. | `template-apply` runs a copy script |
-| 57 | Mechanism public, content private | todo | The plugin provides the mechanism and the team's repo holds the content. | templates stay in the team's own repo |
-| 58 | Capture excludes secrets | todo | `.env*`, keys and keystores never enter a template. | `template-capture` skips `*.pem` |
-| 59 | Generated files | todo | Docs and specs are generated from metadata, record what they were built from, and are never hand-edited. | `api-check` flags a stale spec |
-| 60 | Neutral inventory | todo | Extractors emit a versioned inventory, and everything downstream reads only that. | `inventory.json` with `"version": 1` |
-| 61 | Wrap, don't build | todo | Use existing generators and detect tool dependencies instead of bundling them. | `api-sdk` calls an existing generator |
+| 40 | Three kinds of standard | todo | Format rules are script-checked, source-of-truth data is generated and freshness-checked, judgment guidance is model-reviewed. | branch format, OpenAPI spec, "does the design fit" |
+| 41 | Defaults first | todo | Solid defaults first, then the team's own. `init` ships a working default `kiit.json`. | a new user gets a valid branch name with no config edits |
+| 42 | Scaffold standard | todo | Templates produce compliant code from the first commit. The model proposes and a script applies. | `template-apply` runs a copy script |
+| 43 | Mechanism public, content private | todo | The plugin provides the mechanism and the team's repo holds the content. | templates stay in the team's own repo |
+| 44 | Capture excludes secrets | todo | `.env*`, keys and keystores never enter a template. | `template-capture` skips `*.pem` |
+| 45 | Generated files | todo | Docs and specs are generated from metadata, record what they were built from, and are never hand-edited. | `api-check` flags a stale spec |
+| 46 | Neutral inventory | todo | Extractors emit a versioned inventory, and everything downstream reads only that. | `inventory.json` with `"version": 1` |
+| 47 | Wrap, don't build | todo | Use existing generators and detect tool dependencies instead of bundling them. | `api-sdk` calls an existing generator |
 
 ## Branding and wording
 
 How Kiit and its skills are described in text.
 
+```
+Kiit: engineering standards for AI coding agents.
+Start with solid defaults, make them yours.
+```
+
 | # | Lede | Status | Description | Example |
 |---|---|---|---|---|
-| 62 | Never show "Kiit" bare | todo | Always include the descriptor. | "Kiit: engineering standards for AI coding agents" |
-| 63 | Don't overclaim enforcement | todo | Say "standards that tighten as risk rises", not "enforces your standards". | README headline |
-| 64 | Tone | todo | "Your team's standards", never authoritative. No `claude` in the name. | "Start with solid defaults, make them yours" |
+| 48 | Never show "Kiit" bare | todo | Always include the descriptor. | "Kiit: engineering standards for AI coding agents" |
+| 49 | Don't overclaim enforcement | todo | Say "standards that tighten as risk rises", not "enforces your standards". | README headline |
+| 50 | Tone | todo | "Your team's standards", never authoritative. No `claude` in the name. | "Start with solid defaults, make them yours" |
 
 ## Known conflicts
 
 | Items | Conflict |
 |---|---|
-| 41 and `update-1` item 6 | No git writes, against a `vcs` group that creates branches |
-| 38 and `update-1` item 5 | Ask when the choice matters, against `flow-design` step 7 saying not to ask |
+| S1 in `SECURITY.md` and `update-1` item 6 | No git writes, against a `vcs` group that creates branches |
+| 38 and `update-1` item 5 | Decide or ask, against `flow-design` step 7 saying not to ask |
 | 2, 4 and 5 | Cross-reference rewriting and the `/kiit-flow-*` form go away once the plugin ships |
 
 ## Ideas for later
