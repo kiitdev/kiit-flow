@@ -1,6 +1,6 @@
 # Skill standards
 
-The standards for writing kiit skills, collected from `CONVENTIONS.md`, `drafts/principles.md`, `shared/shared.md` and the `drafts/261115-updates/` files. This is the working index. Standards for one skill group are in `GROUP-{GROUP}.md`, such as `GROUP-FLOW.md`. Security rules are in `SECURITY.md`. Where a standard is settled, `CONVENTIONS.md` stays the rule text until this file replaces it.
+The standards for writing kiit skills, collected from `CONVENTIONS.md`, `drafts/principles.md`, `shared/shared.md` and the `drafts/261115-updates/` files. This is the working index. Standards for one skill group are in `GROUP-{GROUP}.md`, such as `GROUP-FLOW.md`. Security rules are in `SECURITY.md`, and how a team's standards are applied is in `ENGINEERING-STANDARDS.md`. Where a standard is settled, `CONVENTIONS.md` stays the rule text until this file replaces it.
 
 ## Contents
 1. [Status](#status)
@@ -12,9 +12,8 @@ The standards for writing kiit skills, collected from `CONVENTIONS.md`, `drafts/
 7. [Writing style](#writing-style)
 8. [Shared versus specific](#shared-versus-specific)
 9. [Behavior](#behavior)
-10. [Standards and groups](#standards-and-groups)
-11. [Branding and wording](#branding-and-wording)
-12. [Ideas for later](#ideas-for-later)
+10. [Branding and wording](#branding-and-wording)
+11. [Ideas for later](#ideas-for-later)
 
 ## Status
 
@@ -284,27 +283,6 @@ verify: lint pass
 | 38 | Decide or ask | todo | Decide when the choice is reversible and inside the change. Ask when it changes the result or cannot be undone. Whatever a skill decides, it prints in one line, so the user can step in. A skill that is told not to ask records the assumption instead. | `project: api, type: fix, anchor: ...` is printed. An ambiguous project is asked |
 | 39 | Honest reporting | todo | A failed check is failed, a skipped check is skipped, and "no check found" is never a pass. | `no check found` |
 
-## Standards and groups
-
-How skills carry a team's engineering standards, and the groups built on them.
-
-```
-format rule      branch name {type}/{date}-{ref}     a script checks it
-source of truth  OpenAPI spec                        generated, checked for freshness
-judgment         "does the design fit the code"      the model reviews it
-```
-
-| # | Lede | Status | Description | Example |
-|---|---|---|---|---|
-| 40 | Three kinds of standard | todo | Format rules are script-checked, source-of-truth data is generated and freshness-checked, judgment guidance is model-reviewed. | branch format, OpenAPI spec, "does the design fit" |
-| 41 | Defaults first | todo | Solid defaults first, then the team's own. `init` ships a working default `kiit.json`. | a new user gets a valid branch name with no config edits |
-| 42 | Scaffold standard | todo | Templates produce compliant code from the first commit. The model proposes and a script applies. | `template-apply` runs a copy script |
-| 43 | Mechanism public, content private | todo | The plugin provides the mechanism and the team's repo holds the content. | templates stay in the team's own repo |
-| 44 | Capture excludes secrets | todo | `.env*`, keys and keystores never enter a template. | `template-capture` skips `*.pem` |
-| 45 | Generated files | todo | Docs and specs are generated from metadata, record what they were built from, and are never hand-edited. | `api-check` flags a stale spec |
-| 46 | Neutral inventory | todo | Extractors emit a versioned inventory, and everything downstream reads only that. | `inventory.json` with `"version": 1` |
-| 47 | Wrap, don't build | todo | Use existing generators and detect tool dependencies instead of bundling them. | `api-sdk` calls an existing generator |
-
 ## Branding and wording
 
 How Kiit and its skills are described in text.
@@ -316,9 +294,9 @@ Start with solid defaults, make them yours.
 
 | # | Lede | Status | Description | Example |
 |---|---|---|---|---|
-| 48 | Never show "Kiit" bare | todo | Always include the descriptor. | "Kiit: engineering standards for AI coding agents" |
-| 49 | Don't overclaim enforcement | todo | Say "standards that tighten as risk rises", not "enforces your standards". | README headline |
-| 50 | Tone | todo | "Your team's standards", never authoritative. No `claude` in the name. | "Start with solid defaults, make them yours" |
+| 40 | Never show "Kiit" bare | todo | Always include the descriptor. | "Kiit: engineering standards for AI coding agents" |
+| 41 | Don't overclaim enforcement | todo | Say "standards that tighten as risk rises", not "enforces your standards". | README headline |
+| 42 | Tone | todo | "Your team's standards", never authoritative. No `claude` in the name. | "Start with solid defaults, make them yours" |
 
 ## Known conflicts
 
