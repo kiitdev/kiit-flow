@@ -29,3 +29,6 @@ replay_pid*
 # Local test install and work items
 .claude/
 _kiit/
+
+# macOS Finder
+.DS_Store

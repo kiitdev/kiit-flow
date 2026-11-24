@@ -5,6 +5,7 @@ Create a branch from a ticket or a name, off an up-to-date base. It never pushes
 Read first:
 - core/content/cli.md
 - core/content/config.md
+- core/content/shell.md
 - vcs/content/formats.md
 - vcs/standards.json
 
