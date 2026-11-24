@@ -1,7 +1,9 @@
 # Shell calls
 
-How every skill runs commands. A chained line matches no `allowed-tools` rule, so it
-prompts the user even when each part is allowed.
+How every skill runs commands. `allowed-tools` skips the prompt for a single command
+that matches a rule. In testing these prompted: `cd` before git, `git -C`, a loop
+with `$(...)`, and reads outside the working directory. Other commands may prompt too.
+The rules below keep a skill to the commands that were seen to run without a prompt.
 
 ## Rules
 1. One command per Bash call.
