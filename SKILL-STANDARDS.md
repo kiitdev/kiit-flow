@@ -54,7 +54,7 @@ We are building a **Claude Code plugin**. It is named `kiit` for now, and the na
 How the plugin is laid out, and the rules for naming its skills and groups.
 
 ```
-plugin/                            the plugin (item 9)
+plugins/kiit/                      the plugin (item 9)
 ├── .claude-plugin/plugin.json     plugin name: kiit
 ├── skills/                        entry points only: frontmatter and a pointer
 │   ├── help/SKILL.md              /kiit:help            global
@@ -64,18 +64,18 @@ plugin/                            the plugin (item 9)
 │   └── vcs-branch/SKILL.md        /kiit:vcs-branch      group: vcs,  name: branch
 └── groups/                        everything a group needs, in one folder
     ├── core/                      used by two or more groups
-    │   ├── skills/help.md         the global help
+    │   ├── instructions/help.md   the global help
     │   ├── content/               tickets.md, projects.md, types.md, ...
     │   └── scripts/               secret-scan.sh
     ├── flow/
     │   ├── settings.json          default settings, overridden by kiit.json
-    │   ├── skills/                go.md, verify.md, ...  one instructions file per skill
+    │   ├── instructions/          go.md, verify.md, ...  one instructions file per skill
     │   ├── content/               work-item.md, status.md, ...  shared by flow skills
     │   └── scripts/               find-work-item.sh
     ├── work/
     └── vcs/
         ├── settings.json
-        ├── skills/                branch.md, pr.md
+        ├── instructions/          branch.md, pr.md
         ├── content/               formats.md
         └── scripts/               branch-name.sh
 ```
@@ -88,11 +88,11 @@ plugin/                            the plugin (item 9)
 | 4 | Cross-reference form | decided | A skill refers to another skill by its full skill command. Nothing is rewritten at install, so `install.sh` and its `sed` rewrite are retired. | `Run /kiit:flow-design next` |
 | 5 | One plugin | decided | All groups ship in one plugin, so they share one prefix. | `/kiit:flow-go` and `/kiit:vcs-branch` from one install |
 | 6 | Help skills | decided | Every group has a `{group}-help` skill, even a group with one skill. It lists the group's skills in `order`, read from each skill's `description` and `order` from its frontmatter and the `## Usage` block in its instructions when it runs. It keeps no help text of its own, so it cannot go stale. `help` is reserved as a name in every group. One global `help` skill lists the groups the same way, and points to each group's help. It is the only skill without a group. How it finds the skills depends on the plugin path, which is still to be proven. | `/kiit:flow-help`, `/kiit:vcs-help`, `/kiit:help` |
-| 7 | Group folder | decided | Each group has a folder `groups/{group}/` at the plugin root. It holds `skills/` (one instructions file per skill), `content/` (text its skills share), `scripts/` (scripts its skills run) and `settings.json` (the group's default settings). A file used by two or more groups goes in `core`. Anything else stays in its group, even if only one skill reads it. There is no rule yet about which groups may read which. | `groups/flow/content/work-item.md`, `groups/flow/scripts/find-work-item.sh` |
+| 7 | Group folder | decided | Each group has a folder `groups/{group}/` at the plugin root. It holds `instructions/` (one instructions file per skill), `content/` (text its skills share), `scripts/` (scripts its skills run) and `settings.json` (the group's default settings). A file used by two or more groups goes in `core`. Anything else stays in its group, even if only one skill reads it. There is no rule yet about which groups may read which. | `groups/flow/content/work-item.md`, `groups/flow/scripts/find-work-item.sh` |
 | 8 | Core group | decided | `groups/core/` holds the content and scripts that two or more groups use, or that document a key every group shares in `kiit.json`. `core` is not a skill group. Its only instructions file is the global `help`. Any skill may read it. Content: `rules.md` (behavior rules for every skill), `cli.md` (help, errors, argument grammar), `config.md` (where `kiit.json` is, shared keys, group objects), `tickets.md`, `projects.md`, `types.md`. | `core/content/tickets.md` |
-| 9 | Plugin root | decided | The plugin lives in a subfolder of the repo, so only what runs is installed. The repo root keeps the README, license, drafts, assets and `.claude-plugin/marketplace.json`, which points at the subfolder. The folder name `plugin/` is provisional. | `plugin/skills/flow-go/SKILL.md`, with the marketplace file at the repo root |
+| 9 | Plugin root | decided | Each plugin lives in `plugins/{name}/`, so only what runs is installed. Its manifest is `plugins/{name}/.claude-plugin/plugin.json`. The repo root keeps the README, license, drafts, assets and `.claude-plugin/marketplace.json`, which lists each plugin with a `source` of `./plugins/{name}`. There is one plugin for now, `kiit`. | `plugins/kiit/skills/vcs-branch/SKILL.md`, with the marketplace file at the repo root |
 | 10 | Scripts | decided | Scripts that skills run live in `groups/{group}/scripts/`. Scripts used by two or more groups live in `groups/core/scripts/`. A skill calls a script by its path under `groups/`, joined with the groups folder (item 37). | `core/scripts/secret-scan.sh` |
-| 11 | Skill entry point | decided | `skills/{skill name}/SKILL.md` is only the entry point Claude Code needs. It holds the frontmatter, including `allowed-tools`, and a line that points to the skill's instructions. The instructions are `groups/{group}/skills/{name}.md`. | `flow-go/SKILL.md` has `Groups folder: ${CLAUDE_PLUGIN_ROOT}/groups` and `Follow flow/skills/go.md` |
+| 11 | Skill entry point | decided | `skills/{skill name}/SKILL.md` is only the entry point Claude Code needs. It holds the frontmatter, including `allowed-tools`, and a line that points to the skill's instructions. The instructions are `groups/{group}/instructions/{name}.md`. | `flow-go/SKILL.md` has `Groups folder: ${CLAUDE_PLUGIN_ROOT}/groups` and `Follow flow/instructions/go.md` |
 
 ## Skill shape
 
@@ -107,9 +107,9 @@ order: 1
 disable-model-invocation: true
 ---
 Groups folder: ${CLAUDE_PLUGIN_ROOT}/groups
-Follow flow/skills/go.md
+Follow flow/instructions/go.md
 
-groups/flow/skills/go.md                 the instructions, no frontmatter
+groups/flow/instructions/go.md           the instructions, no frontmatter
 # flow-go
 The fast path for a clear, low-risk change. It writes no design, phases or status.
 
@@ -132,41 +132,42 @@ USAGE: /kiit:flow-go [project] [type] {ticket|description}
 
 | # | Lede | Status | Description | Example |
 |---|---|---|---|---|
-| 12 | Instructions order | decided | The instructions file `groups/{group}/skills/{name}.md` has no frontmatter. Its parts come in this order: title and one-line purpose, `Read first:`, `## Usage`, `## Steps`, `## Rules`. `Read first:` is a list of files, one path per line, as paths under `groups/`. Step 1 is the help check, which prints Usage and stops without reading anything. After it, the model reads every file in the `Read first:` list before the next step. | `# flow-go`, then `Read first:`, then `- core/content/cli.md` and `- flow/content/intake.md` on separate lines, then `## Usage` |
+| 12 | Instructions order | decided | The instructions file `groups/{group}/instructions/{name}.md` has no frontmatter. Its parts come in this order: title and one-line purpose, `Read first:`, `## Usage`, `## Steps`, `## Rules`. `Read first:` is a list of files, one path per line, as paths under `groups/`. Step 1 is the help check, which prints Usage and stops without reading anything. After it, the model reads every file in the `Read first:` list before the next step. | `# flow-go`, then `Read first:`, then `- core/content/cli.md` and `- flow/content/intake.md` on separate lines, then `## Usage` |
 | 13 | Frontmatter fields | decided | Fields are in the entry point `SKILL.md` only. Required: `description`, `argument-hint` (the arguments part of the Usage line, kept to match it by hand), `order` (position in its group) and `disable-model-invocation: true` (only the user can start the skill, Claude cannot). Optional: `allowed-tools`, a Claude Code field that skips permission prompts for the listed tools. Use it for read-only commands and the plugin's own scripts. It does not block anything. | `order: 1`, `allowed-tools: Bash(git diff:*)` |
 | 14 | Purpose versus Usage line | decided | The purpose line is for file readers. The Usage line is what `--help` prints. | purpose: "Designs and implements nothing." Usage: "Create a work item." |
-| 15 | Template section | decided | A skill that is the only one to write a file puts `## Template` in its instructions, between Steps and Rules. A template that two or more skills write goes in the group's `content/`, and those skills list it under `Read first:`. | `_research.md`: only `research` writes it, so `## Template` in `groups/flow/skills/research.md`. `01-change.md`: `begin` and `go` write it, so `groups/flow/content/templates.md` |
+| 15 | Template section | decided | A skill that is the only one to write a file puts `## Template` in its instructions, between Steps and Rules. A template that two or more skills write goes in the group's `content/`, and those skills list it under `Read first:`. | `_research.md`: only `research` writes it, so `## Template` in `groups/flow/instructions/research.md`. `01-change.md`: `begin` and `go` write it, so `groups/flow/content/templates.md` |
 | 16 | Named extra sections | decided | Extra sections go after Steps, and Steps must point to each one. | `## Checks` in `flow-verify`, referenced from step 3 |
 
 ## Config
 
-How `kiit.json` is structured. It is the one settings file in the user's workspace. Each group owns one object inside the `groups` key, and the keys every group shares are described in `groups/core/content/config.md`.
+How `kiit.json` is structured. It is the one settings file in the user's workspace. It has two kinds of group content: `standards`, what is correct (formats, rules, vocabularies), and `groups`, how a group's skills behave (paths, flags, automation). The keys every group shares are described in `groups/core/content/config.md`.
 
 ```json
 {
   "version": 1,
   "tickets":  [ { "type": "github", "owner": "acme" } ],
   "projects": [ { "name": "api", "path": "./api" } ],
-  "groups": {
-    "flow": { "work_items": "docs/work" },
-    ...
+  "standards": {
+    "vcs": { "branch": { "types": { "add": ["hotfix"] } } }
   },
-  ...
+  "groups": {
+    "flow": { "work_items": "docs/work" }
+  }
 }
 ```
 
-Two files hold settings, and they do different jobs:
+Two places hold settings, and they do different jobs:
 
-| | `groups/{group}/settings.json` | `.claude/kiit/kiit.json` |
+| | `groups/{group}/` (`settings.json`, `standards.json`) | `.claude/kiit/kiit.json` |
 |---|---|---|
-| Holds | the group's default settings | the workspace's own settings: the shared lists, plus overrides of defaults |
+| Holds | the group's default settings and default standards | the workspace's own settings: the shared lists, plus overrides of defaults |
 | Lives in | the plugin | the user's workspace |
 | One per | group | workspace |
 | Written by | the plugin author | `init` for the shared lists, the user for overrides |
 | Changes when | the plugin is updated | the user edits it |
-| Contains | every setting the group has | only what differs from the default |
+| Contains | every setting and standard the group has | only what differs from the default |
 
-A skill finds a setting in this order and stops at the first match: the command line, then `kiit.json`, then the group's `settings.json`.
+A skill finds a setting or standard in this order and stops at the first match: the command line, then `kiit.json`, then the group's `settings.json` or `standards.json`.
 
 ```
 groups/flow/settings.json                     { "work_items": "_kiit/flow", "review": { "baseline": "standards" } }
@@ -179,11 +180,11 @@ what the flow skills use                      work_items = "docs/work"          
 | # | Lede | Status | Description | Example |
 |---|---|---|---|---|
 | 17 | File location | decided | The file is `.claude/kiit/kiit.json`. The workspace root is the nearest folder, from the working directory upward, that contains it. Paths in the file are relative to that root. A skill that finds no file stops with an error that suggests `init`. | `error: .claude/kiit/kiit.json not found` |
-| 18 | Top-level shape | decided | `.claude/kiit/kiit.json` has `version`, then the keys shared by every group (`tickets`, `projects`, `resources`), then one `groups` key. `groups` holds one settings object per group, named by the group, so a group name can never collide with a shared key. A group with no settings has no object. | `{ "tickets": [...], "groups": { "flow": { "work_items": "_kiit/flow" }, "vcs": { ... } } }` |
+| 18 | Top-level shape | in-review | `.claude/kiit/kiit.json` has `version`, then the keys shared by every group (`tickets`, `projects`, `resources`), then `standards` and `groups`. `standards` holds what is correct, one object per area, such as `vcs`. `groups` holds how skills behave, one object per group. A name can never collide with a shared key. An area or group with nothing to override has no object. | `{ "tickets": [...], "standards": { "vcs": { ... } }, "groups": { "flow": { "work_items": "_kiit/flow" } } }` |
 | 19 | Format version | decided | `version` is the number of the file format, currently `1`. | `"version": 1` |
 | 20 | Shared keys | decided | `tickets`, `projects` and `resources` are shared by every group. Each is a list of named entries. They are documented once, in core content. | `"projects": [ { "name": "api", "path": "./api" } ]` |
-| 21 | Group overrides | decided | `groups.{group}` in `kiit.json` overrides the group's default settings from `groups/{group}/settings.json`. It has the same shape as that file, and only the keys the workspace changes are written there. The rest keep their defaults. Skills of one group do not read another group's object. | `"groups": { "flow": { "work_items": "docs/work" } }` overrides the default `work_items` of `_kiit/flow` |
-| 22 | Defaults | decided | A group's defaults are in `groups/{group}/settings.json`, in the same shape as its object in `kiit.json`. `kiit.json` holds only overrides: a value there replaces the default, and a key that is missing takes it. A skill takes a value from the command line first, then `kiit.json`, then the group's `settings.json`. It lists `settings.json` under `Read first:` when it reads that group's settings. Every key except the shared lists is optional, so a skill never fails for a missing optional key. | `kiit.json` has `"work_items": "docs/work"`, and every other `flow` setting comes from `groups/flow/settings.json` |
+| 21 | Overrides | in-review | `groups.{group}` and `standards.{area}` in `kiit.json` override the defaults in `groups/{group}/settings.json` and `groups/{group}/standards.json`. Same shape as the default file, and only the keys the workspace changes are written. The rest keep their defaults. Skills of one group do not read another group's object. | `"standards": { "vcs": { "branch": { "types": { "add": ["hotfix"] } } } }` adds a type to the default list |
+| 22 | Defaults | in-review | Defaults are in `groups/{group}/settings.json` (behavior) and `groups/{group}/standards.json` (what is correct), in the same shape as their objects in `kiit.json`. `kiit.json` holds only overrides. A scalar there replaces the default. A list is replaced whole, or changed with `{ "add": [...], "remove": [...] }`. A key that is missing takes the default. A skill takes a value from the command line first, then `kiit.json`, then the plugin default, and lists the default file under `Read first:` when it reads it. Every key except the shared lists is optional, so a skill never fails for a missing optional key. | `kiit.json` adds `hotfix`, and every other `vcs` branch rule comes from `groups/vcs/standards.json` |
 | 23 | Who writes it | decided | `init` writes the shared lists it finds, such as projects and ticket systems, and no defaults. Developers edit `kiit.json` themselves to change their own settings, now and then. Every other skill only reads it. | `init` adds a project, and a developer sets `groups.flow.work_items` by hand |
 | 24 | No secrets | decided | `kiit.json` holds no tokens or passwords, because it can be committed. It names where a secret comes from, never the secret. | a ticket system entry has a `url`, not a token |
 
@@ -256,7 +257,7 @@ Where a fact lives, so it is written once, and so a skill loads only what it use
 ```
 groups/core/content/tickets.md        two or more groups use it    flow intake, vcs-branch
 groups/flow/content/work-item.md      several flow skills use it   begin, go, resume
-groups/flow/skills/verify.md          one skill uses it            the checks are written in verify
+groups/flow/instructions/verify.md    one skill uses it            the checks are written in verify
 
 before   every flow skill read shared.md, 418 lines, and used a small part of it
 after    flow-go reads the few small files in its Read first: list
@@ -313,4 +314,4 @@ Not part of the standards yet. None of these are needed now.
 | Idea | What it is | Why it might help |
 |---|---|---|
 | Skill linter | A shell script in a `scripts/` folder at the repo root, not installed with the plugin. It checks the skills against this file: the instructions parts and their order, required frontmatter, `argument-hint` matching the Usage line, paths in `Read first:` and steps existing under `groups/`, `/kiit:` references pointing at real skills, and the line limits. | Rules that nothing checks drift. It would also catch a skill that points at a content file that was renamed. |
-| Instructions in `SKILL.md` | A fallback to the thin entry point (item 11). `SKILL.md` holds the frontmatter and the instructions, and only the shared content is read from `groups/{group}/content/`. The `Read first:` list then uses `${CLAUDE_PLUGIN_ROOT}/groups/...` paths directly, and `groups/{group}/skills/` goes away. | It saves one read per run, so there is one less permission prompt or skipped read to worry about. Use it if the plugin test shows the extra read is a problem. It gives up the thin entry point, so porting to another agent means copying the instructions. |
+| Instructions in `SKILL.md` | A fallback to the thin entry point (item 11). `SKILL.md` holds the frontmatter and the instructions, and only the shared content is read from `groups/{group}/content/`. The `Read first:` list then uses `${CLAUDE_PLUGIN_ROOT}/groups/...` paths directly, and `groups/{group}/instructions/` goes away. | It saves one read per run, so there is one less permission prompt or skipped read to worry about. Use it if the plugin test shows the extra read is a problem. It gives up the thin entry point, so porting to another agent means copying the instructions. |

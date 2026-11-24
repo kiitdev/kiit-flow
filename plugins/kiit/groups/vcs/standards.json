@@ -1,0 +1,32 @@
+{
+  "baseBranch": "auto",
+  "types": [
+    "feat",
+    "fix",
+    "build",
+    "chore",
+    "ci",
+    "docs",
+    "perf",
+    "refactor",
+    "revert",
+    "style",
+    "test"
+  ],
+  "aliases": {
+    "feature": "feat",
+    "doc": "docs",
+    "tests": "test"
+  },
+  "branch": {
+    "pattern": "{type}/{ref}/{name}",
+    "fallback": "{type}/{name}",
+    "example": "fix/issue-19/plugin-layout",
+    "maxWords": 5
+  },
+  "pr": {
+    "title": "{TYPE}: {description}",
+    "example": "FEAT: Added support for detekt",
+    "titleMaxLength": 70
+  }
+}
