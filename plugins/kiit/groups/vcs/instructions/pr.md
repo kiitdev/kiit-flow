@@ -5,6 +5,7 @@ Create a pull request from the current branch. It never pushes.
 Read first:
 - core/content/cli.md
 - core/content/config.md
+- core/content/shell.md
 - vcs/content/formats.md
 - vcs/standards.json
 
