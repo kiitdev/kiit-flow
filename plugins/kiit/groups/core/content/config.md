@@ -3,6 +3,8 @@
 ## Where
 The workspace root is the nearest folder, from the working directory upward, that
 contains `.claude/kiit/kiit.json`. Paths in the file are relative to that root.
+Look one folder at a time: Read `{folder}/.claude/kiit/kiit.json` for the working
+directory, then its parent, and so on. No loop, no shell (core/content/shell.md).
 No file: `error: .claude/kiit/kiit.json not found`, and suggest `/kiit:flow-init`.
 
 ## Keys
