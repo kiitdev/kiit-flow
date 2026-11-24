@@ -12,7 +12,7 @@ USAGE: /kiit:vcs-help
 ## Steps
 1. List the folders `vcs-*` under `skills/` in the plugin, except `vcs-help`.
 2. Read each one's `SKILL.md` frontmatter: `description`, `argument-hint` and `order`.
-3. Print them by `order`, one per line: `/kiit:{skill} {argument-hint}`, then the description.
+3. Print them by `order`: `/kiit:{skill} {argument-hint}`, then the description.
 4. End with: `Run /kiit:{skill} --help for details.`
 
 ## Rules

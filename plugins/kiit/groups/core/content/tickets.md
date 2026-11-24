@@ -1,6 +1,6 @@
 # Tickets
 
-Used by every skill that takes a ticket. The ticket systems are in `kiit.json` (config.md).
+Used by every skill that takes a ticket. The ticket systems are in `kiit.json` (core/content/config.md).
 
 ## What counts as a ticket
 1. A ticket is one token: `1234`, `#1234`, `ABC-123` or an issue URL.

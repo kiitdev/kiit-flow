@@ -1,7 +1,7 @@
 # VCS formats
 
 The rules for branch names and PR titles. The values are in `standards.vcs`: the
-plugin default is `groups/vcs/standards.json`, and `kiit.json` overrides it (config.md).
+plugin default is `groups/vcs/standards.json`, and `kiit.json` overrides it (core/content/config.md).
 
 ## Types
 `types` is the one list for branches and PR titles.
@@ -41,8 +41,9 @@ Pattern `pr.title`, by default `{TYPE}: {description}`.
 Example: `FEAT: Added support for detekt`
 
 ## Checking
-Run `check-format.sh` on the result before using it, with the pattern that was used. Call it by its full path under
-`groups/`, as its own command, with no `sh` in front and nothing chained to it:
+Run `vcs/scripts/check-format.sh` on the result before using it, with the pattern used.
+Call it by its full path under the groups folder, as its own command, with no `sh` in
+front and nothing chained to it:
 `{groups folder}/vcs/scripts/check-format.sh {pattern} "{types}" {max length} "{value}"`
 It prints `ok:` or `fail:` and one reason. Quote that line in the report. Never
 re-derive the answer. For a branch the max length is 100.

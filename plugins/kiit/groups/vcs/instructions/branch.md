@@ -5,7 +5,6 @@ Create a branch from a ticket or a name, off an up-to-date base. It never pushes
 Read first:
 - core/content/cli.md
 - core/content/config.md
-- core/content/tickets.md
 - vcs/content/formats.md
 - vcs/standards.json
 
@@ -33,16 +32,17 @@ EXAMPLES:
 ```
 
 ## Steps
-1. Help check: print Usage and stop (cli.md).
-2. Find the workspace root and read the effective `standards.vcs` (config.md).
-3. Take the type, the ticket or name, and `--base-branch` from the arguments (cli.md).
-4. Infer a missing type from the ticket (tickets.md), else from the name.
+1. Help check: print Usage and stop (core/content/cli.md).
+2. Find the workspace, and read effective `standards.vcs` (core/content/config.md).
+3. Read the arguments (core/content/cli.md): type, ticket or name, `--base-branch`.
+4. Infer a missing type from the ticket, else from the name.
+   - A ticket: read `core/content/tickets.md` first
    - Print what was inferred: `type: fix (label: bug)`
    - Nothing fits: `error: cannot infer type`, then `valid: {types}`, and stop
-5. Pick the base branch (formats.md).
-6. Name the branch (formats.md): `branch.pattern`, or `branch.fallback` with no ticket.
-   - A ticket and no name: take the name from the ticket title (tickets.md)
-   - Check it with `check-format.sh`. It fails: print its line and stop
+5. Pick the base branch (vcs/content/formats.md).
+6. Name the branch (vcs/content/formats.md), with `branch.fallback` if no ticket.
+   - A ticket and no name: use the ticket title (core/content/tickets.md)
+   - Check it with `vcs/scripts/check-format.sh`. It fails: print its line, stop
 7. A branch of that name exists: ask before going on. Never overwrite it.
 8. Fetch the base: `git fetch origin {base}`.
 9. Create it: `git checkout -b {name} --no-track origin/{base}`.
