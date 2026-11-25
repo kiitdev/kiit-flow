@@ -1,6 +1,6 @@
 # Skill standards
 
-The standards for writing kiit skills, collected from `CONVENTIONS.md`, `drafts/principles.md`, `shared/shared.md` and the `drafts/261115-updates/` files. This is the working index. Standards for one skill group are in `GROUP-{GROUP}.md`, such as `GROUP-FLOW.md`. Security rules are in `SECURITY.md`, and how a team's standards are applied is in `ENGINEERING-STANDARDS.md`. The schema of the shared `kiit.json` keys is in `shared/README.md`. Where a standard is settled, `CONVENTIONS.md` stays the rule text until this file replaces it.
+The standards for writing kiit skills, collected from `CONVENTIONS.md`, `drafts/principles.md`, `shared/shared.md` and the `drafts/261115-updates/` files. This is the working index. Rules for one skill group are in its section of `RULES.md`, such as `## Flow`. Security rules are in `SECURITY.md`, and how a team's standards are applied is in `ENGINEERING-STANDARDS.md`. The schema of the shared `kiit.json` keys is in `shared/README.md`. Where a standard is settled, `CONVENTIONS.md` stays the rule text until this file replaces it.
 
 ## Contents
 1. [Status](#status)

@@ -133,3 +133,31 @@ what only that group's skills follow. A rule about one part of a section is a su
 6. Only `flow-go` lists `git add`, `git commit`, `git push` and `gh pr create` in its
    `allowed-tools`.
 7. `--auto` works with GitHub only. GitLab is a separate ticket.
+
+### Direction (not settled)
+
+Direction for the flow group from `update-1.md` to `updates-4-tasks.md`. None of it is
+built, and none of it is a rule yet. It moves up into the sections above when it is
+decided. The status key is the one in `SKILL-STANDARDS.md`: `todo` (not yet assessed),
+`in-review` (conflicts with another item, is unproven, or waits on a decision), `decided`
+(agreed, and the text is the rule) and `complete` (decided, and followed by the skills).
+
+```
+A change touches api/auth/login.kt, and a rule matches:
+
+  "groups": { "flow": { "escalate": [ { "name": "auth", "paths": ["**/auth/**"], "to": "focus" } ] } }
+
+  flow: mode focus (rule: auth)
+  go --force:  _history.md  forced, skipped escalation: auth
+```
+
+| # | Lede | Status | Description | Example |
+|---|---|---|---|---|
+| F1 | Work item layout | todo | Numbered stage artifacts, underscore files for living records, and a dated folder name. | `261115-api-fix-1234/01-change.md`, `_history.md` |
+| F2 | Purpose of the record | todo | It keeps intent and status, not every change. Git holds the code history. | no per-edit log in `_history.md` |
+| F3 | History row per run | todo | One append-only row per run, including runs that stop or fail. `help`, `recent` and `init` are exempt. | `\| 2026-10-02 14:05 \| begin \| created from ticket 1234 \|` |
+| F4 | Blocked-step protocol | todo | Stop, record the reason, never edit the design, never work around it. | `1.3 blocked \| Move internals \| Console expect missing` |
+| F5 | Modes follow rules | todo | The mode is the higher of what was asked and what the escalation rules require, checked at intake, after design and in `verify`. | `**/auth/**` forces Focus |
+| F6 | Safety floor | todo | The secret scan, the git-write ban and a recorded override apply even under `--force`. | history row `forced, skipped escalation: auth` |
+| F7 | Flag semantics | todo | `--force` is per-run only and never a config default. `--auto` may default in config and stops on failure. | `"groups": { "flow": { "go": { "auto": true } } }` |
+| F8 | Forced work is tracked debt | todo | A forced change is marked `forced, unreviewed` until it is reviewed. | line in `_status.md`, shown by `recent` |

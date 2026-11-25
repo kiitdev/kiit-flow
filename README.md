@@ -75,15 +75,15 @@ The commands are listed in workflow order. In Focus, `review`, `revise`, and `up
 
 ## Work Item
 
-A work item is one folder per change. Work items live in `_kiit/flow/` at the workspace root, next to `.claude/` and your project repos.
+A work item is one folder per change. Work items live in `_kiit/flow/items/` at the workspace root, next to `.claude/` and your project repos.
 
 ![The workspace holds .claude, your project repos, and _kiit/flow with one folder per change, such as 260928-kiit-codes-fix-1234. Inside that work item: its files, what each is for, and which commands write it](./assets/kiit-flow-work-item.svg)
 
-The folder name is `{YYMMDD}-{project}-{type}-{ticket|short-name}`: the date, the project, the type, and the ticket id, or a short name when there is only a description. Files appear as the commands run, so a new work item has only `01-change.md` and `_history.md`. `go` writes just those two. `_research.md` is written by `research`.
+The folder name is `{yymmdd}-{nnn}-{project}-{type}-{ticket|short-name}`: the date, a three-digit counter that starts at `001` each day, the project, the type, and the ticket id, or a short name when there is only a description. Files appear as the commands run, so a new work item has only `01-change.md` and `_history.md`. `go` writes just those two. `_research.md` is written by `research`.
 
 The numbered files are stage artifacts, written in order. The files that start with an underscore change as the work goes on.
 
-The `flow.work_items` setting in `kiit.json` changes the location. The full layout and the file formats are in [`shared/shared.md`](./shared/shared.md).
+The location is fixed and has no setting. The full layout and the file formats are in [`shared/shared.md`](./shared/shared.md).
 
 ## Configuration
 
