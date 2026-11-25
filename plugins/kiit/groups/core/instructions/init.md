@@ -43,7 +43,7 @@ USAGE: /kiit:init
 8. Print what it found and the result: the file, or the difference.
    - Notes: Jira, Linear or other systems need a base URL and a default project
    - Notes: a repo with no usable remote, and a read that failed
-   - Find the group setups: `ls {groups folder}/*/instructions/setup.md`, one call
+   - Find group setups: `ls {groups folder}/*/instructions/setup.md`, one call
    - List what each setup creates, from its `## Creates` (core/content/setup.md)
 9. Ask the user to confirm or correct it, and wait.
    - Nothing is written before a yes

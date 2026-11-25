@@ -52,7 +52,7 @@ Every item existed: print `nothing to do`.
 
 ## Who runs it
 1. `init` runs the setup of every group that has one, after it writes `kiit.json`.
-   - It lists each setup's `## Creates` in its proposal, so the user's yes covers them
+   - It lists each group's `## Creates` in its proposal, so the yes covers them
 2. A group's skill runs its own setup when `_kiit/{group}/` is missing.
    - It checks with `ls -d _kiit/{group}`, as one call from the root
    - A skill reads only its own group's `setup.md`
