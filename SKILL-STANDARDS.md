@@ -93,6 +93,8 @@ plugins/kiit/                      the plugin (item 9)
 | 9 | Plugin root | decided | Each plugin lives in `plugins/{name}/`, so only what runs is installed. Its manifest is `plugins/{name}/.claude-plugin/plugin.json`. The repo root keeps the README, license, drafts, assets and `.claude-plugin/marketplace.json`, which lists each plugin with a `source` of `./plugins/{name}`. There is one plugin for now, `kiit`. | `plugins/kiit/skills/vcs-branch/SKILL.md`, with the marketplace file at the repo root |
 | 10 | Scripts | decided | Scripts that skills run live in `groups/{group}/scripts/`. Scripts used by two or more groups live in `groups/core/scripts/`. A skill calls a script by its path under `groups/`, joined with the groups folder (item 37). | `core/scripts/secret-scan.sh` |
 | 11 | Skill entry point | decided | `skills/{skill name}/SKILL.md` is only the entry point Claude Code needs. It holds the frontmatter, including `allowed-tools`, and a line that points to the skill's instructions. The instructions are `groups/{group}/instructions/{name}.md`. | `vcs-branch/SKILL.md` has `Groups folder: ${CLAUDE_PLUGIN_ROOT}/groups` and `Follow vcs/instructions/branch.md` |
+| 44 | Group setup | decided | A group that needs things in the workspace has `groups/{group}/instructions/setup.md`. It is declarative markdown, not a script. It has no frontmatter and no Usage, and its parts are, in order: title and purpose, `Read first:`, `## Creates`, `## Conditions` (optional) and `## Done when`. `setup` is a reserved name in every group, so no skill is called `{group}-setup`. The rules every setup follows are in `groups/core/content/setup.md`: create only what is missing, never overwrite, read-only git, no secrets, `mkdir -p` and Write only, and a second run changes nothing. `init` runs every group's setup and lists what they create in its proposal. A group skill runs its own setup when its folder is missing. A group with nothing to set up has no file. A script is the exception, for a setup that needs real logic. | `groups/flow/instructions/setup.md` creates `_kiit/flow/` |
+| 45 | Group data folder | decided | A group's stored files live in `{workspace}/_kiit/{group}/`, named after the group. `{workspace}` is the folder that holds `.claude/kiit/kiit.json`. The name `_kiit` is fixed, with no setting and no per-group path. A group owns only its own folder, and a thing two groups share goes in `_kiit/core/`. The folder is visible and sorts to the top, unlike a hidden `.kiit`. | `_kiit/flow/` holds the flow work items |
 
 ## Skill shape
 
@@ -307,6 +309,7 @@ Start with solid defaults, make them yours.
 | S1 in `SECURITY.md` and `update-1` item 6 | No git writes, against a `vcs` group that creates branches |
 | 38 and `update-1` item 5 | Decide or ask, against `flow-design` step 7 saying not to ask |
 | 2, 4 and 5 | Cross-reference rewriting and the `/kiit-flow-*` form go away once the plugin ships |
+| 18, 23, 45 | Examples show `groups.flow.work_items` as a setting. Item 45 fixes the path, so #24 removes the setting and the examples |
 
 ## Ideas for later
 
