@@ -28,7 +28,6 @@
   },
   "groups": {
     "flow": {
-      "work_items": "_kiit/flow",
       "review": { "baseline": "standards", "model": "sonnet" }
     }
   }

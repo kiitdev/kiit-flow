@@ -60,7 +60,16 @@ what only that group's skills follow. A rule about one part of a section is a su
 3. One exception: a group may read another group's `standards.json`, or its effective
    `standards.{area}`, as data. Never its instructions, content, scripts or `settings.json`.
 4. The check is a search. In every file under `groups/{g}/`, each path in `Read first:`
-   and each `Follow` line starts with `{g}/` or `core/`.
+   and each `Follow` line starts with `{g}/` or `core/`. Run it from the repo root, once
+   per group. It prints nothing when the rule holds:
+
+   ```sh
+   grep -rEn '^(- |Follow )[a-z]+/' plugins/kiit/groups/vcs --include='*.md' \
+     | grep -vE ':(- |Follow )(vcs|core)/|standards\.json$'
+   grep -rn '^Follow' plugins/kiit/skills/vcs-*/SKILL.md | grep -v 'Follow vcs/'
+   ```
+
+   Replace `vcs` with the group name.
 
 ### Git
 

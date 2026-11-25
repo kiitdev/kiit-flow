@@ -15,5 +15,5 @@ The rules below keep a skill to the commands that were seen to run without a pro
    - `{project path}` is `path` from `projects[]` in `kiit.json` (core/content/config.md)
    - To check for a repo, run `git rev-parse --is-inside-work-tree`, not `git status`
 3. Read files with the Read tool.
-4. Run a script by its full path, as its own call (vcs/content/formats.md, Checking).
+4. Run a script by its full path, as its own call (core/content/formats.md, Checking).
 5. Calls that do not depend on each other go in the same turn, as separate calls.
