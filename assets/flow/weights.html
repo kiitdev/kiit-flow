@@ -5,7 +5,7 @@
 <!--
   Fast, Flow, and Focus: what each mode of change uses (1100 wide). Edit CONFIG below, then either:
     1. open this file in a browser and press "Download SVG", or
-    2. export from the command line: ./banner.sh weights.html kiit-flow-weights.svg
+    2. export from the command line: ./banner.sh flow/weights.html flow/weights.svg
 -->
 <style>
   body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
@@ -18,7 +18,7 @@
 <button id="dl">Download SVG</button>
 <pre id="svg"></pre>
 
-<script src="kiit-svg.js"></script>
+<script src="../kiit-svg.js"></script>
 <script>
 // ---- CONFIG: change these for each project ---------------------------------
 const CONFIG = {
@@ -138,5 +138,5 @@ function buildSvg(c) {
 `;
 }
 
-kiitMount(buildSvg(CONFIG), "kiit-flow-weights.svg");
+kiitMount(buildSvg(CONFIG), "weights.svg");
 </script>

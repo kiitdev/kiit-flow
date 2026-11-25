@@ -1,6 +1,6 @@
-// Shared helpers for the Kiit SVG templates (flow-diagram.html, work-item.html).
+// Shared helpers for the Kiit SVG templates (the templates in each group folder).
 // Each template is plain HTML. It builds an SVG string, shows it, and offers a download.
-// Export from the command line with: ./banner.sh <template>.html <out>.svg
+// Export from the command line with: ./banner.sh <group>/<template>.html <group>/<out>.svg
 
 const KIIT_THEME = {
   paper: "#E8F1FF", grid: "#C4D8F6", frame: "#4DA3FF", frameLeft: "#E8794A", frameWidth: 8,   // the outline: soft blue, with a soft orange left edge

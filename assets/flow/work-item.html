@@ -5,7 +5,7 @@
 <!--
   Work item card template (about 1280 wide). Edit CONFIG below, then either:
     1. open this file in a browser and press "Download SVG", or
-    2. export from the command line: ./banner.sh work-item.html kiit-flow-work-item.svg
+    2. export from the command line: ./banner.sh flow/work-item.html flow/work-item.svg
 -->
 <style>
   body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
@@ -18,7 +18,7 @@
 <button id="dl">Download SVG</button>
 <pre id="svg"></pre>
 
-<script src="kiit-svg.js"></script>
+<script src="../kiit-svg.js"></script>
 <script>
 // ---- CONFIG: change these for each project ---------------------------------
 const CONFIG = {
@@ -189,5 +189,5 @@ function buildSvg(c) {
 `;
 }
 
-kiitMount(buildSvg(CONFIG), "kiit-flow-work-item.svg");
+kiitMount(buildSvg(CONFIG), "work-item.svg");
 </script>

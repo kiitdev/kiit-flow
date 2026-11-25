@@ -1,11 +1,11 @@
 #!/bin/sh
 # Export the banner from banner.html to an SVG with headless Chrome.
-# usage: ./banner.sh banner.html out.svg
+# usage: ./banner.sh <group>/<template>.html <group>/<out>.svg
 # Set CHROME to the browser binary if it is not the macOS default.
 set -eu
 
 if [ $# -ne 2 ] || [ ! -f "$1" ]; then
-  echo "usage: ./banner.sh banner.html out.svg" >&2
+  echo "usage: ./banner.sh <group>/<template>.html <group>/<out>.svg" >&2
   exit 1
 fi
 
