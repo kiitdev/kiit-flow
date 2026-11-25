@@ -7,7 +7,7 @@
     <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#FF8A4C"/>
       <stop offset="0.5" stop-color="#B388FF"/>
-      <stop offset="1" stop-color="#2F8CFF"/>
+      <stop offset="1" stop-color="#007FFF"/>
     </linearGradient>
     <pattern id="grid" width="18.125" height="18.125" patternUnits="userSpaceOnUse">
       <path d="M18.125 0H0V18.125" fill="none" stroke="#C4D8F6" stroke-width="0.3"/>
@@ -18,7 +18,7 @@
     <rect width="290" height="290" fill="url(#bg)"/>
     <rect width="290" height="290" fill="url(#grid)"/>
   </g>
-  <rect x="2.5" y="2.5" width="285" height="285" rx="54.5" fill="none" stroke="url(#edge)" stroke-width="5"/>
+  <rect x="4" y="4" width="282" height="282" rx="53" fill="none" stroke="url(#edge)" stroke-width="8"/>
   <g transform="translate(145 145) scale(0.82) translate(-133.25 -106.5)">
     <rect x="9" y="27" width="248.5" height="178" rx="45" fill="#111827"/>
     <rect x="35" y="53" width="196.5" height="126" rx="19" fill="#FFFFFF"/>
