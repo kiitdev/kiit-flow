@@ -46,6 +46,8 @@ USAGE: /kiit:init
    - Nothing is written before a yes
    - Two or more ticket systems and a project with none: ask which one it uses
 10. Write the file with the Write tool. The folders are created with it.
+   - Pretty print: 2-space indent, one key per line, and a newline at the end
+   - Keep the key order: `version`, `tickets`, `projects`, then any other keys
    - A change after the proposal is checked again (step 6)
 11. Report what was written and what was left out. Nothing changed: say so.
    - Next: run any kiit skill, such as `/kiit:vcs-branch`
@@ -56,3 +58,4 @@ USAGE: /kiit:init
 3. No secrets in the file, including a `url`.
 4. Git is read-only. Never push, commit or change a repo.
 5. Never guess a ticket system from an unknown host or a base URL.
+6. Print the proposal in the same pretty-printed form that is written.
