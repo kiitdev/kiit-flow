@@ -76,7 +76,7 @@ function buildSvg(c) {
   const rowSvg = rows.map(([num, text, st], i) => {
     const y = 104 + 24 * i;
     return `      <text x="24" y="${y}" font-size="16" fill="${t.ink}"><tspan fill="${t.dim}">${esc(num)} </tspan>${esc(text)}</text>
-      <text x="404" y="${y}" font-size="16" fill="${t[st] || t.dim}" text-anchor="end">${esc(st)}</text>`;
+      <text x="404" y="${y}" font-size="16" fill="${{ done: t.blue, todo: t.sub, skip: t.dim }[st] || t.sub}" text-anchor="end">${esc(st)}</text>`;
   }).join("\n");
 
   // the bottom row: a box per mode. Every character gets its own x, so no font can spill out of its box
@@ -98,32 +98,29 @@ function buildSvg(c) {
   };
   let sz = 16, lay = modesAt(sz);
   if (lay.end > rowEnd) { sz = Math.floor(16 * (rowEnd - rowStart) / (lay.end - rowStart)); lay = modesAt(sz); }
-  const arrow = `<tspan fill="${t.ink}" stroke="${t.ink}" stroke-width="1"> ${esc(c.steps.join)} </tspan>`;
+  const arrowIn = (col) => `<tspan fill="${col}" stroke="${col}" stroke-width="1"> ${esc(c.steps.join)} </tspan>`;
+  // Fast, Flow and Focus are one set of colours at three weights: light grey, solid blue, then solid ink.
+  const weights = { fast: [t.softFill, t.ink], flow: [t.blue, t.onFill], heavy: [t.ink, t.onFill] };
   const modeSvg = lay.items.map(({ mode, cw, str, x, w, beforeX }) => {
-    const color = t[mode.style], tint = t[mode.style + "Tint"], border = t[mode.style + "Border"];
+    const [tint, color] = weights[mode.style], arrow = arrowIn(color);
     const xs = Array.from(str, (_, j) => (x + 16 + j * cw).toFixed(1)).join(" ");
     const before = mode.before ? `<text x="${beforeX}" y="${textY}" font-size="${sz}" fill="${t.dim}">${esc(mode.before)}</text>\n    ` : "";
-    return `${before}<rect x="${x}" y="${boxY}" width="${w}" height="${boxH}" rx="10" fill="${tint}" stroke="${border}" stroke-width="2"/>
+    return `${before}<rect x="${x}" y="${boxY}" width="${w}" height="${boxH}" rx="4" fill="${tint}"/>
     <text x="${xs}" y="${textY}" font-size="${sz}" font-weight="700" fill="${color}">${mode.prefix ? esc(mode.prefix) + " " : ""}${mode.words.map(esc).join(arrow)}</text>`;
   }).join("\n    ");
-  const claude = "#C15F3C";                                  // Claude's orange, a little deeper so it reads on the pale blue
   const fa = c.card.footerAccent, ft = c.card.footer || "";
   const footerText = fa && ft.includes(fa)
-    ? `${esc(ft.slice(0, ft.indexOf(fa)))}<tspan font-weight="700" fill="${claude}">${esc(fa)}</tspan>${esc(ft.slice(ft.indexOf(fa) + fa.length))}`
+    ? `${esc(ft.slice(0, ft.indexOf(fa)))}<tspan font-weight="700" fill="${t.ink}">${esc(fa)}</tspan>${esc(ft.slice(ft.indexOf(fa) + fa.length))}`
     : esc(ft);
   const footer = ft
     ? `\n    <text x="${W - 80}" y="${top + h + 34}" font-size="14" fill="${t.sub}" text-anchor="end">${footerText}</text>`
     : "";
 
-  const f = t.frameWidth, o = f / 2, r = 20 - o;          // outline inset and corner radius
-  const leftEdge = `M 20 ${o} A ${r} ${r} 0 0 0 ${o} 20 V ${H - 20} A ${r} ${r} 0 0 0 20 ${H - o}`;
-  const rest = `M 20 ${o} H ${W - 20} A ${r} ${r} 0 0 1 ${W - o} 20 V ${H - 20} A ${r} ${r} 0 0 1 ${W - 20} ${H - o} H 20`;
+  const bg = kiitBackground(t, W, H);
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(full)} — ${esc(c.tagline)}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(full)}: ${esc(c.tagline)}">
   <defs>
-    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="${t.grid}" stroke-width="1"/>
-    </pattern>
+    ${bg.defs}
     <linearGradient id="sheen" gradientUnits="userSpaceOnUse" x1="${ax - aw}" y1="0" x2="${ax}" y2="0" gradientTransform="matrix(1 0 ${c.slant} 1 ${-c.slant * ay} 0)">
       <stop offset="0" stop-color="${t.blue}"/>
       <stop offset="0.3" stop-color="${t.blue}"/>
@@ -132,29 +129,22 @@ function buildSvg(c) {
       <stop offset="1" stop-color="${t.blue}"/>
       <animateTransform attributeName="gradientTransform" type="translate" additive="sum" values="0 0;0 0;${2 * aw} 0;${2 * aw} 0" keyTimes="0;0.15;0.75;1" dur="2.4s" repeatCount="indefinite"/>
     </linearGradient>
-    <clipPath id="frame"><rect width="${W}" height="${H}" rx="20"/></clipPath>
   </defs>
 
-  <g clip-path="url(#frame)">
-    <rect width="${W}" height="${H}" fill="${t.paper}"/>
-    <rect width="${W}" height="${H}" fill="url(#grid)"/>
-  </g>
-  <path d="${rest}" fill="none" stroke="${t.frame}" stroke-width="${f}"/>
-  <path d="${leftEdge}" fill="none" stroke="${t.frameLeft}" stroke-width="${f}"/>
+  ${bg.body}
 
-  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
+  <g font-family="${KIIT_FONT}">
     <text x="${letterXs}" y="176" font-size="${titleSize}" font-weight="700" fill="${t.ink}"><tspan fill="${t.blue}">${esc(c.brand)}</tspan>-${esc(c.name)}</text>
     <path d="${arrowPath}" fill="url(#sheen)"/>
     <text x="88" y="240" font-size="${tagSize}" fill="${t.sub}">${esc(c.tagline)}</text>
     ${modeSvg}
 
     <g transform="translate(${W - 508} ${top})">
-      <rect width="428" height="${h}" rx="12" fill="${t.card}" stroke="${t.border}"/>
-      <text x="24" y="34" font-size="14" font-weight="700" fill="${t.blue}">${esc(c.card.title)}</text>
-      <line x1="24" y1="48" x2="404" y2="48" stroke="${t.border}"/>
+      <rect width="428" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.line}"/>
+      <path d="M0 44 V4 A4 4 0 0 1 4 0 H424 A4 4 0 0 1 428 4 V44 Z" fill="${t.blue}"/>
+      <text x="24" y="28" font-size="14" font-weight="700" fill="${t.onFill}">${esc(c.card.title)}</text>
       <text x="24" y="70" font-size="14" fill="${t.dim}">${esc(c.card.left)}</text>
       <text x="404" y="70" font-size="14" fill="${t.dim}" text-anchor="end">${esc(c.card.right)}</text>
-      <line x1="24" y1="80" x2="404" y2="80" stroke="${t.rule}" stroke-dasharray="3 4"/>
 ${rowSvg}
     </g>${footer}
   </g>
@@ -162,13 +152,5 @@ ${rowSvg}
 `;
 }
 
-const svgText = buildSvg(CONFIG);
-document.getElementById("banner").innerHTML = svgText;
-document.getElementById("svg").textContent = svgText;   // read by banner.sh
-document.getElementById("dl").onclick = () => {
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(new Blob([svgText], { type: "image/svg+xml" }));
-  a.download = CONFIG.brand + "-" + CONFIG.name + "-banner.svg";
-  a.click();
-};
+kiitMount(buildSvg(CONFIG), CONFIG.brand + "-" + CONFIG.name + "-banner.svg");
 </script>

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="342" viewBox="0 0 900 342" role="img" aria-label="Kiit overview. Standards, which are defaults, your overrides and a script that checks them, are used by the skill groups vcs, flow and core, in your repos app, api and billing.">
+  <defs>
+    <linearGradient id="kiit-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F6FAFF"/>
+      <stop offset="1" stop-color="#DCEBFF"/>
+    </linearGradient>
+    <linearGradient id="kiit-edge" x1="-0.04" y1="0" x2="0.55" y2="0">
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="1" stop-color="#007FFF"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#C4D8F6" stroke-width="1"/>
+    </pattern>
+    <clipPath id="frame"><rect width="900" height="342" rx="20"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="900" height="342" fill="url(#kiit-bg)"/>
+    <rect width="900" height="342" fill="url(#grid)"/>
+  </g>
+  <rect x="4" y="4" width="892" height="334" rx="16" fill="none" stroke="url(#kiit-edge)" stroke-width="8"/>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
+    <rect x="40" y="40" width="244" height="262" rx="18" fill="#111827"/>
+    <rect x="46" y="46" width="232" height="250" rx="12" fill="#FFFFFF"/>
+    <path d="M46 84 V58 A12 12 0 0 1 58 46 H179 V84 Z" fill="#007FFF"/>
+    <text x="112.5" y="71.3" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">Standards</text>
+    <text x="64" y="124" font-size="20" font-weight="700" fill="#111827">Defaults</text>
+    <text x="64" y="146" font-size="15" fill="#4B5563">ship with the plugin</text>
+    <line x1="60" y1="158" x2="264" y2="158" stroke="#FFC9A0" stroke-width="2"/>
+    <text x="64" y="188" font-size="20" font-weight="700" fill="#111827">Overrides</text>
+    <text x="64" y="210" font-size="15" fill="#4B5563">in your kiit.json</text>
+    <line x1="60" y1="222" x2="264" y2="222" stroke="#FFC9A0" stroke-width="2"/>
+    <text x="64" y="252" font-size="20" font-weight="700" fill="#111827">Checks</text>
+    <text x="64" y="274" font-size="15" fill="#4B5563">a script checks them</text>
+
+    <rect x="328" y="40" width="244" height="262" rx="18" fill="#111827"/>
+    <rect x="334" y="46" width="232" height="250" rx="12" fill="#FFFFFF"/>
+    <path d="M334 84 V58 A12 12 0 0 1 346 46 H500 V84 Z" fill="#007FFF"/>
+    <text x="417" y="71.3" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">Skill groups</text>
+    <text x="352" y="124" font-size="20" font-weight="700" fill="#111827">vcs</text>
+    <text x="352" y="146" font-size="15" fill="#4B5563">branches, PRs</text>
+    <line x1="348" y1="158" x2="552" y2="158" stroke="#FFC9A0" stroke-width="2"/>
+    <text x="352" y="188" font-size="20" font-weight="700" fill="#111827">flow</text>
+    <text x="352" y="210" font-size="15" fill="#4B5563">ticket to PR</text>
+    <line x1="348" y1="222" x2="552" y2="222" stroke="#FFC9A0" stroke-width="2"/>
+    <text x="352" y="252" font-size="20" font-weight="700" fill="#111827">core</text>
+    <text x="352" y="274" font-size="15" fill="#4B5563">init, shared parts</text>
+
+    <rect x="616" y="40" width="244" height="262" rx="18" fill="#111827"/>
+    <rect x="622" y="46" width="232" height="250" rx="12" fill="#FFFFFF"/>
+    <path d="M622 84 V58 A12 12 0 0 1 634 46 H809 V84 Z" fill="#007FFF"/>
+    <text x="715.5" y="71.3" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">Multiple repos</text>
+    <text x="640" y="124" font-size="20" font-weight="700" fill="#111827">app</text>
+    <text x="640" y="146" font-size="15" fill="#4B5563">./app</text>
+    <line x1="636" y1="158" x2="840" y2="158" stroke="#FFC9A0" stroke-width="2"/>
+    <text x="640" y="188" font-size="20" font-weight="700" fill="#111827">api</text>
+    <text x="640" y="210" font-size="15" fill="#4B5563">./api</text>
+    <line x1="636" y1="222" x2="840" y2="222" stroke="#FFC9A0" stroke-width="2"/>
+    <text x="640" y="252" font-size="20" font-weight="700" fill="#111827">billing</text>
+    <text x="640" y="274" font-size="15" fill="#4B5563">./billing</text>
+
+    <line x1="290" y1="171" x2="314" y2="171" stroke="#111827" stroke-width="3"/>
+    <polygon points="312,165 312,177 322,171" fill="#111827"/>
+    <line x1="578" y1="171" x2="602" y2="171" stroke="#111827" stroke-width="3"/>
+    <polygon points="600,165 600,177 610,171" fill="#111827"/>
+  </g>
+</svg>
