@@ -59,7 +59,6 @@ A bare link only mentions an issue. A closing keyword closes it on merge.
 1. Find the ticket, in this order:
    - The `issue-{n}` ref in the branch name, for an issue of this repo
    - An issue link in the commit messages
-   - The `01-change.md` of the work item for this branch
 2. A GitHub issue of this repo: `Fixes #{n}`. Of another repo: `Fixes {owner}/{repo}#{n}`.
 3. Several issues: one `Fixes` line each.
 4. No issue, or another system such as `ABC-123`: write the link as given, no `Fixes`.
