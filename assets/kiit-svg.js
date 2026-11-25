@@ -104,27 +104,35 @@ function kiitBackground(t, w, h) {
   };
 }
 
-// A card in the logo's style: a dark rounded border, a white panel, and a solid blue
-// label block in the top-left corner, like the K tile. The text font comes from the
-// parent group. Returns the markup and where content can go: x, y, w, h of the panel,
-// and top, the first y below the label.
+// The width of some monospace text at a font size. The font's advance is 0.6 of its size.
+const kiitTextW = (text, size) => Math.round(text.length * size * 0.6);
+
+// A card as in the banner: white, with one thin border and a small radius. With a label it
+// has a solid blue header band holding the label. The text font comes from the parent
+// group. Returns the markup and where content can go: x, y, w, h of the card and top, the
+// first y below the band.
 function kiitCard(t, x, y, w, h, label, o = {}) {
-  const b = o.border || 6, r = o.radius || 18, ir = r - b;
-  const fs = o.labelSize || 18, lh = o.labelHeight || 38;
-  const lw = o.labelWidth || Math.round(label.length * fs * 0.6 + 36);
-  const px = x + b, py = y + b, pw = w - 2 * b, ph = h - 2 * b;
+  const band = label ? (o.band || 40) : 0, fs = o.labelSize || 14, r = 4;
+  const header = label
+    ? `\n    <path d="M${x} ${y + band} V${y + r} A${r} ${r} 0 0 1 ${x + r} ${y} H${x + w - r} A${r} ${r} 0 0 1 ${x + w} ${y + r} V${y + band} Z" fill="${t.blue}"/>
+    <text x="${x + 20}" y="${y + band / 2 + fs * 0.35}" font-size="${fs}" font-weight="700" fill="${t.onFill}">${esc(label)}</text>`
+    : "";
   return {
-    svg: `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${t.navy}"/>
-    <rect x="${px}" y="${py}" width="${pw}" height="${ph}" rx="${ir}" fill="${t.cardFill}"/>
-    <path d="M${px} ${py + lh} V${py + ir} A${ir} ${ir} 0 0 1 ${px + ir} ${py} H${px + lw} V${py + lh} Z" fill="${t.blue}"/>
-    <text x="${px + lw / 2}" y="${py + lh / 2 + fs * 0.35}" font-size="${fs}" font-weight="700" fill="${t.onFill}" text-anchor="middle">${esc(label)}</text>`,
-    x: px, y: py, w: pw, h: ph, top: py + lh,
+    svg: `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${t.cardFill}" stroke="${t.line}"/>${header}`,
+    x, y, w, h, top: y + band,
   };
 }
 
-// A thin divider in the logo's light orange.
-function kiitRule(t, x1, y1, x2, y2) {
-  return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${t.accent}" stroke-width="2"/>`;
+// A chip: a small rounded box around some text. style: blue (solid), soft (light grey) or ink.
+// x is the left edge and y the top. Returns the markup and the chip's width.
+function kiitChip(t, x, y, text, style = "soft", o = {}) {
+  const fs = o.size || 14, h = o.height || 28, w = kiitTextW(text, fs) + 24;
+  const [fill, color] = { soft: [t.softFill, t.ink], blue: [t.blue, t.onFill], ink: [t.ink, t.onFill] }[style];
+  return {
+    svg: `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${fill}"/>
+    <text x="${x + 12}" y="${y + h / 2 + fs * 0.35}" font-size="${fs}" font-weight="700" fill="${color}">${esc(text)}</text>`,
+    w,
+  };
 }
 
 // A sharp arrowhead whose tip is at (x, y).

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Kiit banner</title>
+<!--
+  The kiit banner (1392x360): the name, the tagline, the three points, and a card showing kiit.json.
+  Edit CONFIG below, then either:
+    1. open this file in a browser and press "Download SVG", or
+    2. export from the command line: ./banner.sh core/banner.html core/banner.svg
+  Colours and fonts are theme settings in kiit-svg.js.
+-->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
+  #banner svg { width: 100%; max-width: 1392px; height: auto; display: block; }
+  button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+
+<script src="../kiit-svg.js"></script>
+<script>
+// ---- CONFIG: change these for each project ---------------------------------
+const CONFIG = {
+  brand: "kiit",                  // blue
+  name: "",                       // optional, black, joined to the brand with a hyphen
+  titleMax: 140,                  // the largest title size
+  taglines: [                     // one or two lines under the title
+    "Engineering standards for AI coding agents, across all your repos.",
+    "Start with solid defaults, make them yours.",
+  ],
+  pillars: [                      // the bottom row, one box each. style: accent (orange), blue, soft or ink
+    { style: "accent", text: "Standards" },
+    { style: "soft", text: "Multiple repos" },
+    { style: "soft", text: "Skill groups" },
+  ],
+  card: {
+    title: ".claude/kiit/kiit.json",
+    left: "Feature",
+    right: "Note",
+    rows: [                       // [key, what it holds]
+      ["tickets", "your ticket systems"],
+      ["projects", "your repos"],
+      ["standards", "your overrides"],
+      ["groups", "settings per group"],
+      ["resources", "files and links"],
+    ],
+    footer: "Built for Claude Code.",   // optional line under the card
+    footerAccent: "Claude Code",        // the part of the footer set in bold
+  },
+  theme: KIIT_THEME,
+};
+// ---------------------------------------------------------------------------
+
+function buildSvg(c) {
+  const t = c.theme, W = 1392, H = 360;
+  const full = c.name ? c.brand + "-" + c.name : c.brand;
+  const n = full.length;
+  // shrink long names so the title stays left of the card
+  const titleSize = Math.min(c.titleMax, Math.floor((664 + 3 * n) / (0.6 * n + 0.62)));
+  const advance = 0.6 * titleSize - 3;                        // the step from one letter to the next
+  // every letter gets its own x, so no font can push the word out of place
+  const letterXs = Array.from({ length: n }, (_, i) => (84 + i * advance).toFixed(1)).join(" ");
+  const rest = c.name ? "-" + esc(c.name) : "";
+
+  // the tagline: one or two lines, sized to fit left of the card
+  const lines = c.taglines;
+  const longest = Math.max(...lines.map((l) => l.length));
+  const tagSize = Math.min(22, Math.floor(760 / (0.6 * longest)));
+  const tagY = lines.length > 1 ? 230 : 240, subGap = 42;   // subGap: the space from the tagline down to the next line
+  // the first line is the tagline, in ink. Any other line is lighter and smaller, right aligned under it
+  const endX = 88 + kiitTextW(lines[0], tagSize), subSize = Math.round(tagSize * 0.85);
+  const tagSvg = lines.map((l, i) => i === 0
+    ? `<text x="88" y="${tagY}" font-size="${tagSize}" fill="${t.ink}">${esc(l)}</text>`
+    : `<text x="${endX}" y="${tagY + subGap * i}" font-size="${subSize}" fill="${t.sub}" text-anchor="end">${esc(l)}</text>`).join("\n    ");
+
+  // the bottom row: a box per point. Every character gets its own x, so no font can spill out of its box
+  const weights = { soft: [t.softFill, t.ink], blue: [t.blue, t.onFill], ink: [t.ink, t.onFill], accent: [t.accent, t.ink] };
+  const boxY = 302, boxH = 38, textY = boxY + 25, cw = 16 * 0.6;
+  let x = 88;
+  const pillarSvg = c.pillars.map((p) => {
+    const w = Math.round(p.text.length * cw + 32), [fill, color] = weights[p.style];
+    const xs = Array.from(p.text, (_, j) => (x + 16 + j * cw).toFixed(1)).join(" ");
+    const svg = `<rect x="${x}" y="${boxY}" width="${w}" height="${boxH}" rx="4" fill="${fill}"/>
+    <text x="${xs}" y="${textY}" font-size="16" font-weight="700" fill="${color}">${esc(p.text)}</text>`;
+    x += w + 12;
+    return svg;
+  }).join("\n    ");
+
+  // the card: a header band, then a row per key
+  const rows = c.card.rows;
+  const h = 98 + 24 * rows.length, top = (H - h) / 2 - 12;
+  const rowSvg = rows.map(([key, holds], i) => {
+    const y = 104 + 24 * i;
+    return `      <circle cx="30" cy="${y - 5}" r="3" fill="${t.sub}"/>
+      <text x="44" y="${y}" font-size="16" font-weight="700" fill="${t.ink}">${esc(key)}</text>
+      <text x="404" y="${y}" font-size="16" fill="${t.sub}" text-anchor="end">${esc(holds)}</text>`;
+  }).join("\n");
+  const fa = c.card.footerAccent, ft = c.card.footer || "";
+  const footerText = fa && ft.includes(fa)
+    ? `${esc(ft.slice(0, ft.indexOf(fa)))}<tspan font-weight="700" fill="${t.ink}">${esc(fa)}</tspan>${esc(ft.slice(ft.indexOf(fa) + fa.length))}`
+    : esc(ft);
+  const footer = ft
+    ? `\n    <text x="${W - 80}" y="${top + h + 34}" font-size="14" fill="${t.sub}" text-anchor="end">${footerText}</text>`
+    : "";
+
+  const bg = kiitBackground(t, W, H);
+  const label = `${full}: ${lines.join(" ")}`;
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
+  <defs>
+    ${bg.defs}
+  </defs>
+
+  ${bg.body}
+
+  <g font-family="${KIIT_FONT}">
+    <text x="${letterXs}" y="176" font-size="${titleSize}" font-weight="700" fill="${t.ink}"><tspan fill="${t.blue}">${esc(c.brand)}</tspan>${rest}</text>
+    ${tagSvg}
+    ${pillarSvg}
+
+    <g transform="translate(${W - 508} ${top})">
+      <rect width="428" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.line}"/>
+      <path d="M0 44 V4 A4 4 0 0 1 4 0 H424 A4 4 0 0 1 428 4 V44 Z" fill="${t.blue}"/>
+      <text x="24" y="28" font-size="14" font-weight="700" fill="${t.onFill}">${esc(c.card.title)}</text>
+      <text x="44" y="70" font-size="14" fill="${t.dim}">${esc(c.card.left)}</text>
+      <text x="404" y="70" font-size="14" fill="${t.dim}" text-anchor="end">${esc(c.card.right)}</text>
+${rowSvg}
+    </g>${footer}
+  </g>
+</svg>
+`;
+}
+
+kiitMount(buildSvg(CONFIG), CONFIG.brand + "-banner.svg");
+</script>
