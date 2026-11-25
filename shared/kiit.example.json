@@ -1,8 +1,9 @@
 {
   "version": 1,
   "tickets": [
-    { "type": "github", "owner": "acme" },
-    { "type": "jira", "url": "https://acme.atlassian.net/browse" }
+    { "name": "oss", "type": "github", "owner": "acme" },
+    { "name": "work", "type": "gitlab", "owner": "acme/platform", "url": "https://git.acme.dev" },
+    { "name": "bill", "type": "jira", "url": "https://acme.atlassian.net/browse", "project": "BILL" }
   ],
   "resources": [
     {
@@ -12,11 +13,23 @@
     }
   ],
   "projects": [
-    { "name": "app", "path": "./app", "aliases": ["web"] },
-    { "name": "api", "path": "./api", "tickets": "jira" }
+    { "name": "app", "path": "./app", "aliases": ["web"], "tickets": "oss" },
+    {
+      "name": "api",
+      "path": "./api",
+      "tickets": "work",
+      "ticketProject": "billing-api",
+      "baseBranch": "develop"
+    },
+    { "name": "billing", "path": "./billing", "tickets": "bill" }
   ],
-  "flow": {
-    "work_items": "_kiit/flow",
-    "review": { "baseline": "standards", "model": "sonnet" }
+  "standards": {
+    "vcs": { "types": ["feat", "fix", "docs", "hotfix"] }
+  },
+  "groups": {
+    "flow": {
+      "work_items": "_kiit/flow",
+      "review": { "baseline": "standards", "model": "sonnet" }
+    }
   }
 }
