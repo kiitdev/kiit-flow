@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 290 290" role="img" aria-label="Kiit logo: a toolbox with a k tile">
+  <defs>
+    <pattern id="grid" width="18.125" height="18.125" patternUnits="userSpaceOnUse">
+      <path d="M18.125 0H0V18.125" fill="none" stroke="#C4D8F6" stroke-width="0.57"/>
+    </pattern>
+    <clipPath id="frame"><rect width="290" height="290" rx="57"/></clipPath>
+  </defs>
+  <g clip-path="url(#frame)">
+    <rect width="290" height="290" fill="#E8F1FF"/>
+    <rect width="290" height="290" fill="url(#grid)"/>
+  </g>
+  <path d="M 57 3.4 H 233 A 53.6 53.6 0 0 1 286.6 57 V 233 A 53.6 53.6 0 0 1 233 286.6 H 57" fill="none" stroke="#4DA3FF" stroke-width="6.8"/>
+  <path d="M 57 3.4 A 53.6 53.6 0 0 0 3.4 57 V 233 A 53.6 53.6 0 0 0 57 286.6" fill="none" stroke="#E8794A" stroke-width="6.8"/>
+  <g transform="translate(11.75 33.25)">
+    <rect x="9" y="19" width="248.5" height="195" rx="45" fill="#000"/>
+    <rect x="47" y="19" width="41" height="5" fill="#BBB"/>
+    <rect x="179" y="19" width="41" height="5" fill="#BBB"/>
+    <rect x="37" y="47" width="192.5" height="138.5" rx="10" fill="#FFF"/>
+    <g stroke="#38BDF8" stroke-width="1.6">
+      <path d="M100 47V185.5M167.5 47V185.5M37 116H229.5"/>
+    </g>
+    <path d="M37 116H100V185.5H47A10 10 0 0 1 37 175.5Z" fill="#007FFF"/>
+    <path d="M47.5 127H58.5V147L73 127H87L69 148L91 176H77L63 156L58.5 161V176H47.5Z" fill="#FFF"/>
+    <rect x="87.5" y="9.5" width="91.5" height="37.5" fill="#3ABDF8"/>
+    <rect x="102" y="27" width="62" height="12" rx="2" fill="#007FFF"/>
+  </g>
+</svg>
