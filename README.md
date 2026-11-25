@@ -17,17 +17,17 @@ Part of [Kiit](https://www.kiit.dev)
 
 ## 📚 Table of Contents
 
-| Section | Description |
-|---|---|
-| [Why](#why) | What kiit adds: engineering standards, across repos, in skill groups |
-| [Standards](#standards) | What ships today, and how a team makes the standards its own |
-| [Groups](#groups) | The skill groups and the commands each one has |
-| [Start](#start) | Get set up and run a first command |
-| [Configuration](#configuration) | The workspace and `kiit.json` |
-| [Roadmap](#roadmap) | What is planned next |
-| [Requirements](#requirements) | What kiit needs to run |
-| [Contributing](#contributing) | How to write or change a skill |
-| [License](#license) | Apache 2.0 |
+| # | | Section | Description |
+|---:|:---:|---|---|
+| 1 | 💡 | [Why](#why) | What kiit adds: engineering standards, across repos, in skill groups |
+| 2 | 📐 | [Standards](#standards) | What ships today, and how a team makes the standards its own |
+| 3 | 🧩 | [Groups](#groups) | The skill groups and the commands each one has |
+| 4 | 🚀 | [Start](#start) | Get set up and run a first command |
+| 5 | ⚙️ | [Configuration](#configuration) | The workspace and `kiit.json` |
+| 6 | 🗺️ | [Roadmap](#roadmap) | What is planned next |
+| 7 | 📋 | [Requirements](#requirements) | What kiit needs to run |
+| 8 | 🤝 | [Contributing](#contributing) | How to write or change a skill |
+| 9 | 📄 | [License](#license) | Apache 2.0 |
 
 ## Why
 
