@@ -52,5 +52,5 @@ S6 comes from `update-1.md` (what to keep, independent review). The other rules 
 
 1. **The `vcs` exception to S1.** Which git commands may `vcs-branch` and `vcs-pr` run, and does the hook allow them by skill or by command?
 2. **Enforcing S2.** A hook can block a write outside the work item folder and the project repo. Whether `allowed-tools` or a hook can express a path limit has not been checked.
-3. **The flow safety floor.** The flow group's "Safety floor" item (`--force` keeps the secret scan, the git ban and the recorded override) is a security rule that lives in `GROUP-FLOW.md` (F6). It could move here.
+3. **The flow safety floor.** The flow group's "Safety floor" item (`--force` keeps the secret scan, the git ban and the recorded override) is a security rule that lives in `RULES.md`, Flow, Direction (F6). It could move here.
 4. **Plugin scripts and hooks.** Hooks from a plugin register on install, so users trust the plugin's scripts. Whether the standards say anything about that is open.

@@ -33,6 +33,8 @@ A group's `setup.md` has no frontmatter and no Usage block. Its parts, in order:
 
 ## Procedure
 For each item in `## Creates`, in order:
+0. Check `ls -d _kiit` once, first. A setup never creates `_kiit/`, `init` does.
+   - Missing: `error: _kiit not found`, then `/kiit:init`, and stop
 1. Apply `## Conditions`. A condition that stops the run prints `error: {what}`.
 2. Check it, with one call per item: `ls -ld {path}`. A leading `d` is a folder.
    - It exists as the right kind (a folder for a folder): `exists`, go on
@@ -47,13 +49,16 @@ Every item existed: print `nothing to do`.
 
 ## Order
 1. Groups run in alphabetical order.
-2. A setup that needs another group's folder says so in its own file, and runs that
-   group's setup first. A cycle is `error: setup order cycle {a} -> {b}`.
+2. A setup never needs another group's folder. A thing two groups share goes in
+   `_kiit/core/`.
 
 ## Who runs it
-1. `init` runs the setup of every group that has one, after it writes `kiit.json`.
+1. `init` creates `_kiit/` itself, because the folder is global and no group owns it.
+   - A group's setup creates its own folder inside it, such as `_kiit/flow/`
+2. `init` then runs the setup of every group that has one, after it writes `kiit.json`.
    - It lists each group's `## Creates` in its proposal, so the yes covers them
-2. A group's skill runs its own setup when `_kiit/{group}/` is missing.
-   - It checks with `ls -d _kiit/{group}`, as one call from the root
-   - A skill reads only its own group's `setup.md`
-3. Both follow this file. They never copy its rules.
+3. A group's skill never runs a setup, and never creates or repairs a folder or file.
+   - It checks what it needs with `ls -d {path}`, as one call from the root
+   - A path is missing: `error: {path} not found`, then `/kiit:init`
+   - A deleted folder is repaired by running `/kiit:init` again
+4. `init` follows this file. It never copies its rules.

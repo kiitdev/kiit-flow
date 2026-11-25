@@ -6,7 +6,8 @@ Read first:
 - core/content/cli.md
 - core/content/config.md
 - core/content/shell.md
-- vcs/content/formats.md
+- core/content/formats.md
+- core/content/branch.md
 - vcs/standards.json
 
 ## Usage
@@ -40,17 +41,8 @@ EXAMPLES:
    - A ticket: read `core/content/tickets.md` first
    - Print what was inferred: `type: fix (label: bug)`
    - Nothing fits: `error: cannot infer type`, then `valid: {types}`, and stop
-5. Pick the base branch (vcs/content/formats.md).
-6. Name the branch (vcs/content/formats.md), with `branch.fallback` if no ticket.
-   - A ticket and no name: use the ticket title (core/content/tickets.md)
-   - Check it with `vcs/scripts/check-format.sh`. It fails: print its line, stop
-7. A branch of that name exists: ask before going on. Never overwrite it.
-8. Fetch the base: `git fetch origin {base}`.
-9. Create it: `git checkout -b {name} --no-track origin/{base}`.
-   - `--no-track` stops a plain `git push` from sending the branch to the base
-10. Print the branch name and its base. The first push is `git push -u origin {name}`.
+5. Create the branch (core/content/branch.md): base, name, fetch, checkout.
+6. Print the branch name and its base. The first push is `git push -u origin {name}`.
 
 ## Rules
-1. Create and check out the branch locally. Never push, commit or reset.
-2. Branch from `origin/{base}`, never from a possibly stale local copy.
-3. Never create over an existing branch without the user's answer.
+1. The rules of core/content/branch.md apply. Never push, commit or reset.

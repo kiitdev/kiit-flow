@@ -18,7 +18,7 @@ Used by every skill that takes a ticket. The ticket systems are in `kiit.json` (
 
 ## Infer the type from a ticket
 This reads a ticket title written by someone else. It does not set the format of a
-branch or PR title, which is in the standards (`vcs/content/formats.md`).
+branch or PR title, which is in the standards (`core/content/formats.md`).
 1. A title prefix names the type: `fix:`, `FEAT:`, `Docs -`, or `feat(api):`.
    - Ignore case, and ignore a `(scope)` after the type
 2. Else a label: bug = fix, enhancement or feature = feat, documentation = docs.

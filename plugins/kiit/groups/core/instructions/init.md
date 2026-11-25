@@ -43,6 +43,7 @@ USAGE: /kiit:init
 8. Print what it found and the result: the file, or the difference.
    - Notes: Jira, Linear or other systems need a base URL and a default project
    - Notes: a repo with no usable remote, and a read that failed
+   - `_kiit/`, the folder `init` creates itself, when it is missing
    - Find group setups: `ls {groups folder}/*/instructions/setup.md`, one call
    - List what each setup creates, from its `## Creates` (core/content/setup.md)
 9. Ask the user to confirm or correct it, and wait.
@@ -52,16 +53,20 @@ USAGE: /kiit:init
    - Pretty print: 2-space indent, one key per line, and a newline at the end
    - Keep the key order: `version`, `tickets`, `projects`, then any other keys
    - A change after the proposal is checked again (step 6)
-11. Run the group setups, in order, as listed in step 8 (core/content/setup.md).
+11. Create `_kiit/` when it is missing: `ls -ld _kiit`, then `mkdir -p _kiit`.
+   - One call each
+   - It exists as a file: `error: _kiit is a file`, and stop
+   - Report it as `core   _kiit   created` or `exists`
+12. Run the group setups, in order, as listed in step 8 (core/content/setup.md).
    - Only what is missing is created. The yes in step 9 covers it
    - A setup that stops with an error does not undo the file written in step 10
-12. Report what was written and what was left out. Nothing changed: say so.
+13. Report what was written and what was left out. Nothing changed: say so.
    - Include one line per setup item: `created` or `exists`
    - Next: run any kiit skill, such as `/kiit:vcs-branch`
 
 ## Rules
 1. Write only `tickets` and `projects`. No `resources`, defaults, `standards` or `groups`.
-   - Besides the file, only what a group setup creates (step 11)
+   - Besides the file, only `_kiit/` (step 11) and what a group setup creates (step 12)
 2. Never replace a file or an entry without the user's yes.
 3. No secrets in the file, including a `url`.
 4. Git is read-only. Never push, commit or change a repo.
