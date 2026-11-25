@@ -27,11 +27,11 @@ Kiit is a plugin of skill groups for your coding agent. It keeps your team's eng
 
 Teams with several repos end up with several ways of naming branches, titling pull requests and checking a change. A coding agent follows whatever the repo in front of it does. Kiit gives it one set of standards instead.
 
-| # | Purpose | Description |
-|---:|---|---|
-| 1 | **Standards** | Defaults for branch and pull request formats, with a script that checks them. |
-| 2 | **Multiple repos** | One workspace config lists your projects, so every repo shares the standards. |
-| 3 | **Skill groups** | Skills come in groups, `vcs` and `flow` so far, each with its own commands. |
+| # | | Purpose | Description |
+|---:|:---:|---|---|
+| 1 | 📐 | **Standards** | Defaults for branch and pull request formats, with a script that checks them. |
+| 2 | 🗂️ | **Multiple repos** | One workspace config lists your projects, so every repo shares the standards. |
+| 3 | 🧩 | **Skill groups** | Skills come in groups, `vcs` and `flow` so far, each with its own commands. |
 
 Only `vcs` has standards today. The mechanism is in place for the other groups.
 
