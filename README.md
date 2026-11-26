@@ -1,4 +1,5 @@
 <div align="center">
+<img src="./assets/core/icon.svg" alt="Kiit logo: a toolbox with a k tile" width="112" height="112" />
 <h1>
   <img src="./assets/core/banner.svg" alt="Kiit: engineering standards and skills for AI coding agents. Across multiple repos, start with solid defaults, make them yours." align="center" />
 </h1>
