@@ -35,28 +35,28 @@
     <rect x="396" y="302" width="147" height="38" rx="4" fill="#EEF2F7"/>
     <text x="412.0 421.6 431.2 440.8 450.4 460.0 469.6 479.2 488.8 498.4 508.0 517.6" y="327" font-size="16" font-weight="700" fill="#1E293B">Skill groups</text>
 
-    <g transform="translate(884 59)">
-      <rect width="428" height="218" rx="4" fill="#FFFFFF" stroke="#475569"/>
-      <path d="M0 44 V4 A4 4 0 0 1 4 0 H424 A4 4 0 0 1 428 4 V44 Z" fill="#007FFF"/>
-      <text x="24" y="28" font-size="14" font-weight="700" fill="#FFFFFF">.claude/kiit/kiit.json</text>
-      <text x="44" y="70" font-size="14" fill="#6B7A99">Feature</text>
-      <text x="404" y="70" font-size="14" fill="#6B7A99" text-anchor="end">Note</text>
-      <circle cx="30" cy="99" r="3" fill="#64748B"/>
-      <text x="44" y="104" font-size="16" font-weight="700" fill="#1E293B">tickets</text>
-      <text x="404" y="104" font-size="16" fill="#64748B" text-anchor="end">your ticket systems</text>
-      <circle cx="30" cy="123" r="3" fill="#64748B"/>
-      <text x="44" y="128" font-size="16" font-weight="700" fill="#1E293B">projects</text>
-      <text x="404" y="128" font-size="16" fill="#64748B" text-anchor="end">your repos</text>
-      <circle cx="30" cy="147" r="3" fill="#64748B"/>
-      <text x="44" y="152" font-size="16" font-weight="700" fill="#1E293B">standards</text>
-      <text x="404" y="152" font-size="16" fill="#64748B" text-anchor="end">your overrides</text>
-      <circle cx="30" cy="171" r="3" fill="#64748B"/>
-      <text x="44" y="176" font-size="16" font-weight="700" fill="#1E293B">groups</text>
-      <text x="404" y="176" font-size="16" fill="#64748B" text-anchor="end">settings per group</text>
-      <circle cx="30" cy="195" r="3" fill="#64748B"/>
-      <text x="44" y="200" font-size="16" font-weight="700" fill="#1E293B">resources</text>
-      <text x="404" y="200" font-size="16" fill="#64748B" text-anchor="end">files and links</text>
+    <g transform="translate(872 40)">
+      <rect width="440" height="256" rx="4" fill="#FFFFFF" stroke="#475569"/>
+      <path d="M0 48 V4 A4 4 0 0 1 4 0 H436 A4 4 0 0 1 440 4 V48 Z" fill="#007FFF"/>
+      <text x="24" y="29.6" font-size="16" font-weight="700" fill="#FFFFFF">.claude/kiit/kiit.json</text>
+      <text x="48" y="76" font-size="15" fill="#6B7A99">Feature</text>
+      <text x="416" y="76" font-size="15" fill="#6B7A99" text-anchor="end">Note</text>
+      <circle cx="32" cy="106" r="3.5" fill="#64748B"/>
+      <text x="48" y="112" font-size="18" font-weight="700" fill="#1E293B">tickets</text>
+      <text x="416" y="112" font-size="18" fill="#64748B" text-anchor="end">your ticket systems</text>
+      <circle cx="32" cy="136" r="3.5" fill="#64748B"/>
+      <text x="48" y="142" font-size="18" font-weight="700" fill="#1E293B">projects</text>
+      <text x="416" y="142" font-size="18" fill="#64748B" text-anchor="end">your repos</text>
+      <circle cx="32" cy="166" r="3.5" fill="#64748B"/>
+      <text x="48" y="172" font-size="18" font-weight="700" fill="#1E293B">standards</text>
+      <text x="416" y="172" font-size="18" fill="#64748B" text-anchor="end">your overrides</text>
+      <circle cx="32" cy="196" r="3.5" fill="#64748B"/>
+      <text x="48" y="202" font-size="18" font-weight="700" fill="#1E293B">groups</text>
+      <text x="416" y="202" font-size="18" fill="#64748B" text-anchor="end">settings per group</text>
+      <circle cx="32" cy="226" r="3.5" fill="#64748B"/>
+      <text x="48" y="232" font-size="18" font-weight="700" fill="#1E293B">resources</text>
+      <text x="416" y="232" font-size="18" fill="#64748B" text-anchor="end">files and links</text>
     </g>
-    <text x="1312" y="311" font-size="14" fill="#64748B" text-anchor="end">Built for <tspan font-weight="700" fill="#1E293B">Claude Code</tspan>.</text>
+    <text x="1312" y="330" font-size="15" fill="#64748B" text-anchor="end">Built for <tspan font-weight="700" fill="#1E293B">Claude Code</tspan>.</text>
   </g>
 </svg>

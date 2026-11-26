@@ -91,19 +91,20 @@ function buildSvg(c) {
 
   // the card: a header band, then a row per key
   const rows = c.card.rows;
-  const h = 98 + 24 * rows.length, top = (H - h) / 2 - 12;
+  const cardW = 440, band = 48, headY = band + 28, firstY = headY + 36, step = 30;   // the card's width, header band and row spacing
+  const h = firstY + step * (rows.length - 1) + 24, top = (H - h) / 2 - 12;
   const rowSvg = rows.map(([key, holds], i) => {
-    const y = 104 + 24 * i;
-    return `      <circle cx="30" cy="${y - 5}" r="3" fill="${t.sub}"/>
-      <text x="44" y="${y}" font-size="16" font-weight="700" fill="${t.ink}">${esc(key)}</text>
-      <text x="404" y="${y}" font-size="16" fill="${t.sub}" text-anchor="end">${esc(holds)}</text>`;
+    const y = firstY + step * i;
+    return `      <circle cx="32" cy="${y - 6}" r="3.5" fill="${t.sub}"/>
+      <text x="48" y="${y}" font-size="18" font-weight="700" fill="${t.ink}">${esc(key)}</text>
+      <text x="${cardW - 24}" y="${y}" font-size="18" fill="${t.sub}" text-anchor="end">${esc(holds)}</text>`;
   }).join("\n");
   const fa = c.card.footerAccent, ft = c.card.footer || "";
   const footerText = fa && ft.includes(fa)
     ? `${esc(ft.slice(0, ft.indexOf(fa)))}<tspan font-weight="700" fill="${t.ink}">${esc(fa)}</tspan>${esc(ft.slice(ft.indexOf(fa) + fa.length))}`
     : esc(ft);
   const footer = ft
-    ? `\n    <text x="${W - 80}" y="${top + h + 34}" font-size="14" fill="${t.sub}" text-anchor="end">${footerText}</text>`
+    ? `\n    <text x="${W - 80}" y="${top + h + 34}" font-size="15" fill="${t.sub}" text-anchor="end">${footerText}</text>`
     : "";
 
   const bg = kiitBackground(t, W, H);
@@ -121,12 +122,12 @@ function buildSvg(c) {
     ${tagSvg}
     ${pillarSvg}
 
-    <g transform="translate(${W - 508} ${top})">
-      <rect width="428" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.line}"/>
-      <path d="M0 44 V4 A4 4 0 0 1 4 0 H424 A4 4 0 0 1 428 4 V44 Z" fill="${t.blue}"/>
-      <text x="24" y="28" font-size="14" font-weight="700" fill="${t.onFill}">${esc(c.card.title)}</text>
-      <text x="44" y="70" font-size="14" fill="${t.dim}">${esc(c.card.left)}</text>
-      <text x="404" y="70" font-size="14" fill="${t.dim}" text-anchor="end">${esc(c.card.right)}</text>
+    <g transform="translate(${W - 80 - cardW} ${top})">
+      <rect width="${cardW}" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.line}"/>
+      <path d="M0 ${band} V4 A4 4 0 0 1 4 0 H${cardW - 4} A4 4 0 0 1 ${cardW} 4 V${band} Z" fill="${t.blue}"/>
+      <text x="24" y="${band / 2 + 5.6}" font-size="16" font-weight="700" fill="${t.onFill}">${esc(c.card.title)}</text>
+      <text x="48" y="${headY}" font-size="15" fill="${t.dim}">${esc(c.card.left)}</text>
+      <text x="${cardW - 24}" y="${headY}" font-size="15" fill="${t.dim}" text-anchor="end">${esc(c.card.right)}</text>
 ${rowSvg}
     </g>${footer}
   </g>
