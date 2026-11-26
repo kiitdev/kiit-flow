@@ -74,7 +74,7 @@ function buildSvg(c) {
   // the lighter line is smaller, and never wider than the tagline above it
   const subSize = (l) => Math.min(Math.round(tagSize * 0.85), Math.floor(tagW / (0.6 * l.length)));
   const tagSvg = lines.map((l, i) => i === 0
-    ? `<text x="88" y="${tagY}" font-size="${tagSize}" fill="${t.ink}">${esc(l)}</text>`
+    ? `<text x="88" y="${tagY}" font-size="${tagSize}" font-weight="700" fill="${t.ink}">${esc(l)}</text>`
     : `<text x="${endX}" y="${tagY + subGap * i}" font-size="${subSize(l)}" fill="${t.sub}" text-anchor="end">${esc(l)}</text>`).join("\n    ");
 
   // the bottom row: a box per point. Every character gets its own x, so no font can spill out of its box
@@ -100,7 +100,7 @@ function buildSvg(c) {
   const rowSvg = rows.map(([key, holds], i) => {
     const y = firstY + step * i;
     return `      <circle cx="32" cy="${y - 6}" r="3.5" fill="${t.sub}"/>
-      <text x="48" y="${y}" font-size="18" font-weight="700" fill="${t.ink}">${esc(key)}</text>
+      <text x="48" y="${y}" font-size="18" font-weight="700" fill="${t.blueMid}">${esc(key)}</text>
       <text x="${cardW - 24}" y="${y}" font-size="18" fill="${t.sub}" text-anchor="end">${esc(holds)}</text>`;
   }).join("\n");
   const fa = c.card.footerAccent, ft = c.card.footer || "";
@@ -127,7 +127,7 @@ function buildSvg(c) {
     ${pillarSvg}
 
     <g transform="translate(${W - 80 - cardW} ${top})">
-      <rect width="${cardW}" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.line}"/>
+      <rect width="${cardW}" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.inkSoft}" stroke-width="1.5"/>
       <path d="M0 ${band} V4 A4 4 0 0 1 4 0 H${cardW - 4} A4 4 0 0 1 ${cardW} 4 V${band} Z" fill="${t.blue}"/>
       <text x="24" y="${band / 2 + 5.6}" font-size="16" font-weight="700" fill="${t.onFill}">${esc(c.card.title)}</text>
       <text x="48" y="${headY}" font-size="15" fill="${t.dim}">${esc(c.card.left)}</text>

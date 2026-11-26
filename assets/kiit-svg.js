@@ -10,25 +10,26 @@
 //   3. For one template: use kiitTheme({ accent: "#14B8A6" }) as that template's theme.
 
 const KIIT_THEME = {
-  paper: "#E8F1FF", grid: "#C4D8F6",
+  paper: "#E8F1FF", grid: "#CBD8FC",
   frame: "#4DA3FF", frameLeft: "#E8794A",       // the old outline, still read by start.html
   // The palette is three colours: ink, blue and orange, with neutral greys.
-  sheetFrom: "#FDFEFF", sheetTo: "#DFECFB",     // the page: a soft diagonal gradient
+  sheetFrom: "#FFFFFF", sheetTo: "#EFF3FE",     // the page: white, fading to a very light blue. Before: #FDFEFF to #DFECFB
   edge: "#8CA3C7", edgeWidth: 1.5,              // the page border, visible on light and dark pages
   pageRadius: 10,               // the page's corner radius
   showGrid: true,               // graph paper lines on the right, fading out toward the left
   gridSize: 32, gridWidth: 1,   // the spacing and thickness of the lines. Their colour is `grid`
   gridFade: 0.5,                // where the fade starts, as a share of the width from the left
-  showBar: true, barWidth: 8,   // the bar down the left edge. Its colour is `accent`
+  showBar: true, barWidth: 8,   // the bar down the left edge. Its colour is `barColor`
   line: "#475569",              // card and box borders
   hair: "#CBD5E1",              // thin rules inside a card
-  accent: "#FF9A4D",            // orange: the small bar on the left edge of every page
+  barColor: "#144DF2",          // the left bar: the same blue as `blue`. Before: the orange `accent`
+  accent: "#FF9A4D",            // orange: the one vivid accent, such as the Standards pill
   navy: "#111827",
-  blue: "#007FFF",              // blueprint blue
-  blueTint: "#E8F2FF", blueDeep: "#0B63CE",     // a tint of blue for fills, and a deeper blue for small text on it
+  blue: "#144DF2",              // the blue of the x in the jsonx logo. Before: #007FFF
+  blueTint: "#ECF1FE", blueDeep: "#0B3AC4",     // a tint of blue for fills, and a deeper blue for small text on it
   ink: "#1E293B", sub: "#64748B", dim: "#6B7A99",
   plus: "#16C45E",              // a vivid green, only for the + that marks what is added
-  blueSoft: "#8CC5FF", inkSoft: "#B8C5DA",       // a light blue and a light black (slate), for softer borders. Soften a main colour with its light variant
+  blueMid: "#4F79F5", blueSoft: "#95AFF9", inkSoft: "#B8C5DA",       // a light blue and a light black (slate), for softer borders. Soften a main colour with its light variant
   fontFamily: "Fira Code",      // the font. banner.sh embeds its files, so it looks the same everywhere
   fontDir: "fonts/",            // where the files are, relative to this script
   fontFaces: [[400, "FiraCode-Regular.woff2"], [700, "FiraCode-Bold.woff2"]],   // [weight, file]. Built by fonts/make-fonts.py
@@ -77,12 +78,12 @@ const KIIT_FONT = `'${KIIT_THEME.fontFamily}', ui-monospace, SFMono-Regular, Men
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 // The page: an off-white sheet with a soft gradient, graph paper lines on the right that
-// fade out toward the left, an orange bar down the left edge, and a thin border, so
+// fade out toward the left, a blue bar down the left edge, and a thin border, so
 // the image keeps its edge on light and dark pages. Returns {defs, body}.
 function kiitBackground(t, w, h) {
   const o = t.edgeWidth / 2, pw = w - t.edgeWidth, ph = h - t.edgeWidth, r = t.pageRadius, g = t.gridSize;
   const grid = t.showGrid ? `<rect width="${w}" height="${h}" fill="url(#kiit-grid)" mask="url(#kiit-grid-mask)"/>` : "";
-  const bar = t.showBar ? `<rect x="0" y="0" width="${t.barWidth}" height="${h}" fill="${t.accent}"/>` : "";
+  const bar = t.showBar ? `<rect x="0" y="0" width="${t.barWidth}" height="${h}" fill="${t.barColor}"/>` : "";
   return {
     defs: `<linearGradient id="kiit-sheet" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="${t.sheetFrom}"/>
