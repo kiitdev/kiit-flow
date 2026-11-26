@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Kiit overview</title>
+<!--
+  What kiit adds: standards, used by skill groups, in your repos. Three cards joined by arrows.
+  Edit CONFIG below, then either:
+    1. open this file in a browser and press "Download SVG", or
+    2. export from the command line: ./banner.sh core/overview.html core/overview.svg
+-->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
+  #banner svg { width: 100%; max-width: 900px; height: auto; display: block; }
+  button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+
+<script src="../kiit-svg.js"></script>
+<script>
+// ---- CONFIG: change these for each project ---------------------------------
+const CONFIG = {
+  width: 900,                                // fits a GitHub README
+  cards: [                                   // each card: a label, and rows of [name, note]
+    { label: "Standards", rows: [
+      ["Defaults",  "ship with the plugin"],
+      ["Overrides", "in your kiit.json"],
+      ["Checks",    "a script checks them"],
+    ] },
+    { label: "Skill groups", rows: [
+      ["vcs",  "branches, PRs"],
+      ["flow", "ticket to PR"],
+      ["core", "init, shared parts"],
+    ] },
+    { label: "Multiple repos", rows: [
+      ["app",     "./app"],
+      ["api",     "./api"],
+      ["billing", "./billing"],
+    ] },
+  ],
+  theme: KIIT_THEME,
+};
+// ---------------------------------------------------------------------------
+
+function buildSvg(c) {
+  const t = c.theme, W = c.width, pad = 40, cw = 244, b = 6, labelH = 38, rowH = 64;
+  const n = c.cards.length, gap = (W - 2 * pad - n * cw) / (n - 1);
+  const rows = Math.max(...c.cards.map((k) => k.rows.length));
+  const cardH = 2 * b + labelH + 14 + rows * rowH + 6;
+  const H = cardH + 2 * pad;
+  const bg = kiitBackground(t, W, H);
+
+  const cards = c.cards.map((k, i) => {
+    const card = kiitCard(t, pad + i * (cw + gap), pad, cw, cardH, k.label);
+    const body = k.rows.map(([name, note], j) => {
+      const ry = card.top + 14 + j * rowH;
+      const rule = j < k.rows.length - 1 ? "\n    " + kiitRule(t, card.x + 14, ry + rowH - 4, card.x + card.w - 14, ry + rowH - 4) : "";
+      return `<text x="${card.x + 18}" y="${ry + 26}" font-size="20" font-weight="700" fill="${t.ink}">${esc(name)}</text>
+    <text x="${card.x + 18}" y="${ry + 48}" font-size="15" fill="${t.sub}">${esc(note)}</text>${rule}`;
+    }).join("\n    ");
+    return `${card.svg}
+    ${body}`;
+  }).join("\n\n    ");
+
+  const arrows = c.cards.slice(1).map((_, i) => {
+    const x1 = pad + i * (cw + gap) + cw + 6, x2 = pad + (i + 1) * (cw + gap) - 6, y = pad + cardH / 2;
+    return `<line x1="${x1}" y1="${y}" x2="${x2 - 8}" y2="${y}" stroke="${t.navy}" stroke-width="3"/>
+    ${kiitHead(x2, y, "right", 10, t.navy)}`;
+  }).join("\n    ");
+
+  const label = "Kiit overview. Standards, which are defaults, your overrides and a script that checks them, are used by the skill groups vcs, flow and core, in your repos app, api and billing.";
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
+  <defs>
+    ${bg.defs}
+  </defs>
+
+  ${bg.body}
+
+  <g font-family="${KIIT_FONT}">
+    ${cards}
+
+    ${arrows}
+  </g>
+</svg>
+`;
+}
+
+kiitMount(buildSvg(CONFIG), "overview.svg");
+</script>

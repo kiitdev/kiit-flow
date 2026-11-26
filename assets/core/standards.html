@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Kiit standards</title>
+<!--
+  How a standard gets from kiit to a name: kiit's default, your kiit.json override, the skill, and the
+  branch name and pull request title it creates. 900 wide, to fit a GitHub README. Edit CONFIG below, then either:
+    1. open this file in a browser and press "Download SVG", or
+    2. export from the command line: ./banner.sh core/standards.html core/standards.svg
+  Colours and fonts are theme settings in kiit-svg.js.
+-->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
+  #banner svg { width: 100%; max-width: 900px; height: auto; display: block; }
+  button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+
+<script src="../kiit-svg.js"></script>
+<script>
+// ---- CONFIG: change these for each project ---------------------------------
+const CONFIG = {
+  title: "Standards",
+  sub: "kiit's defaults, your overrides, and the names the skills create",
+  cards: [                                   // top to bottom. A row has a key and chips, or text
+    { icon: "standards", title: "kiit", sub: "ships the defaults", rows: [
+      { key: "branch", text: "{type}/{ref}/{name}" },
+      { key: "PR title", text: "{TYPE}: {description}" },
+    ] },
+    { icon: "config", title: "kiit.json", sub: "your overrides, only what differs", rows: [
+      { key: "types", chips: [["feat", "blue"], ["fix", "blue"], ["docs", "blue"], ["hotfix", "hot"]] },
+    ] },
+    { icon: "vcs", title: "Skill", sub: "checks the format with a script, then creates it", rows: [
+      { key: "skills", chips: [["/kiit:vcs-branch", "blue"], ["/kiit:vcs-pr", "blue"]] },
+    ] },
+    { icon: "standards", title: "Result", sub: "the same format in every repo", rows: [
+      { key: "branch", text: "fix/issue-19/plugin-layout", strong: true },
+      { key: "PR title", text: "FEAT: Added support for detekt", strong: true },
+    ] },
+  ],
+  between: [                                 // between each pair of cards
+    { kind: "plus", note: "your kiit.json goes on top of the defaults" },
+    { kind: "arrow", note: "the skill reads both" },
+    { kind: "arrow", note: "and creates" },
+  ],
+  theme: KIIT_THEME,
+};
+// ---------------------------------------------------------------------------
+
+function buildSvg(c) {
+  const t = c.theme, W = 900, m = 40, x0 = 88, head = 94, chipH = 26, gap = 88, keyW = 100;   // x0: where the cards start, after the numbers
+  const cx = x0 + 24 + keyW;                          // where the content starts inside a card
+
+  const chip = (x, y, text, style) => {
+    const w = kiitTextW(text, 13) + 24;
+    const [fill, color] = style === "hot" ? [t.hot, t.onFill] : style === "plus" ? [t.plus, t.onFill] : style === "blue" ? [t.blue, t.onFill] : [t.softFill, t.ink];
+    return { w, svg: `<rect x="${x}" y="${y}" width="${w}" height="${chipH}" rx="4" fill="${fill}"/>
+    <text x="${x + 12}" y="${y + 17.5}" font-size="13" font-weight="700" fill="${color}">${esc(text)}</text>` };
+  };
+
+  let y = 120;
+  const parts = [], spots = [];
+  c.cards.forEach((card, ci) => {
+    const top = y;
+    let ry = top + head + 4, body = "";
+    for (const r of card.rows) {
+      body += `\n    <text x="${x0 + 24}" y="${ry + 18}" font-size="14" font-weight="700" fill="${t.ink}">${esc(r.key)}</text>`;
+      if (r.chips) {
+        let x = cx;
+        for (const [text, style] of r.chips) { const ch = chip(x, ry, text, style); body += "\n    " + ch.svg; x += ch.w + 8; }
+      } else {
+        body += `\n    <text x="${cx}" y="${ry + 18}" font-size="${r.strong ? 16 : 14}" font-weight="${r.strong ? 700 : 400}" fill="${t.ink}">${esc(r.text)}</text>`;
+      }
+      ry += 32;
+    }
+    const h = ry - top + 12;
+    parts.push(`<circle cx="${m + 15}" cy="${top + 42}" r="15" fill="${t.blue}"/>
+    <text x="${m + 15}" y="${top + 47.5}" font-size="15" font-weight="700" fill="${t.onFill}" text-anchor="middle">${ci + 1}</text>
+    <rect x="${x0}" y="${top}" width="${W - m - x0}" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.blueSoft}" stroke-width="1.5"/>
+    ${kiitIcon(card.icon, x0 + 14, top + 26, 32, t.blue)}
+    <rect x="${x0 + 60}" y="${top + 22}" width="3" height="44" rx="1.5" fill="${t.accent}"/>
+    <text x="${x0 + 78}" y="${top + 38}" font-size="22" font-weight="700" fill="${t.ink}">${esc(card.title)}</text>
+    <text x="${x0 + 78}" y="${top + 66}" font-size="15" fill="${t.blueMid}">${esc(card.sub)}</text>${body}`);
+    y = top + h;
+    if (ci < c.cards.length - 1) {
+      const mid = y + gap / 2, b = c.between[ci];
+      const ax = x0 + 44;
+      if (b.kind === "plus") spots.push(`<circle cx="${ax}" cy="${mid}" r="13" fill="${t.plus}"/>
+    <path d="M${ax} ${mid - 6}V${mid + 6}M${ax - 6} ${mid}H${ax + 6}" stroke="${t.onFill}" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="${ax + 24}" y="${mid + 5}" font-size="14" fill="${t.sub}">${esc(b.note)}</text>`);
+      else spots.push(`<line x1="${ax}" y1="${y + 24}" x2="${ax}" y2="${y + gap - 40}" stroke="${t.blue}" stroke-width="3"/>
+    ${kiitHead(ax, y + gap - 26, "down", 14, t.blue)}
+    <text x="${ax + 24}" y="${mid + 5}" font-size="14" fill="${t.sub}">${esc(b.note)}</text>`);
+      y += gap;
+    }
+  });
+  const H = y + 40;
+  const bg = kiitBackground(t, W, H);
+  const label = `${c.title}: ${c.sub}. kiit ships the default formats, a branch name of {type}/{ref}/{name} and a pull request title of {TYPE}: {description}. Your kiit.json goes on top of the defaults and lists only what differs, such as the types feat, fix, docs and a new hotfix. The skills /kiit:vcs-branch and /kiit:vcs-pr read both, check the format with a script, and create the branch and the title. The result is the same format in every repo, such as the branch fix/issue-19/plugin-layout and the title FEAT: Added support for detekt.`;
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
+  <defs>
+    ${bg.defs}
+  </defs>
+
+  ${bg.body}
+
+  <g font-family="${KIIT_FONT}">
+    <text x="${m}" y="62" font-size="32" font-weight="700" fill="${t.ink}">${esc(c.title)}</text>
+    <text x="${m}" y="92" font-size="15" fill="${t.sub}">${esc(c.sub)}</text>
+
+    ${parts.join("\n\n    ")}
+
+    ${spots.join("\n    ")}
+  </g>
+</svg>
+`;
+}
+
+kiitMount(buildSvg(CONFIG), "standards.svg");
+</script>

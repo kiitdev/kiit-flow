@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Kiit icons</title>
+<!-- A preview sheet of the kiit line icons (kiitIcon in kiit-svg.js). Export: ./banner.sh core/icons.html core/icons.svg -->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; }
+  #banner svg { width: 100%; max-width: 900px; height: auto; display: block; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+<script src="../kiit-svg.js"></script>
+<script>
+const t = KIIT_THEME, W = 900, H = 420;
+const names = Object.keys(KIIT_ICONS);
+const cell = 164, gx = 48;
+const big = names.map((n, i) => {
+  const x = gx + (i % 5) * cell, y = 64 + Math.floor(i / 5) * 112;
+  return `<rect x="${x}" y="${y}" width="140" height="96" rx="4" fill="${t.cardFill}" stroke="${t.line}"/>
+    ${kiitIcon(n, x + 54, y + 16, 32, t.blue)}
+    <text x="${x + 70}" y="${y + 78}" font-size="14" fill="${t.sub}" text-anchor="middle">${n}</text>`;
+}).join("\n");
+// the same icons at pill size, on the three fills
+const fills = [[t.accent, t.ink], [t.softFill, t.ink], [t.blue, t.onFill]];
+let px = 48;
+const pills = ["standards", "groups", "repos"].map((n, i) => {
+  const [fill, color] = fills[i], label = ["Standards", "Skill groups", "Multiple repos"][i];
+  const w = Math.round(label.length * 9.6 + 32 + 28);
+  const svg = `<rect x="${px}" y="324" width="${w}" height="38" rx="4" fill="${fill}"/>
+    ${kiitIcon(n, px + 14, 331, 20, color)}
+    <text x="${px + 42}" y="349" font-size="16" font-weight="700" fill="${color}">${label}</text>`;
+  px += w + 12;
+  return svg;
+}).join("\n");
+const bg = kiitBackground(t, W, H);
+kiitMount(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Kiit line icons: ${names.join(", ")}">
+  <defs>${bg.defs}</defs>
+  ${bg.body}
+  <g font-family="${KIIT_FONT}">
+    <text x="48" y="42" font-size="18" font-weight="700" fill="${t.ink}">Icons</text>
+    ${big}
+    ${pills}
+  </g>
+</svg>
+`, "kiit-icons.svg");
+</script>

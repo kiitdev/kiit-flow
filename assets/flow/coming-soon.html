@@ -5,7 +5,7 @@
 <!--
   What is planned next (900 wide, to fit a GitHub README). Edit CONFIG below, then either:
     1. open this file in a browser and press "Download SVG", or
-    2. export from the command line: ./banner.sh coming.html kiit-flow-coming-soon.svg
+    2. export from the command line: ./banner.sh flow/coming-soon.html flow/coming-soon.svg
 -->
 <style>
   body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
@@ -18,7 +18,7 @@
 <button id="dl">Download SVG</button>
 <pre id="svg"></pre>
 
-<script src="kiit-svg.js"></script>
+<script src="../kiit-svg.js"></script>
 <script>
 // ---- CONFIG: change these for each project ---------------------------------
 // Icons: drawn at full size inside the 48px circle, centered on (0,0)
@@ -132,5 +132,5 @@ function buildSvg(c) {
 `;
 }
 
-kiitMount(buildSvg(CONFIG), "kiit-flow-coming-soon.svg");
+kiitMount(buildSvg(CONFIG), "coming-soon.svg");
 </script>

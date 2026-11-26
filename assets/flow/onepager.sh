@@ -18,7 +18,7 @@ out="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
 size=$(python3 -I - "$dir" <<'PY'
 import re, sys
 w = h = 0
-for name in ("kiit-flow-banner", "kiit-flow-diagram", "kiit-flow-start", "kiit-flow-work-item"):
+for name in ("banner", "diagram", "start", "work-item"):
     head = open(f"{sys.argv[1]}/{name}.svg").read(400)
     m = re.search(r'width="(\d+)" height="(\d+)"', head)
     w, h = max(w, int(m.group(1))), h + int(m.group(2))

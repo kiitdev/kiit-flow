@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Kiit structure</title>
+<!--
+  Your workspace: kiit.json, the git repos and the _kiit folder, with the skills that use each. 900 wide, to fit a GitHub README. Edit CONFIG below, then either:
+    1. open this file in a browser and press "Download SVG", or
+    2. export from the command line: ./banner.sh core/structure.html core/structure.svg
+  Colours and fonts are theme settings in kiit-svg.js.
+-->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
+  #banner svg { width: 100%; max-width: 900px; height: auto; display: block; }
+  button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+
+<script src="../kiit-svg.js"></script>
+<script>
+// ---- CONFIG: change these for each project ---------------------------------
+const CONFIG = {
+  title: "Structure",
+  sub: "your workspace, and the skills that use it",
+  tree: [                                    // d is the depth. icon: a name from KIIT_ICONS. blue: the name in the lighter blue
+    { d: 0, name: "workspace/", bold: true, icon: "projects", note: "the folder that holds your repos" },
+    { d: 1, name: "_kiit/", icon: "projects", note: "created by /kiit:init" },
+    { d: 2, name: "flow/", icon: "flow", note: "one folder per skill group" },
+    { d: 3, name: "items/", note: "one folder per work item, from begin and go" },
+    { d: 3, name: "state.json", note: "the work item you used last" },
+    { d: 1, name: ".claude/kiit/kiit.json", icon: "config", blue: true, note: "written by /kiit:init, read by every skill" },
+    { d: 1, name: "api/", icon: "repos", note: "a git repo, where vcs-branch and vcs-pr work" },
+    { d: 1, name: "app/", icon: "repos", note: "another git repo, listed in projects" },
+  ],
+  theme: KIIT_THEME,
+};
+// ---------------------------------------------------------------------------
+
+function buildSvg(c) {
+  const t = c.theme, W = 900, m = 40, head = 56, rowH = 30, fs = 15;
+  // the icons in this diagram: [line colour, fill] by kind. Folders are orange, config is the lighter blue
+  const style = { projects: [t.accent, "#FFEBDB"], config: [t.blueMid, "none"], repos: [t.blue, t.blueTint] };
+  const ico = (name, x, y, size) => { const [c, f] = style[name] || [t.blue, "none"]; return kiitIcon(name, x, y, size, c, 1.75, f); };
+  const header = (top, icon, title, sub) => `${kiitIcon(icon, m + 16, top + 14, 28, t.blue)}
+    <rect x="${m + 60}" y="${top + 17}" width="3" height="22" rx="1.5" fill="${t.accent}"/>
+    <text x="${m + 78}" y="${top + 34}" font-size="17" font-weight="700" fill="${t.ink}">${esc(title)}</text>
+    <text x="${m + 78 + kiitTextW(title, 17) + 14}" y="${top + 34}" font-size="14" fill="${t.sub}">${esc(sub)}</text>`;
+  const box = (top, h) => `<rect x="${m}" y="${top}" width="${W - 2 * m}" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.blueSoft}" stroke-width="1.5"/>`;
+
+  // card 1: the workspace tree
+  const top1 = 120, noteX = 400;
+  const treeSvg = c.tree.map((r, i) => {
+    const x = m + 24 + r.d * 28, cy = top1 + head + 6 + i * rowH + 15;
+    const icon = r.icon ? ico(r.icon, x, cy - 11, 22) : "";
+    const tx = x + 32;   // every name starts after the icon column, so a row without an icon still indents under its parent
+    return `${icon}
+    <text x="${tx}" y="${cy + 5}" font-size="${fs}" font-weight="${r.bold || r.blue ? 700 : 400}" fill="${r.blue ? t.blueMid : t.ink}">${esc(r.name)}</text>
+    <text x="${noteX}" y="${cy + 5}" font-size="14" fill="${t.sub}">${esc(r.note)}</text>`;
+  }).join("\n    ");
+  const h1 = head + 6 + c.tree.length * rowH + 14;
+
+  const H = top1 + h1 + 40;
+  const bg = kiitBackground(t, W, H);
+  const label = `${c.title}: ${c.sub}. The workspace folder holds a _kiit folder made by /kiit:init, the file .claude/kiit/kiit.json, which /kiit:init writes and every skill reads, and your git repos, such as api and app, where the vcs-branch and vcs-pr skills work. Inside _kiit is one folder per skill group, such as flow, which holds an items folder with one folder per work item, made by flow-begin and flow-go, and a state.json file.`;
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
+  <defs>
+    ${bg.defs}
+  </defs>
+
+  ${bg.body}
+
+  <g font-family="${KIIT_FONT}">
+    <text x="${m}" y="62" font-size="32" font-weight="700" fill="${t.ink}">${esc(c.title)}</text>
+    <text x="${m}" y="92" font-size="15" fill="${t.sub}">${esc(c.sub)}</text>
+
+    ${box(top1, h1)}
+    ${header(top1, "projects", "Workspace", "the folder you run kiit from")}
+    ${treeSvg}
+  </g>
+</svg>
+`;
+}
+
+kiitMount(buildSvg(CONFIG), "structure.svg");
+</script>
