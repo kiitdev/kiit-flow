@@ -40,33 +40,36 @@ const CONFIG = {
 // ---------------------------------------------------------------------------
 
 function buildSvg(c) {
-  const t = c.theme, W = 900, m = 40, rowH = 104, gap = 18, top = 162;
-  const midX = 244, midW = 214, rightX = 528, rightW = W - m - rightX;   // a wide gap between the two columns holds the + and the arrow
+  const t = c.theme, W = 900, m = 40, rowH = 142, gap = 16, top = 162;
+  // two columns: what Claude Code gives you, and a box per goal that kiit adds. A wide gap holds the arrow
+  const midX = m, midW = 250, rightX = 360, rightW = W - m - rightX;
   const H = top + c.rows.length * rowH + (c.rows.length - 1) * gap + 40;
-  const plusX = (midX + midW + rightX) / 2;   // the + sits between the two headers
   const bg = kiitBackground(t, W, H);
 
   const pill = (x, w, text, fill) => `<rect x="${x}" y="112" width="${w}" height="34" rx="4" fill="${fill}"/>
     <text x="${x + w / 2}" y="134" font-size="14" font-weight="700" fill="${t.onFill}" text-anchor="middle">${esc(text)}</text>`;
+  const plusX = rightX + rightW - 32;           // the + sits at the right end of each kiit box header
 
   const rows = c.rows.map((r, i) => {
     const y = top + i * (rowH + gap), cy = y + rowH / 2;
-    const gives = r.gives.map((l, j) => `<text x="${midX + 14}" y="${cy + 5 + (j - (r.gives.length - 1) / 2) * 22}" font-size="14" fill="${t.ink}">${esc(l)}</text>`).join("\n    ");
+    const gives = r.gives.map((l, j) => `<text x="${midX + 16}" y="${cy + 5 + (j - (r.gives.length - 1) / 2) * 22}" font-size="14" fill="${t.ink}">${esc(l)}</text>`).join("\n    ");
+    // the goal heads its kiit box, so it reads as part of what kiit adds
     const adds = r.adds.map((l, j) => {
-      const ly = cy + 5 + (j - (r.adds.length - 1) / 2) * 26;
-      return `<circle cx="${rightX + 18}" cy="${ly - 5}" r="3" fill="${t.blue}"/>
-    <text x="${rightX + 30}" y="${ly}" font-size="14" fill="${t.ink}">${esc(l)}</text>`;
+      const ly = y + 80 + j * 24;
+      return `<circle cx="${rightX + 20}" cy="${ly - 5}" r="3" fill="${t.blue}"/>
+    <text x="${rightX + 32}" y="${ly}" font-size="14" fill="${t.ink}">${esc(l)}</text>`;
     }).join("\n    ");
-    return `${kiitIcon(r.icon, m + 2, cy - 15, 30, t.blue)}
-    <text x="${m + 44}" y="${cy + 6}" font-size="17" font-weight="700" fill="${t.ink}">${esc(r.goal)}</text>
-
-    <rect x="${midX}" y="${y}" width="${midW}" height="${rowH}" rx="4" fill="${t.cardFill}" stroke="${t.inkSoft}" stroke-width="1.5"/>
+    return `<rect x="${midX}" y="${y}" width="${midW}" height="${rowH}" rx="4" fill="${t.cardFill}" stroke="${t.inkSoft}" stroke-width="1.5"/>
     ${gives}
 
     <line x1="${midX + midW + 4}" y1="${cy}" x2="${rightX - 14}" y2="${cy}" stroke="${t.blue}" stroke-width="3"/>
     ${kiitHead(rightX - 4, cy, "right", 14, t.blue)}
 
     <rect x="${rightX}" y="${y}" width="${rightW}" height="${rowH}" rx="4" fill="${t.cardFill}" stroke="${t.blueSoft}" stroke-width="1.5"/>
+    ${kiitIcon(r.icon, rightX + 16, y + 14, 28, t.blue)}
+    <circle cx="${plusX}" cy="${y + 28}" r="13" fill="${t.plus}"/>
+    <path d="M${plusX} ${y + 22}V${y + 34}M${plusX - 6} ${y + 28}H${plusX + 6}" stroke="${t.onFill}" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="${rightX + 56}" y="${y + 35}" font-size="17" font-weight="700" fill="${t.ink}">${esc(r.goal)}</text>
     ${adds}`;
   }).join("\n\n    ");
 
@@ -83,11 +86,8 @@ function buildSvg(c) {
     <text x="${m}" y="62" font-size="32" font-weight="700" fill="${t.ink}">${esc(c.title)}</text>
     <text x="${m}" y="88" font-size="15" fill="${t.sub}">${esc(c.sub)}</text>
 
-    <text x="${m}" y="135" font-size="18" font-weight="700" fill="${t.ink}">${esc(c.heads[0])}</text>
     ${pill(midX, midW, c.heads[1], t.ink)}
     ${pill(rightX, rightW, c.heads[2], t.blue)}
-    <circle cx="${plusX}" cy="129" r="15" fill="${t.plus}"/>
-    <path d="M${plusX} 122V136M${plusX - 7} 129H${plusX + 7}" stroke="${t.onFill}" stroke-width="3" stroke-linecap="round"/>
 
     ${rows}
   </g>
