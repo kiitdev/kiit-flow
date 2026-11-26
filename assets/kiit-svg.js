@@ -181,6 +181,7 @@ const KIIT_ICONS = {
   resources: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
   vcs:       '<circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M6 3v12.5"/><path d="M18 8.5c0 5-6 4-12 7"/>',
   flow:      '<path d="M5 6l6 6-6 6"/><path d="M13 6l6 6-6 6"/>',
+  more:      '<rect x="4" y="4" width="16" height="16" rx="3" stroke-dasharray="3 3"/><path d="M12 9v6M9 12h6"/>',
   core:      '<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><circle cx="12" cy="12" r="2.5"/>',
 };
 // kiitIcon("standards", x, y, size, color): the icon with its top left at x, y

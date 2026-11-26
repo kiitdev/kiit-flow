@@ -1,5 +1,4 @@
 <div align="center">
-<img src="./assets/core/icon.svg" alt="Kiit logo: a toolbox with a k tile" width="112" height="112" />
 <h1>
   <img src="./assets/core/banner.svg" alt="Kiit: engineering standards and skills for AI coding agents. Across multiple repos, start with solid defaults, make them yours." align="center" />
 </h1>
@@ -80,6 +79,8 @@ The full schema is in [shared/README.md](./shared/README.md).
 ## Groups
 
 Skills are named `/kiit:{group}-{name}`. Each group has a `{group}-help` command that lists its skills.
+
+![Skill groups: vcs has branch, pr and help. flow has go, begin and help. core has init. All are in the plugin. More skill groups are coming soon.](./assets/core/groups.svg)
 
 ### vcs
 
