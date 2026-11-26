@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 290 290" role="img" aria-label="Kiit logo: a toolbox with a k tile">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#F6FAFF"/>
-      <stop offset="1" stop-color="#DCEBFF"/>
+      <stop offset="0" stop-color="#F7F9FF"/>
+      <stop offset="1" stop-color="#DEE6FE"/>
     </linearGradient>
     <linearGradient id="edge" x1="-0.04" y1="0" x2="0.55" y2="0">
       <stop offset="0" stop-color="#111827"/>
-      <stop offset="1" stop-color="#007FFF"/>
+      <stop offset="1" stop-color="#144DF2"/>
     </linearGradient>
     <pattern id="grid" width="18.125" height="18.125" patternUnits="userSpaceOnUse">
-      <path d="M18.125 0H0V18.125" fill="none" stroke="#C4D8F6" stroke-width="0.3"/>
+      <path d="M18.125 0H0V18.125" fill="none" stroke="#CBD8FC" stroke-width="0.3"/>
     </pattern>
     <clipPath id="frame"><rect width="290" height="290" rx="57"/></clipPath>
   </defs>
@@ -22,8 +22,8 @@
     <rect x="9" y="27" width="248.5" height="178" rx="45" fill="#111827"/>
     <rect x="35" y="53" width="196.5" height="126" rx="19" fill="#FFFFFF"/>
     <path d="M100.5 53V179M166 53V179M35 116H231.5" stroke="#FFC9A0" stroke-width="2"/>
-    <path d="M35 116H100.5V179H54A19 19 0 0 1 35 160Z" fill="#007FFF"/>
+    <path d="M35 116H100.5V179H54A19 19 0 0 1 35 160Z" fill="#144DF2"/>
     <path transform="translate(67.75 147.5) scale(0.92) translate(-69.25 -151.5)" d="M47.5 127H58.5V147L73 127H87L69 148L91 176H77L63 156L58.5 161V176H47.5Z" fill="#FFFFFF"/>
-    <path d="M90.25 53V20A5 5 0 0 1 95.25 15H171.25A5 5 0 0 1 176.25 20V53Z" fill="#007FFF"/>
+    <path d="M90.25 53V20A5 5 0 0 1 95.25 15H171.25A5 5 0 0 1 176.25 20V53Z" fill="#144DF2"/>
   </g>
 </svg>
