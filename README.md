@@ -1,6 +1,6 @@
 <div align="center">
 <h1>
-  <img src="./assets/core/banner.svg" alt="Kiit: engineering standards and skills for AI coding agents. Across multiple repos, start with solid defaults, make them yours." align="center" />
+  <img src="./assets/core/banner.svg" alt="Kiit: engineering standards and skills for AI coding agents. Across multiple repos, start with solid defaults, make them yours. Beta. History: 2016, created kiit; 2020, stable framework; 2026, AI enabled." align="center" />
 </h1>
 
 Kiit is a plugin of skill groups for your coding agent. It keeps your team's engineering standards in one workspace config, such as how branches and pull requests are named, and the skills use them in every repo. The defaults ship with the plugin, you override only what differs, and it all runs as skills inside the agent, so there's nothing to host.

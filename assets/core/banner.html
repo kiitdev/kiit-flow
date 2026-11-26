@@ -36,6 +36,12 @@ const CONFIG = {
     { style: "soft", text: "Skill groups", icon: "groups" },
     { style: "soft", text: "Multiple repos", icon: "repos" },
   ],
+  badge: "Beta",                  // a label in the top right corner. Leave out for none
+  history: [                      // a timeline row along the bottom, [year, what]. Leave out for none
+    ["2016", "Created kiit"],
+    ["2020", "Stable framework"],
+    ["2026", "AI enabled"],
+  ],
   card: {
     title: ".claude/kiit/kiit.json",
     left: "Feature",
@@ -55,7 +61,7 @@ const CONFIG = {
 // ---------------------------------------------------------------------------
 
 function buildSvg(c) {
-  const t = c.theme, W = 1392, H = 360;
+  const t = c.theme, W = 1392, MAIN = 372, foot = c.history ? 96 : 0, H = MAIN + foot;   // MAIN: the banner above the timeline
   const full = c.name ? c.brand + "-" + c.name : c.brand;
   const n = full.length;
   // shrink long names so the title stays left of the card
@@ -96,7 +102,7 @@ function buildSvg(c) {
   // the card: a header band, then a row per key
   const rows = c.card.rows;
   const cardW = 440, band = 48, headY = band + 28, firstY = headY + 36, step = 30;   // the card's width, header band and row spacing
-  const h = firstY + step * (rows.length - 1) + 24, top = (H - h) / 2 - 12;
+  const h = firstY + step * (rows.length - 1) + 24, top = (MAIN - h) / 2 + 24;   // sits well below the Beta label
   const rowSvg = rows.map(([key, holds], i) => {
     const y = firstY + step * i;
     return `      <circle cx="32" cy="${y - 6}" r="3.5" fill="${t.sub}"/>
@@ -111,8 +117,32 @@ function buildSvg(c) {
     ? `\n    <text x="${W - 80}" y="${top + h + 34}" font-size="15" fill="${t.sub}" text-anchor="end">${footerText}</text>`
     : "";
 
+  // the Beta label: a dark box with the text in the orange accent. It floats inside the page, with light
+  // space on every side, so it keeps its shape on a dark page. It sits further right than the card,
+  // so the two do not blend together
+  const bw = c.badge ? 152 : 0, bh = 46, by = 12, bx = W - 32 - bw;   // 32px in from the right edge, so it does not line up with the card
+  const badge = c.badge
+    ? `<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" rx="4" fill="${t.navy}"/>
+    <text x="${bx + bw / 2}" y="${by + bh / 2 + 8.5}" font-size="24" font-weight="700" fill="${t.accent}" text-anchor="middle">${esc(c.badge)}</text>`
+    : "";
+
+  // the history: a dot, the year and what happened, joined by lines. The last dot is the orange accent: now
+  let timeline = "";
+  if (c.history) {
+    const ty = MAIN + 62, x0 = 88, x1 = W - 88, tfs = 17, widths = c.history.map(([yr, what]) => 22 + kiitTextW(yr + "  " + what, tfs));
+    const free = (x1 - x0) - widths.reduce((a, b) => a + b, 0), seg = free / (c.history.length - 1);
+    let x = x0;
+    c.history.forEach(([yr, what], i) => {
+      const last = i === c.history.length - 1;
+      timeline += `<circle cx="${x + 6}" cy="${ty}" r="6" fill="${last ? t.accent : t.blue}"/>
+    <text x="${x + 22}" y="${ty + 6}" font-size="${tfs}"><tspan font-weight="700" fill="${t.ink}">${esc(yr)}</tspan><tspan fill="${t.sub}">  ${esc(what)}</tspan></text>\n    `;
+      x += widths[i];
+      if (!last) { timeline += `<line x1="${x + 14}" y1="${ty}" x2="${x + seg - 14}" y2="${ty}" stroke="${t.blueSoft}" stroke-width="2" stroke-linecap="round"/>\n    `; x += seg; }
+    });
+  }
+
   const bg = kiitBackground(t, W, H);
-  const label = `${full}: ${lines.join(" ")}`;
+  const label = `${full}: ${lines.join(" ")}` + (c.badge ? ` ${c.badge}.` : "") + (c.history ? " History: " + c.history.map(([yr, what]) => `${yr}, ${what.toLowerCase()}`).join("; ") + "." : "");
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
   <defs>
@@ -125,6 +155,8 @@ function buildSvg(c) {
     <text x="${letterXs}" y="176" font-size="${titleSize}" font-weight="700" fill="${t.ink}"><tspan fill="${t.blue}">${esc(c.brand)}</tspan>${rest}</text>
     ${tagSvg}
     ${pillarSvg}
+    ${badge}
+    ${timeline}
 
     <g transform="translate(${W - 80 - cardW} ${top})">
       <rect width="${cardW}" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.inkSoft}" stroke-width="1.5"/>
