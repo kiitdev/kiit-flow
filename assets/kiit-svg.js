@@ -28,6 +28,7 @@ const KIIT_THEME = {
   blue: "#144DF2",              // the blue of the x in the jsonx logo. Before: #007FFF
   blueTint: "#ECF1FE", blueDeep: "#0B3AC4",     // a tint of blue for fills, and a deeper blue for small text on it
   ink: "#1E293B", sub: "#64748B", dim: "#6B7A99",
+  hot: "#F0483E",               // a vivid red, only for the one thing that is urgent, such as the hotfix type
   plus: "#16C45E",              // a vivid green, only for the + that marks what is added
   blueMid: "#4F79F5", blueSoft: "#95AFF9", inkSoft: "#B8C5DA",       // a light blue and a light black (slate), for softer borders. Soften a main colour with its light variant
   fontFamily: "Fira Code",      // the font. banner.sh embeds its files, so it looks the same everywhere
