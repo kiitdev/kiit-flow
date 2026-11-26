@@ -31,10 +31,10 @@ const CONFIG = {
     "Engineering standards and skills for AI coding agents.",
     "Across multiple repos, start with solid defaults, make them yours.",
   ],
-  pillars: [                      // the bottom row, one box each. style: accent (orange), blue, soft or ink
-    { style: "accent", text: "Standards" },
-    { style: "soft", text: "Skill groups" },
-    { style: "soft", text: "Multiple repos" },
+  pillars: [                      // the bottom row, one box each. style: accent (orange), blue, soft or ink. icon: a name from KIIT_ICONS, optional
+    { style: "accent", text: "Standards", icon: "standards" },
+    { style: "soft", text: "Skill groups", icon: "groups" },
+    { style: "soft", text: "Multiple repos", icon: "repos" },
   ],
   card: {
     title: ".claude/kiit/kiit.json",
@@ -82,9 +82,12 @@ function buildSvg(c) {
   const boxY = 302, boxH = 38, textY = boxY + 25, cw = 16 * 0.6;
   let x = 88;
   const pillarSvg = c.pillars.map((p) => {
-    const w = Math.round(p.text.length * cw + 32), [fill, color] = weights[p.style];
-    const xs = Array.from(p.text, (_, j) => (x + 16 + j * cw).toFixed(1)).join(" ");
+    const pad = p.icon ? 42 : 16;                     // the room before the text: the icon and its gap
+    const w = Math.round(p.text.length * cw + pad + 16), [fill, color] = weights[p.style];
+    const xs = Array.from(p.text, (_, j) => (x + pad + j * cw).toFixed(1)).join(" ");
+    const icon = p.icon ? kiitIcon(p.icon, x + 14, boxY + 9, 20, color) : "";
     const svg = `<rect x="${x}" y="${boxY}" width="${w}" height="${boxH}" rx="4" fill="${fill}"/>
+    ${icon}
     <text x="${xs}" y="${textY}" font-size="16" font-weight="700" fill="${color}">${esc(p.text)}</text>`;
     x += w + 12;
     return svg;
