@@ -1,6 +1,6 @@
 <div align="center">
 <h1>
-  <img src="./assets/core/banner.svg" alt="Kiit: engineering standards for AI coding agents, across all your repos. Start with solid defaults, make them yours." align="center" />
+  <img src="./assets/core/banner.svg" alt="Kiit: engineering standards and skills for AI coding agents. Across multiple repos, start with solid defaults, make them yours." align="center" />
 </h1>
 
 Kiit is a plugin of skill groups for your coding agent. It keeps your team's engineering standards in one workspace config, such as how branches and pull requests are named, and the skills use them in every repo. The defaults ship with the plugin, you override only what differs, and it all runs as skills inside the agent, so there's nothing to host.
@@ -30,8 +30,8 @@ Teams with several repos end up with several ways of naming branches, titling pu
 | # | | Purpose | Description |
 |---:|:---:|---|---|
 | 1 | 📐 | **Standards** | Defaults for branch and pull request formats, with a script that checks them. |
-| 2 | 🗂️ | **Multiple repos** | One workspace config lists your projects, so every repo shares the standards. |
-| 3 | 🧩 | **Skill groups** | Skills come in groups, `vcs` and `flow` so far, each with its own commands. |
+| 2 | 🧩 | **Skill groups** | Skills come in groups, `vcs` and `flow` so far, each with its own commands. |
+| 3 | 🗂️ | **Multiple repos** | One workspace config lists your projects, so every repo shares the standards. |
 
 Only `vcs` has standards today. The mechanism is in place for the other groups.
 

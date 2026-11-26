@@ -28,13 +28,13 @@ const CONFIG = {
   name: "",                       // optional, black, joined to the brand with a hyphen
   titleMax: 140,                  // the largest title size
   taglines: [                     // one or two lines under the title
-    "Engineering standards for AI coding agents, across all your repos.",
-    "Start with solid defaults, make them yours.",
+    "Engineering standards and skills for AI coding agents.",
+    "Across multiple repos, start with solid defaults, make them yours.",
   ],
   pillars: [                      // the bottom row, one box each. style: accent (orange), blue, soft or ink
     { style: "accent", text: "Standards" },
-    { style: "soft", text: "Multiple repos" },
     { style: "soft", text: "Skill groups" },
+    { style: "soft", text: "Multiple repos" },
   ],
   card: {
     title: ".claude/kiit/kiit.json",
@@ -67,14 +67,15 @@ function buildSvg(c) {
 
   // the tagline: one or two lines, sized to fit left of the card
   const lines = c.taglines;
-  const longest = Math.max(...lines.map((l) => l.length));
-  const tagSize = Math.min(22, Math.floor(760 / (0.6 * longest)));
+  const tagSize = Math.min(22, Math.floor(760 / (0.6 * lines[0].length)));
   const tagY = lines.length > 1 ? 230 : 240, subGap = 42;   // subGap: the space from the tagline down to the next line
   // the first line is the tagline, in ink. Any other line is lighter and smaller, right aligned under it
-  const endX = 88 + kiitTextW(lines[0], tagSize), subSize = Math.round(tagSize * 0.85);
+  const tagW = kiitTextW(lines[0], tagSize), endX = 88 + tagW;
+  // the lighter line is smaller, and never wider than the tagline above it
+  const subSize = (l) => Math.min(Math.round(tagSize * 0.85), Math.floor(tagW / (0.6 * l.length)));
   const tagSvg = lines.map((l, i) => i === 0
     ? `<text x="88" y="${tagY}" font-size="${tagSize}" fill="${t.ink}">${esc(l)}</text>`
-    : `<text x="${endX}" y="${tagY + subGap * i}" font-size="${subSize}" fill="${t.sub}" text-anchor="end">${esc(l)}</text>`).join("\n    ");
+    : `<text x="${endX}" y="${tagY + subGap * i}" font-size="${subSize(l)}" fill="${t.sub}" text-anchor="end">${esc(l)}</text>`).join("\n    ");
 
   // the bottom row: a box per point. Every character gets its own x, so no font can spill out of its box
   const weights = { soft: [t.softFill, t.ink], blue: [t.blue, t.onFill], ink: [t.ink, t.onFill], accent: [t.accent, t.ink] };
