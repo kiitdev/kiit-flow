@@ -84,7 +84,7 @@ function buildSvg(c) {
     ${kiitIcon(card.icon, x0 + 14, top + 26, 32, t.blue)}
     <rect x="${x0 + 60}" y="${top + 22}" width="3" height="44" rx="1.5" fill="${t.accent}"/>
     <text x="${x0 + 78}" y="${top + 38}" font-size="22" font-weight="700" fill="${t.ink}">${esc(card.title)}</text>
-    <text x="${x0 + 78}" y="${top + 66}" font-size="15" fill="${t.sub}">${esc(card.sub)}</text>${body}`);
+    <text x="${x0 + 78}" y="${top + 66}" font-size="15" fill="${t.blueMid}">${esc(card.sub)}</text>${body}`);
     y = top + h;
     if (ci < c.cards.length - 1) {
       const mid = y + gap / 2, b = c.between[ci];

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>kiit.json</title>
+<!--
+  The contents of kiit.json: the real file on a dark panel, and a card for each key saying what it holds and
+  which skills use it. 900 wide, to fit a GitHub README. Edit CONFIG below, then either:
+    1. open this file in a browser and press "Download SVG", or
+    2. export from the command line: ./banner.sh core/kiit-json.html core/kiit-json.svg
+  Colours and fonts are theme settings in kiit-svg.js.
+-->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
+  #banner svg { width: 100%; max-width: 900px; height: auto; display: block; }
+  button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+
+<script src="../kiit-svg.js"></script>
+<script>
+// ---- CONFIG: change these for each project ---------------------------------
+const CONFIG = {
+  title: "kiit.json",
+  sub: ".claude/kiit/kiit.json, in your workspace. It holds only what is yours.",
+  sections: [                                // top to bottom, as in the file. icon: a name from KIIT_ICONS
+    { icon: "config", key: "version", what: "the file format, currently 1", used: "",
+      lines: ['{', '  "version": 1,'] },
+    { icon: "tickets", key: "tickets", what: "your ticket systems", used: "read by skills that take an issue",
+      lines: ['  "tickets": [', '    { "name": "oss", "type": "github", "owner": "acme" }', '  ],'] },
+    { icon: "resources", key: "resources", what: "named files and links", used: "skills ask for one by name",
+      lines: ['  "resources": [', '    { "name": "standards", "path": "./docs/standards",', '      "purpose": "Engineering standards" }', '  ],'] },
+    { icon: "projects", key: "projects", what: "the repos work is done in", used: "every skill finds its repo here",
+      lines: ['  "projects": [', '    { "name": "app", "path": "./app", "tickets": "oss" }', '  ],'] },
+    { icon: "standards", key: "standards", what: "overrides of the defaults", used: "checked by vcs-branch and vcs-pr",
+      lines: ['  "standards": {', '    "vcs": { "types": ["feat", "fix", "docs", "hotfix"] }', '  },'] },
+    { icon: "groups", key: "groups", what: "settings for each group", used: "none of the groups has any yet",
+      lines: ['  "groups": {}', '}'] },
+  ],
+  theme: KIIT_THEME,
+};
+// ---------------------------------------------------------------------------
+
+function buildSvg(c) {
+  const t = c.theme, W = 900, m = 40, panelW = 470, cardX = 550, cardW = W - m - cardX, lineH = 20, fs = 13, top = 120, slotGap = 12;
+  const cardH = 84;
+  const slots = c.sections.map((s) => Math.max(cardH, s.lines.length * lineH + 24));
+  const panelH = slots.reduce((a, b) => a + b, 0) + slotGap * (slots.length - 1) + 24;
+  const H = top + panelH + 40;
+  const bg = kiitBackground(t, W, H);
+
+  // colour a line of JSON: keys in the soft blue, values in white, the rest quiet
+  const paint = (line) => {
+    const parts = [];
+    const re = /("[^"]*")(\s*:)?|(\d+)|([^"\d]+)/g;
+    let mm;
+    while ((mm = re.exec(line))) {
+      if (mm[1] !== undefined) parts.push(`<tspan fill="${mm[2] ? t.blueSoft : t.onFill}">${esc(mm[1])}</tspan>${mm[2] ? `<tspan fill="${t.inkSoft}">${esc(mm[2])}</tspan>` : ""}`);
+      else if (mm[3] !== undefined) parts.push(`<tspan fill="${t.onFill}">${esc(mm[3])}</tspan>`);
+      else parts.push(`<tspan fill="${t.inkSoft}">${esc(mm[4])}</tspan>`);
+    }
+    return parts.join("");
+  };
+
+  let y = top + 12;
+  const out = [];
+  c.sections.forEach((s, i) => {
+    const slot = slots[i], mid = y + slot / 2;
+    const textTop = mid - (s.lines.length * lineH) / 2;
+    s.lines.forEach((l, j) => out.push(`<text x="${m + 20}" y="${textTop + j * lineH + 15}" font-size="${fs}" xml:space="preserve">${paint(l)}</text>`));
+    const cy = mid - cardH / 2;
+    out.push(`<line x1="${m + panelW + 8}" y1="${mid}" x2="${cardX - 16}" y2="${mid}" stroke="${t.blue}" stroke-width="3"/>
+    ${kiitHead(cardX - 6, mid, "right", 12, t.blue)}
+    <rect x="${cardX}" y="${cy}" width="${cardW}" height="${cardH}" rx="4" fill="${t.cardFill}" stroke="${t.blueSoft}" stroke-width="1.5"/>
+    ${kiitIcon(s.icon, cardX + 14, cy + 11, 22, t.blue)}
+    <rect x="${cardX + 44}" y="${cy + 11}" width="3" height="22" rx="1.5" fill="${t.accent}"/>
+    <text x="${cardX + 58}" y="${cy + 28}" font-size="16" font-weight="700" fill="${t.ink}">${esc(s.key)}</text>
+    <text x="${cardX + 16}" y="${cy + 54}" font-size="13" fill="${t.ink}">${esc(s.what)}</text>
+    ${s.used ? `<text x="${cardX + 16}" y="${cy + 72}" font-size="13" fill="${t.sub}">${esc(s.used)}</text>` : ""}`);
+    y += slot + slotGap;
+  });
+  const label = `${c.title}: ${c.sub} ` + c.sections.map((s) => `${s.key}: ${s.what}${s.used ? ", " + s.used : ""}.`).join(" ");
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
+  <defs>
+    ${bg.defs}
+  </defs>
+
+  ${bg.body}
+
+  <g font-family="${KIIT_FONT}">
+    <text x="${m}" y="62" font-size="32" font-weight="700" fill="${t.ink}">${esc(c.title)}</text>
+    <text x="${m}" y="92" font-size="15" fill="${t.sub}">${esc(c.sub)}</text>
+
+    <rect x="${m}" y="${top}" width="${panelW}" height="${panelH}" rx="4" fill="${t.navy}"/>
+    ${out.join("\n    ")}
+  </g>
+</svg>
+`;
+}
+
+kiitMount(buildSvg(CONFIG), "kiit-json.svg");
+</script>

@@ -31,7 +31,7 @@ Teams with several repos end up with several ways of naming branches, titling pu
 
 | # | | Purpose | Description |
 |---:|:---:|---|---|
-| 1 | 📐 | **Standards** | Defaults for branch and pull request formats, with a script that checks them. |
+| 1 | 📐 | **Standards** | Shared defaults, such as branch and pull request formats, with a script that checks them. |
 | 2 | 🧩 | **Skill groups** | Skills come in groups, `vcs` and `flow` so far, each with its own commands. |
 | 3 | 🗂️ | **Multiple repos** | One workspace config lists your projects, so every repo shares the standards. |
 
@@ -148,7 +148,9 @@ More in [docs/group-core.md](./docs/group-core.md).
 
 Kiit reads `.claude/kiit/kiit.json` from your workspace. For a single repo, list it as a project with a path of `.`.
 
-![Structure: the workspace folder holds .claude/kiit/kiit.json, your git repos, and a _kiit folder made by /kiit:init, with one folder per skill group inside it.](./assets/core/structure.svg)
+![kiit.json: the file holds version, tickets, resources, projects, standards and groups. Tickets are your ticket systems, resources are named files and links, projects are the repos work is done in, standards are overrides of the defaults, and groups are settings for each group.](./assets/core/kiit-json.svg)
+
+![Structure: the workspace folder holds a _kiit folder made by /kiit:init, with one folder per skill group inside it, then .claude/kiit/kiit.json, then your git repos.](./assets/core/structure.svg)
 
 ### Tickets
 
@@ -209,6 +211,6 @@ Contributions and design feedback are welcome. The skill standards are in [SKILL
 
 <div align="center">
 
-[Kiit](https://www.kiit.dev): engineering standards for AI coding agents.
+[Kiit](https://www.kiit.dev): engineering standards and skills for AI coding agents. Across multiple repos, start with solid defaults, make them yours.
 
 </div>
