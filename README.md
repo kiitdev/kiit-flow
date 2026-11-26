@@ -86,10 +86,6 @@ Skills are named `/kiit:{group}-{name}`. Each group has a `{group}-help` command
 
 Creates branches and pull requests in your team's format. Neither command pushes.
 
-1. `/kiit:vcs-branch {ticket|name}` creates a branch off an up to date base.
-2. `/kiit:vcs-pr` creates a pull request from the current branch, with a title in the team's format.
-3. `/kiit:vcs-help` lists the vcs skills.
-
 ```
 /kiit:vcs-branch https://github.com/kiitdev/kiit/issues/39
 ```
@@ -102,23 +98,13 @@ More in [docs/group-vcs.md](./docs/group-vcs.md).
 
 Takes a change from a ticket to a pull request, in one of three modes. **Fast** does a clear, low risk change in one pass. **Flow** designs first, then implements and verifies. **Focus** adds research and a review loop for risky or unclear work. Each change is kept as plain markdown files in a work item folder outside your repos.
 
-Three commands are ported so far.
-
-1. `/kiit:flow-go` is Fast: implement and check the change in one pass. `--check` also runs lint and tests, and `--auto` branches, commits, pushes and opens a pull request.
-2. `/kiit:flow-begin` creates a work item from a ticket or a description.
-3. `/kiit:flow-help` lists the flow skills.
-
-The other eight (design, research, review, revise, update, resume, verify and recent) are still being ported, so Flow and Focus can't run in the plugin yet.
+The plugin has `/kiit:flow-begin`, `/kiit:flow-go` (Fast) and `/kiit:flow-help` so far. The rest are still being ported, so Flow and Focus can't run yet.
 
 More in [docs/group-flow.md](./docs/group-flow.md).
 
 ### core
 
-Not a skill group. It holds what every group shares, and the one command that sets up the workspace.
-
-1. `/kiit:init` finds the git repos in your workspace and writes `.claude/kiit/kiit.json` after you confirm.
-
-The shared parts are the workspace config, how tickets are read, and the formats for branches and pull requests.
+Not a skill group. It holds what every group shares, and `/kiit:init`, which finds the git repos in your workspace and writes `.claude/kiit/kiit.json` after you confirm.
 
 More in [docs/group-core.md](./docs/group-core.md).
 
@@ -188,7 +174,7 @@ Every key is described in [shared/README.md](./shared/README.md), and [shared/ki
 
 Planned, in no set order. None of it is in the plugin yet.
 
-1. **Remaining flow commands.** The eight listed under flow.
+1. **Remaining flow commands.** Design, research, review, revise, update, resume, verify and recent.
 2. **Docs.** A `metadata.json` holds a project's facts, and a standard README is generated from it.
 3. **Diagrams.** Architecture kept as structured metadata, with diagrams generated from it.
 4. **Recipes.** Grouped recipes for specific tasks that apply your standards and patterns to generate code.
