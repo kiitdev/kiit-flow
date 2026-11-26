@@ -41,6 +41,8 @@ Only `vcs` has standards today. The mechanism is in place for the other groups.
 
 A standard is a setting that a group's skills read, such as the format of a branch name. The group ships a default, and your `kiit.json` can override it.
 
+![Standards: kiit ships the default branch and pull request formats. Your kiit.json goes on top and lists only what differs. The vcs skills read both, check the format with a script, and create the branch and the title.](./assets/core/standards.svg)
+
 ### Defaults
 
 The `vcs` group ships these in its `standards.json`:
@@ -141,6 +143,8 @@ The first creates a branch for the issue. The second reads the same issue, makes
 ## Configuration
 
 Kiit reads `.claude/kiit/kiit.json` from your workspace. For a single repo, list it as a project with a path of `.`.
+
+![Structure: the workspace folder holds .claude/kiit/kiit.json, your git repos, and a _kiit folder made by /kiit:init, with one folder per skill group inside it.](./assets/core/structure.svg)
 
 ### Tickets
 
