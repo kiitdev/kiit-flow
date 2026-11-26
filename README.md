@@ -127,7 +127,7 @@ Run it from your workspace, the folder that holds your repos:
 /kiit:init
 ```
 
-It reads each repo's git remote to find the ticket system, and shows what it would write. Nothing is written until you confirm. It also creates the `_kiit/` folder that the groups keep their files in.
+It reads each repo and configures your `kiit.json` accordingly, and shows what it would write. Nothing is written until you confirm. It also creates the `_kiit/` folder that the groups keep their files in.
 
 Every other command needs this step first, except `--help`.
 

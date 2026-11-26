@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Kiit examples</title>
+<!--
+  Example commands, as typed in a terminal, with a short comment on each. 900 wide, to fit a GitHub README. Edit CONFIG below, then either:
+    1. open this file in a browser and press "Download SVG", or
+    2. export from the command line: ./banner.sh core/examples.html core/examples.svg
+  Colours and fonts are theme settings in kiit-svg.js.
+-->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
+  #banner svg { width: 100%; max-width: 900px; height: auto; display: block; }
+  button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+
+<script src="../kiit-svg.js"></script>
+<script>
+// ---- CONFIG: change these for each project ---------------------------------
+const CONFIG = {
+  title: "Examples",
+  sub: "run from your workspace",
+  lines: [                                   // [command, argument, comment]
+    ["/kiit:init",        "",                                       "set up the workspace, once"],
+    ["/kiit:vcs-help",    "",                                       "list the vcs commands"],
+    ["/kiit:vcs-branch",  "https://github.com/acme/app/issues/12",  "create a branch for the issue"],
+    ["/kiit:vcs-pr",      "",                                       "open a pull request"],
+    ["/kiit:flow-begin",  "https://github.com/acme/app/issues/12",  "create a work item"],
+    ["/kiit:flow-go",     "https://github.com/acme/app/issues/12 --check", "make the change and check it"],
+  ],
+  theme: KIIT_THEME,
+};
+// ---------------------------------------------------------------------------
+
+function buildSvg(c) {
+  const t = c.theme, W = 900, m = 40, rowH = 44, fs = 13, cw = fs * 0.6, top = 120, head = 56;
+  const full = (l) => l[0].length + (l[1] ? l[1].length + 1 : 0);
+  const cmdX = m + 56;
+  const noteX = Math.round(cmdX + Math.max(...c.lines.map(full)) * cw + 28);
+  const h = head + 8 + c.lines.length * rowH + 12;
+  const H = top + h + 40;
+  const bg = kiitBackground(t, W, H);
+
+  const rows = c.lines.map(([cmd, arg, note], i) => {
+    const y = top + head + 8 + i * rowH + rowH / 2 + 5;
+    return `<text x="${m + 28}" y="${y}" font-size="${fs + 2}" font-weight="700" fill="${t.blue}">&gt;</text>
+    <text x="${cmdX}" y="${y}" font-size="${fs}"><tspan font-weight="700" fill="${t.ink}">${esc(cmd)}</tspan>${arg ? `<tspan fill="${t.blueMid}"> ${esc(arg)}</tspan>` : ""}</text>
+    <text x="${noteX}" y="${y}" font-size="${fs}" fill="${t.dim}"># ${esc(note)}</text>`;
+  }).join("\n    ");
+  const label = `${c.title}: ${c.sub}. ` + c.lines.map(([cmd, arg, note]) => `${[cmd, arg].filter(Boolean).join(" ")}, to ${note}`).join("; ") + ".";
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
+  <defs>
+    ${bg.defs}
+  </defs>
+
+  ${bg.body}
+
+  <g font-family="${KIIT_FONT}">
+    <text x="${m}" y="62" font-size="32" font-weight="700" fill="${t.ink}">${esc(c.title)}</text>
+    <text x="${m}" y="92" font-size="15" fill="${t.sub}">${esc(c.sub)}</text>
+
+    <rect x="${m}" y="${top}" width="${W - 2 * m}" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.blueSoft}" stroke-width="1.5"/>
+    ${kiitIcon("flow", m + 16, top + 14, 28, t.blue)}
+    <rect x="${m + 60}" y="${top + 17}" width="3" height="22" rx="1.5" fill="${t.accent}"/>
+    <text x="${m + 78}" y="${top + 34}" font-size="17" font-weight="700" fill="${t.ink}">Terminal</text>
+
+    ${rows}
+  </g>
+</svg>
+`;
+}
+
+kiitMount(buildSvg(CONFIG), "examples.svg");
+</script>

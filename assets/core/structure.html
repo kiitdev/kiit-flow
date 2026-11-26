@@ -27,13 +27,13 @@ const CONFIG = {
   sub: "your workspace, and the skills that use it",
   tree: [                                    // d is the depth. icon: a name from KIIT_ICONS. blue: the name in the lighter blue
     { d: 0, name: "workspace/", bold: true, icon: "projects", note: "the folder that holds your repos" },
-    { d: 1, name: ".claude/kiit/kiit.json", icon: "config", blue: true, note: "written by /kiit:init, read by every skill" },
-    { d: 1, name: "api/", icon: "repos", note: "a git repo, where vcs-branch and vcs-pr work" },
-    { d: 1, name: "app/", icon: "repos", note: "another git repo, listed in projects" },
     { d: 1, name: "_kiit/", icon: "projects", note: "created by /kiit:init" },
     { d: 2, name: "flow/", icon: "flow", note: "one folder per skill group" },
     { d: 3, name: "items/", note: "one folder per work item, from begin and go" },
     { d: 3, name: "state.json", note: "the work item you used last" },
+    { d: 1, name: ".claude/kiit/kiit.json", icon: "config", blue: true, note: "written by /kiit:init, read by every skill" },
+    { d: 1, name: "api/", icon: "repos", note: "a git repo, where vcs-branch and vcs-pr work" },
+    { d: 1, name: "app/", icon: "repos", note: "another git repo, listed in projects" },
   ],
   theme: KIIT_THEME,
 };
@@ -64,7 +64,7 @@ function buildSvg(c) {
 
   const H = top1 + h1 + 40;
   const bg = kiitBackground(t, W, H);
-  const label = `${c.title}: ${c.sub}. The workspace folder holds the file .claude/kiit/kiit.json, which /kiit:init writes and every skill reads, your git repos, such as api and app, where the vcs-branch and vcs-pr skills work, and a _kiit folder made by /kiit:init. Inside _kiit is one folder per skill group, such as flow, which holds an items folder with one folder per work item, made by flow-begin and flow-go, and a state.json file.`;
+  const label = `${c.title}: ${c.sub}. The workspace folder holds a _kiit folder made by /kiit:init, the file .claude/kiit/kiit.json, which /kiit:init writes and every skill reads, and your git repos, such as api and app, where the vcs-branch and vcs-pr skills work. Inside _kiit is one folder per skill group, such as flow, which holds an items folder with one folder per work item, made by flow-begin and flow-go, and a state.json file.`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
   <defs>
