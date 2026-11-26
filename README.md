@@ -112,6 +112,8 @@ More in [docs/group-core.md](./docs/group-core.md).
 
 ## Start
 
+![Start: install the plugin with /plugin marketplace add kiitdev/kiit and /plugin install kiit@kiit-dev, then run /kiit:init once from the folder that holds your repos. It reads each repo, configures your kiit.json, shows what it would write, and writes nothing until you confirm. It adds a _kiit folder and .claude/kiit/kiit.json to the workspace.](./assets/core/start.svg)
+
 ### Install
 
 ```
@@ -132,6 +134,8 @@ It reads each repo and configures your `kiit.json` accordingly, and shows what i
 Every other command needs this step first, except `--help`.
 
 ### First run
+
+![Examples, run from your workspace: /kiit:init, /kiit:vcs-help, /kiit:vcs-branch with an issue link, /kiit:vcs-pr, /kiit:flow-begin with an issue link, and /kiit:flow-go with an issue link and --check.](./assets/core/examples.svg)
 
 ```
 /kiit:vcs-branch https://github.com/acme/app/issues/12

@@ -48,8 +48,8 @@ function buildSvg(c) {
 
   const rows = c.lines.map(([cmd, arg, note], i) => {
     const y = top + head + 8 + i * rowH + rowH / 2 + 5;
-    return `<text x="${m + 28}" y="${y}" font-size="${fs + 2}" font-weight="700" fill="${t.blue}">&gt;</text>
-    <text x="${cmdX}" y="${y}" font-size="${fs}"><tspan font-weight="700" fill="${t.ink}">${esc(cmd)}</tspan>${arg ? `<tspan fill="${t.blueMid}"> ${esc(arg)}</tspan>` : ""}</text>
+    return `<text x="${m + 28}" y="${y}" font-size="${fs + 2}" font-weight="700" fill="${t.blueSoft}">&gt;</text>
+    <text x="${cmdX}" y="${y}" font-size="${fs}"><tspan font-weight="700" fill="${t.onFill}">${esc(cmd)}</tspan>${arg ? `<tspan fill="${t.blueSoft}"> ${esc(arg)}</tspan>` : ""}</text>
     <text x="${noteX}" y="${y}" font-size="${fs}" fill="${t.dim}"># ${esc(note)}</text>`;
   }).join("\n    ");
   const label = `${c.title}: ${c.sub}. ` + c.lines.map(([cmd, arg, note]) => `${[cmd, arg].filter(Boolean).join(" ")}, to ${note}`).join("; ") + ".";
@@ -65,10 +65,10 @@ function buildSvg(c) {
     <text x="${m}" y="62" font-size="32" font-weight="700" fill="${t.ink}">${esc(c.title)}</text>
     <text x="${m}" y="92" font-size="15" fill="${t.sub}">${esc(c.sub)}</text>
 
-    <rect x="${m}" y="${top}" width="${W - 2 * m}" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.blueSoft}" stroke-width="1.5"/>
-    ${kiitIcon("flow", m + 16, top + 14, 28, t.blue)}
+    <rect x="${m}" y="${top}" width="${W - 2 * m}" height="${h}" rx="4" fill="${t.navy}" stroke="${t.navy}" stroke-width="1.5"/>
+    ${kiitIcon("flow", m + 16, top + 14, 28, t.blueSoft)}
     <rect x="${m + 60}" y="${top + 17}" width="3" height="22" rx="1.5" fill="${t.accent}"/>
-    <text x="${m + 78}" y="${top + 34}" font-size="17" font-weight="700" fill="${t.ink}">Terminal</text>
+    <text x="${m + 78}" y="${top + 34}" font-size="17" font-weight="700" fill="${t.onFill}">Terminal</text>
 
     ${rows}
   </g>

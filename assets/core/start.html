@@ -60,8 +60,9 @@ function buildSvg(c) {
     for (const r of card.rows) {
       if (r.code) {
         body += `
-    <rect x="${x0 + 24}" y="${ry}" width="${right - x0 - 24}" height="34" rx="4" fill="${t.softFill}"/>
-    <text x="${x0 + 40}" y="${ry + 22}" font-size="15" font-weight="700" fill="${t.ink}">${esc(r.code)}</text>`;
+    <rect x="${x0 + 24}" y="${ry}" width="${right - x0 - 24}" height="34" rx="4" fill="${t.navy}"/>
+    <text x="${x0 + 40}" y="${ry + 22}" font-size="15" font-weight="700" fill="${t.blueSoft}">&gt;</text>
+    <text x="${x0 + 62}" y="${ry + 22}" font-size="15" font-weight="700" fill="${t.onFill}">${esc(r.code)}</text>`;   // a terminal line, as in the Examples diagram
         ry += 44;
       } else if (r.tree) {
         // the icons here: folders orange, config the lighter blue, repos blue, as in the Structure diagram

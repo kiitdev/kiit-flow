@@ -28,28 +28,28 @@
     <text x="40" y="62" font-size="32" font-weight="700" fill="#1E293B">Examples</text>
     <text x="40" y="92" font-size="15" fill="#64748B">run from your workspace</text>
 
-    <rect x="40" y="120" width="820" height="340" rx="4" fill="#FFFFFF" stroke="#95AFF9" stroke-width="1.5"/>
-    <g transform="translate(56 134) scale(1.1666666666666667)" fill="none" stroke="#144DF2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6l6 6-6 6"/><path d="M13 6l6 6-6 6"/></g>
+    <rect x="40" y="120" width="820" height="340" rx="4" fill="#111827" stroke="#111827" stroke-width="1.5"/>
+    <g transform="translate(56 134) scale(1.1666666666666667)" fill="none" stroke="#95AFF9" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6l6 6-6 6"/><path d="M13 6l6 6-6 6"/></g>
     <rect x="100" y="137" width="3" height="22" rx="1.5" fill="#FF9A4D"/>
-    <text x="118" y="154" font-size="17" font-weight="700" fill="#1E293B">Terminal</text>
+    <text x="118" y="154" font-size="17" font-weight="700" fill="#FFFFFF">Terminal</text>
 
-    <text x="68" y="211" font-size="15" font-weight="700" fill="#144DF2">&gt;</text>
-    <text x="96" y="211" font-size="13"><tspan font-weight="700" fill="#1E293B">/kiit:init</tspan></text>
+    <text x="68" y="211" font-size="15" font-weight="700" fill="#95AFF9">&gt;</text>
+    <text x="96" y="211" font-size="13"><tspan font-weight="700" fill="#FFFFFF">/kiit:init</tspan></text>
     <text x="584" y="211" font-size="13" fill="#6B7A99"># set up the workspace, once</text>
-    <text x="68" y="255" font-size="15" font-weight="700" fill="#144DF2">&gt;</text>
-    <text x="96" y="255" font-size="13"><tspan font-weight="700" fill="#1E293B">/kiit:vcs-help</tspan></text>
+    <text x="68" y="255" font-size="15" font-weight="700" fill="#95AFF9">&gt;</text>
+    <text x="96" y="255" font-size="13"><tspan font-weight="700" fill="#FFFFFF">/kiit:vcs-help</tspan></text>
     <text x="584" y="255" font-size="13" fill="#6B7A99"># list the vcs commands</text>
-    <text x="68" y="299" font-size="15" font-weight="700" fill="#144DF2">&gt;</text>
-    <text x="96" y="299" font-size="13"><tspan font-weight="700" fill="#1E293B">/kiit:vcs-branch</tspan><tspan fill="#4F79F5"> https://github.com/acme/app/issues/12</tspan></text>
+    <text x="68" y="299" font-size="15" font-weight="700" fill="#95AFF9">&gt;</text>
+    <text x="96" y="299" font-size="13"><tspan font-weight="700" fill="#FFFFFF">/kiit:vcs-branch</tspan><tspan fill="#95AFF9"> https://github.com/acme/app/issues/12</tspan></text>
     <text x="584" y="299" font-size="13" fill="#6B7A99"># create a branch for the issue</text>
-    <text x="68" y="343" font-size="15" font-weight="700" fill="#144DF2">&gt;</text>
-    <text x="96" y="343" font-size="13"><tspan font-weight="700" fill="#1E293B">/kiit:vcs-pr</tspan></text>
+    <text x="68" y="343" font-size="15" font-weight="700" fill="#95AFF9">&gt;</text>
+    <text x="96" y="343" font-size="13"><tspan font-weight="700" fill="#FFFFFF">/kiit:vcs-pr</tspan></text>
     <text x="584" y="343" font-size="13" fill="#6B7A99"># open a pull request</text>
-    <text x="68" y="387" font-size="15" font-weight="700" fill="#144DF2">&gt;</text>
-    <text x="96" y="387" font-size="13"><tspan font-weight="700" fill="#1E293B">/kiit:flow-begin</tspan><tspan fill="#4F79F5"> https://github.com/acme/app/issues/12</tspan></text>
+    <text x="68" y="387" font-size="15" font-weight="700" fill="#95AFF9">&gt;</text>
+    <text x="96" y="387" font-size="13"><tspan font-weight="700" fill="#FFFFFF">/kiit:flow-begin</tspan><tspan fill="#95AFF9"> https://github.com/acme/app/issues/12</tspan></text>
     <text x="584" y="387" font-size="13" fill="#6B7A99"># create a work item</text>
-    <text x="68" y="431" font-size="15" font-weight="700" fill="#144DF2">&gt;</text>
-    <text x="96" y="431" font-size="13"><tspan font-weight="700" fill="#1E293B">/kiit:flow-go</tspan><tspan fill="#4F79F5"> https://github.com/acme/app/issues/12 --check</tspan></text>
+    <text x="68" y="431" font-size="15" font-weight="700" fill="#95AFF9">&gt;</text>
+    <text x="96" y="431" font-size="13"><tspan font-weight="700" fill="#FFFFFF">/kiit:flow-go</tspan><tspan fill="#95AFF9"> https://github.com/acme/app/issues/12 --check</tspan></text>
     <text x="584" y="431" font-size="13" fill="#6B7A99"># make the change and check it</text>
   </g>
 </svg>
