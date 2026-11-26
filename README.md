@@ -14,9 +14,9 @@ Kiit is a plugin of skill groups for your coding agent. It keeps your team's eng
 | # | | Section | Description |
 |---:|:---:|---|---|
 | 1 | 💡 | [Why](#why) | What kiit adds: engineering standards, across repos, in skill groups |
-| 2 | 📐 | [Standards](#standards) | What ships today, and how a team makes the standards its own |
-| 3 | 🧩 | [Groups](#groups) | The skill groups and the commands each one has |
-| 4 | 🚀 | [Start](#start) | Get set up and run a first command |
+| 2 | 🚀 | [Start](#start) | Get set up and run a first command |
+| 3 | 📐 | [Standards](#standards) | What ships today, and how a team makes the standards its own |
+| 4 | 🧩 | [Groups](#groups) | The skill groups and the commands each one has |
 | 5 | ⚙️ | [Configuration](#configuration) | The workspace and `kiit.json` |
 | 6 | 🗺️ | [Roadmap](#roadmap) | What is planned next |
 | 7 | 📋 | [Requirements](#requirements) | What kiit needs to run |
@@ -36,6 +36,40 @@ Teams with several repos end up with several ways of naming branches, titling pu
 | 3 | 🗂️ | **Multiple repos** | One workspace config lists your projects, so every repo shares the standards. |
 
 Only `vcs` has standards today. The mechanism is in place for the other groups.
+
+## Start
+
+![Start: install the plugin with /plugin marketplace add kiitdev/kiit and /plugin install kiit@kiit-dev, then run /kiit:init once from the folder that holds your repos. It reads each repo, configures your kiit.json, shows what it would write, and writes nothing until you confirm. It adds a _kiit folder and .claude/kiit/kiit.json to the workspace.](./assets/core/start.svg)
+
+### Install
+
+```
+/plugin marketplace add kiitdev/kiit
+/plugin install kiit@kiit-dev
+```
+
+### Init
+
+Run it from your workspace, the folder that holds your repos:
+
+```
+/kiit:init
+```
+
+It reads each repo and configures your `kiit.json` accordingly, and shows what it would write. Nothing is written until you confirm. It also creates the `_kiit/` folder that the groups keep their files in.
+
+Every other command needs this step first, except `--help`.
+
+### First run
+
+![Examples, run from your workspace: /kiit:init, /kiit:vcs-help, /kiit:vcs-branch with an issue link, /kiit:vcs-pr, /kiit:flow-begin with an issue link, and /kiit:flow-go with an issue link and --check.](./assets/core/examples.svg)
+
+```
+/kiit:vcs-branch https://github.com/acme/app/issues/12
+/kiit:flow-go https://github.com/acme/app/issues/12 --check
+```
+
+The first creates a branch for the issue. The second reads the same issue, makes the change, and runs the project's checks and a scan for secrets.
 
 ## Standards
 
@@ -109,40 +143,6 @@ More in [docs/group-flow.md](./docs/group-flow.md).
 Not a skill group. It holds what every group shares, and `/kiit:init`, which finds the git repos in your workspace and writes `.claude/kiit/kiit.json` after you confirm.
 
 More in [docs/group-core.md](./docs/group-core.md).
-
-## Start
-
-![Start: install the plugin with /plugin marketplace add kiitdev/kiit and /plugin install kiit@kiit-dev, then run /kiit:init once from the folder that holds your repos. It reads each repo, configures your kiit.json, shows what it would write, and writes nothing until you confirm. It adds a _kiit folder and .claude/kiit/kiit.json to the workspace.](./assets/core/start.svg)
-
-### Install
-
-```
-/plugin marketplace add kiitdev/kiit
-/plugin install kiit@kiit-dev
-```
-
-### Init
-
-Run it from your workspace, the folder that holds your repos:
-
-```
-/kiit:init
-```
-
-It reads each repo and configures your `kiit.json` accordingly, and shows what it would write. Nothing is written until you confirm. It also creates the `_kiit/` folder that the groups keep their files in.
-
-Every other command needs this step first, except `--help`.
-
-### First run
-
-![Examples, run from your workspace: /kiit:init, /kiit:vcs-help, /kiit:vcs-branch with an issue link, /kiit:vcs-pr, /kiit:flow-begin with an issue link, and /kiit:flow-go with an issue link and --check.](./assets/core/examples.svg)
-
-```
-/kiit:vcs-branch https://github.com/acme/app/issues/12
-/kiit:flow-go https://github.com/acme/app/issues/12 --check
-```
-
-The first creates a branch for the issue. The second reads the same issue, makes the change, and runs the project's checks and a scan for secrets.
 
 ## Configuration
 
