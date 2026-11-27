@@ -25,17 +25,17 @@
   <rect x="0.75" y="0.75" width="638.5" height="610.5" rx="10" fill="none" stroke="#8CA3C7" stroke-width="1.5"/>
 
   <g font-family="'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
-    <text x="32" y="52" font-size="28" font-weight="700" fill="#1E293B">Why kiit</text>
-    <text x="32" y="74" font-size="14" font-weight="400" fill="#64748B">What Claude Code gives you, and what kiit adds</text>
+    <text x="32" y="52" font-size="26" font-weight="700" fill="#1E293B">Why kiit</text>
+    <text x="32" y="74" font-size="13" font-weight="400" fill="#64748B">What Claude Code gives you, and what kiit adds</text>
 
     <rect x="32" y="92" width="170" height="34" rx="4" fill="#1E293B"/>
-    <text x="117" y="114" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">Claude Code</text>
+    <text x="117" y="114" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">Claude Code</text>
     <rect x="246" y="92" width="362" height="34" rx="4" fill="#144DF2"/>
-    <text x="427" y="114" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">kiit adds</text>
+    <text x="427" y="114" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">kiit adds</text>
 
     <rect x="32" y="142" width="170" height="134" rx="4" fill="#FFFFFF" stroke="#B8C5DA" stroke-width="1.5"/>
-    <text x="48" y="203" font-size="16" font-weight="400" fill="#64748B">CLAUDE.md in</text>
-    <text x="48" y="225" font-size="16" font-weight="400" fill="#64748B">each repo</text>
+    <text x="48" y="203" font-size="15" font-weight="400" fill="#64748B">CLAUDE.md in</text>
+    <text x="48" y="225" font-size="15" font-weight="400" fill="#64748B">each repo</text>
 
     <line x1="210" y1="209" x2="226" y2="209" stroke="#144DF2" stroke-width="3"/>
     <polygon points="226,201.8 226,216.2 238,209" fill="#144DF2"/>
@@ -45,17 +45,17 @@
     <circle cx="580" cy="168" r="13" fill="#16C45E"/>
     <path d="M580 162V174M574 168H586" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
     <rect x="304" y="157" width="3" height="22" rx="1.5" fill="#FF9A4D"/>
-    <text x="320" y="175" font-size="18" font-weight="700" fill="#1E293B">Standards</text>
+    <text x="320" y="175" font-size="17" font-weight="700" fill="#1E293B">Standards</text>
     <circle cx="266" cy="207" r="3" fill="#144DF2"/>
-    <text x="278" y="212" font-size="16" font-weight="400" fill="#64748B">Shared engineering standards</text>
+    <text x="278" y="212" font-size="15" font-weight="400" fill="#64748B">Shared engineering standards</text>
     <circle cx="266" cy="231" r="3" fill="#144DF2"/>
-    <text x="278" y="236" font-size="16" font-weight="400" fill="#64748B">Branch and PR format defaults</text>
+    <text x="278" y="236" font-size="15" font-weight="400" fill="#64748B">Branch and PR format defaults</text>
     <circle cx="266" cy="255" r="3" fill="#144DF2"/>
-    <text x="278" y="260" font-size="16" font-weight="400" fill="#64748B">Your overrides in kiit.json</text>
+    <text x="278" y="260" font-size="15" font-weight="400" fill="#64748B">Your overrides in kiit.json</text>
 
     <rect x="32" y="290" width="170" height="134" rx="4" fill="#FFFFFF" stroke="#B8C5DA" stroke-width="1.5"/>
-    <text x="48" y="351" font-size="16" font-weight="400" fill="#64748B">Skills and</text>
-    <text x="48" y="373" font-size="16" font-weight="400" fill="#64748B">plugins</text>
+    <text x="48" y="351" font-size="15" font-weight="400" fill="#64748B">Skills and</text>
+    <text x="48" y="373" font-size="15" font-weight="400" fill="#64748B">plugins</text>
 
     <line x1="210" y1="357" x2="226" y2="357" stroke="#144DF2" stroke-width="3"/>
     <polygon points="226,349.8 226,364.2 238,357" fill="#144DF2"/>
@@ -65,18 +65,18 @@
     <circle cx="580" cy="316" r="13" fill="#16C45E"/>
     <path d="M580 310V322M574 316H586" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
     <rect x="304" y="305" width="3" height="22" rx="1.5" fill="#FF9A4D"/>
-    <text x="320" y="323" font-size="18" font-weight="700" fill="#1E293B">Skill groups</text>
+    <text x="320" y="323" font-size="17" font-weight="700" fill="#1E293B">Skill groups</text>
     <circle cx="266" cy="355" r="3" fill="#144DF2"/>
-    <text x="278" y="360" font-size="16" font-weight="400" fill="#64748B">Groups: vcs and flow so far</text>
+    <text x="278" y="360" font-size="15" font-weight="400" fill="#64748B">Groups: vcs and flow so far</text>
     <circle cx="266" cy="379" r="3" fill="#144DF2"/>
-    <text x="278" y="384" font-size="16" font-weight="400" fill="#64748B">A help command for each group</text>
+    <text x="278" y="384" font-size="15" font-weight="400" fill="#64748B">A help command for each group</text>
     <circle cx="266" cy="403" r="3" fill="#144DF2"/>
-    <text x="278" y="408" font-size="16" font-weight="400" fill="#64748B">Shared parts live in core</text>
+    <text x="278" y="408" font-size="15" font-weight="400" fill="#64748B">Shared parts live in core</text>
 
     <rect x="32" y="438" width="170" height="134" rx="4" fill="#FFFFFF" stroke="#B8C5DA" stroke-width="1.5"/>
-    <text x="48" y="488" font-size="16" font-weight="400" fill="#64748B">The folder you</text>
-    <text x="48" y="510" font-size="16" font-weight="400" fill="#64748B">start in and</text>
-    <text x="48" y="532" font-size="16" font-weight="400" fill="#64748B">--add-dir</text>
+    <text x="48" y="488" font-size="15" font-weight="400" fill="#64748B">The folder you</text>
+    <text x="48" y="510" font-size="15" font-weight="400" fill="#64748B">start in and</text>
+    <text x="48" y="532" font-size="15" font-weight="400" fill="#64748B">--add-dir</text>
 
     <line x1="210" y1="505" x2="226" y2="505" stroke="#144DF2" stroke-width="3"/>
     <polygon points="226,497.8 226,512.2 238,505" fill="#144DF2"/>
@@ -86,12 +86,12 @@
     <circle cx="580" cy="464" r="13" fill="#16C45E"/>
     <path d="M580 458V470M574 464H586" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
     <rect x="304" y="453" width="3" height="22" rx="1.5" fill="#FF9A4D"/>
-    <text x="320" y="471" font-size="18" font-weight="700" fill="#1E293B">Multiple repos</text>
+    <text x="320" y="471" font-size="17" font-weight="700" fill="#1E293B">Multiple repos</text>
     <circle cx="266" cy="503" r="3" fill="#144DF2"/>
-    <text x="278" y="508" font-size="16" font-weight="400" fill="#64748B">One workspace config</text>
+    <text x="278" y="508" font-size="15" font-weight="400" fill="#64748B">One workspace config</text>
     <circle cx="266" cy="527" r="3" fill="#144DF2"/>
-    <text x="278" y="532" font-size="16" font-weight="400" fill="#64748B">A ticket system per project</text>
+    <text x="278" y="532" font-size="15" font-weight="400" fill="#64748B">A ticket system per project</text>
     <circle cx="266" cy="551" r="3" fill="#144DF2"/>
-    <text x="278" y="556" font-size="16" font-weight="400" fill="#64748B">Same standards in every repo</text>
+    <text x="278" y="556" font-size="15" font-weight="400" fill="#64748B">Same standards in every repo</text>
   </g>
 </svg>
