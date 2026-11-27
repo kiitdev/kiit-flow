@@ -18,6 +18,7 @@ const KIIT_THEME = {
   pageRadius: 10,               // the page's corner radius
   showGrid: true,               // graph paper lines on the right, fading out toward the left
   gridSize: 32, gridWidth: 1,   // the spacing and thickness of the lines. Their colour is `grid`
+  gridSide: "right",            // which side the lines are on: "right" or "left". They fade out toward the other side
   gridFade: 0.5,                // where the fade starts, as a share of the width from the left
   showBar: true, barWidth: 8,   // the bar down the left edge. Its colour is `barColor`
   line: "#475569",              // card and box borders
@@ -93,7 +94,7 @@ function kiitBackground(t, w, h) {
     <pattern id="kiit-grid" width="${g}" height="${g}" patternUnits="userSpaceOnUse">
       <path d="M${g} 0H0V${g}" fill="none" stroke="${t.grid}" stroke-width="${t.gridWidth}"/>
     </pattern>
-    <linearGradient id="kiit-fade" x1="0" y1="0" x2="1" y2="0">
+    <linearGradient id="kiit-fade" x1="${t.gridSide === "left" ? 1 : 0}" y1="0" x2="${t.gridSide === "left" ? 0 : 1}" y2="0">
       <stop offset="${t.gridFade}" stop-color="#000"/>
       <stop offset="1" stop-color="#FFF"/>
     </linearGradient>

@@ -9,8 +9,8 @@
     <pattern id="kiit-grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="#CBD8FC" stroke-width="1"/>
     </pattern>
-    <linearGradient id="kiit-fade" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0.5" stop-color="#000"/>
+    <linearGradient id="kiit-fade" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0.4" stop-color="#000"/>
       <stop offset="1" stop-color="#FFF"/>
     </linearGradient>
     <mask id="kiit-grid-mask"><rect width="1392" height="468" fill="url(#kiit-fade)"/></mask>
@@ -49,28 +49,23 @@
     <text x="1141" y="440" font-size="17"><tspan font-weight="700" fill="#1E293B">2026</tspan><tspan fill="#64748B">  AI enabled</tspan></text>
     
 
-    <g transform="translate(872 82)">
-      <rect width="440" height="256" rx="4" fill="#FFFFFF" stroke="#B8C5DA" stroke-width="1.5"/>
-      <path d="M0 48 V4 A4 4 0 0 1 4 0 H436 A4 4 0 0 1 440 4 V48 Z" fill="#144DF2"/>
-      <text x="24" y="29.6" font-size="16" font-weight="700" fill="#FFFFFF">.claude/kiit/kiit.json</text>
-      <text x="48" y="76" font-size="15" fill="#6B7A99">Feature</text>
-      <text x="416" y="76" font-size="15" fill="#6B7A99" text-anchor="end">Note</text>
-      <circle cx="32" cy="106" r="3.5" fill="#64748B"/>
-      <text x="48" y="112" font-size="18" font-weight="700" fill="#4F79F5">tickets</text>
-      <text x="416" y="112" font-size="18" fill="#64748B" text-anchor="end">your ticket systems</text>
-      <circle cx="32" cy="136" r="3.5" fill="#64748B"/>
-      <text x="48" y="142" font-size="18" font-weight="700" fill="#4F79F5">projects</text>
-      <text x="416" y="142" font-size="18" fill="#64748B" text-anchor="end">your repos</text>
-      <circle cx="32" cy="166" r="3.5" fill="#64748B"/>
-      <text x="48" y="172" font-size="18" font-weight="700" fill="#4F79F5">standards</text>
-      <text x="416" y="172" font-size="18" fill="#64748B" text-anchor="end">your overrides</text>
-      <circle cx="32" cy="196" r="3.5" fill="#64748B"/>
-      <text x="48" y="202" font-size="18" font-weight="700" fill="#4F79F5">groups</text>
-      <text x="416" y="202" font-size="18" fill="#64748B" text-anchor="end">settings per group</text>
-      <circle cx="32" cy="226" r="3.5" fill="#64748B"/>
-      <text x="48" y="232" font-size="18" font-weight="700" fill="#4F79F5">resources</text>
-      <text x="416" y="232" font-size="18" fill="#64748B" text-anchor="end">files and links</text>
-    </g>
-    <text x="1312" y="372" font-size="15" fill="#64748B" text-anchor="end">Built for <tspan font-weight="700" fill="#1E293B">Claude Code</tspan>.</text>
+    <svg x="957" y="75" width="270" height="270" viewBox="0 0 290 290" role="img" aria-label="Kiit logo: a toolbox with a k tile">
+      <defs>
+        <linearGradient id="logo-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7F9FF"/><stop offset="1" stop-color="#DEE6FE"/></linearGradient>
+        <linearGradient id="logo-edge" x1="-0.04" y1="0" x2="0.55" y2="0"><stop offset="0" stop-color="#111827"/><stop offset="1" stop-color="#144DF2"/></linearGradient>
+        <pattern id="logo-grid" width="18.125" height="18.125" patternUnits="userSpaceOnUse"><path d="M18.125 0H0V18.125" fill="none" stroke="#CBD8FC" stroke-width="0.3"/></pattern>
+        <clipPath id="logo-frame"><rect width="290" height="290" rx="57"/></clipPath>
+      </defs>
+      <g clip-path="url(#logo-frame)"><rect width="290" height="290" fill="url(#logo-bg)"/><rect width="290" height="290" fill="url(#logo-grid)"/></g>
+      <rect x="4" y="4" width="282" height="282" rx="53" fill="none" stroke="url(#logo-edge)" stroke-width="8"/>
+      <g transform="translate(145 145) scale(0.82) translate(-133.25 -106.5)">
+        <rect x="9" y="27" width="248.5" height="178" rx="45" fill="#111827"/>
+        <rect x="35" y="53" width="196.5" height="126" rx="19" fill="#FFFFFF"/>
+        <path d="M100.5 53V179M166 53V179M35 116H231.5" stroke="#FFC9A0" stroke-width="2"/>
+        <path d="M35 116H100.5V179H54A19 19 0 0 1 35 160Z" fill="#144DF2"/>
+        <path transform="translate(67.75 147.5) scale(0.92) translate(-69.25 -151.5)" d="M47.5 127H58.5V147L73 127H87L69 148L91 176H77L63 156L58.5 161V176H47.5Z" fill="#FFFFFF"/>
+        <path d="M90.25 53V20A5 5 0 0 1 95.25 15H171.25A5 5 0 0 1 176.25 20V53Z" fill="#144DF2"/>
+      </g>
+    </svg>
   </g>
 </svg>
