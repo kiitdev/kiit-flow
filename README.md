@@ -1,6 +1,6 @@
 <div align="center">
 <h1>
-  <img src="./assets/core/banner.svg" alt="Kiit: engineering standards and skills for AI coding agents. Across multiple repos, start with solid defaults, make them yours. Beta. History: 2016, created kiit; 2020, stable framework; 2026, AI enabled." align="center" />
+  <img src="./assets/core/banner.svg" alt="Kiit: engineering standards and skills for AI coding agents. Across multiple repos, start with solid defaults, make them yours. Beta. History: 2016, created kiit; 2020, stable framework; 2026, AI enabled." width="100%" />
 </h1>
 
 Kiit is a plugin of skill groups for your coding agent. It keeps your team's engineering standards in one workspace config, such as how branches and pull requests are named, and the skills use them in every repo. The defaults ship with the plugin, you override only what differs, and it all runs as skills inside the agent, so there's nothing to host.
@@ -27,7 +27,7 @@ Kiit is a plugin of skill groups for your coding agent. It keeps your team's eng
 
 Teams with several repos end up with several ways of naming branches, titling pull requests and checking a change. A coding agent follows whatever the repo in front of it does. Kiit gives it one set of standards instead.
 
-![Why kiit: for standards, skill groups and multiple repos, what Claude Code gives you and what kiit adds on top.](./assets/core/why.svg)
+<img src="./assets/core/why.svg" alt="Why kiit: for standards, skill groups and multiple repos, what Claude Code gives you and what kiit adds on top." width="100%" />
 
 | # | | Purpose | Description |
 |---:|:---:|---|---|
@@ -39,7 +39,7 @@ Only `vcs` has standards today. The mechanism is in place for the other groups.
 
 ## Start
 
-![Start: install the plugin with /plugin marketplace add kiitdev/kiit and /plugin install kiit@kiit-dev, then run /kiit:init once from the folder that holds your repos. It reads each repo, configures your kiit.json, shows what it would write, and writes nothing until you confirm. It adds a _kiit folder and .claude/kiit/kiit.json to the workspace.](./assets/core/start.svg)
+<img src="./assets/core/start.svg" alt="Start: install the plugin with /plugin marketplace add kiitdev/kiit and /plugin install kiit@kiit-dev, then run /kiit:init once from the folder that holds your repos. It reads each repo, configures your kiit.json, shows what it would write, and writes nothing until you confirm. It adds a _kiit folder and .claude/kiit/kiit.json to the workspace." width="100%" />
 
 ### Install
 
@@ -62,7 +62,7 @@ Every other command needs this step first, except `--help`.
 
 ### First run
 
-![Examples, run from your workspace: /kiit:init, /kiit:vcs-help, /kiit:vcs-branch with an issue link, /kiit:vcs-pr, /kiit:flow-begin with an issue link, and /kiit:flow-go with an issue link and --check.](./assets/core/examples.svg)
+<img src="./assets/core/examples.svg" alt="Examples, run from your workspace: /kiit:init, /kiit:vcs-help, /kiit:vcs-branch with an issue link, /kiit:vcs-pr, /kiit:flow-begin with an issue link, and /kiit:flow-go with an issue link and --check." width="100%" />
 
 ```
 /kiit:vcs-branch https://github.com/acme/app/issues/12
@@ -75,7 +75,7 @@ The first creates a branch for the issue. The second reads the same issue, makes
 
 A standard is a setting that a group's skills read, such as the format of a branch name. The group ships a default, and your `kiit.json` can override it.
 
-![Standards: kiit ships the default branch and pull request formats. Your kiit.json goes on top and lists only what differs. The vcs skills read both, check the format with a script, and create the branch and the title.](./assets/core/standards.svg)
+<img src="./assets/core/standards.svg" alt="Standards: kiit ships the default branch and pull request formats. Your kiit.json goes on top and lists only what differs. The vcs skills read both, check the format with a script, and create the branch and the title." width="100%" />
 
 ### Defaults
 
@@ -116,7 +116,7 @@ The full schema is in [shared/README.md](./shared/README.md).
 
 Skills are named `/kiit:{group}-{name}`. Each group has a `{group}-help` command that lists its skills.
 
-![Skill groups: vcs has branch, pr and help. flow has go, begin and help. core has init. All are in the plugin. More skill groups are coming soon.](./assets/core/groups.svg)
+<img src="./assets/core/groups.svg" alt="Skill groups: vcs has branch, pr and help. flow has go, begin and help. core has init. All are in the plugin. More skill groups are coming soon." width="100%" />
 
 ### vcs
 
@@ -148,9 +148,9 @@ More in [docs/group-core.md](./docs/group-core.md).
 
 Kiit reads `.claude/kiit/kiit.json` from your workspace. For a single repo, list it as a project with a path of `.`.
 
-![kiit.json: the file holds version, tickets, resources, projects, standards and groups. Tickets are your ticket systems, resources are named files and links, projects are the repos work is done in, standards are overrides of the defaults, and groups are settings for each group.](./assets/core/kiit-json.svg)
+<img src="./assets/core/kiit-json.svg" alt="kiit.json: the file holds version, tickets, resources, projects, standards and groups. Tickets are your ticket systems, resources are named files and links, projects are the repos work is done in, standards are overrides of the defaults, and groups are settings for each group." width="100%" />
 
-![Structure: the workspace folder holds a _kiit folder made by /kiit:init, with one folder per skill group inside it, then .claude/kiit/kiit.json, then your git repos.](./assets/core/structure.svg)
+<img src="./assets/core/structure.svg" alt="Structure: the workspace folder holds a _kiit folder made by /kiit:init, with one folder per skill group inside it, then .claude/kiit/kiit.json, then your git repos." width="100%" />
 
 ### Tickets
 

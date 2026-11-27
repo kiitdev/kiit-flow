@@ -24,13 +24,13 @@
 // ---- CONFIG: change these for each project ---------------------------------
 const CONFIG = {
   title: "Start",
-  sub: "install the plugin, then run init once. Every other command needs it first.",
+  sub: "install the plugin, then run init once. Every command needs it first.",
   cards: [                                   // top to bottom. A row is a code line, or a key and text
     { icon: "core", title: "Install", sub: "add the plugin from the marketplace", rows: [
       { code: "/plugin marketplace add kiitdev/kiit" },
       { code: "/plugin install kiit@kiit-dev" },
     ] },
-    { icon: "config", title: "Init", sub: "run it once, from the folder that holds your repos", rows: [
+    { icon: "config", title: "Init", sub: "run once, from the folder that holds your repos", rows: [
       { code: "/kiit:init" },
       { key: "reads", text: "each repo, and configures your kiit.json accordingly" },
       { key: "shows", text: "what it would write. Nothing is written until you confirm" },
@@ -49,10 +49,15 @@ const CONFIG = {
 // ---------------------------------------------------------------------------
 
 function buildSvg(c) {
-  const t = c.theme, W = 900, m = 40, x0 = 88, head = 94, gap = 88, keyW = 80;
+  const t = c.theme, W = t.canvas, m = t.canvasMargin, x0 = 72, head = 94, gap = 76, keyW = 64, ex = KIIT_TYPE.example[0];
   const cx = x0 + 24 + keyW, right = W - m - 24;
+  // wrap a line to a width in characters, so no text leaves its card
+  const wrap = (text, n) => text.split(" ").reduce((ls, w) => {
+    if (ls.length && (ls[ls.length - 1] + " " + w).length <= n) ls[ls.length - 1] += " " + w; else ls.push(w);
+    return ls;
+  }, []);
 
-  let y = 120;
+  let y = 96;
   const parts = [], spots = [];
   c.cards.forEach((card, ci) => {
     const top = y;
@@ -60,46 +65,47 @@ function buildSvg(c) {
     for (const r of card.rows) {
       if (r.code) {
         body += `
-    <rect x="${x0 + 24}" y="${ry}" width="${right - x0 - 24}" height="34" rx="4" fill="${t.navy}"/>
-    <text x="${x0 + 40}" y="${ry + 22}" font-size="15" font-weight="700" fill="${t.blueSoft}">&gt;</text>
-    <text x="${x0 + 62}" y="${ry + 22}" font-size="15" font-weight="700" fill="${t.onFill}">${esc(r.code)}</text>`;   // a terminal line, as in the Examples diagram
-        ry += 44;
+    <rect x="${x0 + 24}" y="${ry}" width="${right - x0 - 24}" height="36" rx="4" fill="${t.navy}"/>
+    ${kiitText("example", x0 + 38, ry + 23, ">", { fill: t.brandSoft, weight: 700 })}
+    ${kiitText("example", x0 + 58, ry + 23, r.code, { fill: t.onFill, weight: 700 })}`;   // a terminal line, as in the Examples diagram
+        ry += 46;
       } else if (r.tree) {
         // the icons here: folders orange, config the lighter blue, repos blue, as in the Structure diagram
-        const style = { projects: [t.accent, "#FFEBDB"], config: [t.blueMid, "none"], repos: [t.blue, t.blueTint] };
+        const style = { projects: [t.accent, "#FFEBDB"], config: [t.brandMid, "none"], repos: [t.brand, t.brandTint] };
         body += `
-    <text x="${x0 + 24}" y="${ry + 18}" font-size="14" font-weight="700" fill="${t.ink}">${esc(r.key)}</text>`;
+    ${kiitText("strong", x0 + 24, ry + 18, r.key)}`;
         r.tree.forEach((n, i) => {
-          const ty = ry + i * 30, tx = cx + n.d * 28, [lc, lf] = style[n.icon];
+          const ty = ry + i * 30, tx = cx + n.d * 24, [lc, lf] = style[n.icon], nw = kiitTextW(n.name, KIIT_TYPE.body[0]);
           body += `
     ${kiitIcon(n.icon, tx, ty, 22, lc, 1.75, lf)}
-    <text x="${tx + 32}" y="${ty + 16}" font-size="14" font-weight="${n.add ? 700 : 400}" fill="${n.add ? t.blueMid : t.ink}">${esc(n.name)}</text>`;
+    ${n.add ? kiitText("strong", tx + 32, ty + 17, n.name, { fill: t.brandMid }) : kiitText("body", tx + 32, ty + 17, n.name, { fill: t.ink })}`;
           if (n.add) body += `
-    <circle cx="${tx + 32 + kiitTextW(n.name, 14) + 22}" cy="${ty + 11}" r="9" fill="${t.plus}"/>
-    <path d="M${tx + 32 + kiitTextW(n.name, 14) + 22} ${ty + 6}V${ty + 16}M${tx + 32 + kiitTextW(n.name, 14) + 17} ${ty + 11}H${tx + 32 + kiitTextW(n.name, 14) + 27}" stroke="${t.onFill}" stroke-width="2" stroke-linecap="round"/>`;
+    <circle cx="${tx + 32 + nw + 20}" cy="${ty + 11}" r="9" fill="${t.plus}"/>
+    <path d="M${tx + 32 + nw + 20} ${ty + 6}V${ty + 16}M${tx + 32 + nw + 15} ${ty + 11}H${tx + 32 + nw + 25}" stroke="${t.onFill}" stroke-width="2" stroke-linecap="round"/>`;
         });
         ry += r.tree.length * 30 + 4;
       } else {
+        const lines = wrap(r.text, 49);
         body += `
-    <text x="${x0 + 24}" y="${ry + 18}" font-size="14" font-weight="700" fill="${t.ink}">${esc(r.key)}</text>
-    <text x="${cx}" y="${ry + 18}" font-size="14" fill="${t.ink}">${esc(r.text)}</text>`;
-        ry += 32;
+    ${kiitText("strong", x0 + 24, ry + 18, r.key)}`;
+        lines.forEach((l, i) => { body += `\n    ${kiitText("body", cx, ry + 18 + i * 22, l, { fill: t.ink })}`; });
+        ry += 14 + lines.length * 22;
       }
     }
     const h = ry - top + 12;
-    parts.push(`<circle cx="${m + 15}" cy="${top + 42}" r="15" fill="${t.blue}"/>
-    <text x="${m + 15}" y="${top + 47.5}" font-size="15" font-weight="700" fill="${t.onFill}" text-anchor="middle">${ci + 1}</text>
-    <rect x="${x0}" y="${top}" width="${W - m - x0}" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.blueSoft}" stroke-width="1.5"/>
-    ${kiitIcon(card.icon, x0 + 14, top + 26, 32, t.blue)}
-    <rect x="${x0 + 60}" y="${top + 22}" width="3" height="44" rx="1.5" fill="${t.accent}"/>
-    <text x="${x0 + 78}" y="${top + 38}" font-size="22" font-weight="700" fill="${t.ink}">${esc(card.title)}</text>
-    <text x="${x0 + 78}" y="${top + 66}" font-size="15" fill="${t.sub}">${esc(card.sub)}</text>${body}`);
+    parts.push(`<circle cx="${m + 15}" cy="${top + 42}" r="15" fill="${t.brand}"/>
+    ${kiitText("strong", m + 15, top + 47.5, String(ci + 1), { fill: t.onFill, anchor: "middle" })}
+    <rect x="${x0}" y="${top}" width="${W - m - x0}" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.brandSoft}" stroke-width="1.5"/>
+    ${kiitIcon(card.icon, x0 + 14, top + 26, 32, t.brand)}
+    <rect x="${x0 + 56}" y="${top + 22}" width="3" height="44" rx="1.5" fill="${t.accent}"/>
+    ${kiitText("cardTitle", x0 + 74, top + 38, card.title)}
+    ${kiitText("body", x0 + 74, top + 66, card.sub)}${body}`);
     y = top + h;
     if (ci < c.cards.length - 1) {
       const mid = y + gap / 2, b = c.between[ci], ax = x0 + 44;
-      spots.push(`<line x1="${ax}" y1="${y + 24}" x2="${ax}" y2="${y + gap - 40}" stroke="${t.blue}" stroke-width="3"/>
-    ${kiitHead(ax, y + gap - 26, "down", 14, t.blue)}
-    <text x="${ax + 24}" y="${mid + 5}" font-size="14" fill="${t.sub}">${esc(b.note)}</text>`);
+      spots.push(`<line x1="${ax}" y1="${y + 20}" x2="${ax}" y2="${y + gap - 36}" stroke="${t.brand}" stroke-width="3"/>
+    ${kiitHead(ax, y + gap - 22, "down", 14, t.brand)}
+    ${kiitText("body", ax + 24, mid + 5, b.note)}`);
       y += gap;
     }
   });
@@ -115,8 +121,8 @@ function buildSvg(c) {
   ${bg.body}
 
   <g font-family="${KIIT_FONT}">
-    <text x="${m}" y="62" font-size="32" font-weight="700" fill="${t.ink}">${esc(c.title)}</text>
-    <text x="${m}" y="92" font-size="15" fill="${t.sub}">${esc(c.sub)}</text>
+    ${kiitText("heading", m, 52, c.title)}
+    ${kiitText("caption", m, 74, c.sub)}
 
     ${parts.join("\n\n    ")}
 

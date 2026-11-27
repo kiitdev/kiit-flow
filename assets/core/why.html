@@ -3,8 +3,8 @@
 <meta charset="utf-8">
 <title>Why kiit</title>
 <!--
-  What Claude Code gives you, and what kiit adds, for the three points in the README (900 wide,
-  to fit a GitHub README). Edit CONFIG below, then either:
+  What Claude Code gives you, and what kiit adds, for the three points in the README (600 wide, so it stays
+  readable on a phone). Edit CONFIG below, then either:
     1. open this file in a browser and press "Download SVG", or
     2. export from the command line: ./banner.sh core/why.html core/why.svg
   Colours and fonts are theme settings in kiit-svg.js.
@@ -25,52 +25,59 @@
 // ---- CONFIG: change these for each project ---------------------------------
 const CONFIG = {
   title: "Why kiit",
-  sub: "kiit adds standards and skill groups, and supports multiple repos, on top of Claude Code",
-  heads: ["Goal", "Claude Code gives you", "kiit adds"],
+  sub: "What Claude Code gives you, and what kiit adds",
+  heads: ["Claude Code", "kiit adds"],
   rows: [                                    // the same three points, in the same order, as the README
     { goal: "Standards",      icon: "standards", gives: ["CLAUDE.md in each repo"],
-      adds: ["Shared engineering standards", "Defaults like branch and PR formats", "Your overrides in kiit.json"] },
+      adds: ["Shared engineering standards", "Branch and PR format defaults", "Your overrides in kiit.json"] },
     { goal: "Skill groups",   icon: "groups", gives: ["Skills and plugins"],
-      adds: ["Skills grouped: vcs and flow so far", "A help command for each group", "Shared parts live in core"] },
-    { goal: "Multiple repos", icon: "repos", gives: ["The folder you start in", "and --add-dir"],
-      adds: ["One workspace config", "A ticket system per project", "The same standards in every repo"] },
+      adds: ["Groups: vcs and flow so far", "A help command for each group", "Shared parts live in core"] },
+    { goal: "Multiple repos", icon: "repos", gives: ["The folder you start in and --add-dir"],
+      adds: ["One workspace config", "A ticket system per project", "Same standards in every repo"] },
   ],
   theme: KIIT_THEME,
 };
 // ---------------------------------------------------------------------------
 
+// Every text is a type style from kiit-svg.js (KIIT_TYPE), and every colour a role from the design system.
 function buildSvg(c) {
-  const t = c.theme, W = 900, m = 40, rowH = 142, gap = 16, top = 162;
-  // two columns: what Claude Code gives you, and a box per goal that kiit adds. A wide gap holds the arrow
-  const midX = m, midW = 250, rightX = 360, rightW = W - m - rightX;
+  const t = c.theme, W = t.canvas, m = t.canvasMargin, rowH = 134, gap = 14, top = 142;
+  // two columns: what Claude Code gives you, and a box per goal that kiit adds. A gap holds the arrow
+  const midX = m, midW = 170, rightX = 246, rightW = W - m - rightX;
   const H = top + c.rows.length * rowH + (c.rows.length - 1) * gap + 40;
   const bg = kiitBackground(t, W, H);
 
-  const pill = (x, w, text, fill) => `<rect x="${x}" y="112" width="${w}" height="34" rx="4" fill="${fill}"/>
-    <text x="${x + w / 2}" y="134" font-size="14" font-weight="700" fill="${t.onFill}" text-anchor="middle">${esc(text)}</text>`;
-  const plusX = rightX + rightW - 32;           // the + sits at the right end of each kiit box header
+  // wrap a line to a width in characters, so no text leaves its box
+  const wrap = (text, n) => text.split(" ").reduce((ls, w) => {
+    if (ls.length && (ls[ls.length - 1] + " " + w).length <= n) ls[ls.length - 1] += " " + w; else ls.push(w);
+    return ls;
+  }, []);
+  const pill = (x, w, text, fill) => `<rect x="${x}" y="92" width="${w}" height="34" rx="4" fill="${fill}"/>
+    ${kiitText("pill", x + w / 2, 114, text, { fill: t.onFill, anchor: "middle" })}`;
+  const plusX = rightX + rightW - 28;           // the + sits at the right end of each kiit box header
 
   const rows = c.rows.map((r, i) => {
     const y = top + i * (rowH + gap), cy = y + rowH / 2;
-    const gives = r.gives.map((l, j) => `<text x="${midX + 16}" y="${cy + 5 + (j - (r.gives.length - 1) / 2) * 22}" font-size="14" fill="${t.ink}">${esc(l)}</text>`).join("\n    ");
+    const lines = r.gives.flatMap((l) => wrap(l, 16));
+    const gives = lines.map((l, j) => kiitText("body", midX + 16, cy + 5 + (j - (lines.length - 1) / 2) * 22, l)).join("\n    ");
     // the goal heads its kiit box, so it reads as part of what kiit adds
     const adds = r.adds.map((l, j) => {
-      const ly = y + 80 + j * 24;
-      return `<circle cx="${rightX + 20}" cy="${ly - 5}" r="3" fill="${t.blue}"/>
-    <text x="${rightX + 32}" y="${ly}" font-size="14" fill="${t.ink}">${esc(l)}</text>`;
+      const ly = y + 70 + j * 24;
+      return `<circle cx="${rightX + 20}" cy="${ly - 5}" r="3" fill="${t.brand}"/>
+    ${kiitText("body", rightX + 32, ly, l)}`;
     }).join("\n    ");
     return `<rect x="${midX}" y="${y}" width="${midW}" height="${rowH}" rx="4" fill="${t.cardFill}" stroke="${t.inkSoft}" stroke-width="1.5"/>
     ${gives}
 
-    <line x1="${midX + midW + 14}" y1="${cy}" x2="${rightX - 26}" y2="${cy}" stroke="${t.blue}" stroke-width="3"/>
-    ${kiitHead(rightX - 14, cy, "right", 14, t.blue)}
+    <line x1="${midX + midW + 8}" y1="${cy}" x2="${rightX - 20}" y2="${cy}" stroke="${t.brand}" stroke-width="3"/>
+    ${kiitHead(rightX - 8, cy, "right", 12, t.brand)}
 
-    <rect x="${rightX}" y="${y}" width="${rightW}" height="${rowH}" rx="4" fill="${t.cardFill}" stroke="${t.blueSoft}" stroke-width="1.5"/>
-    ${kiitIcon(r.icon, rightX + 16, y + 14, 28, t.blue)}
-    <circle cx="${plusX}" cy="${y + 28}" r="13" fill="${t.plus}"/>
-    <path d="M${plusX} ${y + 22}V${y + 34}M${plusX - 6} ${y + 28}H${plusX + 6}" stroke="${t.onFill}" stroke-width="2.5" stroke-linecap="round"/>
-    <rect x="${rightX + 60}" y="${y + 17}" width="3" height="22" rx="1.5" fill="${t.accent}"/>
-    <text x="${rightX + 78}" y="${y + 35}" font-size="17" font-weight="700" fill="${t.ink}">${esc(r.goal)}</text>
+    <rect x="${rightX}" y="${y}" width="${rightW}" height="${rowH}" rx="4" fill="${t.cardFill}" stroke="${t.brandSoft}" stroke-width="1.5"/>
+    ${kiitIcon(r.icon, rightX + 16, y + 12, 28, t.brand)}
+    <circle cx="${plusX}" cy="${y + 26}" r="13" fill="${t.plus}"/>
+    <path d="M${plusX} ${y + 20}V${y + 32}M${plusX - 6} ${y + 26}H${plusX + 6}" stroke="${t.onFill}" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="${rightX + 58}" y="${y + 15}" width="3" height="22" rx="1.5" fill="${t.accent}"/>
+    ${kiitText("subheading", rightX + 74, y + 33, r.goal)}
     ${adds}`;
   }).join("\n\n    ");
 
@@ -84,11 +91,11 @@ function buildSvg(c) {
   ${bg.body}
 
   <g font-family="${KIIT_FONT}">
-    <text x="${m}" y="62" font-size="32" font-weight="700" fill="${t.ink}">${esc(c.title)}</text>
-    <text x="${m}" y="88" font-size="15" fill="${t.sub}">${esc(c.sub)}</text>
+    ${kiitText("heading", m, 52, c.title)}
+    ${kiitText("caption", m, 74, c.sub)}
 
-    ${pill(midX, midW, c.heads[1], t.ink)}
-    ${pill(rightX, rightW, c.heads[2], t.blue)}
+    ${pill(midX, midW, c.heads[0], t.ink)}
+    ${pill(rightX, rightW, c.heads[1], t.brand)}
 
     ${rows}
   </g>

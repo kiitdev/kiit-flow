@@ -40,27 +40,28 @@ const CONFIG = {
 // ---------------------------------------------------------------------------
 
 function buildSvg(c) {
-  const t = c.theme, W = 900, m = 40, head = 56, rowH = 30, fs = 15;
+  const t = c.theme, W = t.canvas, m = t.canvasMargin, head = 56, rowH = 50, top1 = 96;
   // the icons in this diagram: [line colour, fill] by kind. Folders are orange, config is the lighter blue
-  const style = { projects: [t.accent, "#FFEBDB"], config: [t.blueMid, "none"], repos: [t.blue, t.blueTint] };
-  const ico = (name, x, y, size) => { const [c, f] = style[name] || [t.blue, "none"]; return kiitIcon(name, x, y, size, c, 1.75, f); };
-  const header = (top, icon, title, sub) => `${kiitIcon(icon, m + 16, top + 14, 28, t.blue)}
-    <rect x="${m + 60}" y="${top + 17}" width="3" height="22" rx="1.5" fill="${t.accent}"/>
-    <text x="${m + 78}" y="${top + 34}" font-size="17" font-weight="700" fill="${t.ink}">${esc(title)}</text>
-    <text x="${m + 78 + kiitTextW(title, 17) + 14}" y="${top + 34}" font-size="14" fill="${t.sub}">${esc(sub)}</text>`;
-  const box = (top, h) => `<rect x="${m}" y="${top}" width="${W - 2 * m}" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.blueSoft}" stroke-width="1.5"/>`;
+  const style = { projects: [t.accent, "#FFEBDB"], config: [t.brandMid, "none"], repos: [t.brand, t.brandTint] };
+  const ico = (name, x, y, size) => { const [c, f] = style[name] || [t.brand, "none"]; return kiitIcon(name, x, y, size, c, 1.75, f); };
+  const header = (top, icon, title, sub) => `${kiitIcon(icon, m + 16, top + 14, 28, t.brand)}
+    <rect x="${m + 58}" y="${top + 17}" width="3" height="22" rx="1.5" fill="${t.accent}"/>
+    ${kiitText("subheading", m + 74, top + 34, title)}
+    ${kiitText("caption", m + 74 + kiitTextW(title, KIIT_TYPE.subheading[0]) + 12, top + 34, sub)}`;
+  const box = (top, h) => `<rect x="${m}" y="${top}" width="${W - 2 * m}" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.brandSoft}" stroke-width="1.5"/>`;
 
-  // card 1: the workspace tree
-  const top1 = 120, noteX = 400;
+  // the workspace tree: a name, and under it what it is. Each level indents one step
   const treeSvg = c.tree.map((r, i) => {
-    const x = m + 24 + r.d * 28, cy = top1 + head + 6 + i * rowH + 15;
-    const icon = r.icon ? ico(r.icon, x, cy - 11, 22) : "";
+    const x = m + 20 + r.d * 24, cy = top1 + head + 6 + i * rowH + 18;
+    const icon = r.icon ? ico(r.icon, x, cy - 13, 22) : "";
     const tx = x + 32;   // every name starts after the icon column, so a row without an icon still indents under its parent
+    const name = r.bold || r.blue ? kiitText("strong", tx, cy + 3, r.name, { fill: r.blue ? t.brandMid : t.ink })
+                                  : kiitText("body", tx, cy + 3, r.name, { fill: t.ink });
     return `${icon}
-    <text x="${tx}" y="${cy + 5}" font-size="${fs}" font-weight="${r.bold || r.blue ? 700 : 400}" fill="${r.blue ? t.blueMid : t.ink}">${esc(r.name)}</text>
-    <text x="${noteX}" y="${cy + 5}" font-size="14" fill="${t.sub}">${esc(r.note)}</text>`;
+    ${name}
+    ${kiitText("caption", tx, cy + 22, r.note)}`;
   }).join("\n    ");
-  const h1 = head + 6 + c.tree.length * rowH + 14;
+  const h1 = head + 6 + c.tree.length * rowH + 8;
 
   const H = top1 + h1 + 40;
   const bg = kiitBackground(t, W, H);
@@ -74,8 +75,8 @@ function buildSvg(c) {
   ${bg.body}
 
   <g font-family="${KIIT_FONT}">
-    <text x="${m}" y="62" font-size="32" font-weight="700" fill="${t.ink}">${esc(c.title)}</text>
-    <text x="${m}" y="92" font-size="15" fill="${t.sub}">${esc(c.sub)}</text>
+    ${kiitText("heading", m, 52, c.title)}
+    ${kiitText("caption", m, 74, c.sub)}
 
     ${box(top1, h1)}
     ${header(top1, "projects", "Workspace", "the folder you run kiit from")}
