@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <title>Kiit banner</title>
 <!--
-  The kiit banner (1392x360): the name, the tagline, the three points, and a card showing kiit.json.
+  The kiit banner (640 wide): the name, the tagline, the three points, and a card showing kiit.json.
   Edit CONFIG below, then either:
     1. open this file in a browser and press "Download SVG", or
     2. export from the command line: ./banner.sh core/banner.html core/banner.svg
@@ -42,8 +42,7 @@ const CONFIG = {
     ["2020", "Stable framework"],
     ["2026", "AI enabled"],
   ],
-  right: "logo",                  // what sits right of the title: "logo" (icon.svg) or "card" (the kiit.json card)
-  logoSize: 270,                  // the logo's width and height
+  logoSize: 124,                  // the logo's width and height. The kiit.json card below is not drawn in the narrow layout, it is kept for later
   card: {
     title: ".claude/kiit/kiit.json",
     left: "Feature",
@@ -62,119 +61,92 @@ const CONFIG = {
 };
 // ---------------------------------------------------------------------------
 
+// the logo: icon.svg drawn as a nested svg, centred where the card would sit. Its ids are prefixed so they stay unique
+const logoSvg = (size, x, y) => `<svg x="${x}" y="${y}" width="${size}" height="${size}" viewBox="0 0 290 290" role="img" aria-label="Kiit logo: a toolbox with a k tile">
+    <defs>
+      <linearGradient id="logo-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7F9FF"/><stop offset="1" stop-color="#DEE6FE"/></linearGradient>
+      <linearGradient id="logo-edge" x1="-0.04" y1="0" x2="0.55" y2="0"><stop offset="0" stop-color="#111827"/><stop offset="1" stop-color="#144DF2"/></linearGradient>
+      <pattern id="logo-grid" width="18.125" height="18.125" patternUnits="userSpaceOnUse"><path d="M18.125 0H0V18.125" fill="none" stroke="#CBD8FC" stroke-width="0.3"/></pattern>
+      <clipPath id="logo-frame"><rect width="290" height="290" rx="57"/></clipPath>
+    </defs>
+    <g clip-path="url(#logo-frame)"><rect width="290" height="290" fill="url(#logo-bg)"/><rect width="290" height="290" fill="url(#logo-grid)"/></g>
+    <rect x="4" y="4" width="282" height="282" rx="53" fill="none" stroke="url(#logo-edge)" stroke-width="8"/>
+    <g transform="translate(145 145) scale(0.82) translate(-133.25 -106.5)">
+      <rect x="9" y="27" width="248.5" height="178" rx="45" fill="#111827"/>
+      <rect x="35" y="53" width="196.5" height="126" rx="19" fill="#FFFFFF"/>
+      <path d="M100.5 53V179M166 53V179M35 116H231.5" stroke="#FFC9A0" stroke-width="2"/>
+      <path d="M35 116H100.5V179H54A19 19 0 0 1 35 160Z" fill="#144DF2"/>
+      <path transform="translate(67.75 147.5) scale(0.92) translate(-69.25 -151.5)" d="M47.5 127H58.5V147L73 127H87L69 148L91 176H77L63 156L58.5 161V176H47.5Z" fill="#FFFFFF"/>
+      <path d="M90.25 53V20A5 5 0 0 1 95.25 15H171.25A5 5 0 0 1 176.25 20V53Z" fill="#144DF2"/>
+    </g>
+  </svg>`;
+
+// The narrow layout, 640 wide so the text stays readable on a phone: the wordmark and logo on top, then the
+// tagline, the three points and the timeline, stacked. Every text is a type style from kiit-svg.js.
 function buildSvg(c) {
-  const t = c.theme, W = 1392, MAIN = 372, foot = c.history ? 96 : 0, H = MAIN + foot;   // MAIN: the banner above the timeline
+  const t = c.theme, W = t.canvas, m = t.canvasMargin, foot = c.history ? 64 : 0, MAIN = 352, H = MAIN + foot;
   const full = c.name ? c.brand + "-" + c.name : c.brand;
   const n = full.length;
-  // shrink long names so the title stays left of the card
-  const titleSize = Math.min(c.titleMax, Math.floor((664 + 3 * n) / (0.6 * n + 0.62)));
-  const advance = 0.6 * titleSize - 3;                        // the step from one letter to the next
+  const size = Math.min(KIIT_TYPE.display[0], Math.floor((W - 2 * m - c.logoSize - 24 + 3 * n) / (0.6 * n)));   // shrink a long name so it stays left of the logo
+  const advance = 0.6 * size - 3;                              // the step from one letter to the next
   // every letter gets its own x, so no font can push the word out of place
-  const letterXs = Array.from({ length: n }, (_, i) => (84 + i * advance).toFixed(1)).join(" ");
+  const letterXs = Array.from({ length: n }, (_, i) => (m + 4 + i * advance).toFixed(1)).join(" ");
   const rest = c.name ? "-" + esc(c.name) : "";
+  const wrap = (text, k) => text.split(" ").reduce((ls, w) => {
+    if (ls.length && (ls[ls.length - 1] + " " + w).length <= k) ls[ls.length - 1] += " " + w; else ls.push(w);
+    return ls;
+  }, []);
 
-  // the tagline: one or two lines, sized to fit left of the card
-  const lines = c.taglines;
-  const tagSize = Math.min(22, Math.floor(760 / (0.6 * lines[0].length)));
-  const tagY = lines.length > 1 ? 230 : 240, subGap = 42;   // subGap: the space from the tagline down to the next line
-  // the first line is the tagline, in ink. Any other line is lighter and smaller, right aligned under it
-  const tagW = kiitTextW(lines[0], tagSize), endX = 88 + tagW;
-  // the lighter line is smaller, and never wider than the tagline above it
-  const subSize = (l) => Math.min(Math.round(tagSize * 0.85), Math.floor(tagW / (0.6 * l.length)));
-  const tagSvg = lines.map((l, i) => i === 0
-    ? `<text x="88" y="${tagY}" font-size="${tagSize}" font-weight="700" fill="${t.ink}">${esc(l)}</text>`
-    : `<text x="${endX}" y="${tagY + subGap * i}" font-size="${subSize(l)}" fill="${t.sub}" text-anchor="end">${esc(l)}</text>`).join("\n    ");
-
-  // the bottom row: a box per point. Every character gets its own x, so no font can spill out of its box
-  const weights = { soft: [t.softFill, t.ink], blue: [t.blue, t.onFill], ink: [t.ink, t.onFill], accent: [t.accent, t.ink] };
-  const boxY = 302, boxH = 38, textY = boxY + 25, cw = 16 * 0.6;
-  let x = 88;
-  const pillarSvg = c.pillars.map((p) => {
-    const pad = p.icon ? 42 : 16;                     // the room before the text: the icon and its gap
-    const w = Math.round(p.text.length * cw + pad + 16), [fill, color] = weights[p.style];
-    const xs = Array.from(p.text, (_, j) => (x + pad + j * cw).toFixed(1)).join(" ");
-    const icon = p.icon ? kiitIcon(p.icon, x + 14, boxY + 9, 20, color) : "";
-    const svg = `<rect x="${x}" y="${boxY}" width="${w}" height="${boxH}" rx="4" fill="${fill}"/>
-    ${icon}
-    <text x="${xs}" y="${textY}" font-size="16" font-weight="700" fill="${color}">${esc(p.text)}</text>`;
-    x += w + 12;
+  // the tagline: the first line in ink, any other lighter and smaller. Each wraps to two lines at most
+  let ty = 198;
+  const tagSvg = c.taglines.map((l, i) => {
+    const lines = wrap(l, i === 0 ? 34 : 40), step = i === 0 ? 26 : 22;
+    const svg = lines.map((ln, j) => kiitText(i === 0 ? "tagline" : "tagline2", m + 4, ty + j * step, ln)).join("\n    ");
+    ty += lines.length * step + (i === 0 ? 14 : 0);
     return svg;
   }).join("\n    ");
 
-  // the logo: icon.svg drawn as a nested svg, centred where the card would sit. Its ids are prefixed so they stay unique
-  const logoSvg = (size, x, y) => `<svg x="${x}" y="${y}" width="${size}" height="${size}" viewBox="0 0 290 290" role="img" aria-label="Kiit logo: a toolbox with a k tile">
-      <defs>
-        <linearGradient id="logo-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7F9FF"/><stop offset="1" stop-color="#DEE6FE"/></linearGradient>
-        <linearGradient id="logo-edge" x1="-0.04" y1="0" x2="0.55" y2="0"><stop offset="0" stop-color="#111827"/><stop offset="1" stop-color="#144DF2"/></linearGradient>
-        <pattern id="logo-grid" width="18.125" height="18.125" patternUnits="userSpaceOnUse"><path d="M18.125 0H0V18.125" fill="none" stroke="#CBD8FC" stroke-width="0.3"/></pattern>
-        <clipPath id="logo-frame"><rect width="290" height="290" rx="57"/></clipPath>
-      </defs>
-      <g clip-path="url(#logo-frame)"><rect width="290" height="290" fill="url(#logo-bg)"/><rect width="290" height="290" fill="url(#logo-grid)"/></g>
-      <rect x="4" y="4" width="282" height="282" rx="53" fill="none" stroke="url(#logo-edge)" stroke-width="8"/>
-      <g transform="translate(145 145) scale(0.82) translate(-133.25 -106.5)">
-        <rect x="9" y="27" width="248.5" height="178" rx="45" fill="#111827"/>
-        <rect x="35" y="53" width="196.5" height="126" rx="19" fill="#FFFFFF"/>
-        <path d="M100.5 53V179M166 53V179M35 116H231.5" stroke="#FFC9A0" stroke-width="2"/>
-        <path d="M35 116H100.5V179H54A19 19 0 0 1 35 160Z" fill="#144DF2"/>
-        <path transform="translate(67.75 147.5) scale(0.92) translate(-69.25 -151.5)" d="M47.5 127H58.5V147L73 127H87L69 148L91 176H77L63 156L58.5 161V176H47.5Z" fill="#FFFFFF"/>
-        <path d="M90.25 53V20A5 5 0 0 1 95.25 15H171.25A5 5 0 0 1 176.25 20V53Z" fill="#144DF2"/>
-      </g>
-    </svg>`;
-  const ls = c.logoSize, logo = logoSvg(ls, W - 80 - 440 / 2 - ls / 2, (MAIN - ls) / 2 + 24);
+  // the bottom row: a box per point
+  const weights = { soft: [t.softFill, t.ink], blue: [t.brand, t.onFill], ink: [t.navy, t.onFill], accent: [t.accent, t.ink] };
+  const boxY = ty + 8, boxH = 38, fs = KIIT_TYPE.pill[0];
+  let x = m + 4;
+  const pillarSvg = c.pillars.map((p) => {
+    const pad = p.icon ? 42 : 16, w = Math.round(kiitTextW(p.text, fs) + pad + 16), [fill, color] = weights[p.style];
+    const icon = p.icon ? kiitIcon(p.icon, x + 14, boxY + 9, 20, color) : "";
+    const svg = `<rect x="${x}" y="${boxY}" width="${w}" height="${boxH}" rx="4" fill="${fill}"/>
+    ${icon}
+    ${kiitText("pill", x + pad, boxY + 25, p.text, { fill: color })}`;
+    x += w + 10;
+    return svg;
+  }).join("\n    ");
 
-  // the card: a header band, then a row per key
-  const rows = c.card.rows;
-  const cardW = 440, band = 48, headY = band + 28, firstY = headY + 36, step = 30;   // the card's width, header band and row spacing
-  const h = firstY + step * (rows.length - 1) + 24, top = (MAIN - h) / 2 + 24;   // sits well below the Beta label
-  const rowSvg = rows.map(([key, holds], i) => {
-    const y = firstY + step * i;
-    return `      <circle cx="32" cy="${y - 6}" r="3.5" fill="${t.sub}"/>
-      <text x="48" y="${y}" font-size="18" font-weight="700" fill="${t.blueMid}">${esc(key)}</text>
-      <text x="${cardW - 24}" y="${y}" font-size="18" fill="${t.sub}" text-anchor="end">${esc(holds)}</text>`;
-  }).join("\n");
-  const fa = c.card.footerAccent, ft = c.card.footer || "";
-  const footerText = fa && ft.includes(fa)
-    ? `${esc(ft.slice(0, ft.indexOf(fa)))}<tspan font-weight="700" fill="${t.ink}">${esc(fa)}</tspan>${esc(ft.slice(ft.indexOf(fa) + fa.length))}`
-    : esc(ft);
-  const footer = ft
-    ? `\n    <text x="${W - 80}" y="${top + h + 34}" font-size="15" fill="${t.sub}" text-anchor="end">${footerText}</text>`
-    : "";
+  // the logo, top right, under the Beta label
+  const logo = logoSvg(c.logoSize, W - m - c.logoSize, 62);
 
-  // the Beta label: a dark box with the text in the orange accent. It floats inside the page, with light
-  // space on every side, so it keeps its shape on a dark page. It sits further right than the card,
-  // so the two do not blend together
-  const bw = c.badge ? 152 : 0, bh = 46, by = 12, bx = W - 32 - bw;   // 32px in from the right edge, so it does not line up with the card
+  // the Beta label: a dark box with the text in the orange accent
+  const bw = c.badge ? 110 : 0, bh = 40, by = 12, bx = W - m - bw + 8;
   const badge = c.badge
     ? `<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" rx="4" fill="${t.navy}"/>
-    <text x="${bx + bw / 2}" y="${by + bh / 2 + 8.5}" font-size="24" font-weight="700" fill="${t.accent}" text-anchor="middle">${esc(c.badge)}</text>`
+    ${kiitText("badge", bx + bw / 2, by + 28, c.badge, { anchor: "middle" })}`
     : "";
 
   // the history: a dot, the year and what happened, joined by lines. The last dot is the orange accent: now
   let timeline = "";
   if (c.history) {
-    const ty = MAIN + 62, x0 = 88, x1 = W - 88, tfs = 17, widths = c.history.map(([yr, what]) => 22 + kiitTextW(yr + "  " + what, tfs));
+    const cap = KIIT_TYPE.caption[0], tY = MAIN + 30, x0 = m + 4, x1 = W - m - 4, widths = c.history.map(([yr, what]) => 20 + kiitTextW(yr + "  " + what, cap));
     const free = (x1 - x0) - widths.reduce((a, b) => a + b, 0), seg = free / (c.history.length - 1);
-    let x = x0;
+    let hx = x0;
     c.history.forEach(([yr, what], i) => {
       const last = i === c.history.length - 1;
-      timeline += `<circle cx="${x + 6}" cy="${ty}" r="6" fill="${last ? t.accent : t.blue}"/>
-    <text x="${x + 22}" y="${ty + 6}" font-size="${tfs}"><tspan font-weight="700" fill="${t.ink}">${esc(yr)}</tspan><tspan fill="${t.sub}">  ${esc(what)}</tspan></text>\n    `;
-      x += widths[i];
-      if (!last) { timeline += `<line x1="${x + 14}" y1="${ty}" x2="${x + seg - 14}" y2="${ty}" stroke="${t.blueSoft}" stroke-width="2" stroke-linecap="round"/>\n    `; x += seg; }
+      timeline += `<circle cx="${hx + 5}" cy="${tY}" r="5" fill="${last ? t.accent : t.brand}"/>
+    <text x="${hx + 20}" y="${tY + 5}" font-size="${cap}"><tspan font-weight="700" fill="${t.ink}">${esc(yr)}</tspan><tspan fill="${t.sub}">  ${esc(what)}</tspan></text>\n    `;
+      hx += widths[i];
+      if (!last) { timeline += `<line x1="${hx + 10}" y1="${tY}" x2="${hx + seg - 10}" y2="${tY}" stroke="${t.brandSoft}" stroke-width="2" stroke-linecap="round"/>\n    `; hx += seg; }
     });
   }
 
-  const cardSvg = `<g transform="translate(${W - 80 - cardW} ${top})">
-      <rect width="${cardW}" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.inkSoft}" stroke-width="1.5"/>
-      <path d="M0 ${band} V4 A4 4 0 0 1 4 0 H${cardW - 4} A4 4 0 0 1 ${cardW} 4 V${band} Z" fill="${t.blue}"/>
-      <text x="24" y="${band / 2 + 5.6}" font-size="16" font-weight="700" fill="${t.onFill}">${esc(c.card.title)}</text>
-      <text x="48" y="${headY}" font-size="15" fill="${t.dim}">${esc(c.card.left)}</text>
-      <text x="${cardW - 24}" y="${headY}" font-size="15" fill="${t.dim}" text-anchor="end">${esc(c.card.right)}</text>
-${rowSvg}
-    </g>${footer}`;
-
   const bg = kiitBackground(t, W, H);
-  const label = `${full}: ${lines.join(" ")}` + (c.badge ? ` ${c.badge}.` : "") + (c.history ? " History: " + c.history.map(([yr, what]) => `${yr}, ${what.toLowerCase()}`).join("; ") + "." : "");
+  const label = `${full}: ${c.taglines.join(" ")}` + (c.badge ? ` ${c.badge}.` : "") + (c.history ? " History: " + c.history.map(([yr, what]) => `${yr}, ${what.toLowerCase()}`).join("; ") + "." : "");
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
   <defs>
@@ -184,13 +156,12 @@ ${rowSvg}
   ${bg.body}
 
   <g font-family="${KIIT_FONT}">
-    <text x="${letterXs}" y="176" font-size="${titleSize}" font-weight="700" fill="${t.ink}"><tspan fill="${t.blue}">${esc(c.brand)}</tspan>${rest}</text>
+    <text x="${letterXs}" y="150" font-size="${size}" font-weight="700" fill="${t.ink}"><tspan fill="${t.brand}">${esc(c.brand)}</tspan>${rest}</text>
     ${tagSvg}
     ${pillarSvg}
     ${badge}
+    ${logo}
     ${timeline}
-
-    ${c.right === "logo" ? logo : cardSvg}
   </g>
 </svg>
 `;

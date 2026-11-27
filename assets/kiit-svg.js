@@ -134,11 +134,11 @@ const KIIT_TYPE = {
   pill:       [15, 700, "ink"],       // a pill, on an accent, soft or brand fill
   badge:      [20, 700, "accent"],    // a label on navy
 };
-// A <text> in one of the type styles. o: fill (a colour, instead of the style's), anchor ("start", "middle" or "end").
+// A <text> in one of the type styles. o: fill (a colour, instead of the style's), weight, anchor ("start", "middle" or "end").
 const kiitText = (style, x, y, text, o = {}) => {
   const [size, weight, colour] = KIIT_TYPE[style];
   const fill = o.fill || KIIT_THEME[colour];
-  return `<text x="${x}" y="${y}" font-size="${size}" font-weight="${weight}" fill="${fill}"${o.anchor ? ` text-anchor="${o.anchor}"` : ""}${style === "link" ? ' text-decoration="underline"' : ""}>${esc(text)}</text>`;
+  return `<text x="${x}" y="${y}" font-size="${size}" font-weight="${o.weight || weight}" fill="${fill}"${o.anchor ? ` text-anchor="${o.anchor}"` : ""}${style === "link" ? ' text-decoration="underline"' : ""}>${esc(text)}</text>`;
 };
 const kiitTextW = (text, size) => Math.round(text.length * size * 0.6);
 
@@ -161,7 +161,7 @@ function kiitCard(t, x, y, w, h, label, o = {}) {
 // A chip: a small rounded box around some text. style: blue (solid), soft (light grey) or ink.
 // x is the left edge and y the top. Returns the markup and the chip's width.
 function kiitChip(t, x, y, text, style = "soft", o = {}) {
-  const fs = o.size || 14, h = o.height || 28, w = kiitTextW(text, fs) + 24;
+  const fs = o.size || KIIT_TYPE.pill[0], h = o.height || 30, w = kiitTextW(text, fs) + 24;
   const [fill, color] = { soft: [t.softFill, t.ink], blue: [t.blue, t.onFill], ink: [t.ink, t.onFill] }[style];
   return {
     svg: `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${fill}"/>

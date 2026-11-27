@@ -38,19 +38,17 @@ const CONFIG = {
 // ---------------------------------------------------------------------------
 
 function buildSvg(c) {
-  const t = c.theme, W = 900, m = 40, rowH = 44, fs = 13, cw = fs * 0.6, top = 120, head = 56;
-  const full = (l) => l[0].length + (l[1] ? l[1].length + 1 : 0);
-  const cmdX = m + 56;
-  const noteX = Math.round(cmdX + Math.max(...c.lines.map(full)) * cw + 28);
-  const h = head + 8 + c.lines.length * rowH + 12;
+  const t = c.theme, W = t.canvas, m = t.canvasMargin, rowH = 58, top = 96, head = 56, ex = KIIT_TYPE.example[0];
+  const h = head + 4 + c.lines.length * rowH + 8;
   const H = top + h + 40;
   const bg = kiitBackground(t, W, H);
 
+  // a row is the command, with its argument in the lighter blue, and the comment under it
   const rows = c.lines.map(([cmd, arg, note], i) => {
-    const y = top + head + 8 + i * rowH + rowH / 2 + 5;
-    return `<text x="${m + 28}" y="${y}" font-size="${fs + 2}" font-weight="700" fill="${t.blueSoft}">&gt;</text>
-    <text x="${cmdX}" y="${y}" font-size="${fs}"><tspan font-weight="700" fill="${t.onFill}">${esc(cmd)}</tspan>${arg ? `<tspan fill="${t.blueSoft}"> ${esc(arg)}</tspan>` : ""}</text>
-    <text x="${noteX}" y="${y}" font-size="${fs}" fill="${t.dim}"># ${esc(note)}</text>`;
+    const y = top + head + 4 + i * rowH + 22;
+    return `${kiitText("example", m + 20, y, ">", { fill: t.brandSoft, weight: 700 })}
+    <text x="${m + 40}" y="${y}" font-size="${ex}"><tspan font-weight="700" fill="${t.onFill}">${esc(cmd)}</tspan>${arg ? `<tspan fill="${t.brandSoft}"> ${esc(arg)}</tspan>` : ""}</text>
+    ${kiitText("caption", m + 40, y + 22, "# " + note, { fill: t.inkSoft })}`;
   }).join("\n    ");
   const label = `${c.title}: ${c.sub}. ` + c.lines.map(([cmd, arg, note]) => `${[cmd, arg].filter(Boolean).join(" ")}, to ${note}`).join("; ") + ".";
 
@@ -62,13 +60,13 @@ function buildSvg(c) {
   ${bg.body}
 
   <g font-family="${KIIT_FONT}">
-    <text x="${m}" y="62" font-size="32" font-weight="700" fill="${t.ink}">${esc(c.title)}</text>
-    <text x="${m}" y="92" font-size="15" fill="${t.sub}">${esc(c.sub)}</text>
+    ${kiitText("heading", m, 52, c.title)}
+    ${kiitText("caption", m, 74, c.sub)}
 
     <rect x="${m}" y="${top}" width="${W - 2 * m}" height="${h}" rx="4" fill="${t.navy}" stroke="${t.navy}" stroke-width="1.5"/>
-    ${kiitIcon("flow", m + 16, top + 14, 28, t.blueSoft)}
-    <rect x="${m + 60}" y="${top + 17}" width="3" height="22" rx="1.5" fill="${t.accent}"/>
-    <text x="${m + 78}" y="${top + 34}" font-size="17" font-weight="700" fill="${t.onFill}">Terminal</text>
+    ${kiitIcon("flow", m + 16, top + 14, 28, t.brandSoft)}
+    <rect x="${m + 58}" y="${top + 17}" width="3" height="22" rx="1.5" fill="${t.accent}"/>
+    ${kiitText("subheading", m + 74, top + 34, "Terminal", { fill: t.onFill })}
 
     ${rows}
   </g>

@@ -52,49 +52,49 @@ const CONFIG = {
 // ---------------------------------------------------------------------------
 
 function buildSvg(c) {
-  const t = c.theme, W = 900, m = 40, x0 = 88, head = 94, chipH = 26, gap = 88, keyW = 100;   // x0: where the cards start, after the numbers
+  const t = c.theme, W = t.canvas, m = t.canvasMargin, x0 = 72, head = 94, chipH = 28, gap = 76, keyW = 84;   // x0: where the cards start, after the numbers
   const cx = x0 + 24 + keyW;                          // where the content starts inside a card
 
   const chip = (x, y, text, style) => {
-    const w = kiitTextW(text, 13) + 24;
-    const [fill, color] = style === "hot" ? [t.hot, t.onFill] : style === "plus" ? [t.plus, t.onFill] : style === "blue" ? [t.blue, t.onFill] : [t.softFill, t.ink];
+    const fs = KIIT_TYPE.pill[0], w = kiitTextW(text, fs) + 24;
+    const [fill, color] = style === "hot" ? [t.hot, t.onFill] : style === "plus" ? [t.plus, t.onFill] : style === "blue" ? [t.brand, t.onFill] : [t.softFill, t.ink];
     return { w, svg: `<rect x="${x}" y="${y}" width="${w}" height="${chipH}" rx="4" fill="${fill}"/>
-    <text x="${x + 12}" y="${y + 17.5}" font-size="13" font-weight="700" fill="${color}">${esc(text)}</text>` };
+    ${kiitText("pill", x + 12, y + 19.5, text, { fill: color })}` };
   };
 
-  let y = 120;
+  let y = 96;
   const parts = [], spots = [];
   c.cards.forEach((card, ci) => {
     const top = y;
     let ry = top + head + 4, body = "";
     for (const r of card.rows) {
-      body += `\n    <text x="${x0 + 24}" y="${ry + 18}" font-size="14" font-weight="700" fill="${t.ink}">${esc(r.key)}</text>`;
+      body += `\n    ${kiitText("strong", x0 + 24, ry + 19, r.key)}`;
       if (r.chips) {
         let x = cx;
         for (const [text, style] of r.chips) { const ch = chip(x, ry, text, style); body += "\n    " + ch.svg; x += ch.w + 8; }
       } else {
-        body += `\n    <text x="${cx}" y="${ry + 18}" font-size="${r.strong ? 16 : 14}" font-weight="${r.strong ? 700 : 400}" fill="${t.ink}">${esc(r.text)}</text>`;
+        body += `\n    ${r.strong ? kiitText("strong", cx, ry + 19, r.text) : kiitText("body", cx, ry + 19, r.text, { fill: t.ink })}`;
       }
-      ry += 32;
+      ry += 36;
     }
     const h = ry - top + 12;
-    parts.push(`<circle cx="${m + 15}" cy="${top + 42}" r="15" fill="${t.blue}"/>
-    <text x="${m + 15}" y="${top + 47.5}" font-size="15" font-weight="700" fill="${t.onFill}" text-anchor="middle">${ci + 1}</text>
-    <rect x="${x0}" y="${top}" width="${W - m - x0}" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.blueSoft}" stroke-width="1.5"/>
-    ${kiitIcon(card.icon, x0 + 14, top + 26, 32, t.blue)}
-    <rect x="${x0 + 60}" y="${top + 22}" width="3" height="44" rx="1.5" fill="${t.accent}"/>
-    <text x="${x0 + 78}" y="${top + 38}" font-size="22" font-weight="700" fill="${t.ink}">${esc(card.title)}</text>
-    <text x="${x0 + 78}" y="${top + 66}" font-size="15" fill="${t.blueMid}">${esc(card.sub)}</text>${body}`);
+    parts.push(`<circle cx="${m + 15}" cy="${top + 42}" r="15" fill="${t.brand}"/>
+    ${kiitText("strong", m + 15, top + 47.5, String(ci + 1), { fill: t.onFill, anchor: "middle" })}
+    <rect x="${x0}" y="${top}" width="${W - m - x0}" height="${h}" rx="4" fill="${t.cardFill}" stroke="${t.brandSoft}" stroke-width="1.5"/>
+    ${kiitIcon(card.icon, x0 + 14, top + 26, 32, t.brand)}
+    <rect x="${x0 + 56}" y="${top + 22}" width="3" height="44" rx="1.5" fill="${t.accent}"/>
+    ${kiitText("cardTitle", x0 + 74, top + 38, card.title)}
+    ${kiitText("body", x0 + 74, top + 66, card.sub, { fill: t.brandMid })}${body}`);
     y = top + h;
     if (ci < c.cards.length - 1) {
       const mid = y + gap / 2, b = c.between[ci];
       const ax = x0 + 44;
       if (b.kind === "plus") spots.push(`<circle cx="${ax}" cy="${mid}" r="13" fill="${t.plus}"/>
     <path d="M${ax} ${mid - 6}V${mid + 6}M${ax - 6} ${mid}H${ax + 6}" stroke="${t.onFill}" stroke-width="2.5" stroke-linecap="round"/>
-    <text x="${ax + 24}" y="${mid + 5}" font-size="14" fill="${t.sub}">${esc(b.note)}</text>`);
-      else spots.push(`<line x1="${ax}" y1="${y + 24}" x2="${ax}" y2="${y + gap - 40}" stroke="${t.blue}" stroke-width="3"/>
-    ${kiitHead(ax, y + gap - 26, "down", 14, t.blue)}
-    <text x="${ax + 24}" y="${mid + 5}" font-size="14" fill="${t.sub}">${esc(b.note)}</text>`);
+    ${kiitText("body", ax + 24, mid + 5, b.note)}`);
+      else spots.push(`<line x1="${ax}" y1="${y + 20}" x2="${ax}" y2="${y + gap - 36}" stroke="${t.brand}" stroke-width="3"/>
+    ${kiitHead(ax, y + gap - 22, "down", 14, t.brand)}
+    ${kiitText("body", ax + 24, mid + 5, b.note)}`);
       y += gap;
     }
   });
@@ -110,8 +110,8 @@ function buildSvg(c) {
   ${bg.body}
 
   <g font-family="${KIIT_FONT}">
-    <text x="${m}" y="62" font-size="32" font-weight="700" fill="${t.ink}">${esc(c.title)}</text>
-    <text x="${m}" y="92" font-size="15" fill="${t.sub}">${esc(c.sub)}</text>
+    ${kiitText("heading", m, 52, c.title)}
+    ${kiitText("caption", m, 74, c.sub)}
 
     ${parts.join("\n\n    ")}
 
