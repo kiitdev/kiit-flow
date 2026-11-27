@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Kiit design system</title>
+<!--
+  The kiit design system (900 wide): the colour roles and the type styles, each shown in its own colour and style.
+  Edit COLOURS and TYPE below, then either:
+    1. open this file in a browser and press "Download SVG", or
+    2. export from the command line: ./banner.sh core/design-system.html core/design-system.svg
+  The values come from KIIT_THEME in kiit-svg.js. The type table is here for now and moves to kiit-svg.js
+  when the templates are converted to it.
+-->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
+  #banner svg { width: 100%; max-width: 900px; height: auto; display: block; }
+  button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+
+<script src="../kiit-svg.js"></script>
+<script>
+const t = KIIT_THEME, W = 900, m = 48;
+
+// ---- COLOURS: [role, theme key, what it is used for] ----------------------------------------------------
+const COLOURS = [
+  ["Ink", "ink", "headings, strong text"],
+  ["Sub", "sub", "body text, captions"],
+  ["Brand", "blue", "wordmark, bar, bullets"],
+  ["Brand deep", "blueDeep", "small text on a tint"],
+  ["Brand mid", "blueMid", "card keys"],
+  ["Brand soft", "blueSoft", "soft lines, timeline"],
+  ["Brand tint", "blueTint", "fills"],
+  ["Accent", "accent", "one highlight each"],
+  ["Navy", "navy", "dark labels, Beta"],
+  ["Surface", "cardFill", "cards"],
+  ["Surface soft", "softFill", "soft pills"],
+  ["Line", "inkSoft", "borders"],
+  ["Rule", "hair", "rules inside a card"],
+  ["Plus", "plus", "the + for what is added"],
+  ["Alert", "hot", "the one urgent item"],
+  ["Icon", "blue", "line icons on cards"],
+  ["Icon soon", "blueMid", "icon of a placeholder"],
+  ["Page", null, "the background fade"],
+  ["Page grid", "grid", "lines along the bottom"],
+  ["Page border", "edge", "the outline"],
+  ["Page bar", "barColor", "the bar on the left edge"],
+];
+
+// ---- TYPE: [style, size, weight, colour key, sample, what it is used for] -------------------------------
+const TYPE = [
+  ["Display", 120, 700, "blue", "kiit", "the wordmark"],
+  ["Heading", 28, 700, "ink", "Why kiit", "diagram titles"],
+  ["Subheading", 18, 700, "ink", "Skill groups", "column heads, small cards"],
+  ["Card title", 22, 700, "ink", "Skill groups", "a group or feature name, with its icon"],
+  ["Soon", 22, 700, "blueMid", "More skill groups", "a placeholder name, with its icon"],
+  ["Tagline", 20, 700, "ink", "Standards and skills", "banner line 1"],
+  ["Tagline 2", 16, 400, "sub", "Start with solid defaults", "banner line 2"],
+  ["Body", 15, 400, "sub", "Shared standards", "card text, bullets"],
+  ["Strong", 15, 700, "ink", "Shared standards", "keys and names in a row"],
+  ["Caption", 13, 400, "sub", "A line under a heading", "the line under a heading, footers"],
+  ["Example", 14, 400, "ink", "/kiit:vcs-branch <issue>", "commands and JSON, on a tint"],
+  ["Link", 15, 400, "blue", "kiit.dev/docs", "urls and links, underlined"],
+  ["Pill", 15, 700, "ink", "Standards", "pills, on accent, soft or brand fill"],
+  ["Badge", 22, 700, "accent", "Beta", "a label on navy"],
+];
+// ---------------------------------------------------------------------------------------------------------
+
+const lum = (hex) => {
+  const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
+  return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+};
+const contrast = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+const nameColour = (hex) => contrast(hex, "#FFFFFF") >= 3 ? hex : t.ink;   // a name is set in its own colour when it reads on white
+
+function buildSvg() {
+  let y = 52, out = "";
+
+  // header
+  out += `<text x="${m}" y="${y}" font-size="28" font-weight="700" fill="${t.ink}">Design system</text>
+    <text x="${m}" y="${y + 28}" font-size="13" fill="${t.sub}">Each name is in its own colour, each style in its own size.</text>`;
+  y += 76;
+
+  // colours
+  out += `<text x="${m}" y="${y}" font-size="18" font-weight="700" fill="${t.ink}">Colours</text>`;
+  y += 20;
+  const cw = 260, gap = 12, ch = 78, rg = 10;
+  COLOURS.forEach(([role, key, use], i) => {
+    const x = m + (i % 3) * (cw + gap), ty = y + Math.floor(i / 3) * (ch + rg);
+    const hex = key ? t[key] : `${t.sheetFrom} to ${t.sheetTo}`;
+    const sw = { x: x + 12, y: ty + 12, s: 40 };
+    let swatch;
+    if (role === "Page") swatch = `<rect x="${sw.x}" y="${sw.y}" width="${sw.s}" height="${sw.s}" rx="4" fill="url(#ds-page)" stroke="${t.hair}"/>`;
+    else if (role.startsWith("Icon")) swatch = `<rect x="${sw.x}" y="${sw.y}" width="${sw.s}" height="${sw.s}" rx="4" fill="#FFFFFF" stroke="${t.hair}"/>
+    ${kiitIcon(role === "Icon" ? "groups" : "more", sw.x + 6, sw.y + 6, 28, hex, 1.75)}`;
+    else if (role === "Page border") swatch = `<rect x="${sw.x + 2}" y="${sw.y + 2}" width="${sw.s - 4}" height="${sw.s - 4}" rx="4" fill="#FFFFFF" stroke="${hex}" stroke-width="3"/>`;
+    else swatch = `<rect x="${sw.x}" y="${sw.y}" width="${sw.s}" height="${sw.s}" rx="4" fill="${hex}" stroke="${t.hair}"/>`;
+    const nc = key ? nameColour(hex) : t.ink;
+    out += `<rect x="${x}" y="${ty}" width="${cw}" height="${ch}" rx="4" fill="${t.cardFill}" stroke="${t.hair}"/>
+    ${swatch}
+    <text x="${x + 66}" y="${ty + 28}" font-size="15" font-weight="700" fill="${nc}">${esc(role)}</text>
+    <text x="${x + 66}" y="${ty + 48}" font-size="13" fill="${t.sub}">${esc(hex)}</text>
+    <text x="${x + 66}" y="${ty + 66}" font-size="13" fill="${t.dim}">${esc(use)}</text>\n    `;
+  });
+  y += Math.ceil(COLOURS.length / 3) * (ch + rg) + 36;
+
+  // type: a table. Columns: style, size / weight, colour, what it is used for, a sample at its real size
+  out += `<text x="${m}" y="${y}" font-size="18" font-weight="700" fill="${t.ink}">Type styles</text>
+    <text x="${m}" y="${y + 22}" font-size="13" fill="${t.sub}">Fira Code, in two weights: 400 and 700. Nothing is set below 13.</text>`;
+  y += 44;
+  const cols = [112, 100, 104, 160, 328], pad = 12;                 // widths add up to W - 2 * m
+  const cx = cols.reduce((a, w, i) => (a.push(i ? a[i - 1] + cols[i - 1] : m), a), []);
+  const colourName = { blue: "Brand", blueMid: "Brand mid", ink: "Ink", sub: "Sub", accent: "Accent" };
+  const wrap = (text, n) => text.split(" ").reduce((ls, w) => {
+    if (ls.length && (ls[ls.length - 1] + " " + w).length <= n) ls[ls.length - 1] += " " + w; else ls.push(w);
+    return ls;
+  }, []);
+  // the header row
+  const hh = 36;
+  out += `<path d="M${m} ${y + hh} V${y + 4} A4 4 0 0 1 ${m + 4} ${y} H${W - m - 4} A4 4 0 0 1 ${W - m} ${y + 4} V${y + hh} Z" fill="${t.blue}"/>\n    `;
+  ["Style", "Size / wt", "Colour", "Used for", "Sample"].forEach((h, i) => {
+    out += `<text x="${cx[i] + pad}" y="${y + hh / 2 + 5}" font-size="14" font-weight="700" fill="${t.onFill}">${h}</text>\n    `;
+  });
+  y += hh;
+  const top0 = y;
+  TYPE.forEach(([style, size, weight, ck, sample, use]) => {
+    const col = t[ck], lines = wrap(use, 17);
+    const sampleH = style === "Display" ? 96 : style === "Badge" ? 46 : style === "Pill" ? 38 : style === "Example" ? 34 : Math.round(size * 1.2);
+    const rh = Math.max(64, sampleH + 28, lines.length * 18 + 28), cy = y + rh / 2;
+    // style, spec, colour, used for
+    out += `<text x="${cx[0] + pad}" y="${cy + 5}" font-size="15" font-weight="700" fill="${t.ink}">${esc(style)}</text>
+    <text x="${cx[1] + pad}" y="${cy + 5}" font-size="14" fill="${t.sub}">${size} / ${weight}</text>
+    <rect x="${cx[2] + pad}" y="${cy - 6}" width="12" height="12" rx="2" fill="${col}" stroke="${t.hair}"/>
+    <text x="${cx[2] + pad + 18}" y="${cy + 5}" font-size="13" fill="${t.sub}">${colourName[ck]}</text>\n    `;
+    lines.forEach((l, i) => {
+      out += `<text x="${cx[3] + pad}" y="${cy + 5 + (i - (lines.length - 1) / 2) * 18}" font-size="13" fill="${t.sub}">${esc(l)}</text>\n    `;
+    });
+    // the sample, at its real size
+    const sx = cx[4] + pad;
+    if (style === "Example") {
+      const w = Math.round(kiitTextW(sample, size)) + 32;
+      out += `<rect x="${sx}" y="${cy - 17}" width="${w}" height="34" rx="4" fill="${t.blueTint}"/>
+    <text x="${sx + 16}" y="${cy + 5}" font-size="${size}" fill="${col}">${esc(sample)}</text>\n    `;
+    } else if (style === "Pill") {
+      let px = sx;
+      [[t.accent, t.ink, "Standards", "standards"], [t.softFill, t.ink, "Groups", "groups"]].forEach(([fill, color, label, icon]) => {
+        const w = Math.round(kiitTextW(label, size) + 42 + 16);
+        out += `<rect x="${px}" y="${cy - 19}" width="${w}" height="38" rx="4" fill="${fill}"/>
+    ${kiitIcon(icon, px + 14, cy - 10, 20, color)}
+    <text x="${px + 42}" y="${cy + 5}" font-size="${size}" font-weight="${weight}" fill="${color}">${label}</text>\n    `;
+        px += w + 12;
+      });
+    } else if (style === "Badge") {
+      out += `<rect x="${sx}" y="${cy - 23}" width="152" height="46" rx="4" fill="${t.navy}"/>
+    <text x="${sx + 76}" y="${cy + 8}" font-size="${size}" font-weight="${weight}" fill="${col}" text-anchor="middle">${esc(sample)}</text>\n    `;
+    } else if (style === "Card title" || style === "Soon") {
+      out += `${kiitIcon(style === "Soon" ? "more" : "groups", sx, cy - 16, 32, col, 1.75)}
+    <text x="${sx + 42}" y="${cy + 8}" font-size="${size}" font-weight="${weight}" fill="${col}">${esc(sample)}</text>\n    `;
+    } else {
+      const deco = style === "Link" ? ' text-decoration="underline"' : "";
+      out += `<text x="${sx}" y="${cy + Math.round(size * 0.35)}" font-size="${size}" font-weight="${weight}" fill="${col}"${deco}>${esc(sample)}</text>\n    `;
+    }
+    y += rh;
+    out += `<line x1="${m}" y1="${y}" x2="${W - m}" y2="${y}" stroke="${t.hair}"/>\n    `;
+  });
+  // the table's outline and column rules
+  out += `<rect x="${m}" y="${top0 - hh}" width="${W - 2 * m}" height="${y - top0 + hh}" rx="4" fill="none" stroke="${t.inkSoft}" stroke-width="1.5"/>\n    `;
+  cx.slice(1).forEach((x) => { out += `<line x1="${x}" y1="${top0}" x2="${x}" y2="${y}" stroke="${t.hair}"/>\n    `; });
+
+  return { body: out, H: y + 12 };
+}
+
+const built = buildSvg(), H = built.H;
+const bg = kiitBackground(t, W, H);
+kiitMount(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Kiit design system: the colour roles, each named in its own colour, and the type styles: display, heading, subheading, card title, soon, tagline, body, strong, caption, example, link, pill and badge.">
+  <defs>
+    ${bg.defs}
+    <linearGradient id="ds-page" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${t.sheetFrom}"/><stop offset="1" stop-color="${t.sheetTo}"/></linearGradient>
+  </defs>
+  ${bg.body}
+  <g font-family="${KIIT_FONT}">
+    ${built.body}
+  </g>
+</svg>
+`, "kiit-design-system.svg");
+</script>
