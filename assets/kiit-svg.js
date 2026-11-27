@@ -16,10 +16,10 @@ const KIIT_THEME = {
   sheetFrom: "#FFFFFF", sheetTo: "#EFF3FE",     // the page: white, fading to a very light blue. Before: #FDFEFF to #DFECFB
   edge: "#8CA3C7", edgeWidth: 1.5,              // the page border, visible on light and dark pages
   pageRadius: 10,               // the page's corner radius
-  showGrid: true,               // graph paper lines on the right, fading out toward the left
+  showGrid: true,               // graph paper lines, fading out away from gridSide
   gridSize: 32, gridWidth: 1,   // the spacing and thickness of the lines. Their colour is `grid`
-  gridSide: "right",            // which side the lines are on: "right" or "left". They fade out toward the other side
-  gridFade: 0.5,                // where the fade starts, as a share of the width from the left
+  gridSide: "bottom",           // which side the lines are on: "bottom", "right" or "left". They fade out toward the opposite side
+  gridFade: 0.6,                // where the fade starts, as a share of the distance from the side opposite gridSide
   showBar: true, barWidth: 8,   // the bar down the left edge. Its colour is `barColor`
   line: "#475569",              // card and box borders
   hair: "#CBD5E1",              // thin rules inside a card
@@ -79,11 +79,12 @@ const KIIT_FONT = `'${KIIT_THEME.fontFamily}', ui-monospace, SFMono-Regular, Men
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-// The page: an off-white sheet with a soft gradient, graph paper lines on the right that
-// fade out toward the left, a blue bar down the left edge, and a thin border, so
+// The page: an off-white sheet with a soft gradient, graph paper lines along the bottom that
+// fade out toward the top, a blue bar down the left edge, and a thin border, so
 // the image keeps its edge on light and dark pages. Returns {defs, body}.
 function kiitBackground(t, w, h) {
   const o = t.edgeWidth / 2, pw = w - t.edgeWidth, ph = h - t.edgeWidth, r = t.pageRadius, g = t.gridSize;
+  const dir = { right: [0, 0, 1, 0], left: [1, 0, 0, 0], bottom: [0, 0, 0, 1] }[t.gridSide] || [0, 0, 1, 0];   // the fade runs from hidden to visible
   const grid = t.showGrid ? `<rect width="${w}" height="${h}" fill="url(#kiit-grid)" mask="url(#kiit-grid-mask)"/>` : "";
   const bar = t.showBar ? `<rect x="0" y="0" width="${t.barWidth}" height="${h}" fill="${t.barColor}"/>` : "";
   return {
@@ -94,7 +95,7 @@ function kiitBackground(t, w, h) {
     <pattern id="kiit-grid" width="${g}" height="${g}" patternUnits="userSpaceOnUse">
       <path d="M${g} 0H0V${g}" fill="none" stroke="${t.grid}" stroke-width="${t.gridWidth}"/>
     </pattern>
-    <linearGradient id="kiit-fade" x1="${t.gridSide === "left" ? 1 : 0}" y1="0" x2="${t.gridSide === "left" ? 0 : 1}" y2="0">
+    <linearGradient id="kiit-fade" x1="${dir[0]}" y1="${dir[1]}" x2="${dir[2]}" y2="${dir[3]}">
       <stop offset="${t.gridFade}" stop-color="#000"/>
       <stop offset="1" stop-color="#FFF"/>
     </linearGradient>

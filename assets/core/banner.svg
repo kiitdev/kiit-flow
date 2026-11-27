@@ -9,8 +9,8 @@
     <pattern id="kiit-grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="#CBD8FC" stroke-width="1"/>
     </pattern>
-    <linearGradient id="kiit-fade" x1="1" y1="0" x2="0" y2="0">
-      <stop offset="0.4" stop-color="#000"/>
+    <linearGradient id="kiit-fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.6" stop-color="#000"/>
       <stop offset="1" stop-color="#FFF"/>
     </linearGradient>
     <mask id="kiit-grid-mask"><rect width="1392" height="468" fill="url(#kiit-fade)"/></mask>
