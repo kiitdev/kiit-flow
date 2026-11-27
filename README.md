@@ -27,9 +27,7 @@ Kiit is a plugin of skill groups for your coding agent. It keeps your team's eng
 
 Teams with several repos end up with several ways of naming branches, titling pull requests and checking a change. A coding agent follows whatever the repo in front of it does. Kiit gives it one set of standards instead.
 
-<p align="center">
-  <img src="./assets/core/why.svg" alt="Why kiit: for standards, skill groups and multiple repos, what Claude Code gives you and what kiit adds on top." />
-</p>
+<img src="./assets/core/why.svg" alt="Why kiit: for standards, skill groups and multiple repos, what Claude Code gives you and what kiit adds on top." width="100%" />
 
 | # | | Purpose | Description |
 |---:|:---:|---|---|
