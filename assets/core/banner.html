@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <title>Kiit banner</title>
 <!--
-  The kiit banner (640 wide): the name, the tagline, the three points, and a card showing kiit.json.
+  The kiit banner (800 wide): the name, the tagline, the three points, and a card showing kiit.json.
   Edit CONFIG below, then either:
     1. open this file in a browser and press "Download SVG", or
     2. export from the command line: ./banner.sh core/banner.html core/banner.svg
@@ -42,7 +42,8 @@ const CONFIG = {
     ["2020", "Stable framework"],
     ["2026", "AI enabled"],
   ],
-  titleSize: 72,                  // the size of the wordmark
+  width: 800,                     // the banner is wider than the other diagrams, so it stays low and wide
+  titleSize: 84,                  // the size of the wordmark
   logoSize: 130,                  // the logo's width and height, on the same row as the wordmark. The kiit.json card below is not drawn in the narrow layout, it is kept for later
   card: {
     title: ".claude/kiit/kiit.json",
@@ -85,9 +86,9 @@ const logoSvg = (size, x, y) => `<svg x="${x}" y="${y}" width="${size}" height="
 // The narrow layout, 640 wide so the text stays readable on a phone: the wordmark and logo on top, then the
 // tagline, the three points and the timeline, stacked. Every text is a type style from kiit-svg.js.
 function buildSvg(c) {
-  const t = c.theme, W = t.canvas, m = t.canvasMargin, foot = c.history ? 56 : 0;
+  const t = c.theme, W = c.width, m = t.canvasMargin, foot = c.history ? 52 : 0;
   const full = c.name ? c.brand + "-" + c.name : c.brand;
-  const n = full.length, rowY = 28, rowH = c.logoSize;            // the top row: the wordmark and its Beta label on the left, the logo on the right
+  const n = full.length, rowY = 24, rowH = c.logoSize;            // the top row: the wordmark and its Beta label on the left, the logo on the right
   const bw = c.badge ? 92 : 0, bh = 34, gapB = c.badge ? 16 : 0;
   const size = Math.min(c.titleSize, Math.floor((W - 2 * m - c.logoSize - 24 - bw - gapB + 3 * n) / (0.6 * n)));   // shrink a long name so it stays left of the logo
   const advance = 0.6 * size - 3;                                // the step from one letter to the next
@@ -107,17 +108,17 @@ function buildSvg(c) {
 
   // the tagline: one line each, never wrapped. The first is ink, the second lighter. A line that is too long gets a smaller font
   const availW = W - 2 * m - 8;
-  let ty = rowY + rowH + 36;
+  let ty = rowY + rowH + 30;
   const tagSvg = c.taglines.map((l, i) => {
     const sty = i === 0 ? "tagline" : "tagline2", [sz, wt, col] = KIIT_TYPE[sty], fit = Math.min(sz, Math.floor(availW / (0.6 * l.length)));
     const y = ty;
-    ty += i === 0 ? 28 : 0;
+    ty += i === 0 ? 26 : 0;
     return `<text x="${m + 4}" y="${y}" font-size="${fit}" font-weight="${wt}" fill="${t[col]}">${esc(l)}</text>`;
   }).join("\n    ");
 
   // the bottom row: a box per point
   const weights = { soft: [t.softFill, t.ink], blue: [t.brand, t.onFill], ink: [t.navy, t.onFill], accent: [t.accent, t.ink] };
-  const boxY = ty + 22, boxH = 38, fs = KIIT_TYPE.pill[0];
+  const boxY = ty + 18, boxH = 38, fs = KIIT_TYPE.pill[0];
   let x = m + 4;
   const pillarSvg = c.pillars.map((p) => {
     const pad = p.icon ? 42 : 16, w = Math.round(kiitTextW(p.text, fs) + pad + 16), [fill, color] = weights[p.style];
