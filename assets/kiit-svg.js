@@ -10,28 +10,29 @@
 //   3. For one template: use kiitTheme({ accent: "#14B8A6" }) as that template's theme.
 
 const KIIT_THEME = {
-  paper: "#E8F1FF", grid: "#CBD8FC",
+  canvas: 600, canvasMargin: 32,   // a diagram is this wide, so it stays readable when GitHub shrinks it to a phone
+  paper: "#E8F1FF", pageGrid: "#CBD8FC",
   frame: "#4DA3FF", frameLeft: "#E8794A",       // the old outline, still read by start.html
-  // The palette is three colours: ink, blue and orange, with neutral greys.
-  sheetFrom: "#FFFFFF", sheetTo: "#EFF3FE",     // the page: white, fading to a very light blue. Before: #FDFEFF to #DFECFB
-  edge: "#8CA3C7", edgeWidth: 1.5,              // the page border, visible on light and dark pages
+  // The design system is in core/design-system.html: the colour roles and the type styles. The palette is three colours: ink, blue and orange, with neutral greys.
+  pageFrom: "#FFFFFF", pageTo: "#EFF3FE",     // the page: white, fading to a very light blue. Before: #FDFEFF to #DFECFB
+  pageBorder: "#8CA3C7", pageBorderWidth: 1.5,              // the page border, visible on light and dark pages
   pageRadius: 10,               // the page's corner radius
-  showGrid: true,               // graph paper lines, fading out away from gridSide
-  gridSize: 32, gridWidth: 1,   // the spacing and thickness of the lines. Their colour is `grid`
-  gridSide: "bottom",           // which side the lines are on: "bottom", "right" or "left". They fade out toward the opposite side
-  gridFade: 0.6,                // where the fade starts, as a share of the distance from the side opposite gridSide
-  showBar: true, barWidth: 8,   // the bar down the left edge. Its colour is `barColor`
+  pageGridShow: true,               // graph paper lines, fading out away from pageGridSide
+  pageGridSize: 32, pageGridWidth: 1,   // the spacing and thickness of the lines. Their colour is `grid`
+  pageGridSide: "bottom",           // which side the lines are on: "bottom", "right" or "left". They fade out toward the opposite side
+  pageGridFade: 0.6,                // where the fade starts, as a share of the distance from the side opposite pageGridSide
+  pageBarShow: true, pageBarWidth: 8,   // the bar down the left edge. Its colour is `pageBar`
   line: "#475569",              // card and box borders
   hair: "#CBD5E1",              // thin rules inside a card
-  barColor: "#144DF2",          // the left bar: the same blue as `blue`. Before: the orange `accent`
+  pageBar: "#144DF2",           // the left bar: the same as `brand`
   accent: "#FF9A4D",            // orange: the one vivid accent, such as the Standards pill
   navy: "#111827",
-  blue: "#144DF2",              // the blue of the x in the jsonx logo. Before: #007FFF
-  blueTint: "#ECF1FE", blueDeep: "#0B3AC4",     // a tint of blue for fills, and a deeper blue for small text on it
+  brand: "#144DF2",             // the brand blue, the blue of the x in the jsonx logo. Role: Brand
+  brandTint: "#ECF1FE", brandDeep: "#0B3AC4",   // a tint of the brand for fills, and a deeper one for small text on it
   ink: "#1E293B", sub: "#64748B", dim: "#6B7A99",
   hot: "#F0483E",               // a vivid red, only for the one thing that is urgent, such as the hotfix type
   plus: "#16C45E",              // a vivid green, only for the + that marks what is added
-  blueMid: "#4F79F5", blueSoft: "#95AFF9", inkSoft: "#B8C5DA",       // a light blue and a light black (slate), for softer borders. Soften a main colour with its light variant
+  brandMid: "#4F79F5", brandSoft: "#95AFF9", inkSoft: "#B8C5DA",       // a light blue and a light black (slate), for softer borders. Soften a main colour with its light variant
   fontFamily: "Fira Code",      // the font. banner.sh embeds its files, so it looks the same everywhere
   fontDir: "fonts/",            // where the files are, relative to this script
   fontFaces: [[400, "FiraCode-Regular.woff2"], [700, "FiraCode-Bold.woff2"]],   // [weight, file]. Built by fonts/make-fonts.py
@@ -51,8 +52,12 @@ const KIIT_THEME = {
   done: "#1B8A5A", todo: "#C26A00", blocked: "#C0392B", skip: "#8A94A8",
 };
 
+// The old blue* names, for templates that are not converted to the brand names yet. They follow the brand ones.
+const kiitLegacy = (T) => Object.assign(T, { blue: T.brand, blueTint: T.brandTint, blueDeep: T.brandDeep, blueMid: T.brandMid, blueSoft: T.brandSoft });
+kiitLegacy(KIIT_THEME);
+
 // A copy of the theme with some settings changed, for one template.
-const kiitTheme = (overrides) => ({ ...KIIT_THEME, ...overrides });
+const kiitTheme = (overrides) => kiitLegacy({ ...KIIT_THEME, ...overrides });
 
 // Settings for one run, as JSON after #theme= in the page's address. banner.sh and
 // build.sh add it from their last argument. Bad JSON is reported and ignored.
@@ -61,6 +66,7 @@ const kiitTheme = (overrides) => ({ ...KIIT_THEME, ...overrides });
   if (!m) return;
   try { Object.assign(KIIT_THEME, JSON.parse(decodeURIComponent(m[1]))); }
   catch (e) { console.error("theme override ignored: " + e.message); }
+  kiitLegacy(KIIT_THEME);
 })();
 
 // The font stack. The first font is the embedded one, and the rest are for a page that cannot load it.
@@ -83,20 +89,20 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 // fade out toward the top, a blue bar down the left edge, and a thin border, so
 // the image keeps its edge on light and dark pages. Returns {defs, body}.
 function kiitBackground(t, w, h) {
-  const o = t.edgeWidth / 2, pw = w - t.edgeWidth, ph = h - t.edgeWidth, r = t.pageRadius, g = t.gridSize;
-  const dir = { right: [0, 0, 1, 0], left: [1, 0, 0, 0], bottom: [0, 0, 0, 1] }[t.gridSide] || [0, 0, 1, 0];   // the fade runs from hidden to visible
-  const grid = t.showGrid ? `<rect width="${w}" height="${h}" fill="url(#kiit-grid)" mask="url(#kiit-grid-mask)"/>` : "";
-  const bar = t.showBar ? `<rect x="0" y="0" width="${t.barWidth}" height="${h}" fill="${t.barColor}"/>` : "";
+  const o = t.pageBorderWidth / 2, pw = w - t.pageBorderWidth, ph = h - t.pageBorderWidth, r = t.pageRadius, g = t.pageGridSize;
+  const dir = { right: [0, 0, 1, 0], left: [1, 0, 0, 0], bottom: [0, 0, 0, 1] }[t.pageGridSide] || [0, 0, 1, 0];   // the fade runs from hidden to visible
+  const grid = t.pageGridShow ? `<rect width="${w}" height="${h}" fill="url(#kiit-grid)" mask="url(#kiit-grid-mask)"/>` : "";
+  const bar = t.pageBarShow ? `<rect x="0" y="0" width="${t.pageBarWidth}" height="${h}" fill="${t.pageBar}"/>` : "";
   return {
     defs: `<linearGradient id="kiit-sheet" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="${t.sheetFrom}"/>
-      <stop offset="1" stop-color="${t.sheetTo}"/>
+      <stop offset="0" stop-color="${t.pageFrom}"/>
+      <stop offset="1" stop-color="${t.pageTo}"/>
     </linearGradient>
     <pattern id="kiit-grid" width="${g}" height="${g}" patternUnits="userSpaceOnUse">
-      <path d="M${g} 0H0V${g}" fill="none" stroke="${t.grid}" stroke-width="${t.gridWidth}"/>
+      <path d="M${g} 0H0V${g}" fill="none" stroke="${t.pageGrid}" stroke-width="${t.pageGridWidth}"/>
     </pattern>
     <linearGradient id="kiit-fade" x1="${dir[0]}" y1="${dir[1]}" x2="${dir[2]}" y2="${dir[3]}">
-      <stop offset="${t.gridFade}" stop-color="#000"/>
+      <stop offset="${t.pageGridFade}" stop-color="#000"/>
       <stop offset="1" stop-color="#FFF"/>
     </linearGradient>
     <mask id="kiit-grid-mask"><rect width="${w}" height="${h}" fill="url(#kiit-fade)"/></mask>
@@ -106,11 +112,34 @@ function kiitBackground(t, w, h) {
     ${grid}
     ${bar}
   </g>
-  <rect x="${o}" y="${o}" width="${pw}" height="${ph}" rx="${r}" fill="none" stroke="${t.edge}" stroke-width="${t.edgeWidth}"/>`,
+  <rect x="${o}" y="${o}" width="${pw}" height="${ph}" rx="${r}" fill="none" stroke="${t.pageBorder}" stroke-width="${t.pageBorderWidth}"/>`,
   };
 }
 
 // The width of some monospace text at a font size. The font's advance is 0.6 of its size.
+// The type styles: [size, weight, colour key]. Every text in a diagram is one of these. The sheet is core/design-system.html.
+const KIIT_TYPE = {
+  display:    [120, 700, "brand"],    // the wordmark
+  heading:    [28, 700, "ink"],       // a diagram title
+  subheading: [18, 700, "ink"],       // a column head, a small card
+  cardTitle:  [22, 700, "ink"],       // a group or feature name, next to its icon
+  soon:       [22, 700, "brandMid"],  // the name of a placeholder, next to its icon
+  tagline:    [20, 700, "ink"],       // the first line under the wordmark
+  tagline2:   [16, 400, "sub"],       // the second line
+  body:       [15, 400, "sub"],       // card text, bullets
+  strong:     [15, 700, "ink"],       // a key or a name in a row
+  caption:    [13, 400, "sub"],       // the line under a heading, a footer
+  example:    [14, 400, "ink"],       // a command or JSON, on a tint
+  link:       [15, 400, "brand"],     // a url, underlined
+  pill:       [15, 700, "ink"],       // a pill, on an accent, soft or brand fill
+  badge:      [22, 700, "accent"],    // a label on navy
+};
+// A <text> in one of the type styles. o: fill (a colour, instead of the style's), anchor ("start", "middle" or "end").
+const kiitText = (style, x, y, text, o = {}) => {
+  const [size, weight, colour] = KIIT_TYPE[style];
+  const fill = o.fill || KIIT_THEME[colour];
+  return `<text x="${x}" y="${y}" font-size="${size}" font-weight="${weight}" fill="${fill}"${o.anchor ? ` text-anchor="${o.anchor}"` : ""}${style === "link" ? ' text-decoration="underline"' : ""}>${esc(text)}</text>`;
+};
 const kiitTextW = (text, size) => Math.round(text.length * size * 0.6);
 
 // A card as in the banner: white, with one thin border and a small radius. With a label it

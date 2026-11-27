@@ -29,11 +29,11 @@ const t = KIIT_THEME, W = 900, m = 48;
 const COLOURS = [
   ["Ink", "ink", "headings, strong text"],
   ["Sub", "sub", "body text, captions"],
-  ["Brand", "blue", "wordmark, bar, bullets"],
-  ["Brand deep", "blueDeep", "small text on a tint"],
-  ["Brand mid", "blueMid", "card keys"],
-  ["Brand soft", "blueSoft", "soft lines, timeline"],
-  ["Brand tint", "blueTint", "fills"],
+  ["Brand", "brand", "wordmark, bar, bullets"],
+  ["Brand deep", "brandDeep", "small text on a tint"],
+  ["Brand mid", "brandMid", "card keys"],
+  ["Brand soft", "brandSoft", "soft lines, timeline"],
+  ["Brand tint", "brandTint", "fills"],
   ["Accent", "accent", "one highlight each"],
   ["Navy", "navy", "dark labels, Beta"],
   ["Surface", "cardFill", "cards"],
@@ -42,30 +42,31 @@ const COLOURS = [
   ["Rule", "hair", "rules inside a card"],
   ["Plus", "plus", "the + for what is added"],
   ["Alert", "hot", "the one urgent item"],
-  ["Icon", "blue", "line icons on cards"],
-  ["Icon soon", "blueMid", "icon of a placeholder"],
+  ["Icon", "brand", "line icons on cards"],
+  ["Icon soon", "brandMid", "icon of a placeholder"],
+  ["Icon muted", "brandSoft", "a quiet icon, a hint"],
   ["Page", null, "the background fade"],
-  ["Page grid", "grid", "lines along the bottom"],
-  ["Page border", "edge", "the outline"],
-  ["Page bar", "barColor", "the bar on the left edge"],
+  ["Page grid", "pageGrid", "lines along the bottom"],
+  ["Page border", "pageBorder", "the outline"],
+  ["Page bar", "pageBar", "the bar on the left edge"],
 ];
 
 // ---- TYPE: [style, size, weight, colour key, sample, what it is used for] -------------------------------
-const TYPE = [
-  ["Display", 120, 700, "blue", "kiit", "the wordmark"],
-  ["Heading", 28, 700, "ink", "Why kiit", "diagram titles"],
-  ["Subheading", 18, 700, "ink", "Skill groups", "column heads, small cards"],
-  ["Card title", 22, 700, "ink", "Skill groups", "a group or feature name, with its icon"],
-  ["Soon", 22, 700, "blueMid", "More skill groups", "a placeholder name, with its icon"],
-  ["Tagline", 20, 700, "ink", "Standards and skills", "banner line 1"],
-  ["Tagline 2", 16, 400, "sub", "Start with solid defaults", "banner line 2"],
-  ["Body", 15, 400, "sub", "Shared standards", "card text, bullets"],
-  ["Strong", 15, 700, "ink", "Shared standards", "keys and names in a row"],
-  ["Caption", 13, 400, "sub", "A line under a heading", "the line under a heading, footers"],
-  ["Example", 14, 400, "ink", "/kiit:vcs-branch <issue>", "commands and JSON, on a tint"],
-  ["Link", 15, 400, "blue", "kiit.dev/docs", "urls and links, underlined"],
-  ["Pill", 15, 700, "ink", "Standards", "pills, on accent, soft or brand fill"],
-  ["Badge", 22, 700, "accent", "Beta", "a label on navy"],
+const TYPE = [                       // [style, key in KIIT_TYPE, sample, what it is used for]. Size, weight and colour come from KIIT_TYPE
+  ["Display", "display", "kiit", "the wordmark"],
+  ["Heading", "heading", "Why kiit", "diagram titles"],
+  ["Subheading", "subheading", "Skill groups", "column heads, small cards"],
+  ["Card title", "cardTitle", "Skill groups", "a group or feature name, with its icon"],
+  ["Soon", "soon", "More skill groups", "a placeholder name, with its icon"],
+  ["Tagline", "tagline", "Standards and skills", "banner line 1"],
+  ["Tagline 2", "tagline2", "Start with solid defaults", "banner line 2"],
+  ["Body", "body", "Shared standards", "card text, bullets"],
+  ["Strong", "strong", "Shared standards", "keys and names in a row"],
+  ["Caption", "caption", "A line under a heading", "the line under a heading, footers"],
+  ["Example", "example", "/kiit:vcs-branch <issue>", "commands and JSON, on a tint"],
+  ["Link", "link", "kiit.dev/docs", "urls and links, underlined"],
+  ["Pill", "pill", "Standards", "pills, on accent, soft or brand fill"],
+  ["Badge", "badge", "Beta", "a label on navy"],
 ];
 // ---------------------------------------------------------------------------------------------------------
 
@@ -90,12 +91,12 @@ function buildSvg() {
   const cw = 260, gap = 12, ch = 78, rg = 10;
   COLOURS.forEach(([role, key, use], i) => {
     const x = m + (i % 3) * (cw + gap), ty = y + Math.floor(i / 3) * (ch + rg);
-    const hex = key ? t[key] : `${t.sheetFrom} to ${t.sheetTo}`;
+    const hex = key ? t[key] : `${t.pageFrom} to ${t.pageTo}`;
     const sw = { x: x + 12, y: ty + 12, s: 40 };
     let swatch;
     if (role === "Page") swatch = `<rect x="${sw.x}" y="${sw.y}" width="${sw.s}" height="${sw.s}" rx="4" fill="url(#ds-page)" stroke="${t.hair}"/>`;
     else if (role.startsWith("Icon")) swatch = `<rect x="${sw.x}" y="${sw.y}" width="${sw.s}" height="${sw.s}" rx="4" fill="#FFFFFF" stroke="${t.hair}"/>
-    ${kiitIcon(role === "Icon" ? "groups" : "more", sw.x + 6, sw.y + 6, 28, hex, 1.75)}`;
+    ${kiitIcon({ "Icon": "groups", "Icon soon": "more", "Icon muted": "flow" }[role], sw.x + 6, sw.y + 6, 28, hex, 1.75)}`;
     else if (role === "Page border") swatch = `<rect x="${sw.x + 2}" y="${sw.y + 2}" width="${sw.s - 4}" height="${sw.s - 4}" rx="4" fill="#FFFFFF" stroke="${hex}" stroke-width="3"/>`;
     else swatch = `<rect x="${sw.x}" y="${sw.y}" width="${sw.s}" height="${sw.s}" rx="4" fill="${hex}" stroke="${t.hair}"/>`;
     const nc = key ? nameColour(hex) : t.ink;
@@ -113,20 +114,21 @@ function buildSvg() {
   y += 44;
   const cols = [112, 100, 104, 160, 328], pad = 12;                 // widths add up to W - 2 * m
   const cx = cols.reduce((a, w, i) => (a.push(i ? a[i - 1] + cols[i - 1] : m), a), []);
-  const colourName = { blue: "Brand", blueMid: "Brand mid", ink: "Ink", sub: "Sub", accent: "Accent" };
+  const colourName = { brand: "Brand", brandMid: "Brand mid", ink: "Ink", sub: "Sub", accent: "Accent" };
   const wrap = (text, n) => text.split(" ").reduce((ls, w) => {
     if (ls.length && (ls[ls.length - 1] + " " + w).length <= n) ls[ls.length - 1] += " " + w; else ls.push(w);
     return ls;
   }, []);
   // the header row
   const hh = 36;
-  out += `<path d="M${m} ${y + hh} V${y + 4} A4 4 0 0 1 ${m + 4} ${y} H${W - m - 4} A4 4 0 0 1 ${W - m} ${y + 4} V${y + hh} Z" fill="${t.blue}"/>\n    `;
+  out += `<path d="M${m} ${y + hh} V${y + 4} A4 4 0 0 1 ${m + 4} ${y} H${W - m - 4} A4 4 0 0 1 ${W - m} ${y + 4} V${y + hh} Z" fill="${t.brand}"/>\n    `;
   ["Style", "Size / wt", "Colour", "Used for", "Sample"].forEach((h, i) => {
     out += `<text x="${cx[i] + pad}" y="${y + hh / 2 + 5}" font-size="14" font-weight="700" fill="${t.onFill}">${h}</text>\n    `;
   });
   y += hh;
   const top0 = y;
-  TYPE.forEach(([style, size, weight, ck, sample, use]) => {
+  TYPE.forEach(([style, key, sample, use]) => {
+    const [size, weight, ck] = KIIT_TYPE[key];
     const col = t[ck], lines = wrap(use, 17);
     const sampleH = style === "Display" ? 96 : style === "Badge" ? 46 : style === "Pill" ? 38 : style === "Example" ? 34 : Math.round(size * 1.2);
     const rh = Math.max(64, sampleH + 28, lines.length * 18 + 28), cy = y + rh / 2;
@@ -142,7 +144,7 @@ function buildSvg() {
     const sx = cx[4] + pad;
     if (style === "Example") {
       const w = Math.round(kiitTextW(sample, size)) + 32;
-      out += `<rect x="${sx}" y="${cy - 17}" width="${w}" height="34" rx="4" fill="${t.blueTint}"/>
+      out += `<rect x="${sx}" y="${cy - 17}" width="${w}" height="34" rx="4" fill="${t.brandTint}"/>
     <text x="${sx + 16}" y="${cy + 5}" font-size="${size}" fill="${col}">${esc(sample)}</text>\n    `;
     } else if (style === "Pill") {
       let px = sx;
@@ -178,7 +180,7 @@ const bg = kiitBackground(t, W, H);
 kiitMount(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Kiit design system: the colour roles, each named in its own colour, and the type styles: display, heading, subheading, card title, soon, tagline, body, strong, caption, example, link, pill and badge.">
   <defs>
     ${bg.defs}
-    <linearGradient id="ds-page" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${t.sheetFrom}"/><stop offset="1" stop-color="${t.sheetTo}"/></linearGradient>
+    <linearGradient id="ds-page" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${t.pageFrom}"/><stop offset="1" stop-color="${t.pageTo}"/></linearGradient>
   </defs>
   ${bg.body}
   <g font-family="${KIIT_FONT}">
