@@ -25,67 +25,67 @@
   <rect x="0.75" y="0.75" width="638.5" height="1104.5" rx="10" fill="none" stroke="#8CA3C7" stroke-width="1.5"/>
 
   <g font-family="'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
-    <text x="32" y="52" font-size="26" font-weight="700" fill="#1E293B">kiit.json</text>
+    <text x="32" y="52" font-size="24" font-weight="700" fill="#1E293B">kiit.json</text>
     <text x="32" y="74" font-size="13" font-weight="400" fill="#64748B">.claude/kiit/kiit.json, in your workspace. Only what is yours.</text>
 
     <rect x="32" y="96" width="576" height="120" rx="4" fill="#FFFFFF" stroke="#95AFF9" stroke-width="1.5"/>
     <g transform="translate(46 108) scale(0.9166666666666666)" fill="none" stroke="#144DF2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4C7 4 6 5 6 7v2c0 1.5-1 3-3 3 2 0 3 1.5 3 3v2c0 2 1 3 3 3"/><path d="M15 4c2 0 3 1 3 3v2c0 1.5 1 3 3 3-2 0-3 1.5-3 3v2c0 2-1 3-3 3"/></g>
     <rect x="76" y="108" width="3" height="22" rx="1.5" fill="#FF9A4D"/>
-    <text x="90" y="125" font-size="15" font-weight="700" fill="#1E293B">version</text>
-    <text x="165" y="125" font-size="13" font-weight="400" fill="#64748B">the file format, currently 1</text>
+    <text x="90" y="125" font-size="14" font-weight="700" fill="#1E293B">version</text>
+    <text x="161" y="125" font-size="13" font-weight="400" fill="#64748B">the file format, currently 1</text>
     
     <rect x="44" y="144" width="552" height="60" rx="4" fill="#111827"/>
-    <text x="60" y="169" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">{</tspan></text>
-    <text x="60" y="189" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">  </tspan><tspan fill="#95AFF9">"version"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">1</tspan><tspan fill="#B8C5DA">,</tspan></text>
+    <text x="60" y="169" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">{</tspan></text>
+    <text x="60" y="189" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">  </tspan><tspan fill="#95AFF9">"version"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">1</tspan><tspan fill="#B8C5DA">,</tspan></text>
     <rect x="32" y="230" width="576" height="156" rx="4" fill="#FFFFFF" stroke="#95AFF9" stroke-width="1.5"/>
     <g transform="translate(46 242) scale(0.9166666666666666)" fill="none" stroke="#144DF2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/><path d="M14 7v2M14 11v2M14 15v2"/></g>
     <rect x="76" y="242" width="3" height="22" rx="1.5" fill="#FF9A4D"/>
-    <text x="90" y="259" font-size="15" font-weight="700" fill="#1E293B">tickets</text>
-    <text x="165" y="259" font-size="13" font-weight="400" fill="#64748B">your ticket systems</text>
+    <text x="90" y="259" font-size="14" font-weight="700" fill="#1E293B">tickets</text>
+    <text x="161" y="259" font-size="13" font-weight="400" fill="#64748B">your ticket systems</text>
     <text x="90" y="279" font-size="13" font-weight="400" fill="#64748B">read by skills that take an issue</text>
     <rect x="44" y="294" width="552" height="80" rx="4" fill="#111827"/>
-    <text x="60" y="319" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">  </tspan><tspan fill="#95AFF9">"tickets"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> [</tspan></text>
-    <text x="60" y="339" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">    { </tspan><tspan fill="#95AFF9">"name"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"oss"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#95AFF9">"type"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"github"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#95AFF9">"owner"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"acme"</tspan><tspan fill="#B8C5DA"> }</tspan></text>
-    <text x="60" y="359" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">  ],</tspan></text>
+    <text x="60" y="319" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">  </tspan><tspan fill="#95AFF9">"tickets"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> [</tspan></text>
+    <text x="60" y="339" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">    { </tspan><tspan fill="#95AFF9">"name"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"oss"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#95AFF9">"type"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"github"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#95AFF9">"owner"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"acme"</tspan><tspan fill="#B8C5DA"> }</tspan></text>
+    <text x="60" y="359" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">  ],</tspan></text>
     <rect x="32" y="400" width="576" height="176" rx="4" fill="#FFFFFF" stroke="#95AFF9" stroke-width="1.5"/>
     <g transform="translate(46 412) scale(0.9166666666666666)" fill="none" stroke="#144DF2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></g>
     <rect x="76" y="412" width="3" height="22" rx="1.5" fill="#FF9A4D"/>
-    <text x="90" y="429" font-size="15" font-weight="700" fill="#1E293B">resources</text>
-    <text x="183" y="429" font-size="13" font-weight="400" fill="#64748B">named files and links</text>
+    <text x="90" y="429" font-size="14" font-weight="700" fill="#1E293B">resources</text>
+    <text x="178" y="429" font-size="13" font-weight="400" fill="#64748B">named files and links</text>
     <text x="90" y="449" font-size="13" font-weight="400" fill="#64748B">skills ask for one by name</text>
     <rect x="44" y="464" width="552" height="100" rx="4" fill="#111827"/>
-    <text x="60" y="489" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">  </tspan><tspan fill="#95AFF9">"resources"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> [</tspan></text>
-    <text x="60" y="509" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">    { </tspan><tspan fill="#95AFF9">"name"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"standards"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#95AFF9">"path"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"./docs/standards"</tspan><tspan fill="#B8C5DA">,</tspan></text>
-    <text x="60" y="529" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">      </tspan><tspan fill="#95AFF9">"purpose"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"Engineering standards"</tspan><tspan fill="#B8C5DA"> }</tspan></text>
-    <text x="60" y="549" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">  ],</tspan></text>
+    <text x="60" y="489" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">  </tspan><tspan fill="#95AFF9">"resources"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> [</tspan></text>
+    <text x="60" y="509" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">    { </tspan><tspan fill="#95AFF9">"name"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"standards"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#95AFF9">"path"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"./docs/standards"</tspan><tspan fill="#B8C5DA">,</tspan></text>
+    <text x="60" y="529" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">      </tspan><tspan fill="#95AFF9">"purpose"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"Engineering standards"</tspan><tspan fill="#B8C5DA"> }</tspan></text>
+    <text x="60" y="549" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">  ],</tspan></text>
     <rect x="32" y="590" width="576" height="156" rx="4" fill="#FFFFFF" stroke="#95AFF9" stroke-width="1.5"/>
     <g transform="translate(46 602) scale(0.9166666666666666)" fill="none" stroke="#144DF2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a1 1 0 0 1 1-1h5l2 2h9a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></g>
     <rect x="76" y="602" width="3" height="22" rx="1.5" fill="#FF9A4D"/>
-    <text x="90" y="619" font-size="15" font-weight="700" fill="#1E293B">projects</text>
-    <text x="174" y="619" font-size="13" font-weight="400" fill="#64748B">the repos work is done in</text>
+    <text x="90" y="619" font-size="14" font-weight="700" fill="#1E293B">projects</text>
+    <text x="169" y="619" font-size="13" font-weight="400" fill="#64748B">the repos work is done in</text>
     <text x="90" y="639" font-size="13" font-weight="400" fill="#64748B">every skill finds its repo here</text>
     <rect x="44" y="654" width="552" height="80" rx="4" fill="#111827"/>
-    <text x="60" y="679" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">  </tspan><tspan fill="#95AFF9">"projects"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> [</tspan></text>
-    <text x="60" y="699" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">    { </tspan><tspan fill="#95AFF9">"name"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"app"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#95AFF9">"path"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"./app"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#95AFF9">"tickets"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"oss"</tspan><tspan fill="#B8C5DA"> }</tspan></text>
-    <text x="60" y="719" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">  ],</tspan></text>
+    <text x="60" y="679" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">  </tspan><tspan fill="#95AFF9">"projects"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> [</tspan></text>
+    <text x="60" y="699" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">    { </tspan><tspan fill="#95AFF9">"name"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"app"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#95AFF9">"path"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"./app"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#95AFF9">"tickets"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> </tspan><tspan fill="#FFFFFF">"oss"</tspan><tspan fill="#B8C5DA"> }</tspan></text>
+    <text x="60" y="719" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">  ],</tspan></text>
     <rect x="32" y="760" width="576" height="156" rx="4" fill="#FFFFFF" stroke="#95AFF9" stroke-width="1.5"/>
     <g transform="translate(46 772) scale(0.9166666666666666)" fill="none" stroke="#144DF2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="1.5"/><path d="M7 8v3M11 8v3M15 8v3M19 8v3"/></g>
     <rect x="76" y="772" width="3" height="22" rx="1.5" fill="#FF9A4D"/>
-    <text x="90" y="789" font-size="15" font-weight="700" fill="#1E293B">standards</text>
-    <text x="183" y="789" font-size="13" font-weight="400" fill="#64748B">overrides of the defaults</text>
+    <text x="90" y="789" font-size="14" font-weight="700" fill="#1E293B">standards</text>
+    <text x="178" y="789" font-size="13" font-weight="400" fill="#64748B">overrides of the defaults</text>
     <text x="90" y="809" font-size="13" font-weight="400" fill="#64748B">checked by vcs-branch and vcs-pr</text>
     <rect x="44" y="824" width="552" height="80" rx="4" fill="#111827"/>
-    <text x="60" y="849" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">  </tspan><tspan fill="#95AFF9">"standards"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> {</tspan></text>
-    <text x="60" y="869" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">    </tspan><tspan fill="#95AFF9">"vcs"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> { </tspan><tspan fill="#95AFF9">"types"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> [</tspan><tspan fill="#FFFFFF">"feat"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#FFFFFF">"fix"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#FFFFFF">"docs"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#FFFFFF">"hotfix"</tspan><tspan fill="#B8C5DA">] }</tspan></text>
-    <text x="60" y="889" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">  },</tspan></text>
+    <text x="60" y="849" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">  </tspan><tspan fill="#95AFF9">"standards"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> {</tspan></text>
+    <text x="60" y="869" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">    </tspan><tspan fill="#95AFF9">"vcs"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> { </tspan><tspan fill="#95AFF9">"types"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> [</tspan><tspan fill="#FFFFFF">"feat"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#FFFFFF">"fix"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#FFFFFF">"docs"</tspan><tspan fill="#B8C5DA">, </tspan><tspan fill="#FFFFFF">"hotfix"</tspan><tspan fill="#B8C5DA">] }</tspan></text>
+    <text x="60" y="889" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">  },</tspan></text>
     <rect x="32" y="930" width="576" height="136" rx="4" fill="#FFFFFF" stroke="#95AFF9" stroke-width="1.5"/>
     <g transform="translate(46 942) scale(0.9166666666666666)" fill="none" stroke="#144DF2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></g>
     <rect x="76" y="942" width="3" height="22" rx="1.5" fill="#FF9A4D"/>
-    <text x="90" y="959" font-size="15" font-weight="700" fill="#1E293B">groups</text>
-    <text x="156" y="959" font-size="13" font-weight="400" fill="#64748B">settings for each group</text>
+    <text x="90" y="959" font-size="14" font-weight="700" fill="#1E293B">groups</text>
+    <text x="152" y="959" font-size="13" font-weight="400" fill="#64748B">settings for each group</text>
     <text x="90" y="979" font-size="13" font-weight="400" fill="#64748B">none of the groups has any yet</text>
     <rect x="44" y="994" width="552" height="60" rx="4" fill="#111827"/>
-    <text x="60" y="1019" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">  </tspan><tspan fill="#95AFF9">"groups"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> {}</tspan></text>
-    <text x="60" y="1039" font-size="14" xml:space="preserve"><tspan fill="#B8C5DA">}</tspan></text>
+    <text x="60" y="1019" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">  </tspan><tspan fill="#95AFF9">"groups"</tspan><tspan fill="#B8C5DA">:</tspan><tspan fill="#B8C5DA"> {}</tspan></text>
+    <text x="60" y="1039" font-size="13" xml:space="preserve"><tspan fill="#B8C5DA">}</tspan></text>
   </g>
 </svg>

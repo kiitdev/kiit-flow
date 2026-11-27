@@ -85,7 +85,7 @@ function buildSvg(c) {
         });
         ry += r.tree.length * 30 + 4;
       } else {
-        const lines = wrap(r.text, 45);
+        const lines = wrap(r.text, 49);
         body += `
     ${kiitText("strong", x0 + 24, ry + 18, r.key)}`;
         lines.forEach((l, i) => { body += `\n    ${kiitText("body", cx, ry + 18 + i * 22, l, { fill: t.ink })}`; });

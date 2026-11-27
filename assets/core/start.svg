@@ -25,57 +25,57 @@
   <rect x="0.75" y="0.75" width="638.5" height="838.5" rx="10" fill="none" stroke="#8CA3C7" stroke-width="1.5"/>
 
   <g font-family="'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
-    <text x="32" y="52" font-size="26" font-weight="700" fill="#1E293B">Start</text>
+    <text x="32" y="52" font-size="24" font-weight="700" fill="#1E293B">Start</text>
     <text x="32" y="74" font-size="13" font-weight="400" fill="#64748B">install the plugin, then run init once. Every command needs it first.</text>
 
     <circle cx="47" cy="138" r="15" fill="#144DF2"/>
-    <text x="47" y="143.5" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
+    <text x="47" y="143.5" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
     <rect x="72" y="96" width="536" height="202" rx="4" fill="#FFFFFF" stroke="#95AFF9" stroke-width="1.5"/>
     <g transform="translate(86 122) scale(1.3333333333333333)" fill="none" stroke="#144DF2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><circle cx="12" cy="12" r="2.5"/></g>
     <rect x="128" y="118" width="3" height="44" rx="1.5" fill="#FF9A4D"/>
-    <text x="146" y="134" font-size="20" font-weight="700" fill="#1E293B">Install</text>
-    <text x="146" y="162" font-size="15" font-weight="400" fill="#64748B">add the plugin from the marketplace</text>
+    <text x="146" y="134" font-size="18" font-weight="700" fill="#1E293B">Install</text>
+    <text x="146" y="162" font-size="14" font-weight="400" fill="#64748B">add the plugin from the marketplace</text>
     <rect x="96" y="194" width="488" height="36" rx="4" fill="#111827"/>
-    <text x="110" y="217" font-size="14" font-weight="700" fill="#95AFF9">&gt;</text>
-    <text x="130" y="217" font-size="14" font-weight="700" fill="#FFFFFF">/plugin marketplace add kiitdev/kiit</text>
+    <text x="110" y="217" font-size="13" font-weight="700" fill="#95AFF9">&gt;</text>
+    <text x="130" y="217" font-size="13" font-weight="700" fill="#FFFFFF">/plugin marketplace add kiitdev/kiit</text>
     <rect x="96" y="240" width="488" height="36" rx="4" fill="#111827"/>
-    <text x="110" y="263" font-size="14" font-weight="700" fill="#95AFF9">&gt;</text>
-    <text x="130" y="263" font-size="14" font-weight="700" fill="#FFFFFF">/plugin install kiit@kiit-dev</text>
+    <text x="110" y="263" font-size="13" font-weight="700" fill="#95AFF9">&gt;</text>
+    <text x="130" y="263" font-size="13" font-weight="700" fill="#FFFFFF">/plugin install kiit@kiit-dev</text>
 
     <circle cx="47" cy="416" r="15" fill="#144DF2"/>
-    <text x="47" y="421.5" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">2</text>
+    <text x="47" y="421.5" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">2</text>
     <rect x="72" y="374" width="536" height="426" rx="4" fill="#FFFFFF" stroke="#95AFF9" stroke-width="1.5"/>
     <g transform="translate(86 400) scale(1.3333333333333333)" fill="none" stroke="#144DF2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4C7 4 6 5 6 7v2c0 1.5-1 3-3 3 2 0 3 1.5 3 3v2c0 2 1 3 3 3"/><path d="M15 4c2 0 3 1 3 3v2c0 1.5 1 3 3 3-2 0-3 1.5-3 3v2c0 2-1 3-3 3"/></g>
     <rect x="128" y="396" width="3" height="44" rx="1.5" fill="#FF9A4D"/>
-    <text x="146" y="412" font-size="20" font-weight="700" fill="#1E293B">Init</text>
-    <text x="146" y="440" font-size="15" font-weight="400" fill="#64748B">run once, from the folder that holds your repos</text>
+    <text x="146" y="412" font-size="18" font-weight="700" fill="#1E293B">Init</text>
+    <text x="146" y="440" font-size="14" font-weight="400" fill="#64748B">run once, from the folder that holds your repos</text>
     <rect x="96" y="472" width="488" height="36" rx="4" fill="#111827"/>
-    <text x="110" y="495" font-size="14" font-weight="700" fill="#95AFF9">&gt;</text>
-    <text x="130" y="495" font-size="14" font-weight="700" fill="#FFFFFF">/kiit:init</text>
-    <text x="96" y="536" font-size="15" font-weight="700" fill="#1E293B">reads</text>
-    <text x="160" y="536" font-size="15" font-weight="400" fill="#1E293B">each repo, and configures your kiit.json</text>
-    <text x="160" y="558" font-size="15" font-weight="400" fill="#1E293B">accordingly</text>
-    <text x="96" y="594" font-size="15" font-weight="700" fill="#1E293B">shows</text>
-    <text x="160" y="594" font-size="15" font-weight="400" fill="#1E293B">what it would write. Nothing is written until</text>
-    <text x="160" y="616" font-size="15" font-weight="400" fill="#1E293B">you confirm</text>
-    <text x="96" y="652" font-size="15" font-weight="700" fill="#1E293B">adds</text>
+    <text x="110" y="495" font-size="13" font-weight="700" fill="#95AFF9">&gt;</text>
+    <text x="130" y="495" font-size="13" font-weight="700" fill="#FFFFFF">/kiit:init</text>
+    <text x="96" y="536" font-size="14" font-weight="700" fill="#1E293B">reads</text>
+    <text x="160" y="536" font-size="14" font-weight="400" fill="#1E293B">each repo, and configures your kiit.json</text>
+    <text x="160" y="558" font-size="14" font-weight="400" fill="#1E293B">accordingly</text>
+    <text x="96" y="594" font-size="14" font-weight="700" fill="#1E293B">shows</text>
+    <text x="160" y="594" font-size="14" font-weight="400" fill="#1E293B">what it would write. Nothing is written until you</text>
+    <text x="160" y="616" font-size="14" font-weight="400" fill="#1E293B">confirm</text>
+    <text x="96" y="652" font-size="14" font-weight="700" fill="#1E293B">adds</text>
     <g transform="translate(160 634) scale(0.9166666666666666)" fill="none" stroke="#FF9A4D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#FFEBDB" d="M3 7a1 1 0 0 1 1-1h5l2 2h9a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></g>
-    <text x="192" y="651" font-size="15" font-weight="400" fill="#1E293B">workspace/</text>
+    <text x="192" y="651" font-size="14" font-weight="400" fill="#1E293B">workspace/</text>
     <g transform="translate(184 664) scale(0.9166666666666666)" fill="none" stroke="#FF9A4D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#FFEBDB" d="M3 7a1 1 0 0 1 1-1h5l2 2h9a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></g>
-    <text x="216" y="681" font-size="15" font-weight="700" fill="#4F79F5">_kiit/</text>
-    <circle cx="290" cy="675" r="9" fill="#16C45E"/>
-    <path d="M290 670V680M285 675H295" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+    <text x="216" y="681" font-size="14" font-weight="700" fill="#4F79F5">_kiit/</text>
+    <circle cx="286" cy="675" r="9" fill="#16C45E"/>
+    <path d="M286 670V680M281 675H291" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
     <g transform="translate(184 694) scale(0.9166666666666666)" fill="none" stroke="#4F79F5" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4C7 4 6 5 6 7v2c0 1.5-1 3-3 3 2 0 3 1.5 3 3v2c0 2 1 3 3 3"/><path d="M15 4c2 0 3 1 3 3v2c0 1.5 1 3 3 3-2 0-3 1.5-3 3v2c0 2-1 3-3 3"/></g>
-    <text x="216" y="711" font-size="15" font-weight="700" fill="#4F79F5">.claude/kiit/kiit.json</text>
-    <circle cx="434" cy="705" r="9" fill="#16C45E"/>
-    <path d="M434 700V710M429 705H439" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+    <text x="216" y="711" font-size="14" font-weight="700" fill="#4F79F5">.claude/kiit/kiit.json</text>
+    <circle cx="421" cy="705" r="9" fill="#16C45E"/>
+    <path d="M421 700V710M416 705H426" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
     <g transform="translate(184 724) scale(0.9166666666666666)" fill="none" stroke="#144DF2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ECF1FE" d="M12 3l9 4.5-9 4.5-9-4.5z"/><path d="M3 12l9 4.5 9-4.5"/><path d="M3 16.5l9 4.5 9-4.5"/></g>
-    <text x="216" y="741" font-size="15" font-weight="400" fill="#1E293B">api/</text>
+    <text x="216" y="741" font-size="14" font-weight="400" fill="#1E293B">api/</text>
     <g transform="translate(184 754) scale(0.9166666666666666)" fill="none" stroke="#144DF2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ECF1FE" d="M12 3l9 4.5-9 4.5-9-4.5z"/><path d="M3 12l9 4.5 9-4.5"/><path d="M3 16.5l9 4.5 9-4.5"/></g>
-    <text x="216" y="771" font-size="15" font-weight="400" fill="#1E293B">app/</text>
+    <text x="216" y="771" font-size="14" font-weight="400" fill="#1E293B">app/</text>
 
     <line x1="116" y1="318" x2="116" y2="338" stroke="#144DF2" stroke-width="3"/>
     <polygon points="107.6,338 124.4,338 116,352" fill="#144DF2"/>
-    <text x="140" y="341" font-size="15" font-weight="400" fill="#64748B">then, from your workspace</text>
+    <text x="140" y="341" font-size="14" font-weight="400" fill="#64748B">then, from your workspace</text>
   </g>
 </svg>

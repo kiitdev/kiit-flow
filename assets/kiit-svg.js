@@ -119,20 +119,20 @@ function kiitBackground(t, w, h) {
 // The width of some monospace text at a font size. The font's advance is 0.6 of its size.
 // The type styles: [size, weight, colour key]. Every text in a diagram is one of these. The sheet is core/design-system.html.
 const KIIT_TYPE = {
-  display:    [120, 700, "brand"],    // the wordmark
-  heading:    [26, 700, "ink"],       // a diagram title
-  subheading: [17, 700, "ink"],       // a column head, a small card
-  cardTitle:  [20, 700, "ink"],       // a group or feature name, next to its icon
-  soon:       [20, 700, "brandMid"],  // the name of a placeholder, next to its icon
-  tagline:    [19, 700, "ink"],       // the first line under the wordmark
-  tagline2:   [15, 400, "sub"],       // the second line
-  body:       [15, 400, "sub"],       // card text, bullets
-  strong:     [15, 700, "ink"],       // a key or a name in a row
+  display:    [104, 700, "brand"],    // the wordmark
+  heading:    [24, 700, "ink"],       // a diagram title
+  subheading: [16, 700, "ink"],       // a column head, a small card
+  cardTitle:  [18, 700, "ink"],       // a group or feature name, next to its icon
+  soon:       [18, 700, "brandMid"],  // the name of a placeholder, next to its icon
+  tagline:    [17, 700, "ink"],       // the first line under the wordmark
+  tagline2:   [14, 400, "sub"],       // the second line
+  body:       [14, 400, "sub"],       // card text, bullets
+  strong:     [14, 700, "ink"],       // a key or a name in a row
   caption:    [13, 400, "sub"],       // the line under a heading, a footer
-  example:    [14, 400, "ink"],       // a command or JSON, on a tint
-  link:       [15, 400, "brand"],     // a url, underlined
-  pill:       [15, 700, "ink"],       // a pill, on an accent, soft or brand fill
-  badge:      [20, 700, "accent"],    // a label on navy
+  example:    [13, 400, "ink"],       // a command or JSON, on a tint
+  link:       [14, 400, "brand"],     // a url, underlined
+  pill:       [14, 700, "ink"],       // a pill, on an accent, soft or brand fill
+  badge:      [18, 700, "accent"],    // a label on navy
 };
 // A <text> in one of the type styles. o: fill (a colour, instead of the style's), weight, anchor ("start", "middle" or "end").
 const kiitText = (style, x, y, text, o = {}) => {

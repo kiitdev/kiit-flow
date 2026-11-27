@@ -146,76 +146,76 @@
     <text x="376" y="955" font-size="14" font-weight="700" fill="#FFFFFF">Used for</text>
     <text x="536" y="955" font-size="14" font-weight="700" fill="#FFFFFF">Sample</text>
     <text x="60" y="1035" font-size="15" font-weight="700" fill="#1E293B">Display</text>
-    <text x="172" y="1035" font-size="14" fill="#64748B">120 / 700</text>
+    <text x="172" y="1035" font-size="14" fill="#64748B">104 / 700</text>
     <rect x="272" y="1024" width="12" height="12" rx="2" fill="#144DF2" stroke="#CBD5E1"/>
     <text x="290" y="1035" font-size="13" fill="#64748B">Brand</text>
     <text x="376" y="1035" font-size="13" fill="#64748B">the wordmark</text>
-    <text x="536" y="1072" font-size="120" font-weight="700" fill="#144DF2">kiit</text>
+    <text x="536" y="1066" font-size="104" font-weight="700" fill="#144DF2">kiit</text>
     <line x1="48" y1="1092" x2="852" y2="1092" stroke="#CBD5E1"/>
     <text x="60" y="1129" font-size="15" font-weight="700" fill="#1E293B">Heading</text>
-    <text x="172" y="1129" font-size="14" fill="#64748B">26 / 700</text>
+    <text x="172" y="1129" font-size="14" fill="#64748B">24 / 700</text>
     <rect x="272" y="1118" width="12" height="12" rx="2" fill="#1E293B" stroke="#CBD5E1"/>
     <text x="290" y="1129" font-size="13" fill="#64748B">Ink</text>
     <text x="376" y="1129" font-size="13" fill="#64748B">diagram titles</text>
-    <text x="536" y="1133" font-size="26" font-weight="700" fill="#1E293B">Why kiit</text>
+    <text x="536" y="1132" font-size="24" font-weight="700" fill="#1E293B">Why kiit</text>
     <line x1="48" y1="1156" x2="852" y2="1156" stroke="#CBD5E1"/>
     <text x="60" y="1193" font-size="15" font-weight="700" fill="#1E293B">Subheading</text>
-    <text x="172" y="1193" font-size="14" fill="#64748B">17 / 700</text>
+    <text x="172" y="1193" font-size="14" fill="#64748B">16 / 700</text>
     <rect x="272" y="1182" width="12" height="12" rx="2" fill="#1E293B" stroke="#CBD5E1"/>
     <text x="290" y="1193" font-size="13" fill="#64748B">Ink</text>
     <text x="376" y="1184" font-size="13" fill="#64748B">column heads,</text>
     <text x="376" y="1202" font-size="13" fill="#64748B">small cards</text>
-    <text x="536" y="1194" font-size="17" font-weight="700" fill="#1E293B">Skill groups</text>
+    <text x="536" y="1194" font-size="16" font-weight="700" fill="#1E293B">Skill groups</text>
     <line x1="48" y1="1220" x2="852" y2="1220" stroke="#CBD5E1"/>
     <text x="60" y="1266" font-size="15" font-weight="700" fill="#1E293B">Card title</text>
-    <text x="172" y="1266" font-size="14" fill="#64748B">20 / 700</text>
+    <text x="172" y="1266" font-size="14" fill="#64748B">18 / 700</text>
     <rect x="272" y="1255" width="12" height="12" rx="2" fill="#1E293B" stroke="#CBD5E1"/>
     <text x="290" y="1266" font-size="13" fill="#64748B">Ink</text>
     <text x="376" y="1248" font-size="13" fill="#64748B">a group or</text>
     <text x="376" y="1266" font-size="13" fill="#64748B">feature name,</text>
     <text x="376" y="1284" font-size="13" fill="#64748B">with its icon</text>
     <g transform="translate(536 1245) scale(1.3333333333333333)" fill="none" stroke="#1E293B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></g>
-    <text x="578" y="1269" font-size="20" font-weight="700" fill="#1E293B">Skill groups</text>
+    <text x="578" y="1269" font-size="18" font-weight="700" fill="#1E293B">Skill groups</text>
     <line x1="48" y1="1302" x2="852" y2="1302" stroke="#CBD5E1"/>
     <text x="60" y="1348" font-size="15" font-weight="700" fill="#1E293B">Soon</text>
-    <text x="172" y="1348" font-size="14" fill="#64748B">20 / 700</text>
+    <text x="172" y="1348" font-size="14" fill="#64748B">18 / 700</text>
     <rect x="272" y="1337" width="12" height="12" rx="2" fill="#4F79F5" stroke="#CBD5E1"/>
     <text x="290" y="1348" font-size="13" fill="#64748B">Brand mid</text>
     <text x="376" y="1330" font-size="13" fill="#64748B">a placeholder</text>
     <text x="376" y="1348" font-size="13" fill="#64748B">name, with its</text>
     <text x="376" y="1366" font-size="13" fill="#64748B">icon</text>
     <g transform="translate(536 1327) scale(1.3333333333333333)" fill="none" stroke="#4F79F5" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3" stroke-dasharray="3 3"/><path d="M12 9v6M9 12h6"/></g>
-    <text x="578" y="1351" font-size="20" font-weight="700" fill="#4F79F5">More skill groups</text>
+    <text x="578" y="1351" font-size="18" font-weight="700" fill="#4F79F5">More skill groups</text>
     <line x1="48" y1="1384" x2="852" y2="1384" stroke="#CBD5E1"/>
     <text x="60" y="1421" font-size="15" font-weight="700" fill="#1E293B">Tagline</text>
-    <text x="172" y="1421" font-size="14" fill="#64748B">19 / 700</text>
+    <text x="172" y="1421" font-size="14" fill="#64748B">17 / 700</text>
     <rect x="272" y="1410" width="12" height="12" rx="2" fill="#1E293B" stroke="#CBD5E1"/>
     <text x="290" y="1421" font-size="13" fill="#64748B">Ink</text>
     <text x="376" y="1421" font-size="13" fill="#64748B">banner line 1</text>
-    <text x="536" y="1423" font-size="19" font-weight="700" fill="#1E293B">Standards and skills</text>
+    <text x="536" y="1422" font-size="17" font-weight="700" fill="#1E293B">Standards and skills</text>
     <line x1="48" y1="1448" x2="852" y2="1448" stroke="#CBD5E1"/>
     <text x="60" y="1485" font-size="15" font-weight="700" fill="#1E293B">Tagline 2</text>
-    <text x="172" y="1485" font-size="14" fill="#64748B">15 / 400</text>
+    <text x="172" y="1485" font-size="14" fill="#64748B">14 / 400</text>
     <rect x="272" y="1474" width="12" height="12" rx="2" fill="#64748B" stroke="#CBD5E1"/>
     <text x="290" y="1485" font-size="13" fill="#64748B">Sub</text>
     <text x="376" y="1485" font-size="13" fill="#64748B">banner line 2</text>
-    <text x="536" y="1485" font-size="15" font-weight="400" fill="#64748B">Start with solid defaults</text>
+    <text x="536" y="1485" font-size="14" font-weight="400" fill="#64748B">Start with solid defaults</text>
     <line x1="48" y1="1512" x2="852" y2="1512" stroke="#CBD5E1"/>
     <text x="60" y="1549" font-size="15" font-weight="700" fill="#1E293B">Body</text>
-    <text x="172" y="1549" font-size="14" fill="#64748B">15 / 400</text>
+    <text x="172" y="1549" font-size="14" fill="#64748B">14 / 400</text>
     <rect x="272" y="1538" width="12" height="12" rx="2" fill="#64748B" stroke="#CBD5E1"/>
     <text x="290" y="1549" font-size="13" fill="#64748B">Sub</text>
     <text x="376" y="1540" font-size="13" fill="#64748B">card text,</text>
     <text x="376" y="1558" font-size="13" fill="#64748B">bullets</text>
-    <text x="536" y="1549" font-size="15" font-weight="400" fill="#64748B">Shared standards</text>
+    <text x="536" y="1549" font-size="14" font-weight="400" fill="#64748B">Shared standards</text>
     <line x1="48" y1="1576" x2="852" y2="1576" stroke="#CBD5E1"/>
     <text x="60" y="1613" font-size="15" font-weight="700" fill="#1E293B">Strong</text>
-    <text x="172" y="1613" font-size="14" fill="#64748B">15 / 700</text>
+    <text x="172" y="1613" font-size="14" fill="#64748B">14 / 700</text>
     <rect x="272" y="1602" width="12" height="12" rx="2" fill="#1E293B" stroke="#CBD5E1"/>
     <text x="290" y="1613" font-size="13" fill="#64748B">Ink</text>
     <text x="376" y="1604" font-size="13" fill="#64748B">keys and names in</text>
     <text x="376" y="1622" font-size="13" fill="#64748B">a row</text>
-    <text x="536" y="1613" font-size="15" font-weight="700" fill="#1E293B">Shared standards</text>
+    <text x="536" y="1613" font-size="14" font-weight="700" fill="#1E293B">Shared standards</text>
     <line x1="48" y1="1640" x2="852" y2="1640" stroke="#CBD5E1"/>
     <text x="60" y="1677" font-size="15" font-weight="700" fill="#1E293B">Caption</text>
     <text x="172" y="1677" font-size="14" fill="#64748B">13 / 400</text>
@@ -226,43 +226,43 @@
     <text x="536" y="1677" font-size="13" font-weight="400" fill="#64748B">A line under a heading</text>
     <line x1="48" y1="1704" x2="852" y2="1704" stroke="#CBD5E1"/>
     <text x="60" y="1741" font-size="15" font-weight="700" fill="#1E293B">Example</text>
-    <text x="172" y="1741" font-size="14" fill="#64748B">14 / 400</text>
+    <text x="172" y="1741" font-size="14" fill="#64748B">13 / 400</text>
     <rect x="272" y="1730" width="12" height="12" rx="2" fill="#1E293B" stroke="#CBD5E1"/>
     <text x="290" y="1741" font-size="13" fill="#64748B">Ink</text>
     <text x="376" y="1732" font-size="13" fill="#64748B">commands and</text>
     <text x="376" y="1750" font-size="13" fill="#64748B">JSON, on a tint</text>
-    <rect x="536" y="1719" width="234" height="34" rx="4" fill="#ECF1FE"/>
-    <text x="552" y="1741" font-size="14" fill="#1E293B">/kiit:vcs-branch &lt;issue&gt;</text>
+    <rect x="536" y="1719" width="219" height="34" rx="4" fill="#ECF1FE"/>
+    <text x="552" y="1741" font-size="13" fill="#1E293B">/kiit:vcs-branch &lt;issue&gt;</text>
     <line x1="48" y1="1768" x2="852" y2="1768" stroke="#CBD5E1"/>
     <text x="60" y="1805" font-size="15" font-weight="700" fill="#1E293B">Link</text>
-    <text x="172" y="1805" font-size="14" fill="#64748B">15 / 400</text>
+    <text x="172" y="1805" font-size="14" fill="#64748B">14 / 400</text>
     <rect x="272" y="1794" width="12" height="12" rx="2" fill="#144DF2" stroke="#CBD5E1"/>
     <text x="290" y="1805" font-size="13" fill="#64748B">Brand</text>
     <text x="376" y="1796" font-size="13" fill="#64748B">urls and links,</text>
     <text x="376" y="1814" font-size="13" fill="#64748B">underlined</text>
-    <text x="536" y="1805" font-size="15" font-weight="400" fill="#144DF2" text-decoration="underline">kiit.dev/docs</text>
+    <text x="536" y="1805" font-size="14" font-weight="400" fill="#144DF2" text-decoration="underline">kiit.dev/docs</text>
     <line x1="48" y1="1832" x2="852" y2="1832" stroke="#CBD5E1"/>
     <text x="60" y="1878" font-size="15" font-weight="700" fill="#1E293B">Pill</text>
-    <text x="172" y="1878" font-size="14" fill="#64748B">15 / 700</text>
+    <text x="172" y="1878" font-size="14" fill="#64748B">14 / 700</text>
     <rect x="272" y="1867" width="12" height="12" rx="2" fill="#1E293B" stroke="#CBD5E1"/>
     <text x="290" y="1878" font-size="13" fill="#64748B">Ink</text>
     <text x="376" y="1860" font-size="13" fill="#64748B">pills, on accent,</text>
     <text x="376" y="1878" font-size="13" fill="#64748B">soft or brand</text>
     <text x="376" y="1896" font-size="13" fill="#64748B">fill</text>
-    <rect x="536" y="1854" width="139" height="38" rx="4" fill="#FF9A4D"/>
+    <rect x="536" y="1854" width="134" height="38" rx="4" fill="#FF9A4D"/>
     <g transform="translate(550 1863) scale(0.8333333333333334)" fill="none" stroke="#1E293B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="1.5"/><path d="M7 8v3M11 8v3M15 8v3M19 8v3"/></g>
-    <text x="578" y="1878" font-size="15" font-weight="700" fill="#1E293B">Standards</text>
-    <rect x="687" y="1854" width="112" height="38" rx="4" fill="#EEF2F7"/>
-    <g transform="translate(701 1863) scale(0.8333333333333334)" fill="none" stroke="#1E293B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></g>
-    <text x="729" y="1878" font-size="15" font-weight="700" fill="#1E293B">Groups</text>
+    <text x="578" y="1878" font-size="14" font-weight="700" fill="#1E293B">Standards</text>
+    <rect x="682" y="1854" width="108" height="38" rx="4" fill="#EEF2F7"/>
+    <g transform="translate(696 1863) scale(0.8333333333333334)" fill="none" stroke="#1E293B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></g>
+    <text x="724" y="1878" font-size="14" font-weight="700" fill="#1E293B">Groups</text>
     <line x1="48" y1="1914" x2="852" y2="1914" stroke="#CBD5E1"/>
     <text x="60" y="1956" font-size="15" font-weight="700" fill="#1E293B">Badge</text>
-    <text x="172" y="1956" font-size="14" fill="#64748B">20 / 700</text>
+    <text x="172" y="1956" font-size="14" fill="#64748B">18 / 700</text>
     <rect x="272" y="1945" width="12" height="12" rx="2" fill="#FF9A4D" stroke="#CBD5E1"/>
     <text x="290" y="1956" font-size="13" fill="#64748B">Accent</text>
     <text x="376" y="1956" font-size="13" fill="#64748B">a label on navy</text>
     <rect x="536" y="1928" width="152" height="46" rx="4" fill="#111827"/>
-    <text x="612" y="1959" font-size="20" font-weight="700" fill="#FF9A4D" text-anchor="middle">Beta</text>
+    <text x="612" y="1959" font-size="18" font-weight="700" fill="#FF9A4D" text-anchor="middle">Beta</text>
     <line x1="48" y1="1988" x2="852" y2="1988" stroke="#CBD5E1"/>
     <rect x="48" y="932" width="804" height="1056" rx="4" fill="none" stroke="#B8C5DA" stroke-width="1.5"/>
     <line x1="160" y1="968" x2="160" y2="1988" stroke="#CBD5E1"/>

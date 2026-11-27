@@ -25,7 +25,7 @@
   <rect x="0.75" y="0.75" width="638.5" height="744.5" rx="10" fill="none" stroke="#8CA3C7" stroke-width="1.5"/>
 
   <g font-family="'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
-    <text x="32" y="52" font-size="26" font-weight="700" fill="#1E293B">Skill groups</text>
+    <text x="32" y="52" font-size="24" font-weight="700" fill="#1E293B">Skill groups</text>
     <text x="32" y="74" font-size="13" font-weight="400" fill="#64748B">run each as /kiit:{group}-{name}, such as /kiit:vcs-branch</text>
     <rect x="483" y="30" width="125" height="26" rx="4" fill="#144DF2"/>
     <text x="495" y="47.55" font-size="13" font-weight="700" fill="#FFFFFF">in the plugin</text>
@@ -33,40 +33,40 @@
     <rect x="32" y="104" width="576" height="146" rx="4" fill="#FFFFFF" stroke="#95AFF9" stroke-width="1.5"/>
     <g transform="translate(46 130) scale(1.3333333333333333)" fill="none" stroke="#144DF2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M6 3v12.5"/><path d="M18 8.5c0 5-6 4-12 7"/></g>
     <rect x="88" y="126" width="3" height="44" rx="1.5" fill="#FF9A4D"/>
-    <text x="106" y="142" font-size="20" font-weight="700" fill="#1E293B">vcs</text>
-    <text x="106" y="170" font-size="15" font-weight="400" fill="#64748B">branches and pull requests in your team's format</text>
-    <rect x="106" y="200" width="78" height="30" rx="4" fill="#144DF2"/>
-    <text x="118" y="220.25" font-size="15" font-weight="700" fill="#FFFFFF">branch</text>
-    <rect x="192" y="200" width="42" height="30" rx="4" fill="#144DF2"/>
-    <text x="204" y="220.25" font-size="15" font-weight="700" fill="#FFFFFF">pr</text>
-    <rect x="242" y="200" width="60" height="30" rx="4" fill="#144DF2"/>
-    <text x="254" y="220.25" font-size="15" font-weight="700" fill="#FFFFFF">help</text>
+    <text x="106" y="142" font-size="18" font-weight="700" fill="#1E293B">vcs</text>
+    <text x="106" y="170" font-size="14" font-weight="400" fill="#64748B">branches and pull requests in your team's format</text>
+    <rect x="106" y="200" width="74" height="30" rx="4" fill="#144DF2"/>
+    <text x="118" y="219.9" font-size="14" font-weight="700" fill="#FFFFFF">branch</text>
+    <rect x="188" y="200" width="41" height="30" rx="4" fill="#144DF2"/>
+    <text x="200" y="219.9" font-size="14" font-weight="700" fill="#FFFFFF">pr</text>
+    <rect x="237" y="200" width="58" height="30" rx="4" fill="#144DF2"/>
+    <text x="249" y="219.9" font-size="14" font-weight="700" fill="#FFFFFF">help</text>
 
     <rect x="32" y="274" width="576" height="146" rx="4" fill="#FFFFFF" stroke="#95AFF9" stroke-width="1.5"/>
     <g transform="translate(46 300) scale(1.3333333333333333)" fill="none" stroke="#144DF2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6l6 6-6 6"/><path d="M13 6l6 6-6 6"/></g>
     <rect x="88" y="296" width="3" height="44" rx="1.5" fill="#FF9A4D"/>
-    <text x="106" y="312" font-size="20" font-weight="700" fill="#1E293B">flow</text>
-    <text x="106" y="340" font-size="15" font-weight="400" fill="#64748B">software life-cycle skills in three modes</text>
-    <rect x="106" y="370" width="42" height="30" rx="4" fill="#144DF2"/>
-    <text x="118" y="390.25" font-size="15" font-weight="700" fill="#FFFFFF">go</text>
-    <rect x="156" y="370" width="69" height="30" rx="4" fill="#144DF2"/>
-    <text x="168" y="390.25" font-size="15" font-weight="700" fill="#FFFFFF">begin</text>
-    <rect x="233" y="370" width="60" height="30" rx="4" fill="#144DF2"/>
-    <text x="245" y="390.25" font-size="15" font-weight="700" fill="#FFFFFF">help</text>
+    <text x="106" y="312" font-size="18" font-weight="700" fill="#1E293B">flow</text>
+    <text x="106" y="340" font-size="14" font-weight="400" fill="#64748B">software life-cycle skills in three modes</text>
+    <rect x="106" y="370" width="41" height="30" rx="4" fill="#144DF2"/>
+    <text x="118" y="389.9" font-size="14" font-weight="700" fill="#FFFFFF">go</text>
+    <rect x="155" y="370" width="66" height="30" rx="4" fill="#144DF2"/>
+    <text x="167" y="389.9" font-size="14" font-weight="700" fill="#FFFFFF">begin</text>
+    <rect x="229" y="370" width="58" height="30" rx="4" fill="#144DF2"/>
+    <text x="241" y="389.9" font-size="14" font-weight="700" fill="#FFFFFF">help</text>
 
     <rect x="32" y="444" width="576" height="146" rx="4" fill="#FFFFFF" stroke="#95AFF9" stroke-width="1.5"/>
     <g transform="translate(46 470) scale(1.3333333333333333)" fill="none" stroke="#144DF2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><circle cx="12" cy="12" r="2.5"/></g>
     <rect x="88" y="466" width="3" height="44" rx="1.5" fill="#FF9A4D"/>
-    <text x="106" y="482" font-size="20" font-weight="700" fill="#1E293B">core</text>
-    <text x="106" y="510" font-size="15" font-weight="400" fill="#64748B">not a skill group: what every group shares</text>
-    <rect x="106" y="540" width="60" height="30" rx="4" fill="#144DF2"/>
-    <text x="118" y="560.25" font-size="15" font-weight="700" fill="#FFFFFF">init</text>
+    <text x="106" y="482" font-size="18" font-weight="700" fill="#1E293B">core</text>
+    <text x="106" y="510" font-size="14" font-weight="400" fill="#64748B">not a skill group: what every group shares</text>
+    <rect x="106" y="540" width="58" height="30" rx="4" fill="#144DF2"/>
+    <text x="118" y="559.9" font-size="14" font-weight="700" fill="#FFFFFF">init</text>
 
     <rect x="32" y="614" width="576" height="92" rx="4" fill="#FFFFFF" stroke="#95AFF9" stroke-width="1.5"/>
     <g transform="translate(46 640) scale(1.3333333333333333)" fill="none" stroke="#4F79F5" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3" stroke-dasharray="3 3"/><path d="M12 9v6M9 12h6"/></g>
     <rect x="88" y="636" width="3" height="44" rx="1.5" fill="#FF9A4D"/>
-    <text x="106" y="652" font-size="20" font-weight="700" fill="#4F79F5">More skill groups</text>
-    <text x="106" y="680" font-size="15" font-weight="400" fill="#64748B">coming soon</text>
+    <text x="106" y="652" font-size="18" font-weight="700" fill="#4F79F5">More skill groups</text>
+    <text x="106" y="680" font-size="14" font-weight="400" fill="#64748B">coming soon</text>
     
   </g>
 </svg>

@@ -42,7 +42,7 @@ const CONFIG = {
     ["2020", "Stable framework"],
     ["2026", "AI enabled"],
   ],
-  logoSize: 124,                  // the logo's width and height. The kiit.json card below is not drawn in the narrow layout, it is kept for later
+  logoSize: 108,                  // the logo's width and height. The kiit.json card below is not drawn in the narrow layout, it is kept for later
   card: {
     title: ".claude/kiit/kiit.json",
     left: "Feature",
@@ -84,7 +84,7 @@ const logoSvg = (size, x, y) => `<svg x="${x}" y="${y}" width="${size}" height="
 // The narrow layout, 640 wide so the text stays readable on a phone: the wordmark and logo on top, then the
 // tagline, the three points and the timeline, stacked. Every text is a type style from kiit-svg.js.
 function buildSvg(c) {
-  const t = c.theme, W = t.canvas, m = t.canvasMargin, foot = c.history ? 64 : 0, MAIN = 352, H = MAIN + foot;
+  const t = c.theme, W = t.canvas, m = t.canvasMargin, foot = c.history ? 64 : 0;
   const full = c.name ? c.brand + "-" + c.name : c.brand;
   const n = full.length;
   const size = Math.min(KIIT_TYPE.display[0], Math.floor((W - 2 * m - c.logoSize - 24 + 3 * n) / (0.6 * n)));   // shrink a long name so it stays left of the logo
@@ -98,10 +98,10 @@ function buildSvg(c) {
   }, []);
 
   // the tagline: the first line in ink, any other lighter and smaller. Each wraps to two lines at most
-  let ty = 198;
+  let ty = 206;
   const tagSvg = c.taglines.map((l, i) => {
-    const lines = wrap(l, i === 0 ? 34 : 40), step = i === 0 ? 26 : 22;
-    const svg = lines.map((ln, j) => kiitText(i === 0 ? "tagline" : "tagline2", m + 4, ty + j * step, ln)).join("\n    ");
+    const sty = i === 0 ? "tagline" : "tagline2", lines = wrap(l, Math.floor((W - 2 * m - 8) / (0.6 * KIIT_TYPE[sty][0]))), step = i === 0 ? 26 : 22;
+    const svg = lines.map((ln, j) => kiitText(sty, m + 4, ty + j * step, ln)).join("\n    ");
     ty += lines.length * step + (i === 0 ? 14 : 0);
     return svg;
   }).join("\n    ");
@@ -120,8 +120,10 @@ function buildSvg(c) {
     return svg;
   }).join("\n    ");
 
+  const MAIN = boxY + boxH + 34, H = MAIN + foot;   // the banner above the timeline, and the whole
+
   // the logo, top right, under the Beta label
-  const logo = logoSvg(c.logoSize, W - m - c.logoSize, 62);
+  const logo = logoSvg(c.logoSize, W - m - c.logoSize, 58);
 
   // the Beta label: a dark box with the text in the orange accent
   const bw = c.badge ? 110 : 0, bh = 40, by = 12, bx = W - m - bw + 8;
