@@ -110,7 +110,7 @@ function buildSvg() {
 
   // type: a table. Columns: style, size / weight, colour, what it is used for, a sample at its real size
   out += `<text x="${m}" y="${y}" font-size="18" font-weight="700" fill="${t.ink}">Type styles</text>
-    <text x="${m}" y="${y + 22}" font-size="13" fill="${t.sub}">Fira Code, in two weights: 400 and 700. Nothing is set below 13.</text>`;
+    <text x="${m}" y="${y + 22}" font-size="13" fill="${t.sub}">Fira Code, in two weights: 400 and 700. Nothing is set below 14.</text>`;
   y += 44;
   const cols = [112, 100, 104, 160, 328], pad = 12;                 // widths add up to W - 2 * m
   const cx = cols.reduce((a, w, i) => (a.push(i ? a[i - 1] + cols[i - 1] : m), a), []);

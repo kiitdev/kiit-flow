@@ -10,7 +10,7 @@
 //   3. For one template: use kiitTheme({ accent: "#14B8A6" }) as that template's theme.
 
 const KIIT_THEME = {
-  canvas: 600, canvasMargin: 32,   // a diagram is this wide, so it stays readable when GitHub shrinks it to a phone
+  canvas: 640, canvasMargin: 32,   // a diagram is this wide: text matches the README on desktop, and is about 9pt on a phone
   paper: "#E8F1FF", pageGrid: "#CBD8FC",
   frame: "#4DA3FF", frameLeft: "#E8794A",       // the old outline, still read by start.html
   // The design system is in core/design-system.html: the colour roles and the type styles. The palette is three colours: ink, blue and orange, with neutral greys.
@@ -126,12 +126,12 @@ const KIIT_TYPE = {
   soon:       [22, 700, "brandMid"],  // the name of a placeholder, next to its icon
   tagline:    [20, 700, "ink"],       // the first line under the wordmark
   tagline2:   [16, 400, "sub"],       // the second line
-  body:       [15, 400, "sub"],       // card text, bullets
-  strong:     [15, 700, "ink"],       // a key or a name in a row
-  caption:    [13, 400, "sub"],       // the line under a heading, a footer
-  example:    [14, 400, "ink"],       // a command or JSON, on a tint
-  link:       [15, 400, "brand"],     // a url, underlined
-  pill:       [15, 700, "ink"],       // a pill, on an accent, soft or brand fill
+  body:       [16, 400, "sub"],       // card text, bullets
+  strong:     [16, 700, "ink"],       // a key or a name in a row
+  caption:    [14, 400, "sub"],       // the line under a heading, a footer
+  example:    [15, 400, "ink"],       // a command or JSON, on a tint
+  link:       [16, 400, "brand"],     // a url, underlined
+  pill:       [16, 700, "ink"],       // a pill, on an accent, soft or brand fill
   badge:      [22, 700, "accent"],    // a label on navy
 };
 // A <text> in one of the type styles. o: fill (a colour, instead of the style's), anchor ("start", "middle" or "end").
