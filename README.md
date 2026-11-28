@@ -110,7 +110,7 @@ A script checks each branch name and title against the pattern before a skill us
 2. **Unset keys keep their defaults.**
 3. `/kiit:init` writes `tickets` and `projects`. You add overrides by hand.
 
-The full schema is in [shared/README.md](./shared/README.md).
+The full schema is in [kiit-json.md](./plugins/kiit/groups/core/content/kiit-json.md).
 
 ## Groups
 
@@ -178,7 +178,7 @@ The types are `github`, `gitlab`, `jira`, `linear` and `other`.
 
 An alias can be typed instead of the name. `tickets` can be left out when there is only one ticket system.
 
-Every key is described in [shared/README.md](./shared/README.md), and [shared/kiit.example.json](./shared/kiit.example.json) shows the whole file.
+Every key is described in [kiit-json.md](./plugins/kiit/groups/core/content/kiit-json.md), and [kiit.example.json](./plugins/kiit/groups/core/content/kiit.example.json) shows the whole file.
 
 ## Roadmap
 

@@ -1,7 +1,7 @@
 # Remotes to projects
 
 How `init` turns a repo and its remote into `tickets` and `projects` entries.
-The fields are in `shared/README.md`, and the rules are in `core/content/config.md`.
+The fields are in core/content/kiit-json.md, and the rules are in `core/content/config.md`.
 
 ## Repos
 A repo is a subfolder of the workspace with a `.git` entry: `ls -d */.git`.
