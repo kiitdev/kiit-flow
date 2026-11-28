@@ -10,6 +10,7 @@ Read first:
 - flow/content/work-item.md
 - flow/content/phases.md
 - flow/content/status.md
+- flow/content/gates.md
 - flow/content/run-steps.md
 - flow/content/checks.md
 
@@ -40,7 +41,7 @@ EXAMPLES:
    - The other argument is the work item
 5. Read `02-design.md`, `03-phases.md` and `_status.md`.
    - Any missing: `error: no design yet`, then `/kiit:flow-design`, and stop
-6. Apply the blocked gate and the review gate (flow/content/run-steps.md).
+6. Apply the blocked gate and the review gate (flow/content/gates.md).
 7. Resolve the part to a list of steps. No part, or `all`: every phase.
 8. Leave `done`, `skip` and `defer` steps alone, and say so.
    - An earlier step left `todo` or `blocked`: ask before going on

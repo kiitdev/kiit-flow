@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Kiit flow states</title>
+<!--
+  The flow state machine (900 wide). Internal. What a work item can be, what a step can be, the two modes,
+  and the command or event that moves each one. It follows RULES.md and groups/flow/content/status.md.
+  Edit the LAYOUT below, then either:
+    1. open this file in a browser and press "Download SVG", or
+    2. export from the command line: ./banner.sh flow/states.html flow/states.svg
+-->
+<style>
+  body { margin: 0; padding: 24px; background: #eef2f8; color: #1f2937; font: 14px system-ui, sans-serif; }
+  #banner svg { width: 100%; max-width: 900px; height: auto; display: block; }
+  button { margin-top: 16px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  pre#svg { display: none; }
+</style>
+<body>
+<div id="banner"></div>
+<button id="dl">Download SVG</button>
+<pre id="svg"></pre>
+
+<script src="../kiit-svg.js"></script>
+<script>
+const t = KIIT_THEME, W = 900, m = 32, H = 744;
+
+// ---- helpers ---------------------------------------------------------------------------------------------
+// A state box. style: "plain" (white), "end" (solid brand, nothing leaves it), "alert" (orange, needs a decision), "soft" (dashed grey, set on purpose)
+function box(x, y, w, h, label, style = "plain") {
+  const s = {
+    plain: [t.cardFill, t.line, t.ink, ""],
+    end:   [t.brand, t.brand, t.onFill, ""],
+    alert: [t.accent, t.accent, t.navy, ""],
+    soft:  [t.softFill, t.inkSoft, t.sub, ' stroke-dasharray="5 4"'],
+  }[style];
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${s[0]}" stroke="${s[1]}" stroke-width="1.5"${s[3]}/>
+    ${kiitText("strong", x + w / 2, y + h / 2 + 5, label, { fill: s[2], anchor: "middle" })}`;
+}
+// A start point
+const dot = (x, y) => `<circle cx="${x}" cy="${y}" r="7" fill="${t.ink}"/>`;
+// An edge along points [[x, y], ...]. The head is at the last point, and points the way the last segment runs.
+function edge(pts, o = {}) {
+  const [x1, y1] = pts[pts.length - 2], [x2, y2] = pts[pts.length - 1], s = 9;
+  const dir = x2 > x1 ? "right" : x2 < x1 ? "left" : y2 > y1 ? "down" : "up";
+  const back = { right: [-s, 0], left: [s, 0], down: [0, -s], up: [0, s] }[dir];
+  const line = pts.slice(0, -1).concat([[x2 + back[0], y2 + back[1]]]).map((p) => p.join(",")).join(" ");
+  return `<polyline points="${line}" fill="none" stroke="${o.colour || t.line}" stroke-width="2" stroke-linejoin="round"${o.dash ? ' stroke-dasharray="6 5"' : ""}/>
+    ${kiitHead(x2, y2, dir, s, o.colour || t.line)}`;
+}
+// A label for an edge: a command in bold deep blue, or a note in the caption colour. lines: one string or a list.
+function label(x, y, lines, o = {}) {
+  return [].concat(lines).map((l, i) =>
+    kiitText("caption", x, y + i * 14, l, { anchor: o.anchor, fill: o.note ? t.sub : t.brandDeep, weight: o.note ? 400 : 700 })).join("\n    ");
+}
+
+function buildSvg() {
+  let out = "";
+
+  // ---- title -----------------------------------------------------------------------------------------------
+  out += kiitText("heading", m, 52, "Flow states") + "\n    " +
+         kiitText("caption", m, 74, "What a work item, a step and the mode can be, and what moves each one. Internal.");
+
+  // ---- card A: the work item ---------------------------------------------------------------------------------
+  const A = kiitCard(t, m, 96, W - 2 * m, 304, "Work item");
+  out += "\n\n    " + A.svg;
+  const bw = 104, bh = 48, by = 190, bx = (i) => 52 + i * 173, cy = by + bh / 2;
+  const names = ["Begun", "Designed", "In progress", "Complete", "PR ready"];
+  names.forEach((n, i) => { out += "\n    " + box(bx(i), by, bw, bh, n, i === 4 ? "end" : "plain"); });
+
+  // begin, and the main row
+  out += "\n    " + dot(72, 158) + "\n    " + edge([[72, 165], [72, by]]) + "\n    " + label(82, 182, "begin");
+  // chat: no command, so a quiet loop on the state, labelled in the note colour
+  [0, 1].forEach((i) => { out += "\n    " + edge([[bx(i) + 80, by], [bx(i) + 80, by - 24], [bx(i) + 98, by - 24], [bx(i) + 98, by]], { colour: t.brandMid }) + "\n    " + label(bx(i) + 104, by - 12, "chat", { note: true }); });
+  const gapX = (i) => bx(i) + bw + (173 - bw) / 2;       // the middle of the gap after box i
+  out += "\n    " + edge([[bx(0) + bw, cy], [bx(1), cy]]) + "\n    " + label(gapX(0), cy - 8, "design", { anchor: "middle" });
+  out += "\n    " + edge([[bx(1) + bw, cy], [bx(2), cy]]) + "\n    " + label(gapX(1), cy - 22, ["update", "resume"], { anchor: "middle" });
+  out += "\n    " + edge([[bx(2) + bw, cy], [bx(3), cy]]) + "\n    " + label(gapX(2), cy - 8, "all done", { anchor: "middle" });
+  out += "\n    " + edge([[bx(3) + bw, cy], [bx(4), cy]]) + "\n    " + label(gapX(3), cy - 8, "verify", { anchor: "middle" });
+
+  // a failed verify goes back to In progress
+  const fx1 = bx(3) + bw / 2, fx2 = bx(2) + bw / 2;
+  out += "\n    " + edge([[fx1, by], [fx1, by - 30], [fx2, by - 30], [fx2, by]]) +
+         "\n    " + label((fx1 + fx2) / 2, by - 38, "verify fails: update, resume", { anchor: "middle" });
+
+  // a blocked step
+  const kx = bx(2), ky = 300;
+  out += "\n    " + box(kx, ky, bw, bh, "Blocked", "alert");
+  out += "\n    " + edge([[kx + 28, by + bh], [kx + 28, ky]]) + "\n    " + label(kx + 20, 270, "step stops", { anchor: "end" });
+  out += "\n    " + edge([[kx + 76, ky], [kx + 76, by + bh]]) + "\n    " + label(kx + 86, 270, ["gate answered,", "or revise"]);
+
+  // go: one pass, or a hand-off to a design
+  out += "\n    " + dot(78, 354) + "\n    " + box(130, 330, 128, bh, "One pass done", "end") +
+         "\n    " + edge([[85, 354], [130, 354]]) + "\n    " + label(107, 346, "go", { anchor: "middle" });
+  out += "\n    " + edge([[78, 347], [78, by + bh]], { dash: true }) + "\n    " + label(90, 300, "go needs a design");
+
+  // ---- card B: the mode ----------------------------------------------------------------------------------------
+  const B = kiitCard(t, m, 424, 360, 276, "Mode");
+  out += "\n\n    " + B.svg;
+  const mx1 = 52, mx2 = 272, my = 500;
+  out += "\n    " + box(mx1, my, 100, 44, "Flow") + "\n    " + box(mx2, my, 100, 44, "Focus");
+  out += "\n    " + edge([[mx1 + 100, my + 14], [mx2, my + 14]]) + "\n    " + label(212, my - 17, ["research,", "review"], { anchor: "middle" });
+  out += "\n    " + edge([[mx2, my + 30], [mx1 + 100, my + 30]]) + "\n    " + label(212, my + 46, ["revise,", "when you ask"], { anchor: "middle" });
+  out += "\n    " + dot(mx1 + 50, 620) + "\n    " + edge([[mx1 + 50, 613], [mx1 + 50, my + 44]]) + "\n    " + label(mx1 + 60, 590, "design");
+  out += "\n    " + dot(mx2 + 50, 620) + "\n    " + edge([[mx2 + 50, 613], [mx2 + 50, my + 44]]) + "\n    " + label(mx2 + 40, 584, ["design focus,", "or research first"], { anchor: "end" });
+  out += "\n    " + label(52, 660, ["An open review makes update ask.", "Focus with no review is a note."], { note: true });
+
+  // ---- card C: a step ------------------------------------------------------------------------------------------
+  const C = kiitCard(t, 408, 424, 460, 276, "Step status");
+  out += "\n\n    " + C.svg;
+  const sw = 84, sh = 44, c1 = 428, c2 = 428 + 84 + 84, c3 = 428 + 2 * (84 + 84), r1 = 480, r2 = 600;
+  out += "\n    " + box(c1, r1, sw, sh, "blocked", "alert") + "\n    " + box(c2, r1, sw, sh, "todo") + "\n    " + box(c3, r1, sw, sh, "done", "end");
+  out += "\n    " + box(c1, r2, sw, sh, "skip", "soft") + "\n    " + box(c2, r2, sw, sh, "defer", "soft");
+
+  // todo to done, and todo to blocked and back
+  out += "\n    " + edge([[c2 + sw, r1 + 22], [c3, r1 + 22]]) + "\n    " + label(c2 + sw + 42, 485, ["update,", "resume"], { anchor: "middle" });
+  out += "\n    " + edge([[c2, r1 + 14], [c1 + sw, r1 + 14]]) + "\n    " + label(c1 + sw + 42, r1 + 2, "stops", { anchor: "middle" });
+  out += "\n    " + edge([[c1 + sw, r1 + 30], [c2, r1 + 30]]) + "\n    " + label(c1 + sw + 42, r1 + 48, ["gate or", "revise"], { anchor: "middle" });
+
+  // todo and defer, both ways
+  out += "\n    " + edge([[c2 + 24, r1 + sh], [c2 + 24, r2]]) + "\n    " + edge([[c2 + 60, r2], [c2 + 60, r1 + sh]]) +
+         "\n    " + label(c2 + 72, 568, ["you or", "revise"]);
+
+  // skip: from blocked, and from todo
+  out += "\n    " + edge([[c1 + 26, r1 + sh], [c1 + 26, r2]]) + "\n    " + label(c1 + 34, 552, "revise");
+  out += "\n    " + edge([[c2 + 8, r1 + sh], [c2 + 8, 580], [c1 + 58, 580], [c1 + 58, r2]]) + "\n    " + label(c1 + 66, 574, "you or revise");
+
+  out += "\n    " + label(428, 676, ["done is final: no skill changes a done step.", "A whole phase can be set to skip or defer."], { note: true });
+
+  const aria = "Flow states. A work item goes from Begun, with begin, to Designed, with design, to In progress, with update or resume, to Complete when every step is done, and to PR ready, with verify. You can chat with the model while the item is Begun, before design, and while it is Designed, to adjust the design. A failed verify goes back to In progress. A step that stops makes the item Blocked, and a gate answer or revise moves it back. Go either finishes in one pass, or hands a change that needs a design to Begun. The mode is Flow or Focus. Research and review move Flow to Focus, and revise moves it back when you ask. Revise is the only way to change a design, and it leaves the mode as it is. A step is todo, and becomes done when update or resume checks it, or blocked when it stops. Blocked goes back to todo through the gate or revise. You or revise can set a step to skip or defer. A done step is final.";
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(aria)}">
+  <defs>
+    ${kiitBackground(t, W, H).defs}
+  </defs>
+
+  ${kiitBackground(t, W, H).body}
+
+  <g font-family="${KIIT_FONT}">
+    ${out}
+  </g>
+</svg>
+`;
+}
+
+kiitMount(buildSvg(), "states.svg");
+</script>

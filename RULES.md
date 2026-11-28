@@ -142,8 +142,8 @@ what only that group's skills follow. A rule about one part of a section is a su
    and a step's own status wins.
 3. Only the user or `revise` sets `skip` or `defer`. `update` and `resume` never do, and
    every report lists the deferred steps.
-4. Discussing or adjusting a design in the same session never changes the mode. Only
-   `research`, `review` and `revise` move `flow` to `focus`.
+4. Chat writes nothing. A design changes only through `revise`, which records it and
+   leaves the mode as it is. Only `research` and `review` move `flow` to `focus`.
 
 ### Direction (not settled)
 

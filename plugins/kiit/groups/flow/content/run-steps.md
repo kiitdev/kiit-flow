@@ -1,35 +1,10 @@
 # Run steps
 
-How `update` and `resume` carry out steps, and the two gates they apply first.
+How `update` and `resume` carry out steps, after the gates.
 Shell calls follow core/content/shell.md.
 
 ## Gates
-Apply the blocked gate, then the review gate. Wait if either asks.
-
-### Blocked gate
-Applies when `_status.md` has a `blocked` step. For each one, show the step and its
-reason. Ask whether the blocker is resolved, and wait. The answer is one of:
-1. Run `/kiit:flow-revise` with the new information.
-2. Continue with a deviation the user states.
-3. Continue because it is already fixed.
-
-For 2 and 3, set the step back to `todo` and add a history row with the step and the answer.
-
-### Review gate
-Applies in two cases:
-1. `04-review.md` exists and its verdict is `NEEDS_CHANGES`.
-2. `_status.md` says `Mode: focus`, and there is no `04-review.md`.
-
-In case 1 the review is open while any blocker or major finding is missing from its
-`## Response` section, or is marked `open` there. When every one is `applied` or
-`declined`, it is closed.
-1. Closed: say so and go on.
-2. Open: tell the user, and ask whether to continue or run `/kiit:flow-revise`. Wait.
-
-In case 2, say the plan has not been reviewed. Ask whether to run `/kiit:flow-review` or
-to continue without one. Wait. To continue, add a history row that says the review was skipped.
-
-An `APPROVE` verdict needs no gate. With no `04-review.md` and a `flow` mode, no gate either.
+Apply the blocked gate and the review gate first (flow/content/gates.md).
 
 ## Run the steps
 For each step, in order. Leave `done`, `skip` and `defer` steps alone, and say so.
