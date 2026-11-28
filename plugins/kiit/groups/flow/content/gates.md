@@ -26,6 +26,6 @@ In case 1 the review is open while any blocker or major finding is missing from 
 
 Case 2 is a notice, never a wait. Say in one line that the plan has not been reviewed,
 and that `/kiit:flow-review` is available. Go on, and add that to the history row.
-A work item moved to Focus by `revise` or `research` is never held for a review.
+A work item moved to Focus by `research` is never held for a review.
 
 An `APPROVE` verdict needs no gate. With no `04-review.md` and a `flow` mode, no gate either.

@@ -45,7 +45,7 @@ and `defer`.
 
 ## Mode
 The Mode line is `flow` or `focus`. A file with no Mode line counts as `flow`.
-1. `design` writes it. `research`, `review` and `revise` switch `flow` to `focus`.
+1. `design` writes it. `research` and `review` switch `flow` to `focus`.
    - Say so in the report
-2. Talking about a design, or adjusting it in the same session, never changes the mode.
+2. Chat writes nothing, and `revise` leaves the mode as it is.
 3. Switching back to `flow` is a request to `revise`. Nothing else does it.

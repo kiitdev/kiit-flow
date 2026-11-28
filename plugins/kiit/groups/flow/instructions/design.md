@@ -65,15 +65,13 @@ EXAMPLES:
     (flow/content/work-item.md).
 12. Print a short report, at most 8 lines (core/content/cli.md).
     - The files, the mode, the counts and the assumptions, one line each
-    - Next: discuss or adjust it, `/kiit:flow-update`, or `/kiit:flow-review`
+    - Next: chat about it, `/kiit:flow-revise` to change it, or `/kiit:flow-update`
     - An assumption nobody checked: suggest `/kiit:flow-research`
 
 ## Rules
 1. Write only inside the work item folder. The only change to `01-change.md` is an
    `- Answer:` under a question.
 2. Add no scope beyond `01-change.md`.
-3. After the report the user can discuss the design. Changes they ask for in the
-   same session go straight into the three files.
-   - The mode never changes. Add a `_history.md` row, `adjusted design`
-   - Only `review` and `revise` move `flow` to `focus` (flow/content/status.md)
+3. The user can chat about the design after the report. Chat writes nothing.
+   - To change the design, run `/kiit:flow-revise`, which records the change
 4. Never create group folders or write `kiit.json`.

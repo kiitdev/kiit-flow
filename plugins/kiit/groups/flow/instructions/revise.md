@@ -50,8 +50,8 @@ EXAMPLES:
    - Your text is a question: answer it, and edit only if the answer needs it
 8. Update `02-design.md`, `03-phases.md` and `_status.md` in place.
    - Keep `done` steps `done`, and `skip` and `defer` steps as they are
-   - Switch the mode to `focus` (flow/content/status.md)
-   - Back to `flow` only when your text asks
+   - Leave the mode as it is (flow/content/status.md)
+   - Set it to `flow` only when your text asks
    - Renumber nothing that is `done` or referred to by other steps
    - Add new steps at the end of a phase, or in a new phase
    - Drop a `todo` or `blocked` step by setting it to `skip`, with a reason
