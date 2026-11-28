@@ -48,6 +48,13 @@ Only `vcs` has standards today. The mechanism is in place for the other groups.
 /plugin install kiit@kiit-dev
 ```
 
+### Update
+
+```
+/plugin marketplace update kiit-dev
+/reload-plugins
+```
+
 ### Init
 
 Run it from your workspace, the folder that holds your repos:
@@ -116,7 +123,7 @@ The full schema is in [kiit-json.md](./plugins/kiit/groups/core/content/kiit-jso
 
 Skills are named `/kiit:{group}-{name}`. Each group has a `{group}-help` command that lists its skills.
 
-<img src="./assets/core/groups.svg" alt="Skill groups: vcs has branch, pr and help. flow has go, begin and help. core has init. All are in the plugin. More skill groups are coming soon." width="100%" />
+<img src="./assets/core/groups.svg" alt="Skill groups: vcs has branch, pr and help. flow has go, begin, design, update, resume, verify, research, review, revise and help. core has init. All are in the plugin. More skill groups are coming soon." width="100%" />
 
 ### vcs
 
@@ -128,21 +135,25 @@ Creates branches and pull requests in your team's format. Neither command pushes
 
 That creates `docs/issue-39/branding-readme-diagrams-writing-style`. The type comes from the `DOCS:` prefix of the issue title, and the name from the title's key words.
 
-More in [docs/group-vcs.md](./docs/group-vcs.md).
-
 ### flow
 
 Takes a change from a ticket to a pull request, in one of three modes. **Fast** does a clear, low risk change in one pass. **Flow** designs first, then implements and verifies. **Focus** adds research and a review loop for risky or unclear work. Each change is kept as plain markdown files in a work item folder outside your repos.
 
-The plugin has `/kiit:flow-begin`, `/kiit:flow-go` (Fast) and `/kiit:flow-help` so far. The rest are still being ported, so Flow and Focus can't run yet.
+```
+/kiit:flow-begin https://github.com/acme/app/issues/12
+/kiit:flow-design
+/kiit:flow-update
+/kiit:flow-verify
+```
 
-More in [docs/group-flow.md](./docs/group-flow.md).
+1. **Chat.** Talk the change through with the agent between `begin` and `design`, and again after `design`. Chat writes nothing.
+2. **Changing a design.** `/kiit:flow-revise` is the only command that changes one, and it records the change.
+3. **Focus.** Add `/kiit:flow-research` and `/kiit:flow-review` for risky or unclear work.
+4. **Picking up later.** `/kiit:flow-resume` reads a work item and continues where it stopped.
 
 ### core
 
 Not a skill group. It holds what every group shares, and `/kiit:init`, which finds the git repos in your workspace and writes `.claude/kiit/kiit.json` after you confirm.
-
-More in [docs/group-core.md](./docs/group-core.md).
 
 ## Configuration
 
@@ -184,7 +195,7 @@ Every key is described in [kiit-json.md](./plugins/kiit/groups/core/content/kiit
 
 Planned, in no set order. None of it is in the plugin yet.
 
-1. **Remaining flow commands.** Design, research, review, revise, update, resume, verify and recent.
+1. **Notes, sharing and ADRs.** Save a summary of a chat with its work item, copy a work item into the repo for the team, and turn a finished one into an ADR.
 2. **Docs.** A `metadata.json` holds a project's facts, and a standard README is generated from it.
 3. **Diagrams.** Architecture kept as structured metadata, with diagrams generated from it.
 4. **Recipes.** Grouped recipes for specific tasks that apply your standards and patterns to generate code.
