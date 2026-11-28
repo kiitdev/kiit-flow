@@ -42,7 +42,7 @@ EXAMPLES:
    - One exists: `error: {name} already exists`, and stop. Never make a second item
 6. Create the work item (flow/content/work-item.md): folder, files and `recent`.
 7. Print the folder name, the project path, and the next step, `/kiit:flow-design`.
-   - It is not ported yet: print the command and do not run it
+   - Print the command and do not run it
 
 ## Rules
 1. Create files only inside the new work item folder, and set `recent` in `state.json`.

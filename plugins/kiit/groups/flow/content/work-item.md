@@ -58,9 +58,18 @@ that stops, fails or hands off. Not `help`.
 
 ## state.json
 `_kiit/flow/state.json` has one key, `recent`: the folder name of the work item last worked on.
-1. `begin` and `go` set it after the item is made, with the Write tool, as a whole file:
-   `{ "recent": "{folder name}" }`, 2-space indent, and a newline at the end.
+1. `begin` and `go` set it after the item is made, with the Write tool, as a whole
+   file: `{ "recent": "{folder name}" }`, 2-space indent, and a newline at the end.
 2. Read it only when a skill takes an optional work item. A missing key means no state.
+
+## Resolve the work item
+For a skill that takes an optional `[work-item]`. Tell the user which item it picked.
+1. The argument is a folder name, or a prefix that matches one folder.
+   - A prefix that matches several: list them and stop
+   - No folder matches: `error: no work item {x}`, then `/kiit:flow-begin`
+2. No argument: the last folder by name in one `ls` call of `_kiit/flow/items`. The
+   names sort by date and counter, so the last is the newest.
+3. No folders at all: `error: no work items`, then `/kiit:flow-begin`.
 
 ## Hand-off
 `go` hands a change to `/kiit:flow-design` when any of these is true:

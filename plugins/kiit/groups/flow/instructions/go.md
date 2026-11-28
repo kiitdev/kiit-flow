@@ -63,7 +63,7 @@ EXAMPLES:
 11. Add a `_history.md` row with what changed and the check results.
 12. Set `recent` (flow/content/work-item.md).
 13. Print the files changed and each check result, then the next step.
-    - Print `/kiit:flow-verify` for the full set of checks. It is not ported yet
+    - Print `/kiit:flow-verify` for the full set of checks
 
 ## Rules
 1. Change only the project repo and the work item, and set `recent` in `state.json`.
