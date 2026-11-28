@@ -1,11 +1,13 @@
 {
   "name": "kiit-dev",
-  "owner": { "name": "CodeHelix" },
+  "owner": {
+    "name": "CodeHelix"
+  },
   "plugins": [
     {
       "name": "kiit",
       "source": "./plugins/kiit",
-      "description": "Kiit: engineering standards for AI coding agents, across all your repos."
+      "description": "Kiit: engineering standards and skills for AI coding agents. Across multiple repos, start with solid defaults, make them yours."
     }
   ]
 }
