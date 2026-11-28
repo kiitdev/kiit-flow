@@ -9,6 +9,7 @@ Read first:
 - core/content/shell.md
 - flow/content/work-item.md
 - flow/content/status.md
+- flow/content/gates.md
 - flow/content/run-steps.md
 - flow/content/checks.md
 
@@ -49,7 +50,7 @@ EXAMPLES:
    - A `todo` before a `done` step is a gap: start at the `todo`, and say so
 8. Nothing `todo` or `blocked`: say it is complete, add a history row, and stop.
    - Suggest `/kiit:flow-verify`, then `/kiit:flow-review code`
-9. Apply the blocked gate and the review gate (flow/content/run-steps.md).
+9. Apply the blocked gate and the review gate (flow/content/gates.md).
 10. Tell the user where things stand, in a few lines.
     - How many steps are done, left, skipped and deferred
     - The last history row, and the steps about to run
