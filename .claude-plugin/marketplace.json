@@ -3,6 +3,7 @@
   "owner": {
     "name": "CodeHelix"
   },
+  "description": "Kiit: engineering standards and skills for AI coding agents. Across multiple repos, start with solid defaults, make them yours.",
   "plugins": [
     {
       "name": "kiit",
