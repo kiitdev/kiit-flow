@@ -98,10 +98,10 @@ function buildSvg(c) {
   const rest = c.name ? "-" + esc(c.name) : "";
   const wordEnd = m + 4 + (n - 1) * advance + 0.6 * size;
 
-  // the Beta label: a dark box with the text in the orange accent, level with the top of the letters
+  // the Beta label: a yellow box with near-black text, level with the top of the letters
   const bx = Math.round(wordEnd + gapB), by = Math.round(base - 0.73 * size);
   const badge = c.badge
-    ? `<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" rx="4" fill="${t.navy}"/>
+    ? `<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" rx="4" fill="${t.badgeFill}"/>
     ${kiitText("badge", bx + bw / 2, by + 24, c.badge, { anchor: "middle" })}`
     : "";
   const logo = logoSvg(c.logoSize, W - m - c.logoSize, rowY);

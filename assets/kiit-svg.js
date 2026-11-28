@@ -27,6 +27,7 @@ const KIIT_THEME = {
   pageBar: "#144DF2",           // the left bar: the same as `brand`
   accent: "#FF9A4D",            // orange: the one vivid accent, such as the Standards pill
   navy: "#111827",
+  badgeFill: "#FFD23F", badgeInk: "#111827",   // the Beta label: a yellow box with near-black text
   brand: "#144DF2",             // the brand blue, the blue of the x in the jsonx logo. Role: Brand
   brandTint: "#ECF1FE", brandDeep: "#0B3AC4",   // a tint of the brand for fills, and a deeper one for small text on it
   ink: "#1E293B", sub: "#64748B", dim: "#6B7A99",
@@ -132,7 +133,7 @@ const KIIT_TYPE = {
   example:    [13, 400, "ink"],       // a command or JSON, on a tint
   link:       [14, 400, "brand"],     // a url, underlined
   pill:       [14, 700, "ink"],       // a pill, on an accent, soft or brand fill
-  badge:      [18, 700, "accent"],    // a label on navy
+  badge:      [18, 700, "badgeInk"],  // a label on the yellow badge fill
 };
 // A <text> in one of the type styles. o: fill (a colour, instead of the style's), weight, anchor ("start", "middle" or "end").
 const kiitText = (style, x, y, text, o = {}) => {

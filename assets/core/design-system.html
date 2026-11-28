@@ -35,7 +35,8 @@ const COLOURS = [
   ["Brand soft", "brandSoft", "soft lines, timeline"],
   ["Brand tint", "brandTint", "fills"],
   ["Accent", "accent", "one highlight each"],
-  ["Navy", "navy", "dark labels, Beta"],
+  ["Navy", "navy", "dark labels"],
+  ["Badge", "badgeFill", "the Beta label, with Ink text"],
   ["Surface", "cardFill", "cards"],
   ["Surface soft", "softFill", "soft pills"],
   ["Line", "inkSoft", "borders"],
@@ -66,7 +67,7 @@ const TYPE = [                       // [style, key in KIIT_TYPE, sample, what i
   ["Example", "example", "/kiit:vcs-branch <issue>", "commands and JSON, on a tint"],
   ["Link", "link", "kiit.dev/docs", "urls and links, underlined"],
   ["Pill", "pill", "Standards", "pills, on accent, soft or brand fill"],
-  ["Badge", "badge", "Beta", "a label on navy"],
+  ["Badge", "badge", "Beta", "a label on the yellow badge fill"],
 ];
 // ---------------------------------------------------------------------------------------------------------
 
@@ -156,7 +157,7 @@ function buildSvg() {
         px += w + 12;
       });
     } else if (style === "Badge") {
-      out += `<rect x="${sx}" y="${cy - 23}" width="152" height="46" rx="4" fill="${t.navy}"/>
+      out += `<rect x="${sx}" y="${cy - 23}" width="152" height="46" rx="4" fill="${t.badgeFill}"/>
     <text x="${sx + 76}" y="${cy + 8}" font-size="${size}" font-weight="${weight}" fill="${col}" text-anchor="middle">${esc(sample)}</text>\n    `;
     } else if (style === "Card title" || style === "Soon") {
       out += `${kiitIcon(style === "Soon" ? "more" : "groups", sx, cy - 16, 32, col, 1.75)}
