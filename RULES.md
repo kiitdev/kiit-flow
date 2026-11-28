@@ -134,6 +134,18 @@ what only that group's skills follow. A rule about one part of a section is a su
    `allowed-tools`.
 7. `--auto` works with GitHub only. GitLab is a separate ticket.
 
+### Status
+
+1. `_status.md` steps are `todo`, `done`, `blocked`, `skip` or `defer`
+   (`groups/flow/content/status.md`). `skip` counts as finished. `defer` does not.
+2. A phase heading can carry `skip` or `defer` and a reason. Its steps take that status,
+   and a step's own status wins.
+3. Only the user or `revise` sets `skip` or `defer`. `update` and `resume` never do, and
+   every report lists the deferred steps.
+4. Discussing or adjusting a design in the same session never changes the mode. Only
+   `research`, `review` and `revise` move `flow` to `focus`.
+5. Every skill that adds a `_history.md` row sets `recent`, except `help`.
+
 ### Direction (not settled)
 
 Direction for the flow group from `update-1.md` to `updates-4-tasks.md`. None of it is
