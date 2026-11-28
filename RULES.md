@@ -144,7 +144,6 @@ what only that group's skills follow. A rule about one part of a section is a su
    every report lists the deferred steps.
 4. Discussing or adjusting a design in the same session never changes the mode. Only
    `research`, `review` and `revise` move `flow` to `focus`.
-5. Every skill that adds a `_history.md` row sets `recent`, except `help`.
 
 ### Direction (not settled)
 
