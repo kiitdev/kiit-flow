@@ -1,6 +1,6 @@
 # Skill standards
 
-The standards for writing kiit skills, collected from `CONVENTIONS.md`, `drafts/principles.md`, `shared/shared.md` and the `drafts/261115-updates/` files. This is the working index. Rules for one skill group are in its section of `RULES.md`, such as `## Flow`. Security rules are in `SECURITY.md`, and how a team's standards are applied is in `ENGINEERING-STANDARDS.md`. The schema of the shared `kiit.json` keys is in `shared/README.md`. Where a standard is settled, `CONVENTIONS.md` stays the rule text until this file replaces it.
+The standards for writing kiit skills, collected from `drafts/principles.md` and the `drafts/261115-updates/` files. This is the working index. Rules for one skill group are in its section of `RULES.md`, such as `## Flow`. Security rules are in `SECURITY.md`, and how a team's standards are applied is in `ENGINEERING-STANDARDS.md`. The schema of the shared `kiit.json` keys is in `shared/README.md`. Where a standard is settled, `CONVENTIONS.md` stays the rule text until this file replaces it.
 
 ## Contents
 1. [Status](#status)
@@ -21,8 +21,8 @@ The standards for writing kiit skills, collected from `CONVENTIONS.md`, `drafts/
 |---|---|
 | `todo` | Not yet assessed |
 | `in-review` | Being assessed. It conflicts with another item, is unproven, or is waiting on a decision |
-| `decided` | Assessed and agreed. The text here is the rule, and `CONVENTIONS.md` and the skills follow it later |
-| `complete` | Decided, and now written in `CONVENTIONS.md` and followed by the skills |
+| `decided` | Assessed and agreed. The text here is the rule, and the skills follow it later |
+| `complete` | Decided, and followed by the skills |
 
 The order is the order an item moves through: `todo`, `in-review`, `decided`, `complete`.
 
@@ -80,10 +80,10 @@ plugins/kiit/                      the plugin (item 9)
 
 | # | Lede | Status | Description | Example |
 |---|---|---|---|---|
-| 1 | Skill folder | decided | Each skill is a folder `skills/{skill name}/` with a `SKILL.md`. | `skills/flow-verify/SKILL.md` |
+| 1 | Skill folder | decided | Each skill is a folder `plugins/kiit/skills/{skill name}/` with a `SKILL.md`. | `plugins/kiit/skills/flow-verify/SKILL.md` |
 | 2 | Command form | decided | The command is `/{plugin}:{group}-{name}`. It comes from the plugin name and the skill name, and is never set by hand. | `/kiit:flow-verify` |
 | 3 | Group naming | decided | A group is one lowercase word for an area of work, singular or plural, whichever is the natural word. A group exists when it has its own skills and shared files. Current groups: `flow` (the change lifecycle), `work` (across work items, such as `recent`), `vcs` (branches and merge requests). `core` is reserved. | `flow-go`, `work-recent`, `vcs-branch` |
-| 4 | Cross-reference form | decided | A skill refers to another skill by its full skill command. Nothing is rewritten at install, so `install.sh` and its `sed` rewrite are retired. | `Run /kiit:flow-design next` |
+| 4 | Cross-reference form | decided | A skill refers to another skill by its full skill command. Nothing is rewritten at install, and there is no install script. | `Run /kiit:flow-design next` |
 | 5 | One plugin | decided | All groups ship in one plugin, so they share one prefix. | `/kiit:flow-go` and `/kiit:vcs-branch` from one install |
 | 6 | Help skills | decided | Every group has a `{group}-help` skill, even a group with one skill. It lists the group's skills in `order`, read from each skill's `description` and `order` from its frontmatter and the `## Usage` block in its instructions when it runs. It keeps no help text of its own, so it cannot go stale. `help` is reserved as a name in every group. One global `help` skill lists the groups the same way, and points to each group's help. It finds them as a group help finds its skills: one `ls` of `skills/` for the `*-help` folders, then a Read of each `SKILL.md`, taking the group from the folder name and the description from the frontmatter. `help` and `init` are the only skills without a group. | `/kiit:flow-help`, `/kiit:vcs-help`, `/kiit:help`, `/kiit:init` |
 | 7 | Group folder | decided | Each group has a folder `groups/{group}/` at the plugin root. It holds `instructions/` (one instructions file per skill), `content/` (text its skills share), `scripts/` (scripts its skills run) and `settings.json` (the group's default settings). A file used by two or more groups goes in `core`. Anything else stays in its group, even if only one skill reads it. A group's files refer only to files of the same group or of `core`, and `core` refers to no group, so there can be no cycle. The one exception is reading another group's `standards.json`, or its effective `standards.{area}`, as data. | `groups/flow/content/work-item.md`, `groups/flow/scripts/find-work-item.sh` |
@@ -105,7 +105,7 @@ plugins/kiit/                      the plugin (item 9)
 A skill is two files: an entry point that Claude Code loads, and an instructions file in its group. These items cover what each one holds, and the order of its parts.
 
 ```
-skills/flow-go/SKILL.md                  the entry point Claude Code loads
+plugins/kiit/skills/flow-go/SKILL.md     the entry point Claude Code loads
 ---
 description: Do a clear, low-risk change in one pass: no design, just implement and check.
 argument-hint: "[project] [type] {ticket|description}"
@@ -146,7 +146,7 @@ USAGE: /kiit:flow-go [project] [type] {ticket|description}
 
 ## Config
 
-How `kiit.json` is structured. It is the one settings file in the user's workspace. It has two kinds of group content: `standards`, what is correct (formats, rules, vocabularies), and `groups`, how a group's skills behave (paths, flags, automation). The keys every group shares are described in `groups/core/content/config.md`, and their fields in `shared/README.md`.
+How `kiit.json` is structured. It is the one settings file in the user's workspace. It has two kinds of group content: `standards`, what is correct (formats, rules, vocabularies), and `groups`, how a group's skills behave (paths, flags, automation). The keys every group shares are described in `groups/core/content/config.md`, and their fields in `groups/core/content/kiit-json.md`.
 
 ```json
 {
@@ -188,7 +188,7 @@ what the flow skills use                      review = { baseline: "standards", 
 | 17 | File location | decided | The file is `.claude/kiit/kiit.json`. The workspace root is the nearest folder, from the working directory upward, that contains it. Paths in the file are relative to that root. The lookup reads one folder at a time with the Read tool and no shell, so a parent folder outside the working directory can prompt for permission, which is accepted. A skill that finds no file stops with an error that suggests `init`. | `error: .claude/kiit/kiit.json not found` |
 | 18 | Top-level shape | decided | `.claude/kiit/kiit.json` has `version`, then the keys shared by every group (`tickets`, `projects`, `resources`), then `standards` and `groups`. `standards` holds what is correct, one object per area, such as `vcs`. `groups` holds how skills behave, one object per group. A name can never collide with a shared key. An area or group with nothing to override has no object. | `{ "tickets": [...], "standards": { "vcs": { ... } }, "groups": { "flow": { "review": { ... } } } }` |
 | 19 | Format version | decided | `version` is the number of the file format, currently `1`. | `"version": 1` |
-| 20 | Shared keys | decided | `tickets`, `projects` and `resources` are shared by every group. Each is a list of named entries with no plugin default. `init` writes `tickets` and `projects`, and `resources` are added by hand. `tickets[]` has a required unique `name`, a `type` (`github`, `gitlab`, `jira`, `linear`, `other`), `owner`, `url` and a default `project`. `projects[]` names its ticket system in `tickets` and its issue project in `ticketProject`. For a bare ticket number the issue project is `ticketProject`, else the entry's `project`, else the project `name` (`github` and `gitlab` only). `tickets` may be left out with one ticket entry and is required with two or more. `resources[]` needs `name`, one of `path` or `url`, and `purpose`. `projects[].baseBranch` beats `standards.vcs.baseBranch`. The fields, defaults and examples are in `shared/README.md`, and the rules skills follow are in `groups/core/content/config.md`. | `"projects": [ { "name": "api", "path": "./api", "tickets": "work", "ticketProject": "billing" } ]` |
+| 20 | Shared keys | decided | `tickets`, `projects` and `resources` are shared by every group. Each is a list of named entries with no plugin default. `init` writes `tickets` and `projects`, and `resources` are added by hand. `tickets[]` has a required unique `name`, a `type` (`github`, `gitlab`, `jira`, `linear`, `other`), `owner`, `url` and a default `project`. `projects[]` names its ticket system in `tickets` and its issue project in `ticketProject`. For a bare ticket number the issue project is `ticketProject`, else the entry's `project`, else the project `name` (`github` and `gitlab` only). `tickets` may be left out with one ticket entry and is required with two or more. `resources[]` needs `name`, one of `path` or `url`, and `purpose`. `projects[].baseBranch` beats `standards.vcs.baseBranch`. The fields, defaults and examples are in `groups/core/content/kiit-json.md`, and the rules skills follow are in `groups/core/content/config.md`. | `"projects": [ { "name": "api", "path": "./api", "tickets": "work", "ticketProject": "billing" } ]` |
 | 21 | Overrides | decided | `groups.{group}` and `standards.{area}` in `kiit.json` override the defaults in `groups/{group}/settings.json` and `groups/{group}/standards.json`. Same shape as the default file, and only the keys the workspace changes are written. The rest keep their defaults. A skill does not read another group's `groups.*` object. `standards.*` can be read across groups. | `"standards": { "vcs": { "types": ["feat", "fix", "docs", "hotfix"] } }` replaces the default type list |
 | 22 | Defaults | decided | Defaults are in `groups/{group}/settings.json` (behavior) and `groups/{group}/standards.json` (what is correct), in the same shape as their objects in `kiit.json`. `kiit.json` holds only overrides. A key there replaces the default for that key, whole, one level below `standards.{area}` or `groups.{group}`: a scalar, a list or an object. A key that is missing takes the default. A skill takes a value from the command line first, then `kiit.json`, then the plugin default, and lists the default file under `Read first:` when it reads it. Every key except the shared lists is optional, so a skill never fails for a missing optional key. | `kiit.json` sets `types`, and every other `vcs` key, such as `branch`, comes from `groups/vcs/standards.json` |
 | 23 | Who writes it | decided | `init` is a global skill with its instructions in `core`. It writes `tickets` and `projects`, and no `resources` or defaults. It infers what it can, such as projects from the git repos and a ticket system's type and owner from the remote (read-only git), and asks only for a confirmation, or for the ticket system of a project that has none. Resources are added by users. Developers edit `kiit.json` themselves to change their own settings, now and then. Every other skill only reads it. | `init` adds a project, and a developer sets `groups.flow.review` by hand |
@@ -265,7 +265,7 @@ groups/core/content/tickets.md        two or more groups use it    flow intake, 
 groups/flow/content/work-item.md      several flow skills use it   begin, go, resume
 groups/flow/instructions/verify.md    one skill uses it            the checks are written in verify
 
-before   every flow skill read shared.md, 418 lines, and used a small part of it
+before   every flow skill read one shared file of 418 lines, and used a small part of it
 after    flow-go reads the few small files in its Read first: list
 ```
 
@@ -312,7 +312,6 @@ Start with solid defaults, make them yours.
 |---|---|
 | S1 in `SECURITY.md` and `update-1` item 6 | No git writes, against a `vcs` group that creates branches |
 | 38 and `update-1` item 5 | Decide or ask, against `flow-design` step 7 saying not to ask |
-| 2, 4 and 5 | Cross-reference rewriting and the `/kiit-flow-*` form go away once the plugin ships |
 
 ## Ideas for later
 

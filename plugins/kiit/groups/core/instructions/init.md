@@ -6,6 +6,7 @@ It writes `tickets` and `projects` only, after the user confirms. It never pushe
 Read first:
 - core/content/cli.md
 - core/content/config.md
+- core/content/kiit-json.md
 - core/content/shell.md
 - core/content/remotes.md
 - core/content/setup.md
@@ -32,7 +33,7 @@ USAGE: /kiit:init
    - A call that fails leaves that part out. Say which, and go on
 5. Build the proposal (core/content/remotes.md): ticket systems, then projects.
    - A repo with no usable remote gets a project and no ticket system
-6. Check it against core/content/config.md and the Errors table in `shared/README.md`.
+6. Check it against core/content/config.md and the Errors table in core/content/kiit-json.md.
    - A name or alias used twice, a missing or unknown `tickets`, a missing field
    - Fix what can be fixed. Ask the user about the rest in step 9
 7. A file exists: keep what is in it.

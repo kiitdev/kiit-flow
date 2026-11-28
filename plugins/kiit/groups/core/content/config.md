@@ -19,7 +19,7 @@ No file: `error: .claude/kiit/kiit.json not found`, and suggest `/kiit:init`.
 | `groups` | How a group's skills behave, one object per group, such as `groups.flow`. |
 
 `tickets`, `resources` and `projects` are the workspace's own lists. They have no plugin
-default. The fields, defaults and examples are in `shared/README.md`.
+default. The fields, defaults and examples are in core/content/kiit-json.md.
 
 ## Settings order
 A skill takes a setting from the command line, then `kiit.json`, then the group's
