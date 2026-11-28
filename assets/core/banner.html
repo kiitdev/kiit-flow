@@ -116,20 +116,20 @@ function buildSvg(c) {
     return `<text x="${m + 4}" y="${y}" font-size="${fit}" font-weight="${wt}" fill="${t[col]}">${esc(l)}</text>`;
   }).join("\n    ");
 
-  // the bottom row: a box per point
+  // the bottom row: a box per point. Smaller than the pills in the other diagrams (caption size, 30 high), so they do not compete with the tagline above
   const weights = { soft: [t.softFill, t.ink], blue: [t.brand, t.onFill], ink: [t.navy, t.onFill], accent: [t.accent, t.ink] };
-  const boxY = ty + 18, boxH = 38, fs = KIIT_TYPE.pill[0];
+  const boxY = ty + 30, boxH = 30, fs = KIIT_TYPE.caption[0], icon = 16;
   let x = m + 4;
   const pillarSvg = c.pillars.map((p) => {
-    const pad = p.icon ? 42 : 16, w = Math.round(kiitTextW(p.text, fs) + pad + 16), [fill, color] = weights[p.style];
-    const icon = p.icon ? kiitIcon(p.icon, x + 14, boxY + 9, 20, color) : "";
+    const pad = p.icon ? 34 : 14, w = Math.round(kiitTextW(p.text, fs) + pad + 14), [fill, color] = weights[p.style];
+    const iconSvg = p.icon ? kiitIcon(p.icon, x + 12, boxY + 7, icon, color) : "";
     const svg = `<rect x="${x}" y="${boxY}" width="${w}" height="${boxH}" rx="4" fill="${fill}"/>
-    ${icon}
-    ${kiitText("pill", x + pad, boxY + 25, p.text, { fill: color })}`;
+    ${iconSvg}
+    ${kiitText("pill", x + pad, boxY + 20, p.text, { fill: color }).replace(/font-size="\d+"/, `font-size="${fs}"`)}`;
     x += w + 10;
     return svg;
   }).join("\n    ");
-  const MAIN = boxY + boxH + 14, H = MAIN + foot;   // the banner above the timeline, and the whole
+  const MAIN = boxY + boxH + 26, H = MAIN + foot;   // the banner above the timeline, and the whole
 
   // the history: a dot, the year and what happened, joined by lines. The last dot is the orange accent: now
   let timeline = "";
